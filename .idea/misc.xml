@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_social_midea1.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_login.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_socialmedia.xml" value="0.2" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/login.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_pic.xml" value="0.2703125" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/login_page.xml" value="0.2703125" />

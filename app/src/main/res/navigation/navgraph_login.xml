@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph_login"
+    app:startDestination="@id/introActivity">
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.collabme.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.example.collabme.fragment_login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+</navigation>

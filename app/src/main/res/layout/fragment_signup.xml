@@ -17,72 +17,72 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/fragemnt_signup_comapny"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintStart_toEndOf="@+id/fragment_signup_influencer"
         tools:layout_editor_absoluteY="171dp" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/fragment_signup_influencer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox2"
+        app:layout_constraintEnd_toStartOf="@+id/fragemnt_signup_comapny"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="171dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/fragemnt_signup_username"
         android:layout_width="216dp"
         android:layout_height="28dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_comapny" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/fragemnt_signup_email"
         android:layout_width="216dp"
         android:layout_height="28dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_username" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/fragemnt_signup_password"
         android:layout_width="216dp"
         android:layout_height="28dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_email" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/fragemnt_signup_age"
         android:layout_width="216dp"
         android:layout_height="28dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_password" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/fragemnt_signup_gender"
         android:layout_width="267dp"
         android:layout_height="37dp"
         android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_age" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/fragemnt_signup_uploadbtn"
         android:layout_width="108dp"
         android:layout_height="46dp"
         android:backgroundTint="#4c266a"
@@ -93,7 +93,7 @@
         tools:layout_editor_absoluteY="581dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/fragemnt_signup_backbtn"
         android:layout_width="115dp"
         android:layout_height="48dp"
         android:layout_marginTop="28dp"
@@ -102,10 +102,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.168"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/fragemnt_signup_continuebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
@@ -113,6 +113,6 @@
         android:text="continue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.639"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintStart_toEndOf="@+id/fragemnt_signup_backbtn"
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

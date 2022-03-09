@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.142" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/fragment_login_loginbtn"
         android:layout_width="253dp"
         android:layout_height="44dp"
         android:backgroundTint="#8450A0"
@@ -31,7 +31,7 @@
         app:layout_constraintVertical_bias="0.708" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/fragment_login_username"
         android:layout_width="128dp"
         android:layout_height="47dp"
         android:ems="10"
@@ -46,7 +46,7 @@
         />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/fragment_login_password"
         android:layout_width="128dp"
         android:layout_height="47dp"
         android:ems="10"
@@ -61,17 +61,17 @@
         />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/fragment_login_newuser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New user?"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_login_forgotpass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.771"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/fragment_login_forgotpass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Forgot password?"

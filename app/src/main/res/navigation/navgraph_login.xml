@@ -14,4 +14,9 @@
         android:name="com.example.collabme.fragment_login"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/socialmedia"
+        android:name="com.example.collabme.socialmedia"
+        android:label="fragment_socialmedia"
+        tools:layout="@layout/fragment_socialmedia" />
 </navigation>

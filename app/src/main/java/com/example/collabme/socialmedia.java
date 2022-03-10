@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import java.util.HashMap;
 
@@ -22,46 +23,44 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class socialmedia extends Fragment {
 
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://10.0.2.2:4000";
     CheckBox instegram, twitter,tiktok,facebook,youtube;
     Button countinue;
     EditText followers, posts;
-    String username;
-    String password;
+    String username1;
+    String password1, email1, age1,selectedgen1;
     View view;
-
-
+    Boolean influencer1, company1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_socialmedia, container, false);
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         instegram = view.findViewById(R.id.fragment_socialmedia_instagram);
         twitter = view.findViewById(R.id.fragment_socialmedia_twitter);
         facebook = view.findViewById(R.id.fragment_socialmedia_facebook);
         tiktok = view.findViewById(R.id.fragment_socialmedia_tiktok);
         youtube = view.findViewById(R.id.fragment_socialmedia_youtube);
+        countinue = view.findViewById(R.id.fragment_socialmedia_continue);
 
         followers = view.findViewById(R.id.fragment_socialmedia_followers);
         posts = view.findViewById(R.id.fragment_socialmedia_postsuploads);
-        countinue.setOnClickListener(v -> handleSighUp());
-        username = socialmediaArgs.fromBundle(getArguments()).getUsername();
-        password = socialmediaArgs.fromBundle(getArguments()).getPassword();
 
+        username1 = socialmediaArgs.fromBundle(getArguments()).getUsername();
+        password1 = socialmediaArgs.fromBundle(getArguments()).getPassword();
+        influencer1 =  socialmediaArgs.fromBundle(getArguments()).getInfluncer();
+        company1 =  socialmediaArgs.fromBundle(getArguments()).getCompany();
+        email1 =  socialmediaArgs.fromBundle(getArguments()).getEmail();
+        age1 =socialmediaArgs.fromBundle(getArguments()).getAge();
+        selectedgen1 = socialmediaArgs.fromBundle(getArguments()).getGender();
+
+        countinue.setOnClickListener(v -> toProfession());
 
         return view;
     }
 
-    private void handleSighUp() {
+    private void toProfession() {
         String [] platform = new String[5];
         int i=0;
 
@@ -87,32 +86,8 @@ public class socialmedia extends Fragment {
             i++;
         }
 
+        Navigation.findNavController(view).navigate(socialmediaDirections.actionSocialmediaToProfessionFragment(username1, password1,influencer1,
+                company1,email1,age1 ,selectedgen1 ,platform,followers.getText().toString(), posts.getText().toString()));
 
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("Platform", platform);
-        map.put("Password", password);
-        map.put("Username", username);
-        map.put("Followers", followers.getText().toString());
-        map.put("NumberOfPosts", posts.getText().toString());
-
-        Call<Void> call = retrofitInterface.executeSignup(map);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code() == 200) {
-                    Toast.makeText(getActivity(), "yay", Toast.LENGTH_LONG).show();
-
-                } else if (response.code() == 400) {
-                    Toast.makeText(getActivity(), "not sighup", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 }

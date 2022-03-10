@@ -32,21 +32,68 @@
         <action
             android:id="@+id/action_socialmedia_to_professionFragment"
             app:destination="@id/professionFragment" />
+        <argument
+            android:name="influncer"
+            app:argType="boolean" />
+        <argument
+            android:name="company"
+            app:argType="boolean" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="age"
+            app:argType="string" />
+        <argument
+            android:name="gender"
+            app:argType="string" />
+        <argument
+            android:name="platform"
+            app:argType="string[]" />
+        <argument
+            android:name="followers"
+            app:argType="string" />
+        <argument
+            android:name="postsuploads"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment2"
         android:name="com.example.collabme.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
+        tools:layout="@layout/fragment_signup">
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+        <argument
+            android:name="influencer"
+            app:argType="boolean" />
+        <argument
+            android:name="company"
+            app:argType="boolean" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="age"
+            app:argType="string" />
+        <argument
+            android:name="gender"
+            app:argType="string" />
         <action
             android:id="@+id/action_signupFragment2_to_socialmedia"
             app:destination="@id/socialmedia" />
         <argument
-            android:name="username"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="platform"
+            app:argType="string[]" />
         <argument
-            android:name="password"
+            android:name="followers"
+            app:argType="string" />
+        <argument
+            android:name="postuploads"
             app:argType="string" />
     </fragment>
     <fragment
@@ -58,6 +105,30 @@
             android:name="username"
             app:argType="string" />
         <argument android:name="password"
+            app:argType="string" />
+        <argument
+            android:name="infulencer"
+            app:argType="boolean" />
+        <argument
+            android:name="company"
+            app:argType="boolean" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="age"
+            app:argType="string" />
+        <argument
+            android:name="gender"
+            app:argType="string" />
+        <argument
+            android:name="platform"
+            app:argType="string[]" />
+        <argument
+            android:name="followers"
+            app:argType="string" />
+        <argument
+            android:name="postsuploads"
             app:argType="string" />
     </fragment>
 </navigation>

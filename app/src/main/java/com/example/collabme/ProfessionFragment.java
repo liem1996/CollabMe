@@ -41,7 +41,6 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profession, container, false);
-        //onClick(view);
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

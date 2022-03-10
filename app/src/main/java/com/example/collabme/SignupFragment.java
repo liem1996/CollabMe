@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import java.util.HashMap;
 
@@ -26,17 +27,15 @@ public class SignupFragment extends Fragment {
     EditText username, password,email,age;
     Button signup;
     CheckBox company, influencer;
+    View view;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_signup, container, false);
+         view = inflater.inflate(R.layout.fragment_signup, container, false);
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -82,7 +81,7 @@ public class SignupFragment extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(getActivity(), "sigh up", Toast.LENGTH_LONG).show();
+                    Navigation.findNavController(view).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username.getText().toString(),password.getText().toString()));
 
                 } else if (response.code() == 400) {
                     Toast.makeText(getActivity(), "not sighup", Toast.LENGTH_LONG).show();

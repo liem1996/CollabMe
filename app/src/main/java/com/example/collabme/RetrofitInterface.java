@@ -14,4 +14,6 @@ public interface RetrofitInterface {
 
     @POST("/auth/register")
     Call<Void> executeSignup(@Body HashMap<String, Object> map);
+
+
 }

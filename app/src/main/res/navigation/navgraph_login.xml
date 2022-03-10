@@ -15,9 +15,6 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_fragment_login_to_socialmedia"
-            app:destination="@id/socialmedia" />
-        <action
             android:id="@+id/action_fragment_login_to_signupFragment2"
             app:destination="@id/signupFragment2" />
     </fragment>
@@ -25,10 +22,28 @@
         android:id="@+id/socialmedia"
         android:name="com.example.collabme.socialmedia"
         android:label="fragment_socialmedia"
-        tools:layout="@layout/fragment_socialmedia" />
+        tools:layout="@layout/fragment_socialmedia" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/signupFragment2"
         android:name="com.example.collabme.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" />
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment2_to_socialmedia"
+            app:destination="@id/socialmedia" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+    </fragment>
 </navigation>

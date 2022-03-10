@@ -1,64 +1,118 @@
 package com.example.collabme;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link socialmedia#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.fragment.app.Fragment;
+
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+
 public class socialmedia extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
+    private String BASE_URL = "http://10.0.2.2:4000";
+    CheckBox instegram, twitter,tiktok,facebook,youtube;
+    Button countinue;
+    EditText followers, posts;
+    String username;
+    String password;
+    View view;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public socialmedia() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment socialmedia.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static socialmedia newInstance(String param1, String param2) {
-        socialmedia fragment = new socialmedia();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_socialmedia, container, false);
+        view = inflater.inflate(R.layout.fragment_socialmedia, container, false);
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        instegram = view.findViewById(R.id.fragment_socialmedia_instagram);
+        twitter = view.findViewById(R.id.fragment_socialmedia_twitter);
+        facebook = view.findViewById(R.id.fragment_socialmedia_facebook);
+        tiktok = view.findViewById(R.id.fragment_socialmedia_tiktok);
+        youtube = view.findViewById(R.id.fragment_socialmedia_youtube);
+
+        followers = view.findViewById(R.id.fragment_socialmedia_followers);
+        posts = view.findViewById(R.id.fragment_socialmedia_postsuploads);
+        countinue.setOnClickListener(v -> handleSighUp());
+        username = socialmediaArgs.fromBundle(getArguments()).getUsername();
+        password = socialmediaArgs.fromBundle(getArguments()).getPassword();
+
+
+        return view;
+    }
+
+    private void handleSighUp() {
+        String [] platform = new String[5];
+        int i=0;
+
+
+        if(instegram.isChecked()){
+            platform[i] = "instegram";
+            i++;
+
+        }else if (twitter.isChecked()){
+            platform[i] = "twitter";
+            i++;
+
+        }else if(facebook.isChecked()){
+            platform[i] = "facebook";
+            i++;
+
+        }else if (tiktok.isChecked()){
+            platform[i] = "tiktok";
+            i++;
+
+        }else if(youtube.isChecked()){
+            platform[i] = "youtube";
+            i++;
+        }
+
+
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("Platform", platform);
+        map.put("Password", password);
+        map.put("Username", username);
+        map.put("Followers", followers.getText().toString());
+        map.put("NumberOfPosts", posts.getText().toString());
+
+        Call<Void> call = retrofitInterface.executeSignup(map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(getActivity(), "yay", Toast.LENGTH_LONG).show();
+
+                } else if (response.code() == 400) {
+                    Toast.makeText(getActivity(), "not sighup", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

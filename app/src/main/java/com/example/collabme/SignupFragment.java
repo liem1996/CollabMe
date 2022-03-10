@@ -4,15 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,20 +32,30 @@ public class SignupFragment extends Fragment {
     EditText username, password,email,age;
     Button signup;
     CheckBox company, influencer;
-    View view;
+    Spinner gender;
+    String selectedGender;
+    List<String> genderStrings;
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         view = inflater.inflate(R.layout.fragment_signup, container, false);
+        View view = inflater.inflate(R.layout.fragment_signup, container, false);
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        gender = view.findViewById(R.id.fragemnt_signup_gender);
+        genderStrings = new ArrayList<>();
+        genderStrings = getAllGenders();
+        initSpinnerFooter();
 
         username = view.findViewById(R.id.fragemnt_signup_username);
         password = view.findViewById(R.id.fragemnt_signup_password);
@@ -81,7 +96,7 @@ public class SignupFragment extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
-                    Navigation.findNavController(view).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username.getText().toString(),password.getText().toString()));
+                    Toast.makeText(getActivity(), "sigh up", Toast.LENGTH_LONG).show();
 
                 } else if (response.code() == 400) {
                     Toast.makeText(getActivity(), "not sighup", Toast.LENGTH_LONG).show();
@@ -96,5 +111,36 @@ public class SignupFragment extends Fragment {
         });
     }
 
+    private List<String> getAllGenders(){
+        List<String> tmp = new ArrayList<>();
+        tmp.add("Female");
+        tmp.add("Male");
+        tmp.add("Undefined");
+        return tmp;
+    }
+
+
+    private void initSpinnerFooter() {
+        String[] items = new String[genderStrings.size()];
+
+        for(int i = 0 ; i<genderStrings.size();i++){
+            items[i] = genderStrings.get(i);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
+        gender.setAdapter(adapter);
+        gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                selectedGender = items[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+
+            }
+        });
+    }
 
 }

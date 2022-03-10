@@ -29,6 +29,9 @@
         <argument
             android:name="password"
             app:argType="string" />
+        <action
+            android:id="@+id/action_socialmedia_to_professionFragment"
+            app:destination="@id/professionFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment2"
@@ -44,6 +47,17 @@
             app:nullable="true" />
         <argument
             android:name="password"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/professionFragment"
+        android:name="com.example.collabme.ProfessionFragment"
+        android:label="fragment_profession"
+        tools:layout="@layout/fragment_profession" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument android:name="password"
             app:argType="string" />
     </fragment>
 </navigation>

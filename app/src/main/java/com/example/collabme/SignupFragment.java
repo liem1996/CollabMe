@@ -50,7 +50,7 @@ public class SignupFragment extends Fragment {
         EditText password = view.findViewById(R.id.fragemnt_signup_email);
         EditText age = view.findViewById(R.id.fragemnt_signup_age);
         //EditText gender = view.findViewById(R.id.fragemnt_signup_gender);
-        CheckBox company = view.findViewById(R.id.fragemnt_signup_comapny);
+        CheckBox company = view.findViewById(R.id.fragment_signup_company);
         CheckBox influencer = view.findViewById(R.id.fragment_signup_influencer);
         EditText professions = view.findViewById(R.id.fragemnt_signup_age);
         EditText platforms = view.findViewById(R.id.fragemnt_signup_age);

@@ -1,19 +1,17 @@
 package com.example.collabme;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import java.util.HashMap;
 
@@ -28,6 +26,7 @@ public class LoginFragment extends Fragment {
     EditText username, password;
     Button login;
     TextView signup;
+    View view;
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -36,7 +35,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        view = inflater.inflate(R.layout.fragment_login, container, false);
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -59,10 +58,6 @@ public class LoginFragment extends Fragment {
 
 
     private void handleLogin() {
-        View view = getLayoutInflater().inflate(R.layout.fragment_login, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setView(view).show();
-
         HashMap<String, String> map = new HashMap<>();
 
         map.put("Username", username.getText().toString());
@@ -97,59 +92,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void handleSighUp() {
-        View view = getLayoutInflater().inflate(R.layout.fragment_signup, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view).show();
-        Button register = view.findViewById(R.id.fragemnt_signup_continuebtn);
-        EditText username = view.findViewById(R.id.fragemnt_signup_username);
-        EditText password = view.findViewById(R.id.fragemnt_signup_email);
-        EditText age = view.findViewById(R.id.fragemnt_signup_age);
-        //EditText gender = view.findViewById(R.id.fragemnt_signup_gender);
-        CheckBox company = view.findViewById(R.id.fragemnt_signup_comapny);
-        CheckBox influencer = view.findViewById(R.id.fragment_signup_influencer);
-        EditText professions = view.findViewById(R.id.fragemnt_signup_age);
-        EditText platforms = view.findViewById(R.id.fragemnt_signup_age);
-        EditText followers = view.findViewById(R.id.fragemnt_signup_age);
-        EditText numOfPosts = view.findViewById(R.id.fragemnt_signup_age);
 
-
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("Username", username.getText().toString());
-                map.put("Password", password.getText().toString());
-                //map.put("Sex", null);
-                map.put("Age", age.getText().toString());
-                map.put("Followers", null);
-                map.put("NumOfPosts", null);
-                map.put("Company", company.isChecked());
-                map.put("Influencer", influencer.isChecked());
-                map.put("Profession", null);
-                map.put("Platform", null);
-
-
-                Call<Void> call = retrofitInterface.executeSignup(map);
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.code() == 200) {
-                            Toast.makeText(getActivity(), "sigh up", Toast.LENGTH_LONG).show();
-
-                        } else if (response.code() == 400) {
-                            Toast.makeText(getActivity(), "not sighup", Toast.LENGTH_LONG).show();
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
-
-
+        Navigation.findNavController(view).navigate(R.id.action_fragment_login_to_signupFragment2);
     }
 }

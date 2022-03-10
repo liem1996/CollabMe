@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_fragment_login_to_socialmedia"
             app:destination="@id/socialmedia" />
+        <action
+            android:id="@+id/action_fragment_login_to_signupFragment2"
+            app:destination="@id/signupFragment2" />
     </fragment>
     <fragment
         android:id="@+id/socialmedia"

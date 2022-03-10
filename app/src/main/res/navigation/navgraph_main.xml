@@ -10,4 +10,9 @@
         android:name="com.example.collabme.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="com.example.collabme.UserProfile"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>

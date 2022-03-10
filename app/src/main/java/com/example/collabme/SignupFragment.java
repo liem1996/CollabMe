@@ -23,6 +23,9 @@ public class SignupFragment extends Fragment {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://10.0.2.2:4000";
+    EditText username, password,email,age;
+    Button signup;
+    CheckBox company, influencer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,61 +43,59 @@ public class SignupFragment extends Fragment {
                 .build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
 
+        username = view.findViewById(R.id.fragemnt_signup_username);
+        password = view.findViewById(R.id.fragemnt_signup_password);
+        email = view.findViewById(R.id.fragemnt_signup_email);
+        age = view.findViewById(R.id.fragemnt_signup_age);
+        company = view.findViewById(R.id.fragment_signup_company);
+        influencer = view.findViewById(R.id.fragment_signup_influencer);
+
+        //EditText gender = view.findViewById(R.id.fragemnt_signup_gender);
+//        EditText professions = view.findViewById(R.id.fragemnt_signup_age);
+//        EditText platforms = view.findViewById(R.id.fragemnt_signup_age);
+//        EditText followers = view.findViewById(R.id.fragemnt_signup_age);
+//        EditText numOfPosts = view.findViewById(R.id.fragemnt_signup_age);
+
+        signup = view.findViewById(R.id.fragemnt_signup_continuebtn);
+        signup.setOnClickListener(v -> handleSighUp());
+
         return view;
     }
 
     private void handleSighUp() {
-        View view = getLayoutInflater().inflate(R.layout.fragment_signup, null);
-        Button register = view.findViewById(R.id.fragemnt_signup_continuebtn);
-        EditText username = view.findViewById(R.id.fragemnt_signup_username);
-        EditText password = view.findViewById(R.id.fragemnt_signup_email);
-        EditText age = view.findViewById(R.id.fragemnt_signup_age);
-        //EditText gender = view.findViewById(R.id.fragemnt_signup_gender);
-        CheckBox company = view.findViewById(R.id.fragment_signup_company);
-        CheckBox influencer = view.findViewById(R.id.fragment_signup_influencer);
-        EditText professions = view.findViewById(R.id.fragemnt_signup_age);
-        EditText platforms = view.findViewById(R.id.fragemnt_signup_age);
-        EditText followers = view.findViewById(R.id.fragemnt_signup_age);
-        EditText numOfPosts = view.findViewById(R.id.fragemnt_signup_age);
 
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("Username", username.getText().toString());
+        map.put("Password", password.getText().toString());
+        map.put("Email", email.getText().toString());
+        map.put("Sex", null);
+        map.put("Age", age.getText().toString());
+        map.put("Followers", null);
+        map.put("NumberOfPosts", null);
+        map.put("Company", company.isChecked());
+        map.put("Influencer", influencer.isChecked());
+        map.put("Profession", null);
+        map.put("Platform", null);
 
-        register.setOnClickListener(new View.OnClickListener() {
+        Call<Void> call = retrofitInterface.executeSignup(map);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onClick(View v) {
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("Username", username.getText().toString());
-                map.put("Password", password.getText().toString());
-                //map.put("Sex", null);
-                map.put("Age", age.getText().toString());
-                map.put("Followers", null);
-                map.put("NumOfPosts", null);
-                map.put("Company", company.isChecked());
-                map.put("Influencer", influencer.isChecked());
-                map.put("Profession", null);
-                map.put("Platform", null);
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(getActivity(), "sigh up", Toast.LENGTH_LONG).show();
 
-                Call<Void> call = retrofitInterface.executeSignup(map);
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.code() == 200) {
-                            Toast.makeText(getActivity(), "sigh up", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 400) {
+                    Toast.makeText(getActivity(), "not sighup", Toast.LENGTH_LONG).show();
 
-                        } else if (response.code() == 400) {
-                            Toast.makeText(getActivity(), "not sighup", Toast.LENGTH_LONG).show();
+                }
+            }
 
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
-
     }
+
 
 }

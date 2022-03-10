@@ -25,24 +25,25 @@
         android:src="@drawable/ic_profileheadline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.433"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.162" />
 
     <ImageView
         android:id="@+id/imageView14"
-        android:layout_width="348dp"
-        android:layout_height="185dp"
+        android:layout_width="369dp"
+        android:layout_height="269dp"
         android:src="@drawable/ic_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.526" />
+        app:layout_constraintVertical_bias="0.561" />
 
     <Button
-        android:id="@+id/fragemnt_signup_backbtn2"
+        android:id="@+id/fragment_userprofile_chatbtn"
         android:layout_width="98dp"
         android:layout_height="46dp"
         android:layout_marginTop="28dp"
@@ -57,15 +58,15 @@
 
     <Button
         android:id="@+id/fragemnt_signup_backbtn9"
-        android:layout_width="98dp"
-        android:layout_height="46dp"
+        android:layout_width="110dp"
+        android:layout_height="59dp"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="52dp"
         android:backgroundTint="#4c266a"
-        android:text="Chat"
+        android:text="Social media"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.263"
+        app:layout_constraintHorizontal_bias="0.265"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
 
@@ -76,145 +77,139 @@
         android:layout_marginTop="28dp"
         android:layout_marginBottom="64dp"
         android:backgroundTint="#4c266a"
-        android:text="Chat"
+        android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.736"
+        app:layout_constraintHorizontal_bias="0.738"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
 
     <Button
         android:id="@+id/fragemnt_signup_backbtn7"
-        android:layout_width="98dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="120dp"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
         android:backgroundTint="#4c266a"
-        android:text="Chat"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Profession"
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_userprofile_chatbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/fragemnt_signup_backbtn8"
-        android:layout_width="98dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="120dp"
+        android:layout_width="115dp"
+        android:layout_height="53dp"
         android:backgroundTint="#4c266a"
-        android:text="Chat"
+        android:text="Create an offer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.929"
+        app:layout_constraintHorizontal_bias="0.979"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.833" />
 
     <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="79dp"
-        android:layout_height="65dp"
+        android:id="@+id/fragment_userprofile_pic"
+        android:layout_width="109dp"
+        android:layout_height="90dp"
         android:src="@drawable/profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.268"
+        app:layout_constraintHorizontal_bias="0.235"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.261" />
+        app:layout_constraintVertical_bias="0.251" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
-        android:layout_width="133dp"
-        android:layout_height="19dp"
+        android:id="@+id/fragment_userprofile_username_enter"
+        android:layout_width="157dp"
+        android:layout_height="17dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintHorizontal_bias="0.749"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintVertical_bias="0.378" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
-        android:layout_width="133dp"
-        android:layout_height="19dp"
+        android:id="@+id/fragment_userprofile_age"
+        android:layout_width="148dp"
+        android:layout_height="22dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintHorizontal_bias="0.726"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.439" />
+        app:layout_constraintVertical_bias="0.438" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
-        android:layout_width="133dp"
-        android:layout_height="19dp"
+        android:id="@+id/fragment_userprofile_followers"
+        android:layout_width="137dp"
+        android:layout_height="18dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName6"
-        android:layout_width="133dp"
-        android:layout_height="19dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintHorizontal_bias="0.693"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.551" />
+        app:layout_constraintVertical_bias="0.57" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName7"
+        android:id="@+id/fragment_userprofile_postsuploads"
         android:layout_width="133dp"
         android:layout_height="19dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintHorizontal_bias="0.687"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.605" />
+        app:layout_constraintVertical_bias="0.633" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName8"
-        android:layout_width="133dp"
-        android:layout_height="19dp"
+        android:id="@+id/fragment_userprofile_platform"
+        android:layout_width="137dp"
+        android:layout_height="21dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintHorizontal_bias="0.705"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.652" />
+        app:layout_constraintVertical_bias="0.695" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="113dp"
-        android:layout_height="26dp"
-        android:text="TextView"
+        android:id="@+id/fragment_userprofile_username"
+        android:layout_width="138dp"
+        android:layout_height="36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.697"
+        app:layout_constraintHorizontal_bias="0.699"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.273" />
+
+    <Spinner
+        android:id="@+id/fragment_userprofile_professions"
+        android:layout_width="171dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

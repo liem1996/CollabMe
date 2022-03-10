@@ -8,14 +8,15 @@
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="446dp"
-        android:layout_height="777dp"
+        android:layout_width="502dp"
+        android:layout_height="922dp"
         android:src="@drawable/ic_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.167" />
+        app:layout_constraintVertical_bias="0.083" />
 
     <ImageView
         android:id="@+id/imageView13"
@@ -24,10 +25,10 @@
         android:src="@drawable/ic_profileheadline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.152" />
 
     <ImageView
         android:id="@+id/imageView14"
@@ -116,10 +117,10 @@
         android:src="@drawable/profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintHorizontal_bias="0.268"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.255" />
+        app:layout_constraintVertical_bias="0.261" />
 
     <EditText
         android:id="@+id/editTextTextPersonName3"
@@ -206,14 +207,14 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="26dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.732"
+        app:layout_constraintHorizontal_bias="0.697"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintVertical_bias="0.273" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

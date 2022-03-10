@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="425dp"
+        android:layout_width="426dp"
         android:layout_height="777dp"
         android:src="@drawable/ic_sicialmedia"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,6 +17,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.4" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="502dp"
+        android:layout_height="922dp"
+        android:src="@drawable/ic_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.197"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.083" />
 
     <Button
         android:id="@+id/fragment_socialmedia_back"
@@ -43,8 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/fragment_socialmedia_continue"

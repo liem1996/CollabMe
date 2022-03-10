@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph_login"
-    app:startDestination="@id/socialmedia">
+    app:startDestination="@id/fragment_login">
     <activity
         android:id="@+id/loginActivity"
         android:name="com.example.collabme.LoginActivity"
@@ -11,9 +11,13 @@
         tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/fragment_login"
-        android:name="com.example.collabme.fragment_login"
+        android:name="com.example.collabme.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_fragment_login_to_socialmedia"
+            app:destination="@id/socialmedia" />
+    </fragment>
     <fragment
         android:id="@+id/socialmedia"
         android:name="com.example.collabme.socialmedia"

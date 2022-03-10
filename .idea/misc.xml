@@ -3,10 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../layout/custom_preview.xml" value="0.19479166666666667" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/login.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_pic.xml" value="0.2703125" />
-        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_signup.xml" value="0.23125" />
-        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_signup2.xml" value="0.23125" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/login_page.xml" value="0.2703125" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_intro.xml" value="0.2536231884057971" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_login.xml" value="0.2536231884057971" />
@@ -17,6 +16,9 @@
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/login.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/collabme/app/src/main/res/layout/activity_main.xml" value="0.11614583333333334" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/collabme/app/src/main/res/layout/login.xml" value="0.13020833333333334" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1816123188405797" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.22327898550724637" />
+        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.22327898550724637" />
       </map>
     </option>
   </component>

@@ -64,6 +64,7 @@
         android:id="@+id/fragment_login_newuser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:text="New user?"
         app:layout_constraintBaseline_toBaselineOf="@+id/fragment_login_forgotpass"
         app:layout_constraintEnd_toEndOf="parent"

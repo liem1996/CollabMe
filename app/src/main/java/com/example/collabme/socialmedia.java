@@ -18,7 +18,7 @@ public class socialmedia extends Fragment {
     Button countinue;
     EditText followers, posts;
     String username1;
-    String password1, email1, age1,selectedgen1;
+    String password1, email1, age1,selectedGender;
     View view;
     Boolean influencer1, company1;
 
@@ -40,11 +40,12 @@ public class socialmedia extends Fragment {
 
         username1 = socialmediaArgs.fromBundle(getArguments()).getUsername();
         password1 = socialmediaArgs.fromBundle(getArguments()).getPassword();
-        influencer1 =  socialmediaArgs.fromBundle(getArguments()).getInfluncer();
+        influencer1 =  socialmediaArgs.fromBundle(getArguments()).getInfluencer();
         company1 =  socialmediaArgs.fromBundle(getArguments()).getCompany();
         email1 =  socialmediaArgs.fromBundle(getArguments()).getEmail();
         age1 =socialmediaArgs.fromBundle(getArguments()).getAge();
-        selectedgen1 = socialmediaArgs.fromBundle(getArguments()).getGender();
+        selectedGender = socialmediaArgs.fromBundle(getArguments()).getGender();
+
 
         countinue.setOnClickListener(v -> toProfession());
 
@@ -52,7 +53,7 @@ public class socialmedia extends Fragment {
     }
 
     private void toProfession() {
-        String [] platform = new String[5];
+        String[] platform = new String[5];
         int i=0;
 
 
@@ -78,7 +79,10 @@ public class socialmedia extends Fragment {
         }
 
         Navigation.findNavController(view).navigate(socialmediaDirections.actionSocialmediaToProfessionFragment(username1, password1,influencer1,
-                company1,email1,age1 ,selectedgen1 ,platform,followers.getText().toString(), posts.getText().toString()));
+                company1,email1,age1 ,selectedGender ,platform,followers.getText().toString(), posts.getText().toString()));
 
     }
+
+
+
 }

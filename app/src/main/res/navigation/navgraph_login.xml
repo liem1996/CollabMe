@@ -33,7 +33,7 @@
             android:id="@+id/action_socialmedia_to_professionFragment"
             app:destination="@id/professionFragment" />
         <argument
-            android:name="influncer"
+            android:name="influencer"
             app:argType="boolean" />
         <argument
             android:name="company"
@@ -115,7 +115,7 @@
         <argument android:name="password"
             app:argType="string" />
         <argument
-            android:name="infulencer"
+            android:name="influencer"
             app:argType="boolean" />
         <argument
             android:name="company"

@@ -35,6 +35,9 @@ public class SignupFragment extends Fragment {
     String selectedGender;
     List<String> genderStrings;
 
+    String username1,password1,email1,age1, selectedGender1;
+    boolean company1,influencer1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,24 +61,27 @@ public class SignupFragment extends Fragment {
         company = view.findViewById(R.id.fragment_signup_company);
         influencer = view.findViewById(R.id.fragment_signup_influencer);
 
-        String username1 = username.getText().toString();
-        String password1 = password.getText().toString();
-        Boolean influencer1 =  influencer.isChecked();
-        Boolean company1 =   company.isChecked();
-        String email1 =  email.getText().toString();
-        String age1 = age.getText().toString();
-        String selectedgen1 = selectedGender;
-
         signup = view.findViewById(R.id.fragemnt_signup_continuebtn);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveDetails();
                 Navigation.findNavController(v).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username1, password1,influencer1,
-                        company1,email1,age1 ,selectedgen1 ,null,null, null));
+                        company1,email1,age1 ,selectedGender1 ,null,null, null));
             }
         });
 
         return view;
+    }
+
+    private void saveDetails() {
+        username1 = username.getText().toString();
+        password1 = password.getText().toString();
+        influencer1 = influencer.isChecked();
+        company1 = company.isChecked();
+        email1 = email.getText().toString();
+        age1 = age.getText().toString();
+        selectedGender1 = selectedGender;
     }
 
     private List<String> getAllGenders(){

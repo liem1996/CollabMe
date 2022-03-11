@@ -148,179 +148,228 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
             case R.id.fragemnt_profession_sport:
                 index= indexOfValue("Sport");
                 if(index!=-1){
-                    sport.setBackgroundColor(Color.DKGRAY);
+                    i--;
+                    sport.setBackgroundColor(sport.getContext().getResources().getColor(R.color.purple));
                     professions[index] = null;
                 }else {
-                    sport.setBackgroundColor(sport.getContext().getResources().getColor(R.color.purple));
+                    sport.setBackgroundColor(Color.DKGRAY);
                     professions[i] = "Sport";
+                    i++;
                 }
-                i++;
                 break;
             case R.id.fragemnt_profession_animals:
                 index= indexOfValue("Animals");
                 if(index!=-1){
-                    animals.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     animals.setBackgroundColor(animals.getContext().getResources().getColor(R.color.purple));
+                    professions[index] = null;
+                    i--;
+                }else {
+                    animals.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Animals";
+                    i++;
                 }
-                i++;
                 break;
             case R.id.fragemnt_profession_art:
                 index= indexOfValue("Art");
                 if(index!=-1){
-                    art.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     art.setBackgroundColor(art.getContext().getResources().getColor(R.color.purple));
+                    professions[index] = null;
+                    i--;
+                }else {
+                    art.setBackgroundColor(Color.DKGRAY);
                     professions[i] = "Art";
+                    i++;
                 }
-                i++;
                 break;
             case R.id.fragemnt_profession_cooking:
                 index= indexOfValue("Cooking");
                 if(index!=-1){
-                    cooking.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     cooking.setBackgroundColor(cooking.getContext().getResources().getColor(R.color.purple));
+                    professions[index] = null;
+                    i--;
+                }else {
+                    cooking.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Cooking";
+                    i++;
                 }
-                i++;
+
                 break;
             case R.id.fragemnt_profession_fashion:
                 index= indexOfValue("Fashion");
                 if(index!=-1){
-                    fashion.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     fashion.setBackgroundColor(fashion.getContext().getResources().getColor(R.color.purple));
-                    professions[i] = "Fashion:";
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    fashion.setBackgroundColor(Color.DKGRAY);
+
+                    professions[i] = "Fashion";
+                    i++;
                 }
-                i++;
+
                 break;
             case R.id.fragemnt_profession_cosmetic:
                 index= indexOfValue("Cosmetic");
                 if(index!=-1){
-                    cosmetic.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     cosmetic.setBackgroundColor(cosmetic.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    cosmetic.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Cosmetic";
-                }
                 i++;
+                }
+
                 break;
             case R.id.fragemnt_profession_music:
                 index= indexOfValue("Music");
                 if(index!=-1){
-                    music.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     music.setBackgroundColor(music.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    music.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Music";
+                    i++;
                 }
-                i++;
                 break;
             case R.id.fragemnt_profession_dance:
                 index= indexOfValue("Dance");
                 if(index!=-1){
-                    dance.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     dance.setBackgroundColor(dance.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    dance.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Dance";
+                    i++;
                 }
-                i++;
+
                 break;
             case R.id.fragemnt_profession_travel:
                 index= indexOfValue("Travel");
                 if(index!=-1){
-                    travel.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     travel.setBackgroundColor(travel.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    travel.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Travel";
+                    i++;
                 }
-                i++;
                 break;
             case R.id.fragemnt_profession_gaming:
                 index= indexOfValue("Gaming");
                 if(index!=-1){
-                    gaming.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     gaming.setBackgroundColor(gaming.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    gaming.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Gaming";
+                    i++;
                 }
-                i++;
 
                 break;
             case R.id.fragemnt_profession_food:
                 index= indexOfValue("Food");
                 if(index!=-1){
-                    food.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     food.setBackgroundColor(food.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    food.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Food";
+                    i++;
                 }
-                i++;
+
                 break;
             case R.id.fragemnt_profession_tech:
                 index= indexOfValue("Tech");
                 if(index!=-1){
-                    tech.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     tech.setBackgroundColor(tech.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    tech.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Tech";
+                    i++;
                 }
-                i++;
                 break;
             case R.id.fragemnt_profession_movies:
                 index= indexOfValue("Movies");
                 if(index!=-1){
-                    movies.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     movies.setBackgroundColor(movies.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    movies.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Movies";
+                    i++;
                 }
-                i++;
                 break;
             case R.id.fragemnt_profession_photograph:
                 index= indexOfValue("Photograph");
                 if(index!=-1){
-                    photograph.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     photograph.setBackgroundColor(photograph.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    photograph.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Photograph";
+                    i++;
                 }
-                i++;
                 break;
             case R.id.fragemnt_profession_lifestyle:
                 index= indexOfValue("Lifestyle");
                 if(index!=-1){
-                    lifestyle.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     lifestyle.setBackgroundColor(lifestyle.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    lifestyle.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Lifestyle";
+                    i++;
                 }
-                i++;
+
                 break;
             case R.id.fragemnt_profession_other:
                 index= indexOfValue("Other");
                 if(index!=-1){
-                    other.setBackgroundColor(Color.DKGRAY);
-                    professions[index] = null;
-                }else {
                     other.setBackgroundColor(other.getContext().getResources().getColor(R.color.purple));
+
+                    professions[index] = null;
+                    i--;
+                }else {
+                    other.setBackgroundColor(Color.DKGRAY);
+
                     professions[i] = "Other";
+                    i++;
                 }
-                i++;
+
                 break;
 
         }

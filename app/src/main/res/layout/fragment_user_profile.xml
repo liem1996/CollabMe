@@ -120,7 +120,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.251" />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_userprofile_username_enter"
         android:layout_width="157dp"
         android:layout_height="17dp"
@@ -134,7 +134,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.378" />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_userprofile_age"
         android:layout_width="148dp"
         android:layout_height="22dp"
@@ -148,7 +148,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.438" />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_userprofile_followers"
         android:layout_width="137dp"
         android:layout_height="18dp"
@@ -162,7 +162,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.57" />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_userprofile_postsuploads"
         android:layout_width="133dp"
         android:layout_height="19dp"
@@ -176,7 +176,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.633" />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_userprofile_platform"
         android:layout_width="137dp"
         android:layout_height="21dp"

@@ -1,5 +1,9 @@
 package com.example.collabme;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -15,6 +19,8 @@ public class Model {
     private String BASE_URL = "http://10.0.2.2:4000";
     public static final Model instance = new Model();
     public String token;
+
+    public String username1="bar2";
 
 
     public interface sighup{
@@ -34,7 +40,9 @@ public class Model {
         void onComplete(User profile);
     }
 
-    public void getUserconnect(){
+    public interface getuserconnect{
+
+        void onComplete(User profile);
 
     }
 
@@ -92,6 +100,7 @@ public class Model {
 
             map.put("Username", username);
             map.put("Password", password);
+            username1=username;
 
             Call<User> call = retrofitInterface.executeLogin(map);
             call.enqueue(new Callback<User>() {
@@ -112,6 +121,29 @@ public class Model {
 
             });
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void getUserConnect(getuserconnect getuserconnect) {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<User> call = retrofitInterface.getUser(username1);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                getuserconnect.onComplete(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                getuserconnect.onComplete(null);
+            }
+        });
     }
 }
 

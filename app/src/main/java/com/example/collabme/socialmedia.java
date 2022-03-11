@@ -61,19 +61,19 @@ public class socialmedia extends Fragment {
             platform[i] = "instegram";
             i++;
 
-        }else if (twitter.isChecked()){
+        } if (twitter.isChecked()){
             platform[i] = "twitter";
             i++;
 
-        }else if(facebook.isChecked()){
+        } if(facebook.isChecked()){
             platform[i] = "facebook";
             i++;
 
-        }else if (tiktok.isChecked()){
+        } if (tiktok.isChecked()){
             platform[i] = "tiktok";
             i++;
 
-        }else if(youtube.isChecked()){
+        } if(youtube.isChecked()){
             platform[i] = "youtube";
             i++;
         }

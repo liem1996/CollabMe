@@ -14,13 +14,14 @@ public class Model {
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://10.0.2.2:4000";
     public static final Model instance = new Model();
+    public String token;
 
 
     public interface sighup{
         void onComplete(int code);
     }
     public interface Login{
-        void onComplete();
+        void onComplete(int code);
     }
 
     public interface getacssesToken{
@@ -31,6 +32,10 @@ public class Model {
     }
     public interface GetUserByUserName{
         void onComplete(User profile);
+    }
+
+    public void getUserconnect(){
+
     }
 
 
@@ -76,4 +81,39 @@ public class Model {
 
 
 
+    public void Login(String username,String password,Model.sighup Login){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+          HashMap<String, String> map = new HashMap<>();
+
+            map.put("Username", username);
+            map.put("Password", password);
+
+            Call<User> call = retrofitInterface.executeLogin(map);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.code() == 200) {
+                        Login.onComplete(200);
+
+                    } else  {
+                        Login.onComplete(400);
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                    Login.onComplete(400);
+                }
+
+            });
+
+    }
 }
+
+
+

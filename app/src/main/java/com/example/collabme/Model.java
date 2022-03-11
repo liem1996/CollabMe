@@ -1,8 +1,6 @@
 package com.example.collabme;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
+import android.content.Context;
 
 import java.util.HashMap;
 
@@ -19,7 +17,23 @@ public class Model {
     private String BASE_URL = "http://10.0.2.2:4000";
     public static final Model instance = new Model();
     public String token;
+    public static final String MY_PREFRENCE = "myPrefs";
+    public static final String TOKEN = "myToken";
+    Context context;
+    String userToken;
 
+
+    Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
+
+
+
+    /*
+       .getSharedPreferences("TAG",Context.MODE_PRIVATE)
+                                .edit()
+                                .putLong("PostsLastUpdateDate",lud)
+                                .commit();
+
+     */
     public String username1="bar2";
 
 
@@ -123,7 +137,7 @@ public class Model {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public void getUserConnect(getuserconnect getuserconnect) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

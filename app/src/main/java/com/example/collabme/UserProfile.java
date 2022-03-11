@@ -19,6 +19,7 @@ public class UserProfile extends Fragment {
     TextView username,age,gender,proffesions,followers,postuploads,platform;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

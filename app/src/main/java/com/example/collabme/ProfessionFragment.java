@@ -11,13 +11,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class ProfessionFragment extends Fragment implements View.OnClickListener{
@@ -42,12 +37,7 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profession, container, false);
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         sport = view.findViewById(R.id.fragemnt_profession_sport);
         sport.setOnClickListener(this);
@@ -94,50 +84,27 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         numOfPosts = ProfessionFragmentArgs.fromBundle(getArguments()).getPostsuploads();
         platforms = ProfessionFragmentArgs.fromBundle(getArguments()).getPlatform();
 
+        User user = new User(gender,username,password,email,age,followers,numOfPosts,company,influencer,professions,platforms);
+
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
-        continueBtn.setOnClickListener(v-> handleSighUp());
+        continueBtn.setOnClickListener(v-> Model.instance.sighup(user, new Model.sighup() {
+            @Override
+            public void onComplete(int code) {
+                if(code==200){
+                    Toast.makeText(getActivity(),"yes", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getActivity(), "no", Toast.LENGTH_LONG).show();
+                }
+            }
+        }));
 
         return view;
     }
 
-    private void handleSighUp() {
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("Username", username);
-        map.put("Password", password);
-        map.put("Email", email);
-        map.put("Sex", gender);
-        map.put("Age", age);
-        map.put("Followers", followers);
-        map.put("NumberOfPosts", numOfPosts);
-        map.put("Company", company);
-        map.put("Influencer", influencer);
-        map.put("Profession", professions);
-        map.put("Platform", platforms);
-
-        Call<Void> call = retrofitInterface.executeSignup(map);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code() == 200) {
-                    Toast.makeText(getActivity(), "sigh up", Toast.LENGTH_LONG).show();
-
-                } else if (response.code() == 400) {
-                    Toast.makeText(getActivity(), "not sighup", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     public int indexOfValue(String proffesion){
         int getindex = Arrays.asList(professions).indexOf(proffesion);
-
         return getindex;
     }
 

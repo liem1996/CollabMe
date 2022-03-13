@@ -23,10 +23,13 @@ public class Model {
     String userToken;
     //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
 
-    public String username1="bar2";
+    public String username1="liem";
 
 
     public interface signupListener{
+        void onComplete(int code);
+    }
+    public interface addOfferListener{
         void onComplete(int code);
     }
     public interface loginListener{
@@ -40,6 +43,49 @@ public class Model {
         void onComplete(User profile);
 
     }
+
+    public void addOffer(Offer offer,Model.addOfferListener addOffer) {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("Description", offer.getDescription());
+        map.put("HeadLine", offer.getHeadline());
+        map.put("Price", offer.getPrice());
+        map.put("Coupon", offer.getCoupon());
+        map.put("IdOffer", offer.getIdOffer());
+        map.put("Status", offer.getStatus());
+        map.put("Profession", offer.getProfession());
+        map.put("User", offer.getUser());
+        map.put("IntrestedVerify", offer.getIntrestedVerify());
+
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        Call<Offer> call = retrofitInterface.executenewOffer(map,tockenacsses);
+        call.enqueue(new Callback<Offer>() {
+            @Override
+            public void onResponse(Call<Offer> call, Response<Offer> response) {
+                if (response.code() == 200) {
+                    addOffer.onComplete(200);
+
+                } else {
+                    addOffer.onComplete(400);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Offer> call, Throwable t) {
+                addOffer.onComplete(400);
+            }
+        });
+    }
+
 
 
     public void sighup(User profile,Model.signupListener sighup) {

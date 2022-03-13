@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph_login"
     app:startDestination="@id/fragment_login">
-    <activity
-        android:id="@+id/loginActivity"
-        android:name="com.example.collabme.LoginActivity"
-        android:label="activity_login"
-        tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/fragment_login"
         android:name="com.example.collabme.LoginFragment"
@@ -17,9 +12,6 @@
         <action
             android:id="@+id/action_fragment_login_to_signupFragment2"
             app:destination="@id/signupFragment2" />
-        <action
-            android:id="@+id/action_fragment_login_to_userProfile2"
-            app:destination="@id/userProfile2" />
     </fragment>
     <fragment
         android:id="@+id/socialmedia"
@@ -145,13 +137,7 @@
             android:name="postsuploads"
             app:argType="string"
             app:nullable="true" />
-        <action
-            android:id="@+id/action_professionFragment_to_userProfile2"
-            app:destination="@id/userProfile2" />
     </fragment>
-    <fragment
-        android:id="@+id/userProfile2"
-        android:name="com.example.collabme.UserProfile"
-        android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" /><action android:id="@+id/action_global_socialmedia" app:destination="@id/socialmedia"/>
+    <action android:id="@+id/action_global_socialmedia" app:destination="@id/socialmedia" />
+    <action android:id="@+id/action_global_professionFragment" app:destination="@id/professionFragment" />
 </navigation>

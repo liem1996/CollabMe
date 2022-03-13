@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class UserProfile extends Fragment {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://10.0.2.2:4000";
-    TextView username,age,followers,postuploads, username2;
+    TextView username,age,followers,postuploads, username2, home;
     Spinner professions,platform;
     ArrayList<String>  platformArr;
 
@@ -41,6 +42,10 @@ public class UserProfile extends Fragment {
         professions=view.findViewById(R.id.fragemnt_signup_proffesions);
         followers=view.findViewById(R.id.fragment_userprofile_followers);
         postuploads=view.findViewById(R.id.fragment_userprofile_postsuploads);
+        home= view.findViewById(R.id.fragment_userprofile_home);
+        home.setOnClickListener(v->{
+            Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+        });
         Model.instance.getUserConnect(new Model.getuserconnect() {
             @Override
             public void onComplete(User profile) {

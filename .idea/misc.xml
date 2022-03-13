@@ -18,16 +18,19 @@
         <entry key="..\:/Users/liemm/AndroidStudioProjects/collabme/app/src/main/res/layout/activity_main.xml" value="0.11614583333333334" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/collabme/app/src/main/res/layout/login.xml" value="0.13020833333333334" />
         <entry key="app/src/main/res/drawable/ic_background.xml" value="0.23697916666666666" />
+        <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.30052083333333335" />
+        <entry key="app/src/main/res/drawable/ic_menu2.xml" value="0.30052083333333335" />
         <entry key="app/src/main/res/drawable/ic_offerdetails5.xml" value="0.32222222222222224" />
         <entry key="app/src/main/res/drawable/ic_profession.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.2552083333333333" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1816123188405797" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.22327898550724637" />
         <entry key="app/src/main/res/layout/fragment_offer_details.xml" value="0.408459478998018" />
         <entry key="app/src/main/res/layout/fragment_profession.xml" value="0.4393596141055043" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.41568627450980394" />
         <entry key="app/src/main/res/layout/fragment_socialmedia.xml" value="0.20244565217391305" />
-        <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.2177901874750698" />
+        <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.41059147180192573" />
       </map>
     </option>
   </component>

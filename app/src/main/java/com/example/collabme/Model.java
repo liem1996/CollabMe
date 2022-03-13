@@ -66,11 +66,13 @@ public class Model {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
-        Call<Offer> call = retrofitInterface.executenewOffer(map,tockenacsses);
+        Call<Offer> call = retrofitInterface.executenewOffer(map,"Bearer "+ tockenacsses);
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
+
                 if (response.code() == 200) {
+
                     addOffer.onComplete(200);
 
                 } else {

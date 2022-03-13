@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        System.out.println("ho");
         if(!super.onOptionsItemSelected(item)){
 
             switch (item.getItemId()){
@@ -53,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
                     // Model.instance.getUserName(email);
                     navCtl.navigate(R.id.action_global_homeFragment2);
+                    break;
+
+                case R.id.addOffer:
+
+                    // Model.instance.getUserName(email);
+                    navCtl.navigate(R.id.action_global_addOfferDetailsFragemnt);
                     break;
 
 

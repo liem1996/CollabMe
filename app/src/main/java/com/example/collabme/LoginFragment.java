@@ -38,7 +38,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(int code) {
                 if(code==200) {
-                    Navigation.findNavController(view).navigate(R.id.action_fragment_login_to_userProfile2);
+                    Navigation.findNavController(view).navigate(R.id.action_global_addOfferDetailsFragemnt);
                     //Toast.makeText(getActivity(), "yess", Toast.LENGTH_LONG).show();
                 }
                 else{

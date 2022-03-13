@@ -46,6 +46,7 @@ public class UserProfile extends Fragment {
         home.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
         });
+
         Model.instance.getUserConnect(new Model.getuserconnect() {
             @Override
             public void onComplete(User profile) {

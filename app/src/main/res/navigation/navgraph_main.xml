@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph_main"
-    app:startDestination="@id/userProfile">
+    app:startDestination="@id/addOfferDetailsFragemnt">
 
     <fragment
         android:id="@+id/userProfile"
@@ -21,4 +21,14 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
+    <fragment
+        android:id="@+id/addOfferDetailsFragemnt"
+        android:name="com.example.collabme.AddOfferDetailsFragemnt"
+        android:label="fragment_add_offer_details_fragemnt"
+        tools:layout="@layout/fragment_add_offer_details_fragemnt" >
+        <action
+            android:id="@+id/action_addOfferDetailsFragemnt5_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_addOfferDetailsFragemnt" app:destination="@id/addOfferDetailsFragemnt" />
 </navigation>

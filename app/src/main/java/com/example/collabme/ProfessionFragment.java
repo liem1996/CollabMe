@@ -82,10 +82,11 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         User user = new User(gender,password,email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
 
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
-        continueBtn.setOnClickListener(v-> Model.instance.sighup(user, new Model.sighup() {
+        continueBtn.setOnClickListener(v-> Model.instance.sighup(user, new Model.signupListener() {
             @Override
             public void onComplete(int code) {
                 if(code==200){
+                    Model.instance.Login(username, password, code1 -> { });
                     Navigation.findNavController(view).navigate(R.id.action_professionFragment_to_userProfile2);
                     Toast.makeText(getActivity(),"hiiii11122", Toast.LENGTH_LONG).show();
                 }else{

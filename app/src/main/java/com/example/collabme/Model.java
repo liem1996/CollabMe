@@ -26,10 +26,10 @@ public class Model {
     public String username1="bar2";
 
 
-    public interface sighup{
+    public interface signupListener{
         void onComplete(int code);
     }
-    public interface Login{
+    public interface loginListener{
         void onComplete(int code);
     }
 
@@ -42,7 +42,7 @@ public class Model {
     }
 
 
-    public void sighup(User profile,Model.sighup sighup) {
+    public void sighup(User profile,Model.signupListener sighup) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -84,7 +84,7 @@ public class Model {
 
 
 
-    public void Login(String username,String password,Model.Login Login){
+    public void Login(String username,String password,Model.loginListener Login){
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

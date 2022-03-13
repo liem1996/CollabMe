@@ -44,9 +44,8 @@
 
     <Spinner
         android:id="@+id/fragemnt_signup_platform"
-        android:layout_width="155dp"
-        android:layout_height="20dp"
-        android:background="#F3F3F3"
+        android:layout_width="168dp"
+        android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.781"
@@ -56,15 +55,17 @@
 
     <Spinner
         android:id="@+id/fragemnt_signup_proffesions"
-        android:layout_width="155dp"
-        android:layout_height="20dp"
-        android:background="#F3F3F3"
+        android:layout_width="168dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.781"
+        app:layout_constraintHorizontal_bias="0.81"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.511" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_userprofile_age"
+        app:layout_constraintVertical_bias="0.051" />
 
     <Button
         android:id="@+id/fragment_userprofile_chatbtn"

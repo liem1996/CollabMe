@@ -22,7 +22,7 @@ public class UserProfile extends Fragment {
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://10.0.2.2:4000";
-    TextView username,age,followers,postuploads;
+    TextView username,age,followers,postuploads, username2;
     Spinner professions,platform;
     ArrayList<String>  platformArr;
 
@@ -35,6 +35,7 @@ public class UserProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         username=view.findViewById(R.id.fragment_userprofile_username);
+        username2 = view.findViewById(R.id.fragment_userprofile_username2);
         age=view.findViewById(R.id.fragment_userprofile_age);
         platform=view.findViewById(R.id.fragemnt_signup_platform);
         professions=view.findViewById(R.id.fragemnt_signup_proffesions);
@@ -45,6 +46,7 @@ public class UserProfile extends Fragment {
             public void onComplete(User profile) {
                 if(profile!=null) {
                     username.setText(profile.getUsername());
+                    username2.setText(profile.getUsername());
                     followers.setText(profile.getFollowers());
                     postuploads.setText(profile.getNumOfPosts());
                     age.setText(profile.getAge());

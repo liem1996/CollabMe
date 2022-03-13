@@ -34,7 +34,7 @@ public class LoginFragment extends Fragment {
         password = view.findViewById(R.id.fragment_login_password);
 
         login = view.findViewById(R.id.fragment_login_loginbtn);
-        login.setOnClickListener(v -> Model.instance.Login(username.getText().toString(),password.getText().toString(), new Model.Login() {
+        login.setOnClickListener(v -> Model.instance.Login(username.getText().toString(),password.getText().toString(), new Model.loginListener() {
             @Override
             public void onComplete(int code) {
                 if(code==200) {

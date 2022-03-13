@@ -73,7 +73,7 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         username = ProfessionFragmentArgs.fromBundle(getArguments()).getUsername();
         password = ProfessionFragmentArgs.fromBundle(getArguments()).getPassword();
         email =  ProfessionFragmentArgs.fromBundle(getArguments()).getEmail();
-        age =ProfessionFragmentArgs.fromBundle(getArguments()).getAge();
+        age = ProfessionFragmentArgs.fromBundle(getArguments()).getAge();
         gender = ProfessionFragmentArgs.fromBundle(getArguments()).getGender();
         followers = ProfessionFragmentArgs.fromBundle(getArguments()).getFollowers();
         numOfPosts = ProfessionFragmentArgs.fromBundle(getArguments()).getPostsuploads();

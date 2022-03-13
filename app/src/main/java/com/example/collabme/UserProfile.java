@@ -1,6 +1,7 @@
 package com.example.collabme;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,10 @@ public class UserProfile extends Fragment {
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://10.0.2.2:4000";
     TextView username,age,followers,postuploads;
-    Spinner proffesions,platform;
-    ArrayList<String>  platform1;
+    Spinner professions,platform;
+    ArrayList<String>  platformArr;
 
-    ArrayList<String> proffesions1;
+    ArrayList<String> professionsArr;
 
 
     @Override
@@ -36,7 +37,7 @@ public class UserProfile extends Fragment {
         username=view.findViewById(R.id.fragment_userprofile_username);
         age=view.findViewById(R.id.fragment_userprofile_age);
         platform=view.findViewById(R.id.fragemnt_signup_platform);
-        proffesions=view.findViewById(R.id.fragemnt_signup_proffesions);
+        professions=view.findViewById(R.id.fragemnt_signup_proffesions);
         followers=view.findViewById(R.id.fragment_userprofile_followers);
         postuploads=view.findViewById(R.id.fragment_userprofile_postsuploads);
         Model.instance.getUserConnect(new Model.getuserconnect() {
@@ -47,12 +48,11 @@ public class UserProfile extends Fragment {
                     followers.setText(profile.getFollowers());
                     postuploads.setText(profile.getNumOfPosts());
                     age.setText(profile.getAge());
-                    platform1 = ChangeToArray(profile.getPlatforms());
-                    proffesions1 = ChangeToArray(profile.getProfessions());
+                    platformArr = ChangeToArray(profile.getPlatforms());
+                    professionsArr = ChangeToArray(profile.getProfessions());
 
-                    initSpinnerFooter(platform1.size(),platform1,platform);
-                    initSpinnerFooter(proffesions1.size(),proffesions1,proffesions);
-
+                    initSpinnerFooter(platformArr.size(),platformArr,platform);
+                    initSpinnerFooter(professionsArr.size(),professionsArr,professions);
                 }
             }
         });
@@ -62,9 +62,15 @@ public class UserProfile extends Fragment {
     }
 
     private void initSpinnerFooter(int size,ArrayList<String> array,Spinner spinner) {
-        String[] items = new String[size];
+        int tmp = 0;
+        for(int j = 0 ; j<size;j++){
+            if(array.get(j) != null){
+                tmp++;
+            }
+        }
+        String[] items = new String[tmp];
 
-        for(int i = 0 ; i<size;i++){
+        for(int i = 0 ; i<tmp;i++){
             items[i] = array.get(i);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
@@ -73,14 +79,10 @@ public class UserProfile extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextSize(25);
-
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
     }
 

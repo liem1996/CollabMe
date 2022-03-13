@@ -44,6 +44,8 @@ public class Model {
 
     }
 
+
+
     public void addOffer(Offer offer,Model.addOfferListener addOffer) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -206,6 +208,36 @@ public class Model {
             }
         });
     }
+    public void logout(logout logout){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tockenrefresh = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenrefresh","");
+
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        Call<Void> call = retrofitInterface.excutelogout("Bearer "+ tockenrefresh);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                logout.onComplete();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                logout.onComplete();
+            }
+        });
+
+
+    }
+
 }
 
 

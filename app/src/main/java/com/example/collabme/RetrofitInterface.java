@@ -18,6 +18,9 @@ public interface RetrofitInterface {
     @POST("/auth/login")
     Call<tokenrespone> executeLogin(@Body HashMap<String, String> map);
 
+    @POST("/auth/logout")
+    Call<Void> excutelogout(@Header("authorization") String token);
+
     @POST("/auth/register")
     Call<Void> executeSignup(@Body HashMap<String, Object> map);
 

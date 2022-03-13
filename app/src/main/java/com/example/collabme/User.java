@@ -23,10 +23,10 @@ public class User {
     private String age;
     @SerializedName("Influencer")
     @Expose
-    private boolean influencer;
+    private boolean influencer=false;
     @SerializedName("Company")
     @Expose
-    private boolean company;
+    private boolean company=false;
     @SerializedName("Profession")
     @Expose
     private String[] professions;

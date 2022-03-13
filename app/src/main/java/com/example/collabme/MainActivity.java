@@ -1,5 +1,6 @@
 package com.example.collabme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,9 +38,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void toLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        System.out.println("ho");
         if(!super.onOptionsItemSelected(item)){
 
             switch (item.getItemId()){
@@ -54,10 +62,15 @@ public class MainActivity extends AppCompatActivity {
                     navCtl.navigate(R.id.action_global_homeFragment2);
                     break;
 
-                case R.id.addOffer:
+                case R.id.menu_logout:
 
                     // Model.instance.getUserName(email);
-                    navCtl.navigate(R.id.action_global_addOfferDetailsFragemnt);
+                    Model.instance.logout(new Model.logout() {
+                        @Override
+                        public void onComplete() {
+                            toLoginActivity();
+                        }
+                    });
                     break;
 
 

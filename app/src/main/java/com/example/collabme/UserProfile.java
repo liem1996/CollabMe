@@ -15,22 +15,21 @@ import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 
-import retrofit2.Retrofit;
-
 
 public class UserProfile extends Fragment {
 
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://10.0.2.2:4000";
-    TextView username,age,followers,postuploads, username2, home;
+     TextView username,age,followers,postuploads;
     Spinner professions,platform;
     ArrayList<String>  platformArr;
-    Button chat,socialMedia,proffesion,createAnOffer,edit;
-
-
-
+    Button chat,createAnOffer,edit;
     ArrayList<String> professionsArr;
+    String [] plat;
+    String [] pref;
+    String password ;
+    Boolean influencer1, company1;
+    String email1;
+    String gender1;
+
 
 
     @Override
@@ -39,73 +38,66 @@ public class UserProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         username=view.findViewById(R.id.fragment_userprofile_username);
-        username2 = view.findViewById(R.id.fragment_userprofile_username2);
+
         age=view.findViewById(R.id.fragment_userprofile_age);
         platform=view.findViewById(R.id.fragemnt_signup_platform);
         professions=view.findViewById(R.id.fragemnt_signup_proffesions);
         followers=view.findViewById(R.id.fragment_userprofile_followers);
         postuploads=view.findViewById(R.id.fragment_userprofile_postsuploads);
         chat=view.findViewById(R.id.fragment_userprofile_chatbtn);
-        socialMedia=view.findViewById(R.id.fragemnt_userprofile_social);
-        proffesion=view.findViewById(R.id.fragemnt_userprofile_proffesion);
         createAnOffer=view.findViewById(R.id.fragemnt_userprofile_create);
         edit=view.findViewById(R.id.fragemnt_userprofile_edit);
-        home= view.findViewById(R.id.fragment_userprofile_home);
-        home.setOnClickListener(v->{
-            Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+         Model.instance.getUserConnect(new Model.getuserconnect() {
+            @Override
+            public void onComplete(User profile) {
+                if(profile!=null) {
+                    username.setText(profile.getUsername());
+                    followers.setText(profile.getFollowers());
+                    postuploads.setText(profile.getNumOfPosts());
+                    age.setText(profile.getAge());
+                    plat = profile.getPlatforms();
+                    pref=profile.getProfessions();
+                    gender1=profile.getSex();
+                    email1=profile.getEmail();
+                    platformArr = ChangeToArray(profile.getPlatforms());
+                    professionsArr = ChangeToArray(profile.getProfessions());
+                    password=profile.getPassword();
+                    influencer1 = profile.getInfluencer();
+                    company1 = profile.getInfluencer();
+                    initSpinnerFooter(platformArr.size(),platformArr,platform);
+                    initSpinnerFooter(professionsArr.size(),professionsArr,professions);
+
+
+                }
+
+            }
         });
+
+
 
         //need to create chat
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
-            }
-        });
 
-        socialMedia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_global_socialmedia);
-            }
-        });
-        proffesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+                //Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
             }
         });
         createAnOffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+               // Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+               Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToEditProfile2(username.getText().toString(),password,company1,influencer1,age.getText().toString(),email1,gender1,plat,pref,followers.getText().toString(),postuploads.getText().toString()));
             }
         });
 
 
-        Model.instance.getUserConnect(new Model.getuserconnect() {
-            @Override
-            public void onComplete(User profile) {
-                if(profile!=null) {
-                    username.setText(profile.getUsername());
-                    username2.setText(profile.getUsername());
-                    followers.setText(profile.getFollowers());
-                    postuploads.setText(profile.getNumOfPosts());
-                    age.setText(profile.getAge());
-                    platformArr = ChangeToArray(profile.getPlatforms());
-                    professionsArr = ChangeToArray(profile.getProfessions());
 
-                    initSpinnerFooter(platformArr.size(),platformArr,platform);
-                    initSpinnerFooter(professionsArr.size(),professionsArr,professions);
-                }
-            }
-        });
 
         return view;
 

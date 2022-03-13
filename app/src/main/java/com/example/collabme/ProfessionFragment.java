@@ -13,16 +13,10 @@ import androidx.navigation.Navigation;
 
 import java.util.Arrays;
 
-import retrofit2.Retrofit;
-
 
 public class ProfessionFragment extends Fragment implements View.OnClickListener{
 
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://10.0.2.2:4000";
-
-    Button continueBtn;
+     Button continueBtn;
 
     String username, password, email, gender, age, followers, numOfPosts;
     boolean company, influencer;

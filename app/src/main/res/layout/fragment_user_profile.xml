@@ -13,10 +13,10 @@
         android:src="@drawable/ic_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.197"
+        app:layout_constraintHorizontal_bias="0.186"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.073" />
 
     <ImageView
         android:id="@+id/imageView13"
@@ -41,6 +41,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.561" />
+
+    <Spinner
+        android:id="@+id/fragemnt_signup_platform"
+        android:layout_width="155dp"
+        android:layout_height="20dp"
+        android:background="#F3F3F3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.781"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.696" />
+
+    <Spinner
+        android:id="@+id/fragemnt_signup_proffesions"
+        android:layout_width="155dp"
+        android:layout_height="20dp"
+        android:background="#F3F3F3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.781"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.511" />
 
     <Button
         android:id="@+id/fragment_userprofile_chatbtn"
@@ -72,15 +96,15 @@
 
     <Button
         android:id="@+id/fragemnt_signup_backbtn10"
-        android:layout_width="98dp"
-        android:layout_height="46dp"
+        android:layout_width="104dp"
+        android:layout_height="50dp"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="52dp"
         android:backgroundTint="#4c266a"
         android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.738"
+        app:layout_constraintHorizontal_bias="0.741"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
 

@@ -23,12 +23,6 @@ public class Model {
     String userToken;
     //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
 
-
-
-
-
-
-
     public String username1="bar2";
 
 
@@ -39,18 +33,10 @@ public class Model {
         void onComplete(int code);
     }
 
-    public interface getacssesToken{
-        void onComplete(String acssestoken);
-    }
     public interface logout{
         void onComplete();
     }
-    public interface GetUserByUserName{
-        void onComplete(User profile);
-    }
-
     public interface getuserconnect{
-
         void onComplete(User profile);
 
     }
@@ -98,7 +84,7 @@ public class Model {
 
 
 
-    public void Login(String username,String password,Model.sighup Login){
+    public void Login(String username,String password,Model.Login Login){
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

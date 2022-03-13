@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
 
     <Button
-        android:id="@+id/fragemnt_signup_backbtn9"
+        android:id="@+id/fragemnt_userprofile_social"
         android:layout_width="110dp"
         android:layout_height="59dp"
         android:layout_marginTop="28dp"
@@ -96,13 +96,13 @@
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
 
     <Button
-        android:id="@+id/fragemnt_signup_backbtn10"
-        android:layout_width="104dp"
-        android:layout_height="50dp"
+        android:id="@+id/fragemnt_userprofile_edit"
+        android:layout_width="109dp"
+        android:layout_height="53dp"
         android:layout_marginTop="28dp"
         android:layout_marginBottom="72dp"
         android:backgroundTint="#4c266a"
-        android:text="Edit"
+        android:text="Edit user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.762"
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
 
     <Button
-        android:id="@+id/fragemnt_signup_backbtn7"
+        android:id="@+id/fragemnt_userprofile_proffesion"
         android:layout_width="120dp"
         android:layout_height="48dp"
         android:backgroundTint="#4c266a"
@@ -122,7 +122,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/fragemnt_signup_backbtn8"
+        android:id="@+id/fragemnt_userprofile_create"
         android:layout_width="115dp"
         android:layout_height="53dp"
         android:backgroundTint="#4c266a"
@@ -211,7 +211,7 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView9"
         app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_backbtn9"
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_userprofile_social"
         app:layout_constraintVertical_bias="0.29" />
 
     <TextView

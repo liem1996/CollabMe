@@ -1,12 +1,12 @@
 package com.example.collabme;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -26,6 +26,9 @@ public class UserProfile extends Fragment {
     TextView username,age,followers,postuploads, username2, home;
     Spinner professions,platform;
     ArrayList<String>  platformArr;
+    Button chat,socialMedia,proffesion,createAnOffer,edit;
+
+
 
     ArrayList<String> professionsArr;
 
@@ -42,10 +45,50 @@ public class UserProfile extends Fragment {
         professions=view.findViewById(R.id.fragemnt_signup_proffesions);
         followers=view.findViewById(R.id.fragment_userprofile_followers);
         postuploads=view.findViewById(R.id.fragment_userprofile_postsuploads);
+        chat=view.findViewById(R.id.fragment_userprofile_chatbtn);
+        socialMedia=view.findViewById(R.id.fragemnt_userprofile_social);
+        proffesion=view.findViewById(R.id.fragemnt_userprofile_proffesion);
+        createAnOffer=view.findViewById(R.id.fragemnt_userprofile_create);
+        edit=view.findViewById(R.id.fragemnt_userprofile_edit);
         home= view.findViewById(R.id.fragment_userprofile_home);
         home.setOnClickListener(v->{
             Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
         });
+
+        //need to create chat
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+            }
+        });
+
+        socialMedia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_global_socialmedia);
+            }
+        });
+        proffesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+            }
+        });
+        createAnOffer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+            }
+        });
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+            }
+        });
+
+
         Model.instance.getUserConnect(new Model.getuserconnect() {
             @Override
             public void onComplete(User profile) {

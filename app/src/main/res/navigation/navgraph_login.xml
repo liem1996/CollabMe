@@ -153,5 +153,5 @@
         android:id="@+id/userProfile2"
         android:name="com.example.collabme.UserProfile"
         android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" /><action android:id="@+id/action_global_socialmedia" app:destination="@id/socialmedia"/>
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.collabme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import retrofit2.Retrofit;
-
 public class LoginFragment extends Fragment {
 
     EditText username, password;
@@ -21,9 +20,13 @@ public class LoginFragment extends Fragment {
     TextView signup;
     View view;
 
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://10.0.2.2:4000";
+
+
+    private void toFeedActivity() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,8 +41,8 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(int code) {
                 if(code==200) {
-                    Navigation.findNavController(view).navigate(R.id.action_global_addOfferDetailsFragemnt);
-                    //Toast.makeText(getActivity(), "yess", Toast.LENGTH_LONG).show();
+                    toFeedActivity();
+
                 }
                 else{
                     Toast.makeText(getActivity(), "boo", Toast.LENGTH_LONG).show();

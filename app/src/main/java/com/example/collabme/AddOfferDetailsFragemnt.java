@@ -77,7 +77,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
 
                            Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
 
-                           Navigation.findNavController(view).navigate(R.id.action_global_homeFragment);
+                           Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
 
                        } else {
                            Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();

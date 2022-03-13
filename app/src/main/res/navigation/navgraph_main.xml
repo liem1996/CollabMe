@@ -9,5 +9,5 @@
         android:id="@+id/userProfile"
         android:name="com.example.collabme.UserProfile"
         android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" /><action android:id="@+id/action_global_userProfile" app:destination="@id/userProfile"/>
 </navigation>

@@ -21,19 +21,14 @@ public class Model {
     public static final String TOKEN = "myToken";
     Context context;
     String userToken;
+    //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
 
 
-    Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
 
 
 
-    /*
-       .getSharedPreferences("TAG",Context.MODE_PRIVATE)
-                                .edit()
-                                .putLong("PostsLastUpdateDate",lud)
-                                .commit();
 
-     */
+
     public String username1="bar2";
 
 
@@ -116,11 +111,23 @@ public class Model {
             map.put("Password", password);
             username1=username;
 
-            Call<User> call = retrofitInterface.executeLogin(map);
-            call.enqueue(new Callback<User>() {
+            Call<tokenrespone> call = retrofitInterface.executeLogin(map);
+            call.enqueue(new Callback<tokenrespone>() {
                 @Override
-                public void onResponse(Call<User> call, Response<User> response) {
+                public void onResponse(Call<tokenrespone> call, Response<tokenrespone> response) {
                     if (response.code() == 200) {
+                        String tokenResponse = response.body().getaccessToken();
+                        String tokenrefresh = response.body().getrefreshToken();
+                        MyApplication.getContext()
+                                .getSharedPreferences("TAG",Context.MODE_PRIVATE)
+                                .edit()
+                                .putString("tokenAcsses",tokenResponse)
+                                .commit();
+                        MyApplication.getContext()
+                                .getSharedPreferences("TAG1",Context.MODE_PRIVATE)
+                                .edit()
+                                .putString("tokenrefresh",tokenrefresh)
+                                .commit();
                         Login.onComplete(200);
 
                     } else  {
@@ -129,11 +136,13 @@ public class Model {
                 }
 
                 @Override
-                public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                public void onFailure(retrofit2.Call<tokenrespone> call, Throwable t) {
                     Login.onComplete(400);
                 }
 
             });
+
+
 
     }
 
@@ -144,12 +153,18 @@ public class Model {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.getUser(username1);
+        Call<User> call = retrofitInterface.getUser(username1,"Bearer "+tockenacsses);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+
                 getuserconnect.onComplete(response.body());
             }
 

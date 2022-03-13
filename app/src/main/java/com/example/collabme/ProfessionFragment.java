@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import java.util.Arrays;
 
@@ -84,14 +85,15 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         numOfPosts = ProfessionFragmentArgs.fromBundle(getArguments()).getPostsuploads();
         platforms = ProfessionFragmentArgs.fromBundle(getArguments()).getPlatform();
 
-        User user = new User(gender,username,password,email,age,followers,numOfPosts,company,influencer,professions,platforms);
+        User user = new User(gender,password,email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
 
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
         continueBtn.setOnClickListener(v-> Model.instance.sighup(user, new Model.sighup() {
             @Override
             public void onComplete(int code) {
                 if(code==200){
-                    Toast.makeText(getActivity(),"yes", Toast.LENGTH_LONG).show();
+                    Navigation.findNavController(view).navigate(R.id.action_professionFragment_to_userProfile2);
+                    Toast.makeText(getActivity(),"hiiii11122", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getActivity(), "no", Toast.LENGTH_LONG).show();
                 }

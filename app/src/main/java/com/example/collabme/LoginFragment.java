@@ -38,7 +38,8 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(int code) {
                 if(code==200) {
-                    Toast.makeText(getActivity(), "yess", Toast.LENGTH_LONG).show();
+                    Navigation.findNavController(view).navigate(R.id.action_fragment_login_to_userProfile2);
+                    //Toast.makeText(getActivity(), "yess", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Toast.makeText(getActivity(), "boo", Toast.LENGTH_LONG).show();

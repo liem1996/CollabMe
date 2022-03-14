@@ -66,11 +66,10 @@ public class AddOfferDetailsFragemnt extends Fragment {
             public void onComplete(User profile) {
                 if(profile!=null) {
                     userConnected = profile;
+                    proposer.setText(profile.getUsername());
                 }
             }
         });
-
-        proposer.setText("liem");
 
         profession.setOnClickListener(new View.OnClickListener() {
             @Override

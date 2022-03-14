@@ -3,6 +3,7 @@ package com.example.collabme;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Offer {
@@ -136,5 +137,19 @@ public class Offer {
         Offer offer = new Offer(description,coupon,headline,price,idOffer,status,profession,user,intrestedVerify);
 
         return offer;
+    }
+
+    public Map<String, Object> toJson() {
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("Description",description);
+        json.put("Coupon",coupon);
+        json.put("Headline",headline);
+        json.put("Price",price);
+        json.put("IdOffer", idOffer);
+        json.put("Status", status);
+        json.put("Profession", profession);
+        json.put("User",user);
+        json.put("IntrestedVerify", intrestedVerify);
+        return json;
     }
 }

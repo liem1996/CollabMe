@@ -1,8 +1,10 @@
 package com.example.collabme;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +26,8 @@ public class Model {
     //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
 
     public String username1="liem";
+    public String offerId = "622e2fed8fba1393eee2da12";
+
 
 
     public interface signupListener{
@@ -41,6 +45,15 @@ public class Model {
     }
     public interface getuserconnect{
         void onComplete(User profile);
+
+    }
+
+    public interface GetOfferListener{
+        void onComplete(Offer offer);
+
+    }
+    public interface EditOfferListener{
+        void onComplete(int code);
 
     }
 
@@ -180,6 +193,69 @@ public class Model {
 
 
 
+    }
+
+
+    public void editOffer(Offer newOffer, EditOfferListener editOfferListener){
+        // getOfferById(offerId, getOfferListener);
+        offerId = "622e2fed8fba1393eee2da12";
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tokenAccess = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        Map<String, Object> map = newOffer.toJson();
+
+        Call<Void> call = retrofitInterface.editOffer(offerId,"Bearer "+tokenAccess,map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                editOfferListener.onComplete(response.code());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("TAG","basaaaaaa  a a a "+t);
+                editOfferListener.onComplete(400);
+
+            }
+        });
+
+    }
+
+    public void getOfferById(GetOfferListener getOfferListener) {
+        offerId = "622e2fed8fba1393eee2da12";
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tokenAccess = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<Offer> call = retrofitInterface.getOfferById(offerId,"Bearer "+tokenAccess);
+        call.enqueue(new Callback<Offer>() {
+            @Override
+            public void onResponse(Call<Offer> call, Response<Offer> response) {
+                getOfferListener.onComplete(response.body());
+            }
+            @Override
+            public void onFailure(Call<Offer> call, Throwable t) {
+                getOfferListener.onComplete(null);
+
+            }
+        });
     }
 
 

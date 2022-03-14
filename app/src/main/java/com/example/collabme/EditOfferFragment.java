@@ -27,7 +27,7 @@ public class EditOfferFragment extends Fragment {
     Spinner profession;
 
     String[] oldProfession;
-    int oldIdOffer;
+    String oldIdOffer;
 
 
     @Override
@@ -90,12 +90,11 @@ public class EditOfferFragment extends Fragment {
         String status1 = status.getText().toString();
         //String[] profession1 = profession.getText().toString();
         String price1 = price.getText().toString();
-        int newPrice = Integer.parseInt(price1);
         //String candidates1 = candidates.getText().toString();
         //String coupon1 = coupon.getText().toString();
         boolean interestedVerify1 = interestedVerify.isChecked();
 
-        Offer offer = new Offer(description1,null,headline1,newPrice,oldIdOffer,status1,oldProfession,proposer,interestedVerify1);
+        Offer offer = new Offer(description1,null,headline1,price1,oldIdOffer,status1,oldProfession,null,interestedVerify1);
 
         Model.instance.editOffer(offer,new Model.EditOfferListener() {
             @Override

@@ -125,5 +125,5 @@
         android:id="@+id/inprogressfragment"
         android:name="com.example.collabme.offers.inprogressfragment"
         android:label="fragment_inprogressfragment"
-        tools:layout="@layout/fragment_inprogressfragment" />
+        tools:layout="@layout/fragment_inprogressfragment" /><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.offers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,6 +18,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.collabme.model.Model;
+import com.example.collabme.model.Offer;
+import com.example.collabme.R;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;

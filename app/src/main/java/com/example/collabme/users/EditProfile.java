@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.users;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,6 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.collabme.model.Model;
+import com.example.collabme.model.User;
+import com.example.collabme.R;
+
 
 import org.w3c.dom.Text;
 
@@ -92,7 +97,7 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Model.instance.editUser(user,new Model.editUserListener() {
+                Model.instance.EditUser(user,new Model.EditUserListener() {
                     @Override
                     public void onComplete(int code) {
                         if(code == 200) {

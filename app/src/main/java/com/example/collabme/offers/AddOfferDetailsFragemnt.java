@@ -115,7 +115,9 @@ public class AddOfferDetailsFragemnt extends Fragment {
                         for (int j = 0; j < langList.size(); j++) {
                             // concat array value
                             stringBuilder.append(langArray[langList.get(j)]);
+
                             chosenOffers[j]=(langArray[langList.get(j)]); //to check again
+
                             System.out.println("ko");
                             // check condition
                             if (j != langList.size() - 1) {

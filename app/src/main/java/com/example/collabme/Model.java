@@ -37,7 +37,7 @@ public class Model {
     }
 
     public interface logout{
-        void onComplete();
+        void onComplete(int code);
     }
     public interface getuserconnect{
         void onComplete(User profile);
@@ -64,11 +64,12 @@ public class Model {
         map.put("User", offer.getUser());
         map.put("IntrestedVerify", offer.getIntrestedVerify());
 
+
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
-        Call<Offer> call = retrofitInterface.executenewOffer(map,"Bearer "+ tockenacsses);
+        Call<Offer> call = retrofitInterface.executenewOffer(map,"Bearer " + tockenacsses);
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
@@ -196,7 +197,7 @@ public class Model {
 
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.getUser(username1,"Bearer "+tockenacsses);
+        Call<User> call = retrofitInterface.getUser(username1,"Bearer"+tockenacsses);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -228,12 +229,12 @@ public class Model {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                logout.onComplete();
+                logout.onComplete(200);
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                logout.onComplete();
+                logout.onComplete(400);
             }
         });
 

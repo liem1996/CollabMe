@@ -25,7 +25,9 @@ public interface RetrofitInterface {
     Call<Void> executeSignup(@Body HashMap<String, Object> map);
 
     @POST("/offer/addNewOffer")
-    Call<Offer> executenewOffer(@Body HashMap<String, Object> map, @Header("authorization") String token);
+    Call<Offer> executenewOffer(@Body HashMap<String, Object> map,@Header("authorization") String token);
+
+
 
 
 

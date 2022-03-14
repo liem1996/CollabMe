@@ -32,7 +32,6 @@ public interface RetrofitInterface {
     @POST("/users/editUser/{username}")
     Call<User> editUser(@Path("username") String username,@Header("authorization") String token, @Body Map<String, Object> newUser);
 
-
     @POST("/offer/addNewOffer")
     Call<Offer> executenewOffer(@Body HashMap<String, Object> map,@Header("authorization") String token);
 

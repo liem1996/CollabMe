@@ -421,22 +421,27 @@ public class Model {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        String tockenrefresh = MyApplication.getContext()
+        String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenrefresh","");
+                .getString("tokenAcsses","");
+
         HashMap<String, Object> map = new HashMap<>();
         map = profile.tojson();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.editUser(profile.getUsername(),"Bearer "+ tockenrefresh,map);
+        Call<User> call = retrofitInterface.editUser(profile.getUsername(),"Bearer "+ tockenacsses,map);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                Log.d("TAG",""+response);
+
                 editUserListener.onComplete(200);
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                Log.d("TAG","not "+t);
+
                 editUserListener.onComplete(400);
             }
         });

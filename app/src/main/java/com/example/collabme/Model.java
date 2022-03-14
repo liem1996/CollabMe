@@ -1,8 +1,10 @@
 package com.example.collabme;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +26,8 @@ public class Model {
     //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
 
     public String username1="liem";
+    public String offerId = "622e2fed8fba1393eee2da12";
+
 
 
     public interface signupListener{
@@ -37,10 +41,23 @@ public class Model {
     }
 
     public interface logout{
-        void onComplete();
+        void onComplete(int code);
     }
     public interface getuserconnect{
         void onComplete(User profile);
+
+    }
+    public interface GetUserByIdListener{
+        void onComplete(User profile);
+
+    }
+
+    public interface GetOfferListener{
+        void onComplete(Offer offer);
+
+    }
+    public interface EditOfferListener{
+        void onComplete(int code);
 
     }
 
@@ -64,11 +81,12 @@ public class Model {
         map.put("User", offer.getUser());
         map.put("IntrestedVerify", offer.getIntrestedVerify());
 
+
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
-        Call<Offer> call = retrofitInterface.executenewOffer(map,"Bearer "+ tockenacsses);
+        Call<Offer> call = retrofitInterface.executenewOffer(map,"Bearer " + tockenacsses);
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
@@ -183,6 +201,97 @@ public class Model {
     }
 
 
+    public void editOffer(Offer newOffer, EditOfferListener editOfferListener){
+        // getOfferById(offerId, getOfferListener);
+        offerId = "622f01aaf5223e5bc4be080a";
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tokenAccess = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        Map<String, Object> map = newOffer.toJson();
+
+        Call<Void> call = retrofitInterface.editOffer(offerId,"Bearer "+tokenAccess,map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                editOfferListener.onComplete(200);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("TAG","basaaaaaa  a a a "+t);
+                editOfferListener.onComplete(400);
+
+            }
+        });
+
+    }
+
+    public void getOfferById(GetOfferListener getOfferListener) {
+        offerId = "622f01aaf5223e5bc4be080a";
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tokenAccess = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<Offer> call = retrofitInterface.getOfferById(offerId,"Bearer "+tokenAccess);
+        call.enqueue(new Callback<Offer>() {
+            @Override
+            public void onResponse(Call<Offer> call, Response<Offer> response) {
+                getOfferListener.onComplete(response.body());
+            }
+            @Override
+            public void onFailure(Call<Offer> call, Throwable t) {
+                Log.d("TAG","basaaaaaa  a a a "+t);
+
+                getOfferListener.onComplete(null);
+
+            }
+        });
+    }
+
+    public void getUserById(String id, GetUserByIdListener getUserByIdListener) {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<User> call = retrofitInterface.getUserById(id,"Bearer "+tockenacsses);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                getUserByIdListener.onComplete(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                getUserByIdListener.onComplete(null);
+            }
+        });
+    }
+
+
     public void getUserConnect(getuserconnect getuserconnect) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -194,7 +303,7 @@ public class Model {
                 .getString("tokenAcsses","");
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.getUser(username1,"Bearer "+tockenacsses);
+        Call<User> call = retrofitInterface.getUser(username1,"Bearer"+tockenacsses);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -226,12 +335,12 @@ public class Model {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                logout.onComplete();
+                logout.onComplete(200);
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                logout.onComplete();
+                logout.onComplete(400);
             }
         });
 

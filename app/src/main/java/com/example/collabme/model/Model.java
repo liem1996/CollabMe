@@ -358,6 +358,35 @@ public class Model {
     }
 
 
+    public void getuserbyusername(String username, GetUserByIdListener getUserByIdListener) {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<User> call = retrofitInterface.getUser(username,"Bearer "+tockenacsses);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                getUserByIdListener.onComplete(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                getUserByIdListener.onComplete(null);
+            }
+        });
+    }
+
+
+
+
     public void getUserConnect(getuserconnect getuserconnect) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

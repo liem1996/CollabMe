@@ -56,8 +56,6 @@ public class HomeFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(offersviewmodel.class);
     }
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -206,39 +204,17 @@ public class HomeFragment extends Fragment {
             Offer_status.setText(offer.getStatus());
 
 
-            Model.instance.getUserById(offer.getUser(), new Model.GetUserByIdListener() {
+
+            Model.instance.getuserbyusername(offer.getUser(), new Model.GetUserByIdListener() {
                 @Override
                 public void onComplete(User profile) {
-//                    stUsername = profile.getUsername();
-   //                 username.setText(stUsername);
+                 stUsername = profile.getUsername();
+                   username.setText(stUsername);
 
                 }
             });
             Editview.setVisibility(View.GONE);
 
-
-            /*
-
-            Model.instance.getUserConnect(new Model.connect() {
-                @Override
-                public void onComplete(Profile profile) {
-                    if(profile.getEmail().equals(tv_name.getText().toString())){
-                        Model.instance.mainThread.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imgdelete.setVisibility(View.VISIBLE);
-                                imgedit.setVisibility(View.VISIBLE);
-                                Editview.setVisibility(View.VISIBLE);
-                                Deleteview.setVisibility(View.VISIBLE);
-
-                            }
-                        });
-
-                    }
-                }
-            });
-
-             */
 
 
         }

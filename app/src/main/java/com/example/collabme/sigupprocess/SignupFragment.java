@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.sigupprocess;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,20 +11,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.example.collabme.R;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignupFragment extends Fragment {
 

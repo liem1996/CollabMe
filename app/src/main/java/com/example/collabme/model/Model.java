@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.model;
 
 import android.content.Context;
 import android.util.Log;
@@ -122,18 +122,7 @@ public class Model {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
             HashMap<String, Object> map = new HashMap<>();
-            map.put("Username", profile.getUsername());
-            map.put("Password", profile.getPassword());
-            map.put("Email", profile.getEmail());
-            map.put("Sex", profile.getSex());
-            map.put("Age", profile.getAge());
-            map.put("Followers", profile.getFollowers());
-            map.put("NumberOfPosts", profile.getNumOfPosts());
-            map.put("Company", profile.getCompany());
-            map.put("Influencer", profile.getInfluencer());
-            map.put("Profession", profile.getProfessions());
-            map.put("Platform", profile.getPlatforms());
-
+            map = profile.tojson();
             Call<Void> call = retrofitInterface.executeSignup(map);
             call.enqueue(new Callback<Void>() {
                 @Override
@@ -164,7 +153,6 @@ public class Model {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
           HashMap<String, String> map = new HashMap<>();
-
             map.put("Username", username);
             map.put("Password", password);
             username1=username;
@@ -307,7 +295,7 @@ public class Model {
                 .getString("tokenAcsses","");
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.getUser(username1,"Bearer"+tockenacsses);
+        Call<User> call = retrofitInterface.getUser(username1,"Bearer "+tockenacsses);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -361,17 +349,7 @@ public class Model {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenrefresh","");
         HashMap<String, Object> map = new HashMap<>();
-        map.put("Username", profile.getUsername());
-        map.put("Password", profile.getPassword());
-        map.put("Email", profile.getEmail());
-        map.put("Sex", profile.getSex());
-        map.put("Age", profile.getAge());
-        map.put("Followers", profile.getFollowers());
-        map.put("NumberOfPosts", profile.getNumOfPosts());
-        map.put("Company", profile.getCompany());
-        map.put("Influencer", profile.getInfluencer());
-        map.put("Profession", profile.getProfessions());
-        map.put("Platform", profile.getPlatforms());
+          map = profile.tojson();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         Call<User> call = retrofitInterface.editUser(profile.getUsername(),"Bearer "+ tockenrefresh,map);

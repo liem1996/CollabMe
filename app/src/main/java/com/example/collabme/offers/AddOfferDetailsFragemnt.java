@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.offers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,14 +10,16 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.collabme.model.Model;
+import com.example.collabme.model.Offer;
+import com.example.collabme.R;
+import com.example.collabme.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

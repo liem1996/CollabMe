@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.users;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.collabme.R;
 
 import java.util.ArrayList;
 

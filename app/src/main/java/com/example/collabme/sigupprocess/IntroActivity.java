@@ -1,8 +1,10 @@
-package com.example.collabme;
+package com.example.collabme.sigupprocess;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.collabme.R;
 
 public class IntroActivity extends AppCompatActivity {
 

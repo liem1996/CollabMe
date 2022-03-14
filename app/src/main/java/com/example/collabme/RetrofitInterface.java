@@ -36,7 +36,7 @@ public interface RetrofitInterface {
     Call<Offer> getOfferById(@Path("id") String offerId,@Header("authorization") String token);
 
     @POST("/offer/editOffer/{id}")
-    Call<Void> editOffer(@Path("id") String offerId,@Header("authorization") String token, @Body Map<String, Object> newOffer);
+    Call<Offer> editOffer(@Path("id") String offerId,@Header("authorization") String token, @Body Map<String, Object> newOffer);
 
 
 }

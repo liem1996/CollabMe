@@ -217,18 +217,17 @@ public class Model {
 
         Map<String, Object> map = newOffer.toJson();
 
-        Call<Void> call = retrofitInterface.editOffer(offerId,"Bearer "+tokenAccess,map);
-        call.enqueue(new Callback<Void>() {
+        Call<Offer> call = retrofitInterface.editOffer(offerId,"Bearer "+tokenAccess,map);
+        call.enqueue(new Callback<Offer>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Offer> call, Response<Offer> response) {
                 editOfferListener.onComplete(200);
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Offer> call, Throwable t) {
                 Log.d("TAG","basaaaaaa  a a a "+t);
                 editOfferListener.onComplete(400);
-
             }
         });
 

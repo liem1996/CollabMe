@@ -156,7 +156,7 @@ public class Offer {
         Map<String, Object> json = new HashMap<String, Object>();
         json.put("Description",description);
         json.put("Coupon",coupon);
-        json.put("Headline",headline);
+        json.put("HeadLine",headline);
         json.put("FinishDate",finishDate);
         json.put("Price",price);
         json.put("IdOffer", idOffer);

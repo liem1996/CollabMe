@@ -20,13 +20,13 @@
         android:id="@+id/imageView11"
         android:layout_width="394dp"
         android:layout_height="615dp"
-        android:src="@drawable/ic_offerdetails5"
+        android:src="@drawable/ic_offerdetails4"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.493" />
+        app:layout_constraintVertical_bias="0.611" />
 
     <CheckBox
         android:id="@+id/fragment_editOffer_checkbox"
@@ -40,75 +40,74 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_price"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_editOffer_proposer"
         android:layout_width="237dp"
         android:layout_height="35dp"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="76dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toTopOf="@+id/imageView11" />
 
     <EditText
         android:id="@+id/fragment_editOffer_headline"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
+        android:layout_width="230dp"
+        android:layout_height="37dp"
         android:layout_marginStart="140dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_proposer"
-        android:background="@android:color/transparent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_proposer" />
 
     <EditText
         android:id="@+id/fragment_editOffer_finishdate"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
+        android:layout_width="229dp"
+        android:layout_height="37dp"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_description" />
-
-    <EditText
-        android:id="@+id/fragment_editOffer_status"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="6dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_finishdate"
-        android:background="@android:color/transparent"
-        />
-
-    <EditText
-        android:id="@+id/fragment_editOffer_price"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_description" />
+
+    <EditText
+        android:id="@+id/fragment_editOffer_status"
+        android:layout_width="229dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="6dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_finishdate" />
+
+    <EditText
+        android:id="@+id/fragment_editOffer_price"
+        android:layout_width="229dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_profession" />
 
@@ -126,51 +125,52 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_headline" />
 
     <Button
-        android:id="@+id/fragment_editOffer_chatBtn"
+        android:id="@+id/fragment_editOffer_saveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
         android:layout_marginTop="60dp"
+        android:layout_marginEnd="64dp"
         android:backgroundTint="#4c266a"
-        android:text="chat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_editOffer_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_price"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/fragment_editOffer_uploadBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:backgroundTint="#4c266a"
-        android:text="upload"
+        android:text="save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
-        app:layout_constraintStart_toEndOf="@+id/fragment_editOffer_chatBtn"
+        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintStart_toEndOf="@+id/fragment_editOffer_checkbox"
         app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_price"
         app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="254dp"
-        android:layout_height="31dp"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.893"
+        app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_price" />
 
-    <Spinner
+    <TextView
         android:id="@+id/fragment_editOffer_profession"
         android:layout_width="229dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"
+        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_status" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="131dp"
+        android:src="@drawable/ic_editoffer"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_editOffer_proposer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView11"
+        app:layout_constraintVertical_bias="0.344" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.collabme;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Offer {
@@ -12,6 +13,9 @@ public class Offer {
     @SerializedName("HeadLine")
     @Expose
     private String headline;
+    @SerializedName("FinishDate")
+    @Expose
+    private String finishDate;
     @SerializedName("Price")
     @Expose
     private String price;
@@ -29,7 +33,7 @@ public class Offer {
     private String[] profession;
     @SerializedName("User")
     @Expose
-    private String  userid;
+    private String user;
     @SerializedName("IntrestedVerify")
     @Expose
     private boolean intrestedVerify;
@@ -49,6 +53,14 @@ public class Offer {
      */
     public String getHeadline() {
         return headline;
+    }
+    /**
+     *
+     * @return
+     * The finishDate
+     */
+    public String getFinishDate() {
+        return finishDate;
     }
     /**
      *
@@ -93,10 +105,10 @@ public class Offer {
     /**
      *
      * @return
-     * The userid
+     * The user
      */
     public String getUser() {
-        return userid;
+        return user;
     }
     /**
      *
@@ -108,15 +120,16 @@ public class Offer {
     }
 
 
-    public Offer(String description,String coupon, String headline, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
+    public Offer(String description,String coupon, String headline,String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
         this.coupon = coupon;
         this.description = description;
         this.idOffer = idOffer;
         this.headline = headline;
+        this.finishDate = finishDate;
         this.price = price;
         this.status = status;
         this.profession = profession;
-        this.userid = user;
+        this.user = user;
         this.intrestedVerify = intrestedVerify;
 
     }
@@ -127,14 +140,30 @@ public class Offer {
         String description = (String) json.get("Description");
         String idOffer = (String) json.get("IdOffer");
         String headline = (String) json.get("Headline");
+        String finishDate = (String) json.get("FinishDate");
         String price = (String) json.get("Price");
         String status = (String) json.get("Status");
         String[] profession =(String[]) json.get("Profession");
-        String userid = (String) json.get("User");
+        String user = (String) json.get("User");
         boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
 
-        Offer offer = new Offer(description,coupon,headline,price,idOffer,status,profession,userid,intrestedVerify);
+        Offer offer = new Offer(description,coupon,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
 
         return offer;
+    }
+
+    public Map<String, Object> toJson() {
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("Description",description);
+        json.put("Coupon",coupon);
+        json.put("Headline",headline);
+        json.put("FinishDate",finishDate);
+        json.put("Price",price);
+        json.put("IdOffer", idOffer);
+        json.put("Status", status);
+        json.put("Profession", profession);
+        json.put("User",user);
+        json.put("IntrestedVerify", intrestedVerify);
+        return json;
     }
 }

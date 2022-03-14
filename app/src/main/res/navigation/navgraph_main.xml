@@ -53,7 +53,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.collabme.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editProfile"
         android:name="com.example.collabme.EditProfile"
@@ -102,4 +106,9 @@
             android:id="@+id/action_addOfferDetailsFragemnt_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment><action android:id="@+id/action_global_addOfferDetailsFragemnt" app:destination="@id/addOfferDetailsFragemnt"/><action android:id="@+id/action_global_addOfferDetailsFragemnt2" app:destination="@id/addOfferDetailsFragemnt"/>
+    <fragment
+        android:id="@+id/editOfferFragment"
+        android:name="com.example.collabme.EditOfferFragment"
+        android:label="fragment_edit_offer"
+        tools:layout="@layout/fragment_edit_offer" />
 </navigation>

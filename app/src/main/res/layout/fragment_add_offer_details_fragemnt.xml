@@ -40,10 +40,11 @@
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_price" />
 
     <EditText
-        android:id="@+id/fragemnt_newoffer_proposer"
+        android:id="@+id/fragemnt_newoffer_headline"
         android:layout_width="237dp"
         android:layout_height="35dp"
         android:layout_marginStart="140dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,22 +52,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.231" />
-
-    <EditText
-        android:id="@+id/fragemnt_newoffer_headline"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_proposer"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.281" />
 
     <EditText
         android:id="@+id/fragemnt_newoffer_finishdate"
@@ -74,6 +60,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="140dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,49 +71,18 @@
         app:layout_constraintVertical_bias="0.127" />
 
     <EditText
-        android:id="@+id/fragemnt_newoffer_status"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="6dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_finishdate"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/fragemnt_newoffer_profession"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="6dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_status"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
         android:id="@+id/fragemnt_newoffer_price"
         android:layout_width="237dp"
         android:layout_height="35dp"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginBottom="204dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_profession"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/imageView11" />
 
     <EditText
         android:id="@+id/fragemnt_newoffer_description"
@@ -140,7 +96,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_headline"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@android:color/transparent"
+        />
 
     <Button
         android:id="@+id/fragemnt_newoffer_saveBtn"
@@ -157,15 +115,63 @@
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_price"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Spinner
-        android:id="@+id/fragment_newoffer_candidates"
-        android:layout_width="213dp"
-        android:layout_height="31dp"
+    <TextView
+        android:id="@+id/fragment_addoffer_status"
+        android:layout_width="198dp"
+        android:layout_height="26dp"
+        android:background="@android:color/transparent"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.689"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.759"
+        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.585" />
+
+    <TextView
+        android:id="@+id/fragment_newoffer_candidates"
+        android:layout_width="177dp"
+        android:layout_height="34dp"
+        android:text="Can't be added yet"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775" />
+        app:layout_constraintVertical_bias="0.753" />
+
+
+    <TextView
+        android:id="@+id/fragment_addoffer_profession"
+        android:layout_width="246dp"
+        android:layout_height="46dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:drawable/editbox_background"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:drawablePadding="16dp"
+        android:hint="Select Profession"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.649" />
+
+    <TextView
+        android:id="@+id/fragemnt_newoffer_proposer"
+        android:layout_width="173dp"
+        android:layout_height="27dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.659"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.223" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

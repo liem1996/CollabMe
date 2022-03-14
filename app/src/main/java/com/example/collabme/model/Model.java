@@ -28,10 +28,13 @@ public class Model {
     Context context;
     String userToken;
     //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
+
     MutableLiveData<OffersListLoadingState> offersListLoadingState = new MutableLiveData<OffersListLoadingState>();
     MutableLiveData<List<Offer>> offersList = new MutableLiveData<List<Offer>>();
     public String username1="liem";
     public String offerId = "622e2fed8fba1393eee2da12";
+
+
     /**
      *
      * the section of the offers
@@ -186,6 +189,87 @@ public class Model {
         });
     }
 
+
+
+    public void sighup(User profile,Model.signupListener sighup) {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        HashMap<String, Object> map = new HashMap<>();
+        map = profile.tojson();
+        Call<Void> call = retrofitInterface.executeSignup(map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    sighup.onComplete(200);
+
+                } else {
+                    sighup.onComplete(400);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                sighup.onComplete(400);
+            }
+        });
+    }
+
+
+
+    public void Login(String username,String password,Model.loginListener Login){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("Username", username);
+        map.put("Password", password);
+        username1=username;
+
+        Call<tokenrespone> call = retrofitInterface.executeLogin(map);
+        call.enqueue(new Callback<tokenrespone>() {
+            @Override
+            public void onResponse(Call<tokenrespone> call, Response<tokenrespone> response) {
+                if (response.code() == 200) {
+                    String tokenResponse = response.body().getaccessToken();
+                    String tokenrefresh = response.body().getrefreshToken();
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG",Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("tokenAcsses",tokenResponse)
+                            .commit();
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG1",Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("tokenrefresh",tokenrefresh)
+                            .commit();
+                    Login.onComplete(200);
+
+                } else  {
+                    Login.onComplete(400);
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<tokenrespone> call, Throwable t) {
+                Login.onComplete(400);
+            }
+
+        });
+
+
+
+    }
+
+
     public void editOffer(Offer newOffer, EditOfferListener editOfferListener){
         // getOfferById(offerId, getOfferListener);
         offerId = "622f01aaf5223e5bc4be080a";
@@ -203,18 +287,17 @@ public class Model {
 
         Map<String, Object> map = newOffer.toJson();
 
-        Call<Void> call = retrofitInterface.editOffer(offerId,"Bearer "+tokenAccess,map);
-        call.enqueue(new Callback<Void>() {
+        Call<Offer> call = retrofitInterface.editOffer(offerId,"Bearer "+tokenAccess,map);
+        call.enqueue(new Callback<Offer>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Offer> call, Response<Offer> response) {
                 editOfferListener.onComplete(200);
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Offer> call, Throwable t) {
                 Log.d("TAG","basaaaaaa  a a a "+t);
                 editOfferListener.onComplete(400);
-
             }
         });
 
@@ -250,138 +333,6 @@ public class Model {
         });
     }
 
-
-
-
-    /**
-     *
-     * the section of the Autantication and login functionalty
-     * sighup
-     * Login
-     * logout
-     */
-    public void sighup(User profile,Model.signupListener sighup) {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-            HashMap<String, Object> map = new HashMap<>();
-            map = profile.tojson();
-            Call<Void> call = retrofitInterface.executeSignup(map);
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.code() == 200) {
-                        sighup.onComplete(200);
-
-                    } else {
-                        sighup.onComplete(400);
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    sighup.onComplete(400);
-                }
-            });
-        }
-
-
-
-    public void Login(String username,String password,Model.loginListener Login){
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-          HashMap<String, String> map = new HashMap<>();
-            map.put("Username", username);
-            map.put("Password", password);
-            username1=username;
-
-            Call<tokenrespone> call = retrofitInterface.executeLogin(map);
-            call.enqueue(new Callback<tokenrespone>() {
-                @Override
-                public void onResponse(Call<tokenrespone> call, Response<tokenrespone> response) {
-                    if (response.code() == 200) {
-                        String tokenResponse = response.body().getaccessToken();
-                        String tokenrefresh = response.body().getrefreshToken();
-                        MyApplication.getContext()
-                                .getSharedPreferences("TAG",Context.MODE_PRIVATE)
-                                .edit()
-                                .putString("tokenAcsses",tokenResponse)
-                                .commit();
-                        MyApplication.getContext()
-                                .getSharedPreferences("TAG1",Context.MODE_PRIVATE)
-                                .edit()
-                                .putString("tokenrefresh",tokenrefresh)
-                                .commit();
-                        Login.onComplete(200);
-
-                    } else  {
-                        Login.onComplete(400);
-                    }
-                }
-
-                @Override
-                public void onFailure(retrofit2.Call<tokenrespone> call, Throwable t) {
-                    Login.onComplete(400);
-                }
-
-            });
-
-
-
-    }
-
-    public void logout(logout logout){
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        String tockenrefresh = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenrefresh","");
-
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-
-        Call<Void> call = retrofitInterface.excutelogout("Bearer "+ tockenrefresh);
-
-        call.enqueue(new Callback<Void>() {
-        Call<Offer> call = retrofitInterface.editOffer(offerId,"Bearer "+tokenAccess,map);
-        call.enqueue(new Callback<Offer>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                logout.onComplete(200);
-            public void onResponse(Call<Offer> call, Response<Offer> response) {
-                editOfferListener.onComplete(200);
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                logout.onComplete(400);
-            public void onFailure(Call<Offer> call, Throwable t) {
-                Log.d("TAG","basaaaaaa  a a a "+t);
-                editOfferListener.onComplete(400);
-            }
-        });
-
-
-    }
-
-    /**
-     *
-     * the section of the users
-     * getuser
-     * getuserbyid
-     * edituser
-     */
     public void getUserById(String id, GetUserByIdListener getUserByIdListener) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -434,7 +385,35 @@ public class Model {
             }
         });
     }
+    public void logout(logout logout){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        String tockenrefresh = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenrefresh","");
+
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        Call<Void> call = retrofitInterface.excutelogout("Bearer "+ tockenrefresh);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                logout.onComplete(200);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                logout.onComplete(400);
+            }
+        });
+
+
+    }
 
     public void EditUser(User profile,EditUserListener editUserListener){
         retrofit = new Retrofit.Builder()
@@ -446,7 +425,7 @@ public class Model {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenrefresh","");
         HashMap<String, Object> map = new HashMap<>();
-          map = profile.tojson();
+        map = profile.tojson();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         Call<User> call = retrofitInterface.editUser(profile.getUsername(),"Bearer "+ tockenrefresh,map);
@@ -467,6 +446,3 @@ public class Model {
 
 
 }
-
-
-

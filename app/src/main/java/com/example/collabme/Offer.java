@@ -30,7 +30,7 @@ public class Offer {
     private String[] profession;
     @SerializedName("User")
     @Expose
-    private User user;
+    private Object user;
     @SerializedName("IntrestedVerify")
     @Expose
     private boolean intrestedVerify;
@@ -96,7 +96,7 @@ public class Offer {
      * @return
      * The user
      */
-    public User getUser() {
+    public Object getUser() {
         return user;
     }
     /**

@@ -53,7 +53,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.collabme.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editProfile"
         android:name="com.example.collabme.EditProfile"

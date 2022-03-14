@@ -217,7 +217,7 @@ public class Model {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                editOfferListener.onComplete(response.code());
+                editOfferListener.onComplete(200);
             }
 
             @Override
@@ -252,6 +252,8 @@ public class Model {
             }
             @Override
             public void onFailure(Call<Offer> call, Throwable t) {
+                Log.d("TAG","basaaaaaa  a a a "+t);
+
                 getOfferListener.onComplete(null);
 
             }

@@ -99,7 +99,13 @@ public class EditOfferFragment extends Fragment {
         Model.instance.editOffer(offer,new Model.EditOfferListener() {
             @Override
             public void onComplete(int code) {
-                Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                if(code == 200) {
+                    Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
+
+                }
 
             }
         });

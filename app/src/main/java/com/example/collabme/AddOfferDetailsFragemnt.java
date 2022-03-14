@@ -23,12 +23,11 @@ import java.util.UUID;
 
 public class AddOfferDetailsFragemnt extends Fragment {
 
-    EditText proposer,headline,description,finishdate,status,profession, price;
-  //  Spinner candidates;
+    EditText proposer,headline,description,finishdate,profession, price;
+    TextView status, candidates;
     Button  save;
     CheckBox intrestedVerify;
     Offer offer;
-    ArrayList<String> candidatesArr;
     User userConnected;
 
     @Override
@@ -41,14 +40,15 @@ public class AddOfferDetailsFragemnt extends Fragment {
         headline = view.findViewById(R.id.fragemnt_newoffer_headline);
         description = view.findViewById(R.id.fragemnt_newoffer_description);
         finishdate = view.findViewById(R.id.fragemnt_newoffer_finishdate);
-        status = view.findViewById(R.id.fragemnt_newoffer_status);
+        status = view.findViewById(R.id.fragment_addoffer_status);
         profession = view.findViewById(R.id.fragemnt_newoffer_profession);
-      //  candidates = view.findViewById(R.id.fragment_newoffer_candidates);
+        candidates = view.findViewById(R.id.fragment_newoffer_candidates);
         price = view.findViewById(R.id.fragemnt_newoffer_price);
         intrestedVerify = view.findViewById(R.id.fragemnt_newoffer_checkbox);
         save = view.findViewById(R.id.fragemnt_newoffer_saveBtn);
 
-//        initSpinnerFooter(candidatesArr.size(),candidatesArr,candidates);
+        status.setText("Open");
+
 
         String uniqueKey = UUID.randomUUID().toString();
 
@@ -90,28 +90,4 @@ public class AddOfferDetailsFragemnt extends Fragment {
         return view;
     }
 
-    private void initSpinnerFooter(int size, ArrayList<String> array, Spinner spinner) {
-        int tmp = 0;
-        for(int j = 0 ; j<size;j++){
-            if(array.get(j) != null){
-                tmp++;
-            }
-        }
-        String[] items = new String[tmp];
-
-        for(int i = 0 ; i<tmp;i++){
-            items[i] = array.get(i);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(25);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
-        });
-    }
 }

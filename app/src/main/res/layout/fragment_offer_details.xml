@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_price" />
 
     <EditText
-        android:id="@+id/fragemnt_newoffer_proposer"
+        android:id="@+id/fragemnt_offerdetails_proposer"
         android:layout_width="237dp"
         android:layout_height="35dp"
         android:layout_marginStart="140dp"
@@ -50,7 +50,7 @@
         tools:layout_editor_absoluteY="157dp" />
 
     <EditText
-        android:id="@+id/fragemnt_newoffer_headline"
+        android:id="@+id/fragemnt_offerdetails_headline"
         android:layout_width="237dp"
         android:layout_height="35dp"
         android:layout_marginStart="140dp"
@@ -60,10 +60,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_proposer" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_proposer" />
 
     <EditText
-        android:id="@+id/fragemnt_newoffer_finishdate"
+        android:id="@+id/fragemnt_offerdetails_finishdate"
         android:layout_width="237dp"
         android:layout_height="35dp"
         android:layout_marginStart="140dp"
@@ -73,10 +73,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_description" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_description" />
 
     <EditText
-        android:id="@+id/fragemnt_newoffer_status"
+        android:id="@+id/fragemnt_offerdetails_status"
         android:layout_width="237dp"
         android:layout_height="35dp"
         android:layout_marginStart="140dp"
@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_finishdate" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_finishdate" />
 
     <EditText
         android:id="@+id/fragemnt_offerdetails_profession"
@@ -99,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_status" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_status" />
 
     <EditText
         android:id="@+id/fragemnt_offerdetails_price"
@@ -115,7 +115,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_profession" />
 
     <EditText
-        android:id="@+id/fragemnt_newoffer_description"
+        android:id="@+id/fragemnt_offerdetails_description"
         android:layout_width="363dp"
         android:layout_height="44dp"
         android:layout_marginTop="36dp"
@@ -124,7 +124,7 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_headline" />
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_headline" />
 
     <Button
         android:id="@+id/fragemnt_offerdetails_chatBtn"

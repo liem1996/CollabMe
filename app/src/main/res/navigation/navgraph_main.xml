@@ -57,6 +57,41 @@
         <action
             android:id="@+id/action_homeFragment_to_editOfferFragment"
             app:destination="@id/editOfferFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_editProfile"
+            app:destination="@id/editProfile" />
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument android:name="password"
+            app:argType="string" />
+        <argument
+            android:name="company"
+            app:argType="boolean" />
+        <argument
+            android:name="influencer"
+            app:argType="boolean" />
+        <argument
+            android:name="age"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="gender"
+            app:argType="string" />
+        <argument
+            android:name="platform"
+            app:argType="string[]" />
+        <argument
+            android:name="profession"
+            app:argType="string[]" />
+        <argument
+            android:name="followers"
+            app:argType="string" />
+        <argument
+            android:name="postsuploads"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/editProfile"

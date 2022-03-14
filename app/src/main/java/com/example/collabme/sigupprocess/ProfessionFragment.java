@@ -1,5 +1,6 @@
 package com.example.collabme.sigupprocess;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.collabme.model.Model;
 import com.example.collabme.R;
 import com.example.collabme.model.User;
+import com.example.collabme.offers.MainActivity;
 
 import java.util.Arrays;
 
@@ -29,6 +31,12 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
 
     Button sport, cooking,fashion, music, dance, cosmetic, travel, gaming, tech, food, art, animals, movies, photograph, other, lifestyle;
 
+
+    private void toFeedActivity() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,7 +101,7 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
             public void onComplete(int code) {
                 if(code==200){
                     Model.instance.Login(username, password, code1 -> { });
-                    //Navigation.findNavController(view).navigate(R.id.action_global_userProfile2);
+                    toFeedActivity();
                     Toast.makeText(getActivity(),"hiiii11122", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getActivity(), "no", Toast.LENGTH_LONG).show();

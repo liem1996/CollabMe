@@ -32,6 +32,8 @@ public class SignupFragment extends Fragment {
     String username1,password1,email1,age1, selectedGender1;
     boolean company1,influencer1;
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

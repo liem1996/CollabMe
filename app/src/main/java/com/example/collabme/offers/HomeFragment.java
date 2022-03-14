@@ -1,18 +1,53 @@
 package com.example.collabme.offers;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.example.collabme.R;
+import com.example.collabme.model.Model;
+import com.example.collabme.model.Offer;
+import com.example.collabme.model.User;
+import com.example.collabme.viewmodel.offersviewmodel;
+
+//
 
 
 public class HomeFragment extends Fragment {
 
 
-    /*
-    //PostViewModel viewModel;
+
+
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     OnItemClickListener listener;
     ImageView imagePostFrame;
     offersviewmodel viewModel;
+    String stUsername;
+    String password ;
+    boolean influncer ;
+    boolean company;
+    String age;
+    String email;
+    String gender;
+    String[] palatform ;
+    String[] proffesions;
+    String followers;
+    String postuploads;
 
 
     @Override
@@ -55,29 +90,56 @@ public class HomeFragment extends Fragment {
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view,int idview) {
-                String stId = viewModel.getData().getValue().get(position).getId();
-                String stUsername = viewModel.getData().getValue().get(position).getEmail();
+                String stheadline = viewModel.getData().getValue().get(position).getHeadline();
                 String status = viewModel.getData().getValue().get(position).getStatus();
-                String date = viewModel.getData().getValue().get(position).getDate();
-                String url = viewModel.getData().getValue().get(position).getUrlImagePost();
-                if(url==null){
-                    url="0";
-                }
+                String date = viewModel.getData().getValue().get(position).getFinishDate();
 
-                if(view.findViewById(R.id.row_feed_editpost).getId()==idview) {
-                    Navigation.findNavController(view).navigate(fragment_homeDirections.actionHomePage2ToFragmentEditPost(stUsername, date, status, stId, url));
-                }else
-                if(view.findViewById(R.id.row_feed_deletepost).getId()==idview){
+                Model.instance.getUserById(viewModel.getData().getValue().get(position).getUser(), new Model.GetUserByIdListener() {
+                    @Override
+                    public void onComplete(User profile) {
+                         stUsername = profile.getUsername();
+                         password = profile.getPassword();
+                         influncer = profile.getInfluencer();
+                         company = profile.getCompany();
+                         age = profile.getAge();
+                         email = profile.getEmail();
+                         gender = profile.getSex();
+                         palatform = profile.getPlatforms();
+                         proffesions = profile.getProfessions();
+                         followers =  profile.getFollowers();
+                         postuploads =  profile.getNumOfPosts();
+
+
+                    }
+                });
+                if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
+                   Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditProfile(stUsername, password, company, influncer, age,email,gender,palatform,proffesions,followers,postuploads));
+                }
+                /*
+                else if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview){
                     viewModel.deletePost(viewModel.getData().getValue().get(position), () -> {
-                        viewModel.getData().getValue().get(position).setImagePostUrl("0");
+                       // viewModel.getData().getValue().get(position).setImagePostUrl("0");
+                        Model.instance.refreshPostList();
+
+
+                    });
+
+                 */
+                }
+                /*
+                else if(view.findViewById(R.id.myoffers_listrow_delete).getId()==idview){
+                    viewModel.deletePost(viewModel.getData().getValue().get(position), () -> {
+                       // viewModel.getData().getValue().get(position).setImagePostUrl("0");
                         Model.instance.refreshPostList();
 
 
                     });
                 }
 
-            }
-        });
+                 */
+
+            });
+
         adapter.notifyDataSetChanged();
 
         return view;
@@ -105,7 +167,7 @@ public class HomeFragment extends Fragment {
             image_offer =(ImageView)itemView.findViewById(R.id.myoffers_listrow_image);
             image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
             imge_x =(ImageView)itemView.findViewById(R.id.myoffers_listrow_delete);
-            Editview = itemView.findViewById(R.id.fragemnt_item_edit);
+            Editview = (Button) itemView.findViewById(R.id.fragemnt_item_edit);
 
             Editview.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,51 +201,23 @@ public class HomeFragment extends Fragment {
         }
         public void bind(Offer offer){
 
-            headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline);
-            Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date);
-            Offer_status=(TextView)itemView.findViewById(R.id.myoffers_listrow_status);
-            username=(TextView)itemView.findViewById(R.id.myoffers_listrow_username);
-            image_offer =(ImageView)itemView.findViewById(R.id.myoffers_listrow_image);
-            image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
-            imge_x =(ImageView)itemView.findViewById(R.id.myoffers_listrow_delete);
-            Editview = itemView.findViewById(R.id.fragemnt_item_edit);
-
-
-
             headline_offer.setText(offer.getHeadline());
-            Offer_date.setText(offer.get());
+            Offer_date.setText(offer.getFinishDate());
             Offer_status.setText(offer.getStatus());
-            username.setText(offer.getUser());
-            image_offer.setText(offer.getStatus());
 
-            Model.instance.getprofilebyEmail(post.getEmail(), new Model.GetProfileById() {
+
+            Model.instance.getUserById(offer.getUser(), new Model.GetUserByIdListener() {
                 @Override
-                public void onComplete(Profile profile) {
-                    if (post.getEmail().equals(profile.getEmail())) {
+                public void onComplete(User profile) {
+//                    stUsername = profile.getUsername();
+   //                 username.setText(stUsername);
 
-                        if(profile.getUrlImage()==null){
-                            profile.setUrlImage("0");
-                        }
-
-                        Picasso.get().load(profile.getUrlImage()).resize(50, 50)
-                                .centerCrop().into(imgview_propic);
-
-                        if (!profile.getUrlImage().equals("0")) {
-                            Picasso.get().load(profile.getUrlImage()).into(imgview_propic);
-                        }
-                        else{
-                            Picasso.get().load(R.drawable.profile).into(imgview_propic);
-                        }
-                    }
                 }
             });
-
-
-
-            imgdelete.setVisibility(View.GONE);
-            imgedit.setVisibility(View.GONE);
             Editview.setVisibility(View.GONE);
-            Deleteview.setVisibility(View.GONE);
+
+
+            /*
 
             Model.instance.getUserConnect(new Model.connect() {
                 @Override
@@ -204,20 +238,8 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            if(post.getUrlImagePost()==null){
-                post.setImagePostUrl("0");
-            }
-            if (post.getUrlImagePost().equals("0")) {
-                Picasso.get()
-                        .load(R.drawable.defaultim).resize(250, 180)
-                        .centerCrop()
-                        .into(imgview_postpic);
-            }else{
-                Picasso.get()
-                        .load(post.getUrlImagePost()).resize(250, 180)
-                        .centerCrop()
-                        .into(imgview_postpic);
-            }
+             */
+
 
         }
     }
@@ -236,14 +258,14 @@ public class HomeFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.row_feed,parent,false);
+            View view = getLayoutInflater().inflate(R.layout.offers_list_row,parent,false);
             MyViewHolder holder = new MyViewHolder(view);
             return holder;
         }
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Post post = viewModel.getData().getValue().get(position);
+            Offer post = viewModel.getData().getValue().get(position);
             holder.bind(post);
 
         }
@@ -257,7 +279,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-     */
+
 
 
 

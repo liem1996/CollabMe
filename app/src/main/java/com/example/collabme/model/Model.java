@@ -25,8 +25,6 @@ public class Model {
     public String token;
     public static final String MY_PREFRENCE = "myPrefs";
     public static final String TOKEN = "myToken";
-    Context context;
-    String userToken;
     //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
 
     MutableLiveData<OffersListLoadingState> offersListLoadingState = new MutableLiveData<OffersListLoadingState>();

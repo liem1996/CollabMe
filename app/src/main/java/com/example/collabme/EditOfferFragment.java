@@ -60,10 +60,10 @@ public class EditOfferFragment extends Fragment {
 
                     headline.setText(offer.getHeadline());
                     description.setText(offer.getDescription());
-                    finishDate.setText("null");
+                    finishDate.setText(offer.getFinishDate());
                     status.setText(offer.getStatus());
                     //profession.setText(offer.getProfession()[0]);
-                    //price.setText((int)offer.getPrice());
+                    price.setText(offer.getPrice());
                     interestedVerify.setChecked(offer.getIntrestedVerify());
 
                    // proposer.setText(offer.getUser().getUsername());
@@ -94,7 +94,7 @@ public class EditOfferFragment extends Fragment {
         //String coupon1 = coupon.getText().toString();
         boolean interestedVerify1 = interestedVerify.isChecked();
 
-        Offer offer = new Offer(description1,null,headline1,price1,oldIdOffer,status1,oldProfession,null,interestedVerify1);
+        Offer offer = new Offer(description1,null,headline1,finishDate1,price1,oldIdOffer,status1,oldProfession,null,interestedVerify1);
 
         Model.instance.editOffer(offer,new Model.EditOfferListener() {
             @Override

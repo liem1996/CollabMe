@@ -198,7 +198,7 @@ public class Model {
 
     public void editOffer(Offer newOffer, EditOfferListener editOfferListener){
         // getOfferById(offerId, getOfferListener);
-        offerId = "622e2fed8fba1393eee2da12";
+        offerId = "622ef69170225fd6f2275db6";
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -231,7 +231,7 @@ public class Model {
     }
 
     public void getOfferById(GetOfferListener getOfferListener) {
-        offerId = "622e2fed8fba1393eee2da12";
+        offerId = "622ef69170225fd6f2275db6";
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

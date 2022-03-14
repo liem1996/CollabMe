@@ -13,6 +13,9 @@ public class Offer {
     @SerializedName("HeadLine")
     @Expose
     private String headline;
+    @SerializedName("FinishDate")
+    @Expose
+    private String finishDate;
     @SerializedName("Price")
     @Expose
     private String price;
@@ -50,6 +53,14 @@ public class Offer {
      */
     public String getHeadline() {
         return headline;
+    }
+    /**
+     *
+     * @return
+     * The finishDate
+     */
+    public String getFinishDate() {
+        return finishDate;
     }
     /**
      *
@@ -109,11 +120,12 @@ public class Offer {
     }
 
 
-    public Offer(String description,String coupon, String headline, String price, String idOffer, String status, String[] profession, User user, boolean intrestedVerify) {
+    public Offer(String description,String coupon, String headline,String finishDate, String price, String idOffer, String status, String[] profession, User user, boolean intrestedVerify) {
         this.coupon = coupon;
         this.description = description;
         this.idOffer = idOffer;
         this.headline = headline;
+        this.finishDate = finishDate;
         this.price = price;
         this.status = status;
         this.profession = profession;
@@ -128,13 +140,14 @@ public class Offer {
         String description = (String) json.get("Description");
         String idOffer = (String) json.get("IdOffer");
         String headline = (String) json.get("Headline");
+        String finishDate = (String) json.get("FinishDate");
         String price = (String) json.get("Price");
         String status = (String) json.get("Status");
         String[] profession =(String[]) json.get("Profession");
         User user = (User) json.get("User");
         boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
 
-        Offer offer = new Offer(description,coupon,headline,price,idOffer,status,profession,user,intrestedVerify);
+        Offer offer = new Offer(description,coupon,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
 
         return offer;
     }
@@ -144,6 +157,7 @@ public class Offer {
         json.put("Description",description);
         json.put("Coupon",coupon);
         json.put("Headline",headline);
+        json.put("FinishDate",finishDate);
         json.put("Price",price);
         json.put("IdOffer", idOffer);
         json.put("Status", status);

@@ -162,7 +162,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
 
             @Override
             public void onClick(View v) {
-                offer = new Offer(description.getText().toString(),null, headline.getText().toString(),
+                offer = new Offer(description.getText().toString(),null, headline.getText().toString(),finishdate.getText().toString(),
                         price.getText().toString(),  uniqueKey,  status.getText().toString(), chosenOffers,  userConnected,
                         intrestedVerify.isChecked());
 

@@ -1,15 +1,20 @@
-package com.example.collabme;
+package com.example.collabme.offers;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
+
+import com.example.collabme.model.Model;
+import com.example.collabme.R;
+import com.example.collabme.sigupprocess.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
     NavController navCtl;
@@ -66,14 +71,18 @@ public class MainActivity extends AppCompatActivity {
                     // Model.instance.getUserName(email);
                     Model.instance.logout(new Model.logout() {
                         @Override
-                        public void onComplete() {
-                            toLoginActivity();
+                        public void onComplete(int code) {
+                            if(code==200) {
+                                toLoginActivity();
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this, "boo boo", Toast.LENGTH_LONG).show();
+                            }
                         }
                     });
                     break;
 
                 case R.id.addoffer:
-
                     // Model.instance.getUserName(email);
                     navCtl.navigate(R.id.action_global_addOfferDetailsFragemnt);
                     break;

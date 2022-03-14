@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserProfile">
+    tools:context=".users.UserProfile">
 
     <ImageView
         android:id="@+id/imageView9"
@@ -42,34 +42,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.561" />
 
-    <Spinner
-        android:id="@+id/fragemnt_edituser_platform"
-        android:layout_width="194dp"
-        android:layout_height="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.698" />
-
-    <Spinner
-        android:id="@+id/fragemnt_edituser_proffesions"
-        android:layout_width="194dp"
-        android:layout_height="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
     <Button
         android:id="@+id/fragemnt_edituser_cancel"
         android:layout_width="109dp"
         android:layout_height="53dp"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="124dp"
         android:backgroundTint="#4c266a"
         android:text="cancel"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -82,7 +60,7 @@
         android:layout_width="109dp"
         android:layout_height="53dp"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="124dp"
         android:backgroundTint="#4c266a"
         android:text="upload photo"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,28 +73,26 @@
         android:id="@+id/fragemnt_edituser_delete"
         android:layout_width="109dp"
         android:layout_height="53dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="124dp"
         android:backgroundTint="#4c266a"
         android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/fragemnt_edituser_save"
         android:layout_width="109dp"
         android:layout_height="53dp"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="24dp"
         android:backgroundTint="#4c266a"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.909" />
 
     <ImageView
         android:id="@+id/fragment_edituser_pic"
@@ -141,7 +117,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.273" />
 
-    <TextView
+    <EditText
         android:id="@+id/fragment_edituser_username2"
         android:layout_width="134dp"
         android:layout_height="21dp"
@@ -150,9 +126,10 @@
         app:layout_constraintHorizontal_bias="0.765"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        app:layout_constraintVertical_bias="0.38"
+        android:background="@android:color/transparent" />
 
-    <TextView
+    <EditText
         android:id="@+id/fragment_edituser_followers"
         android:layout_width="134dp"
         android:layout_height="21dp"
@@ -161,9 +138,10 @@
         app:layout_constraintHorizontal_bias="0.765"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintVertical_bias="0.574"
+        android:background="@android:color/transparent" />
 
-    <TextView
+    <EditText
         android:id="@+id/fragment_edituser_postsuploads"
         android:layout_width="134dp"
         android:layout_height="21dp"
@@ -172,9 +150,10 @@
         app:layout_constraintHorizontal_bias="0.765"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.63" />
+        app:layout_constraintVertical_bias="0.63"
+        android:background="@android:color/transparent" />
 
-    <TextView
+    <EditText
         android:id="@+id/fragment_edituser_age"
         android:layout_width="134dp"
         android:layout_height="21dp"
@@ -183,6 +162,45 @@
         app:layout_constraintHorizontal_bias="0.765"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintVertical_bias="0.44"
+        android:background="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/fragment_edituser_profession"
+        android:layout_width="246dp"
+        android:layout_height="46dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:drawable/editbox_background"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:drawablePadding="16dp"
+        android:hint="Profession:"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.512" />
+
+    <TextView
+        android:id="@+id/fragment_edituser_platform"
+        android:layout_width="246dp"
+        android:layout_height="46dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:drawable/editbox_background"
+        android:drawableRight="@android:drawable/arrow_down_float"
+        android:drawablePadding="16dp"
+        android:hint="Platform:"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.703" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

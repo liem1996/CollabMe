@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.users;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,12 +13,16 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.collabme.model.Model;
+import com.example.collabme.R;
+import com.example.collabme.model.User;
+
 import java.util.ArrayList;
 
 
 public class UserProfile extends Fragment {
 
-     TextView username,age,followers,postuploads;
+    TextView username,age,followers,postuploads;
     Spinner professions,platform;
     ArrayList<String>  platformArr;
     Button chat,createAnOffer,edit;
@@ -66,8 +70,6 @@ public class UserProfile extends Fragment {
                     company1 = profile.getInfluencer();
                     initSpinnerFooter(platformArr.size(),platformArr,platform);
                     initSpinnerFooter(professionsArr.size(),professionsArr,professions);
-
-
                 }
 
             }

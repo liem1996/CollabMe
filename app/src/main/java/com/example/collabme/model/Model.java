@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.model;
 
 import android.content.Context;
 import android.util.Log;
@@ -41,7 +41,7 @@ public class Model {
     }
 
     public interface logout{
-        void onComplete();
+        void onComplete(int code);
     }
     public interface getuserconnect{
         void onComplete(User profile);
@@ -57,6 +57,10 @@ public class Model {
 
     }
     public interface EditOfferListener{
+        void onComplete(int code);
+
+    }
+    public interface EditUserListener{
         void onComplete(int code);
 
     }
@@ -81,11 +85,12 @@ public class Model {
         map.put("User", offer.getUser());
         map.put("IntrestedVerify", offer.getIntrestedVerify());
 
+
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
-        Call<Offer> call = retrofitInterface.executenewOffer(map,"Bearer "+ tockenacsses);
+        Call<Offer> call = retrofitInterface.executenewOffer(map,"Bearer " + tockenacsses);
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
@@ -117,18 +122,7 @@ public class Model {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
             HashMap<String, Object> map = new HashMap<>();
-            map.put("Username", profile.getUsername());
-            map.put("Password", profile.getPassword());
-            map.put("Email", profile.getEmail());
-            map.put("Sex", profile.getSex());
-            map.put("Age", profile.getAge());
-            map.put("Followers", profile.getFollowers());
-            map.put("NumberOfPosts", profile.getNumOfPosts());
-            map.put("Company", profile.getCompany());
-            map.put("Influencer", profile.getInfluencer());
-            map.put("Profession", profile.getProfessions());
-            map.put("Platform", profile.getPlatforms());
-
+            map = profile.tojson();
             Call<Void> call = retrofitInterface.executeSignup(map);
             call.enqueue(new Callback<Void>() {
                 @Override
@@ -159,7 +153,6 @@ public class Model {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
           HashMap<String, String> map = new HashMap<>();
-
             map.put("Username", username);
             map.put("Password", password);
             username1=username;
@@ -333,17 +326,47 @@ public class Model {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                logout.onComplete();
+                logout.onComplete(200);
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                logout.onComplete();
+                logout.onComplete(400);
             }
         });
 
 
     }
+
+    public void EditUser(User profile,EditUserListener editUserListener){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tockenrefresh = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenrefresh","");
+        HashMap<String, Object> map = new HashMap<>();
+          map = profile.tojson();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<User> call = retrofitInterface.editUser(profile.getUsername(),"Bearer "+ tockenrefresh,map);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                editUserListener.onComplete(200);
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                editUserListener.onComplete(400);
+            }
+        });
+
+    }
+
+
 
 }
 

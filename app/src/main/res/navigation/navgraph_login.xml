@@ -6,7 +6,7 @@
     app:startDestination="@id/fragment_login">
     <fragment
         android:id="@+id/fragment_login"
-        android:name="com.example.collabme.LoginFragment"
+        android:name="com.example.collabme.sigupprocess.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/socialmedia"
-        android:name="com.example.collabme.socialmedia"
+        android:name="com.example.collabme.sigupprocess.socialmedia"
         android:label="fragment_socialmedia"
         tools:layout="@layout/fragment_socialmedia" >
         <argument
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupFragment2"
-        android:name="com.example.collabme.SignupFragment"
+        android:name="com.example.collabme.sigupprocess.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup">
         <argument
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/professionFragment"
-        android:name="com.example.collabme.ProfessionFragment"
+        android:name="com.example.collabme.sigupprocess.ProfessionFragment"
         android:label="fragment_profession"
         tools:layout="@layout/fragment_profession" >
         <argument

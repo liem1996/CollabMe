@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.sigupprocess;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
+import com.example.collabme.R;
 
 
 public class socialmedia extends Fragment {

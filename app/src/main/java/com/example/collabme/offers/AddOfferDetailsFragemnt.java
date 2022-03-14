@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.offers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,14 +10,16 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.collabme.model.Model;
+import com.example.collabme.model.Offer;
+import com.example.collabme.R;
+import com.example.collabme.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,11 +68,10 @@ public class AddOfferDetailsFragemnt extends Fragment {
             public void onComplete(User profile) {
                 if(profile!=null) {
                     userConnected = profile;
+                    proposer.setText(profile.getUsername());
                 }
             }
         });
-
-        proposer.setText("liem");
 
         profession.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +115,9 @@ public class AddOfferDetailsFragemnt extends Fragment {
                         for (int j = 0; j < langList.size(); j++) {
                             // concat array value
                             stringBuilder.append(langArray[langList.get(j)]);
+
                             chosenOffers[j]=(langArray[langList.get(j)]); //to check again
+
                             System.out.println("ko");
                             // check condition
                             if (j != langList.size() - 1) {

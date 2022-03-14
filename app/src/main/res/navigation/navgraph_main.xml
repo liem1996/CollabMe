@@ -111,4 +111,9 @@
         android:name="com.example.collabme.EditOfferFragment"
         android:label="fragment_edit_offer"
         tools:layout="@layout/fragment_edit_offer" />
+    <fragment
+        android:id="@+id/doneStatusFragment"
+        android:name="com.example.collabme.DoneStatusFragment"
+        android:label="fragment_done_status"
+        tools:layout="@layout/fragment_done_status" />
 </navigation>

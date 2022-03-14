@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.sigupprocess;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
+import com.example.collabme.offers.MainActivity;
+import com.example.collabme.model.Model;
+import com.example.collabme.R;
 
 public class LoginFragment extends Fragment {
 

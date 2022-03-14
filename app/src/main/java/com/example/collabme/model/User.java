@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -156,5 +156,22 @@ public class User {
         User user = new User(sex,password,Email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
 
         return user;
+    }
+
+    public  HashMap<String,Object> tojson(){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("Username", username);
+        map.put("Password", password);
+        map.put("Email", Email);
+        map.put("Sex", sex);
+        map.put("Age", age);
+        map.put("Followers", followers);
+        map.put("NumberOfPosts", numOfPosts);
+        map.put("Company",company);
+        map.put("Influencer", influencer);
+        map.put("Profession",professions);
+        map.put("Platform", platforms);
+
+        return map;
     }
 }

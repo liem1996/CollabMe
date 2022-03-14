@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.offers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
+
+import com.example.collabme.model.Model;
+import com.example.collabme.R;
+import com.example.collabme.sigupprocess.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
     NavController navCtl;

@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.sigupprocess;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+
+import com.example.collabme.R;
 
 public class LoginActivity extends AppCompatActivity {
     NavController navCtl;

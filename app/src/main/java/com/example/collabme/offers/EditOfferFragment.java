@@ -1,9 +1,6 @@
-package com.example.collabme;
+package com.example.collabme.offers;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +14,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import androidx.fragment.app.Fragment;
+
+import com.example.collabme.model.Model;
+import com.example.collabme.model.Offer;
+import com.example.collabme.R;
+import com.example.collabme.model.User;
 
 
 public class EditOfferFragment extends Fragment {

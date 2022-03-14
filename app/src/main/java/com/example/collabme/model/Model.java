@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.model;
 
 import android.content.Context;
 import android.util.Log;
@@ -60,55 +60,12 @@ public class Model {
         void onComplete(int code);
 
     }
-    public interface editUserListener{
+    public interface EditUserListener{
         void onComplete(int code);
 
     }
 
-    public void editUser(User newUser, Model.editUserListener editUserListener){
 
-        username1 = "liem";
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        String tokenAccess = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("Username", newUser.getUsername());
-        map.put("Password", newUser.getPassword());
-        map.put("Email", newUser.getEmail());
-        map.put("Sex", newUser.getSex());
-        map.put("Age", newUser.getAge());
-        map.put("Followers", newUser.getFollowers());
-        map.put("NumberOfPosts", newUser.getNumOfPosts());
-        map.put("Company", newUser.getCompany());
-        map.put("Influencer", newUser.getInfluencer());
-        map.put("Profession", newUser.getProfessions());
-        map.put("Platform", newUser.getPlatforms());
-
-        Call<Void> call = retrofitInterface.editUser(username1,"Bearer "+tokenAccess,map);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                editUserListener.onComplete(200);
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("TAG","not work ");
-                editUserListener.onComplete(400);
-
-            }
-        });
-
-    }
 
     public void addOffer(Offer offer,Model.addOfferListener addOffer) {
         retrofit = new Retrofit.Builder()
@@ -165,18 +122,7 @@ public class Model {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
             HashMap<String, Object> map = new HashMap<>();
-            map.put("Username", profile.getUsername());
-            map.put("Password", profile.getPassword());
-            map.put("Email", profile.getEmail());
-            map.put("Sex", profile.getSex());
-            map.put("Age", profile.getAge());
-            map.put("Followers", profile.getFollowers());
-            map.put("NumberOfPosts", profile.getNumOfPosts());
-            map.put("Company", profile.getCompany());
-            map.put("Influencer", profile.getInfluencer());
-            map.put("Profession", profile.getProfessions());
-            map.put("Platform", profile.getPlatforms());
-
+            map = profile.tojson();
             Call<Void> call = retrofitInterface.executeSignup(map);
             call.enqueue(new Callback<Void>() {
                 @Override
@@ -207,7 +153,6 @@ public class Model {
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
           HashMap<String, String> map = new HashMap<>();
-
             map.put("Username", username);
             map.put("Password", password);
             username1=username;
@@ -393,6 +338,36 @@ public class Model {
 
 
     }
+
+    public void EditUser(User profile,EditUserListener editUserListener){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tockenrefresh = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenrefresh","");
+        HashMap<String, Object> map = new HashMap<>();
+          map = profile.tojson();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<User> call = retrofitInterface.editUser(profile.getUsername(),"Bearer "+ tockenrefresh,map);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                editUserListener.onComplete(200);
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                editUserListener.onComplete(400);
+            }
+        });
+
+    }
+
+
 
 }
 

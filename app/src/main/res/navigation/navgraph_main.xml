@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/userProfile"
-        android:name="com.example.collabme.UserProfile"
+        android:name="com.example.collabme.users.UserProfile"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" >
         <action
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.collabme.HomeFragment"
+        android:name="com.example.collabme.offers.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfile"
-        android:name="com.example.collabme.EditProfile"
+        android:name="com.example.collabme.users.EditProfile"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" >
         <argument android:name="username"
@@ -99,7 +99,7 @@
     <action android:id="@+id/action_global_homeFragment2" app:destination="@id/homeFragment" />
     <fragment
         android:id="@+id/addOfferDetailsFragemnt"
-        android:name="com.example.collabme.AddOfferDetailsFragemnt"
+        android:name="com.example.collabme.offers.AddOfferDetailsFragemnt"
         android:label="fragment_add_offer_details_fragemnt"
         tools:layout="@layout/fragment_add_offer_details_fragemnt" >
         <action
@@ -108,7 +108,22 @@
     </fragment><action android:id="@+id/action_global_addOfferDetailsFragemnt" app:destination="@id/addOfferDetailsFragemnt"/><action android:id="@+id/action_global_addOfferDetailsFragemnt2" app:destination="@id/addOfferDetailsFragemnt"/>
     <fragment
         android:id="@+id/editOfferFragment"
-        android:name="com.example.collabme.EditOfferFragment"
+        android:name="com.example.collabme.offers.EditOfferFragment"
         android:label="fragment_edit_offer"
         tools:layout="@layout/fragment_edit_offer" />
+    <fragment
+        android:id="@+id/doneStatusFragment"
+        android:name="com.example.collabme.offers.DoneStatusFragment"
+        android:label="fragment_done_status"
+        tools:layout="@layout/fragment_done_status" />
+    <fragment
+        android:id="@+id/closeStatusfragment"
+        android:name="com.example.collabme.offers.CloseStatusfragment"
+        android:label="fragment_close_statusfragment"
+        tools:layout="@layout/fragment_close_statusfragment" />
+    <fragment
+        android:id="@+id/inprogressfragment"
+        android:name="com.example.collabme.offers.inprogressfragment"
+        android:label="fragment_inprogressfragment"
+        tools:layout="@layout/fragment_inprogressfragment" />
 </navigation>

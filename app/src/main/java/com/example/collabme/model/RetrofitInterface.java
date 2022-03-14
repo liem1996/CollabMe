@@ -1,5 +1,5 @@
 
-package com.example.collabme;
+package com.example.collabme.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +28,13 @@ public interface RetrofitInterface {
     @POST("/auth/register")
     Call<Void> executeSignup(@Body HashMap<String, Object> map);
 
+    @POST("/users/editUser/{username}")
+    Call<User> editUser(@Path("username") String username,@Header("authorization") String token, @Body Map<String, Object> newOffer);
+
+
     @POST("/offer/addNewOffer")
     Call<Offer> executenewOffer(@Body HashMap<String, Object> map,@Header("authorization") String token);
+
 
     @GET("/offer/getOfferById/{id}")
     Call<Offer> getOfferById(@Path("id") String offerId,@Header("authorization") String token);
@@ -37,6 +42,6 @@ public interface RetrofitInterface {
     @POST("/offer/editOffer/{id}")
     Call<Void> editOffer(@Path("id") String offerId,@Header("authorization") String token, @Body Map<String, Object> newOffer);
 
-    @POST("/users/editUser/{username}")
-    Call<Void> editUser(@Path("username") String username,@Header("authorization") String token, @Body Map<String, Object> newUser);
+
+
 }

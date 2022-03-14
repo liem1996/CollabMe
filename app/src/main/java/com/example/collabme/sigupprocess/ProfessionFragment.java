@@ -1,4 +1,4 @@
-package com.example.collabme;
+package com.example.collabme.sigupprocess;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.collabme.model.Model;
+import com.example.collabme.R;
+import com.example.collabme.model.User;
 
 import java.util.Arrays;
 

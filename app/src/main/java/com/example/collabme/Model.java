@@ -193,8 +193,6 @@ public class Model {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
-
-
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         Call<User> call = retrofitInterface.getUser(username1,"Bearer "+tockenacsses);
         call.enqueue(new Callback<User>() {

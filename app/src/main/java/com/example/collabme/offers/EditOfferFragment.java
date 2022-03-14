@@ -45,6 +45,7 @@ public class EditOfferFragment extends Fragment {
     String[] chosenOffers;
     boolean[] selectedLanguage= new boolean[langArray.length];
     String[] chosen;
+    String[] newProfession;
 
 
 
@@ -64,7 +65,7 @@ public class EditOfferFragment extends Fragment {
         //coupon = view.findViewById(R.id.fragment_editOffer_coupon);
         interestedVerify = view.findViewById(R.id.fragment_editOffer_checkbox);
         saveBtn = view.findViewById(R.id.fragment_editOffer_saveBtn);
-
+        newProfession = new String[16];
 
         Model.instance.getOfferById(new Model.GetOfferListener() {
             @Override
@@ -74,7 +75,17 @@ public class EditOfferFragment extends Fragment {
                     oldIdOffer = offer.getIdOffer();
                     oldProfession = offer.getProfession();
                     oldProposer = offer.getUser();
-                    String[] strings = thedialog(profession,langArray,oldProfession,selectedLanguage);
+                    String[] strings = oldProfession;
+                    StringBuffer sb = new StringBuffer();
+                    for(int i = 0; i < strings.length; i++) {
+                        sb.append(strings[i]);
+                        if(i<strings.length-1) {
+                            sb.append(", ");
+                        }
+                    }
+                    String str = sb.toString();
+
+                    profession.setText(str);
                     //profession.setText(strings.toString());
                     headline.setText(offer.getHeadline());
                     description.setText(offer.getDescription());
@@ -90,6 +101,10 @@ public class EditOfferFragment extends Fragment {
                         }
                     });
 
+                    newProfession = thedialog(profession,langArray,oldProfession,selectedLanguage);
+
+                    Log.d("TAG","newwwwwww" + newProfession);
+
                 }
             }
         });
@@ -101,7 +116,7 @@ public class EditOfferFragment extends Fragment {
     }
 
     private void saveOfferDetails() {
-
+        newProfession = thedialog(profession,langArray,oldProfession,selectedLanguage);
         String headline1 = headline.getText().toString();
         String description1 = description.getText().toString();
         String finishDate1 = finishDate.getText().toString();
@@ -111,8 +126,7 @@ public class EditOfferFragment extends Fragment {
         //String candidates1 = candidates.getText().toString();
         //String coupon1 = coupon.getText().toString();
         boolean interestedVerify1 = interestedVerify.isChecked();
-
-        Offer offer = new Offer(description1,null,headline1,finishDate1,price1,oldIdOffer,status1,oldProfession,null,interestedVerify1);
+        Offer offer = new Offer(description1,null,headline1,finishDate1,price1,oldIdOffer,status1,newProfession,null,interestedVerify1);
 
         Log.d("TAG","new Offer : "+offer);
         Model.instance.editOffer(offer, code -> {
@@ -157,13 +171,8 @@ public class EditOfferFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                // Initialize alert dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                // set title
                 builder.setTitle("Select:");
-
-                // set dialog non cancelable
                 builder.setCancelable(false);
                 int m = 0;
 
@@ -181,16 +190,10 @@ public class EditOfferFragment extends Fragment {
 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        // check condition
                         if (b) {
-                            // when checkbox selected
-                            // Add position in lang list
                             langList.add(i);
-                            // Sort array list
                             Collections.sort(langList);
                         } else {
-                            // when checkbox unselected
-                            // Remove position from langList
                             langList.remove(Integer.valueOf(i));
                         }
                     }
@@ -199,25 +202,18 @@ public class EditOfferFragment extends Fragment {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // Initialize string builder
                         StringBuilder stringBuilder = new StringBuilder();
                         chosen = new String[langList.size()];
 
-                        // use for loop
+
                         for (int j = 0; j < langList.size(); j++) {
-                            // concat array value
                             stringBuilder.append(lang[langList.get(j)]);
                             chosen[j] = (lang[langList.get(j)]); //to check again
                             System.out.println("ko");
-                            // check condition
                             if (j != langList.size() - 1) {
-                                // When j value not equal
-                                // to lang list size - 1
-                                // add comma
                                 stringBuilder.append(", ");
                             }
                         }
-                        // set text on textView
                         profession.setText(stringBuilder.toString());
                     }
                 });
@@ -232,18 +228,13 @@ public class EditOfferFragment extends Fragment {
                 builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // use for loop
                         for (int j = 0; j < selected.length; j++) {
-                            // remove all selection
                             selected[j] = false;
-                            // clear language list
                             langList.clear();
-                            // clear text view value
                             profession.setText("");
                         }
                     }
                 });
-                // show dialog
                 builder.show();
             }
 
@@ -253,4 +244,4 @@ public class EditOfferFragment extends Fragment {
         return chosen;
     }
 
-    }
+}

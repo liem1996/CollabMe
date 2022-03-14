@@ -16,6 +16,9 @@ public interface RetrofitInterface {
     @GET("/users/getUser/{username}")
     Call<User> getUser(@Path("username") String username,@Header("authorization") String token);
 
+    @GET("/users/getUserById/{id}")
+    Call<User> getUserById(@Path("id") String id,@Header("authorization") String token);
+
     @POST("/auth/login")
     Call<tokenrespone> executeLogin(@Body HashMap<String, String> map);
 

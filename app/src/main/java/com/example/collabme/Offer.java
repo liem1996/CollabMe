@@ -33,7 +33,7 @@ public class Offer {
     private String[] profession;
     @SerializedName("User")
     @Expose
-    private Object user;
+    private String user;
     @SerializedName("IntrestedVerify")
     @Expose
     private boolean intrestedVerify;
@@ -107,7 +107,7 @@ public class Offer {
      * @return
      * The user
      */
-    public Object getUser() {
+    public String getUser() {
         return user;
     }
     /**
@@ -120,7 +120,7 @@ public class Offer {
     }
 
 
-    public Offer(String description,String coupon, String headline,String finishDate, String price, String idOffer, String status, String[] profession, User user, boolean intrestedVerify) {
+    public Offer(String description,String coupon, String headline,String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
         this.coupon = coupon;
         this.description = description;
         this.idOffer = idOffer;
@@ -144,7 +144,7 @@ public class Offer {
         String price = (String) json.get("Price");
         String status = (String) json.get("Status");
         String[] profession =(String[]) json.get("Profession");
-        User user = (User) json.get("User");
+        String user = (String) json.get("User");
         boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
 
         Offer offer = new Offer(description,coupon,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);

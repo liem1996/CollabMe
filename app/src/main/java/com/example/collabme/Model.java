@@ -47,6 +47,10 @@ public class Model {
         void onComplete(User profile);
 
     }
+    public interface GetUserByIdListener{
+        void onComplete(User profile);
+
+    }
 
     public interface GetOfferListener{
         void onComplete(Offer offer);
@@ -198,7 +202,7 @@ public class Model {
 
     public void editOffer(Offer newOffer, EditOfferListener editOfferListener){
         // getOfferById(offerId, getOfferListener);
-        offerId = "622ef69170225fd6f2275db6";
+        offerId = "622f01aaf5223e5bc4be080a";
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -231,7 +235,7 @@ public class Model {
     }
 
     public void getOfferById(GetOfferListener getOfferListener) {
-        offerId = "622ef69170225fd6f2275db6";
+        offerId = "622f01aaf5223e5bc4be080a";
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -256,6 +260,32 @@ public class Model {
 
                 getOfferListener.onComplete(null);
 
+            }
+        });
+    }
+
+    public void getUserById(String id, GetUserByIdListener getUserByIdListener) {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<User> call = retrofitInterface.getUserById(id,"Bearer "+tockenacsses);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                getUserByIdListener.onComplete(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                getUserByIdListener.onComplete(null);
             }
         });
     }

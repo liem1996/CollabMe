@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,16 @@ public class EditOfferFragment extends Fragment {
                     //profession.setText(offer.getProfession()[0]);
                     price.setText(offer.getPrice());
                     interestedVerify.setChecked(offer.getIntrestedVerify());
+
+                    Log.d("TAG", " user id:   "+ (String) offer.getUser());
+                    Model.instance.getUserById((String) offer.getUser(), new Model.GetUserByIdListener() {
+                        @Override
+                        public void onComplete(User profile) {
+                            //if(profile!=null) {
+                                proposer.setText(profile.getUsername());
+                            //}
+                        }
+                    });
 
                    // proposer.setText(offer.getUser().getUsername());
 

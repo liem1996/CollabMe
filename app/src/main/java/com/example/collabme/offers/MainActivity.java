@@ -86,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
                     // Model.instance.getUserName(email);
                     navCtl.navigate(R.id.action_global_addOfferDetailsFragemnt);
                     break;
-
+                case R.id.item_editOffer:
+                    // Model.instance.getUserName(email);
+                    navCtl.navigate(R.id.action_global_editOfferFragment);
+                    break;
 
 
             }

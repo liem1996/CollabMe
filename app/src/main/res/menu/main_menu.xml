@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/item_editOffer"
+        android:icon="@drawable/ic_x"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/addoffer"
         android:icon="@android:drawable/ic_input_add"
         android:title="Item"
@@ -22,4 +27,5 @@
         android:icon="@drawable/profile"
         android:title="profile"
         app:showAsAction="always" />
+
 </menu>

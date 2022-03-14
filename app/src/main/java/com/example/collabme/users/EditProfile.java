@@ -52,7 +52,6 @@ public class EditProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
         username = view.findViewById(R.id.fragment_edituser_username2);
-
         age = view.findViewById(R.id.fragment_edituser_age);
         platform = view.findViewById(R.id.fragment_edituser_platform);
         professions = view.findViewById(R.id.fragment_edituser_profession);
@@ -89,13 +88,13 @@ public class EditProfile extends Fragment {
         String[] pro1 = thedialog(professions, langArray, professionArr, selectedProfessions);
         String[] pro2 = thedialog(platform, langArray2, platformArr, selectedPlatforms);
 
-        user = new User(gender1, password, email1,username1,
-                age1,Followers,posts,company1,influencer1,pro1, pro2);
-
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                user = new User(gender1, password, email1,username.getText().toString(),
+                        age.getText().toString(),followers.getText().toString(),postuploads.getText().toString(),
+                        company1,influencer1,pro1, pro2);
 
                 Model.instance.EditUser(user,new Model.EditUserListener() {
                     @Override

@@ -29,7 +29,7 @@ public interface RetrofitInterface {
     Call<Void> executeSignup(@Body HashMap<String, Object> map);
 
     @POST("/users/editUser/{username}")
-    Call<User> editUser(@Path("username") String username,@Header("authorization") String token, @Body Map<String, Object> newOffer);
+    Call<User> editUser(@Path("username") String username,@Header("authorization") String token, @Body Map<String, Object> newUser);
 
 
     @POST("/offer/addNewOffer")

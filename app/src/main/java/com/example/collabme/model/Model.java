@@ -3,7 +3,11 @@ package com.example.collabme.model;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -25,11 +29,17 @@ public class Model {
     String userToken;
     //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
 
+    MutableLiveData<OffersListLoadingState> offersListLoadingState = new MutableLiveData<OffersListLoadingState>();
+    MutableLiveData<List<Offer>> offersList = new MutableLiveData<List<Offer>>();
     public String username1="liem";
     public String offerId = "622e2fed8fba1393eee2da12";
 
 
-
+    /**
+     *
+     * the section of the offers
+     * interfaces
+     */
     public interface signupListener{
         void onComplete(int code);
     }
@@ -51,6 +61,10 @@ public class Model {
         void onComplete(User profile);
 
     }
+    public enum OffersListLoadingState{
+        loading,
+        loaded
+    }
 
     public interface GetOfferListener{
         void onComplete(Offer offer);
@@ -60,11 +74,74 @@ public class Model {
         void onComplete(int code);
 
     }
+
+    public interface deleteoffer{
+        void onComplete(int code);
+
+    }
     public interface EditUserListener{
         void onComplete(int code);
 
     }
 
+    public Model() {
+        offersListLoadingState.setValue(OffersListLoadingState.loaded);;
+    }
+    public interface GetAllOffersListener{
+        void onComplete(List<Offer> list);
+    }
+
+    /**
+     *
+     * the section of the offers
+     * add
+     * edit
+     * get
+     * refreshomepage
+     */
+
+    public LiveData<OffersListLoadingState> getoffersListLoadingState() {
+        return offersListLoadingState;
+    }
+
+    public LiveData<List<Offer>> getAll(){
+        if (offersList.getValue() == null) { refreshPostList(); };
+        return  offersList;
+    }
+    public void refreshPostList(){
+        offersListLoadingState.setValue(OffersListLoadingState.loading);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+
+        Call<List<Offer>> call = retrofitInterface.getoffers("Bearer " + tockenacsses);
+        call.enqueue(new Callback<List<Offer>>() {
+            @Override
+            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
+                if (response.code() == 200) {
+                    List<Offer> stList = response.body();
+                    offersList.postValue(stList);
+                    offersListLoadingState.postValue(OffersListLoadingState.loaded);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Offer>> call, Throwable t) {
+                offersList.postValue(null);
+            }
+        });
+
+
+    }
 
 
     public void addOffer(Offer offer,Model.addOfferListener addOffer) {
@@ -121,27 +198,27 @@ public class Model {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-            HashMap<String, Object> map = new HashMap<>();
-            map = profile.tojson();
-            Call<Void> call = retrofitInterface.executeSignup(map);
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.code() == 200) {
-                        sighup.onComplete(200);
+        HashMap<String, Object> map = new HashMap<>();
+        map = profile.tojson();
+        Call<Void> call = retrofitInterface.executeSignup(map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    sighup.onComplete(200);
 
-                    } else {
-                        sighup.onComplete(400);
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
+                } else {
                     sighup.onComplete(400);
+
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                sighup.onComplete(400);
+            }
+        });
+    }
 
 
 
@@ -152,41 +229,41 @@ public class Model {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-          HashMap<String, String> map = new HashMap<>();
-            map.put("Username", username);
-            map.put("Password", password);
-            username1=username;
+        HashMap<String, String> map = new HashMap<>();
+        map.put("Username", username);
+        map.put("Password", password);
+        username1=username;
 
-            Call<tokenrespone> call = retrofitInterface.executeLogin(map);
-            call.enqueue(new Callback<tokenrespone>() {
-                @Override
-                public void onResponse(Call<tokenrespone> call, Response<tokenrespone> response) {
-                    if (response.code() == 200) {
-                        String tokenResponse = response.body().getaccessToken();
-                        String tokenrefresh = response.body().getrefreshToken();
-                        MyApplication.getContext()
-                                .getSharedPreferences("TAG",Context.MODE_PRIVATE)
-                                .edit()
-                                .putString("tokenAcsses",tokenResponse)
-                                .commit();
-                        MyApplication.getContext()
-                                .getSharedPreferences("TAG1",Context.MODE_PRIVATE)
-                                .edit()
-                                .putString("tokenrefresh",tokenrefresh)
-                                .commit();
-                        Login.onComplete(200);
+        Call<tokenrespone> call = retrofitInterface.executeLogin(map);
+        call.enqueue(new Callback<tokenrespone>() {
+            @Override
+            public void onResponse(Call<tokenrespone> call, Response<tokenrespone> response) {
+                if (response.code() == 200) {
+                    String tokenResponse = response.body().getaccessToken();
+                    String tokenrefresh = response.body().getrefreshToken();
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG",Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("tokenAcsses",tokenResponse)
+                            .commit();
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG1",Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("tokenrefresh",tokenrefresh)
+                            .commit();
+                    Login.onComplete(200);
 
-                    } else  {
-                        Login.onComplete(400);
-                    }
-                }
-
-                @Override
-                public void onFailure(retrofit2.Call<tokenrespone> call, Throwable t) {
+                } else  {
                     Login.onComplete(400);
                 }
+            }
 
-            });
+            @Override
+            public void onFailure(retrofit2.Call<tokenrespone> call, Throwable t) {
+                Login.onComplete(400);
+            }
+
+        });
 
 
 
@@ -348,7 +425,7 @@ public class Model {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenrefresh","");
         HashMap<String, Object> map = new HashMap<>();
-          map = profile.tojson();
+        map = profile.tojson();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         Call<User> call = retrofitInterface.editUser(profile.getUsername(),"Bearer "+ tockenrefresh,map);
@@ -369,6 +446,3 @@ public class Model {
 
 
 }
-
-
-

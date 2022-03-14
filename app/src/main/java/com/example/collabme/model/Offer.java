@@ -37,6 +37,9 @@ public class Offer {
     @SerializedName("IntrestedVerify")
     @Expose
     private boolean intrestedVerify;
+    @SerializedName("Isdelete")
+    @Expose
+    private boolean delete;
 
     /**
      *
@@ -110,7 +113,7 @@ public class Offer {
     public String getUser() {
         return user;
     }
-    /**
+     /**
      *
      * @return
      * The intrestedVerify
@@ -118,6 +121,26 @@ public class Offer {
     public boolean getIntrestedVerify() {
         return intrestedVerify;
     }
+
+    /**
+     *
+     * @return
+     * The delete
+     */
+    public boolean getdelete() {
+        return delete;
+    }
+
+    /**
+     *
+     * @param delete
+     * The isdelete
+     */
+    public void setdelete(boolean delete) {
+        this.delete = delete;
+    }
+
+
 
 
     public Offer(String description,String coupon, String headline,String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
@@ -146,8 +169,12 @@ public class Offer {
         String[] profession =(String[]) json.get("Profession");
         String user = (String) json.get("User");
         boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
+        boolean delete = (boolean) json.get("Isdelete");
+
+
 
         Offer offer = new Offer(description,coupon,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
+        offer.setdelete(delete);
 
         return offer;
     }
@@ -164,6 +191,7 @@ public class Offer {
         json.put("Profession", profession);
         json.put("User",user);
         json.put("IntrestedVerify", intrestedVerify);
+        json.put("Isdelete", delete);
         return json;
     }
 }

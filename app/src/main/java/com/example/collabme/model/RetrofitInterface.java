@@ -2,6 +2,7 @@
 package com.example.collabme.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -38,6 +39,10 @@ public interface RetrofitInterface {
 
     @GET("/offer/getOfferById/{id}")
     Call<Offer> getOfferById(@Path("id") String offerId,@Header("authorization") String token);
+
+    @GET("/offer/getoffers")
+    Call<List<Offer>> getoffers(@Header("authorization") String token);
+
 
     @POST("/offer/editOffer/{id}")
     Call<Offer> editOffer(@Path("id") String offerId,@Header("authorization") String token, @Body Map<String, Object> newOffer);

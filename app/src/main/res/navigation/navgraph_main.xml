@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgraph_main"
-    app:startDestination="@id/editOfferFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/userProfile"
@@ -13,25 +13,93 @@
         <action
             android:id="@+id/action_userProfile_to_homeFragment2"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument android:name="password"
+            app:argType="string" />
+        <argument
+            android:name="company"
+            app:argType="boolean" />
+        <argument
+            android:name="influencer"
+            app:argType="boolean" />
+        <argument
+            android:name="age"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="gender"
+            app:argType="string" />
+        <argument
+            android:name="platform"
+            app:argType="string[]" />
+        <argument
+            android:name="profession"
+            app:argType="string[]" />
+        <argument
+            android:name="followers"
+            app:argType="string" />
+        <argument
+            android:name="postsuploads"
+            app:argType="string" />
         <action
-            android:id="@+id/action_userProfile_to_offerDetailsFragment"
-            app:destination="@id/offerDetailsFragment" />
+            android:id="@+id/action_userProfile_to_editProfile2"
+            app:destination="@id/editProfile" />
     </fragment>
-    <action android:id="@+id/action_global_userProfile" app:destination="@id/userProfile"/>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.collabme.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
-    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment" />
     <fragment
-        android:id="@+id/offerDetailsFragment"
-        android:name="com.example.collabme.OfferDetailsFragment"
-        android:label="fragment_offer_details"
-        tools:layout="@layout/fragment_offer_details" />
+        android:id="@+id/editProfile"
+        android:name="com.example.collabme.EditProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <argument android:name="username"
+            app:argType="string" />
+        <argument android:name="password"
+            app:argType="string" />
+        <argument
+            android:name="company"
+            app:argType="boolean" />
+        <argument
+            android:name="influencer"
+            app:argType="boolean" />
+        <argument
+            android:name="age"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="gender"
+            app:argType="string" />
+        <argument
+            android:name="platform"
+            app:argType="string[]" />
+        <argument
+            android:name="profession"
+            app:argType="string[]" />
+        <argument
+            android:name="followers"
+            app:argType="string" />
+        <argument
+            android:name="postsuploads"
+            app:argType="string" />
+    </fragment>
+    <action android:id="@+id/action_global_userProfile2" app:destination="@id/userProfile" />
+    <action android:id="@+id/action_global_homeFragment2" app:destination="@id/homeFragment" />
     <fragment
-        android:id="@+id/editOfferFragment"
-        android:name="com.example.collabme.EditOfferFragment"
-        android:label="fragment_edit_offer"
-        tools:layout="@layout/fragment_edit_offer" />
+        android:id="@+id/addOfferDetailsFragemnt"
+        android:name="com.example.collabme.AddOfferDetailsFragemnt"
+        android:label="fragment_add_offer_details_fragemnt"
+        tools:layout="@layout/fragment_add_offer_details_fragemnt" >
+        <action
+            android:id="@+id/action_addOfferDetailsFragemnt_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment><action android:id="@+id/action_global_addOfferDetailsFragemnt" app:destination="@id/addOfferDetailsFragemnt"/><action android:id="@+id/action_global_addOfferDetailsFragemnt2" app:destination="@id/addOfferDetailsFragemnt"/>
 </navigation>

@@ -18,7 +18,7 @@
             android:name=".IntroActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,9 +27,8 @@
 
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="false">
-
+            android:name=".LoginActivity"
+            android:exported="true">
 
         </activity>
     </application>

@@ -1,10 +1,8 @@
 package com.example.collabme;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,11 +23,13 @@ public class Model {
     String userToken;
     //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
 
-    public String username1="bar2";
-    public String offerId = "622e2fed8fba1393eee2da12";
+    public String username1="liem";
 
 
     public interface signupListener{
+        void onComplete(int code);
+    }
+    public interface addOfferListener{
         void onComplete(int code);
     }
     public interface loginListener{
@@ -39,18 +39,57 @@ public class Model {
     public interface logout{
         void onComplete();
     }
-    public interface GetConnectedUserListener{
+    public interface getuserconnect{
         void onComplete(User profile);
 
     }
-    public interface GetOfferListener{
-        void onComplete(Offer offer);
 
-    }
-    public interface EditOfferListener{
-        void onComplete(int code);
 
+
+    public void addOffer(Offer offer,Model.addOfferListener addOffer) {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("Description", offer.getDescription());
+        map.put("HeadLine", offer.getHeadline());
+        map.put("Price", offer.getPrice());
+        map.put("Coupon", offer.getCoupon());
+        map.put("IdOffer", offer.getIdOffer());
+        map.put("Status", offer.getStatus());
+        map.put("Profession", offer.getProfession());
+        map.put("User", offer.getUser());
+        map.put("IntrestedVerify", offer.getIntrestedVerify());
+
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        Call<Offer> call = retrofitInterface.executenewOffer(map,"Bearer "+ tockenacsses);
+        call.enqueue(new Callback<Offer>() {
+            @Override
+            public void onResponse(Call<Offer> call, Response<Offer> response) {
+
+                if (response.code() == 200) {
+
+                    addOffer.onComplete(200);
+
+                } else {
+                    addOffer.onComplete(400);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Offer> call, Throwable t) {
+                addOffer.onComplete(400);
+            }
+        });
     }
+
 
 
     public void sighup(User profile,Model.signupListener sighup) {
@@ -144,97 +183,61 @@ public class Model {
     }
 
 
-
-    public void editOffer(Offer newOffer, EditOfferListener editOfferListener){
-       // getOfferById(offerId, getOfferListener);
-        offerId = "622e2fed8fba1393eee2da12";
-
+    public void getUserConnect(getuserconnect getuserconnect) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        String tokenAccess = MyApplication.getContext()
+        String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-
-        Map<String, Object> map = newOffer.toJson();
-
-        Call<Void> call = retrofitInterface.editOffer(offerId,"Bearer "+tokenAccess,map);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                editOfferListener.onComplete(response.code());
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("TAG","basaaaaaa  a a a "+t);
-                editOfferListener.onComplete(400);
-
-            }
-        });
-
-    }
-
-    public void getOfferById(GetOfferListener getOfferListener) {
-        offerId = "622e2fed8fba1393eee2da12";
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        String tokenAccess = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
-
-
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<Offer> call = retrofitInterface.getOfferById(offerId,"Bearer "+tokenAccess);
-        call.enqueue(new Callback<Offer>() {
-            @Override
-            public void onResponse(Call<Offer> call, Response<Offer> response) {
-                getOfferListener.onComplete(response.body());
-            }
-            @Override
-            public void onFailure(Call<Offer> call, Throwable t) {
-                getOfferListener.onComplete(null);
-
-            }
-        });
-    }
-
-    String tokenAccess;
-    public void getUserConnect(GetConnectedUserListener getConnectedUserListener) {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        tokenAccess = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
-
-
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.getUser(username1,"Bearer "+tokenAccess);
+        Call<User> call = retrofitInterface.getUser(username1,"Bearer "+tockenacsses);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
-                getConnectedUserListener.onComplete(response.body());
+                getuserconnect.onComplete(response.body());
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                getConnectedUserListener.onComplete(null);
+                getuserconnect.onComplete(null);
             }
         });
     }
+    public void logout(logout logout){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tockenrefresh = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenrefresh","");
+
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        Call<Void> call = retrofitInterface.excutelogout("Bearer "+ tockenrefresh);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                logout.onComplete();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                logout.onComplete();
+            }
+        });
+
+
+    }
+
 }
 
 

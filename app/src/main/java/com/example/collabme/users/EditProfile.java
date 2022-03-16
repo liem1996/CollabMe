@@ -37,10 +37,11 @@ public class EditProfile extends Fragment {
     boolean[] selectedProfessions = new boolean[16];
     boolean[] selectedPlatforms = new boolean[5];
     ArrayList<Integer> langList = new ArrayList<>();
-    ;
-    User user;
+    ArrayList<Integer> langList2 = new ArrayList<>();
 
-    String[] chosen;
+    String[] chosen, chosen2;
+
+    User user;
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
     String[] langArray2 = {"youtube", "facebook", "tiktok", "instagram", "twitter"};
@@ -84,16 +85,219 @@ public class EditProfile extends Fragment {
         //edit
         //cancel
 
-        String[] pro1 = thedialog(professions, langArray, professionArr, selectedProfessions);
-        String[] pro2 = thedialog(platform, langArray2, platformArr, selectedPlatforms);
+     //   String[] pro1 = thedialog(professions, langArray, professionArr, selectedProfessions);
+     //   String[] pro2 = thedialog(platform, langArray2, platformArr, selectedPlatforms);
 
+        professions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Initialize alert dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                // set title
+                builder.setTitle("Select Professions:");
+
+                // set dialog non cancelable
+                builder.setCancelable(false);
+                int m = 0;
+
+                for (int k = 0; k < langArray.length; k++) {
+                    for (int h = 0; h < professionArr.length; h++) {
+                        if (professionArr[h]!=null) {
+                            if (professionArr[h].equals(langArray[k])) {
+                                langList.add(k);
+                                Collections.sort(langList);
+                                selectedProfessions[k] = true;
+                            }
+                        }
+                    }
+                }
+
+
+                builder.setMultiChoiceItems(langArray, selectedProfessions, new DialogInterface.OnMultiChoiceClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                        // check condition
+                        if (b) {
+                            // when checkbox selected
+                            // Add position in lang list
+                            langList.add(i);
+                            // Sort array list
+                            Collections.sort(langList);
+                        } else {
+                            // when checkbox unselected
+                            // Remove position from langList
+                            langList.remove(Integer.valueOf(i));
+                        }
+                    }
+                });
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        StringBuilder stringBuilder;
+                        // Initialize string builder
+                        stringBuilder = new StringBuilder();
+                        chosen = new String[langList.size()];
+
+                        // use for loop
+                        for (int j = 0; j < langList.size(); j++) {
+                            // concat array value
+
+                            stringBuilder.append(langArray[langList.get(j)]);
+                            chosen[j] = (langArray[langList.get(j)]); //to check again
+
+                            System.out.println("ko");
+                            // check condition
+                            if (j != langList.size() - 1) {
+                                // When j value not equal
+                                // to lang list size - 1
+                                // add comma
+                                stringBuilder.append(", ");
+                            }
+                        }
+                        // set text on textView
+                        professions.setText(stringBuilder.toString());
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // dismiss dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // use for loop
+                        for (int j = 0; j < selectedProfessions.length; j++) {
+                            // remove all selection
+                            selectedProfessions[j] = false;
+                            // clear language list
+                            langList.clear();
+                            // clear text view value
+                            professions.setText("");
+                        }
+                    }
+                });
+                // show dialog
+                builder.show();
+            }
+
+        });
+
+        platform.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Initialize alert dialog
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
+
+                // set title
+                builder2.setTitle("Select Platforms:");
+
+                // set dialog non cancelable
+                builder2.setCancelable(false);
+                int m = 0;
+
+                for (int km = 0; km < langArray2.length; km++) {
+                    for (int he = 0; he < platformArr.length; he++) {
+
+                            if (platformArr[he].equals(langArray2[km])) {
+                                langList2.add(km);
+                                Collections.sort(langList2);
+                                selectedPlatforms[km] = true;
+                            }
+
+                    }
+                }
+
+
+                builder2.setMultiChoiceItems(langArray2, selectedPlatforms, new DialogInterface.OnMultiChoiceClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                        // check condition
+                        if (b) {
+                            // when checkbox selected
+                            // Add position in lang list
+                            langList2.add(i);
+                            // Sort array list
+                            Collections.sort(langList2);
+                        } else {
+                            // when checkbox unselected
+                            // Remove position from langList
+                            langList2.remove(Integer.valueOf(i));
+                        }
+                    }
+                });
+
+                builder2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        StringBuilder stringBuilder2;
+                        // Initialize string builder
+                        stringBuilder2 = new StringBuilder();
+                        chosen2 = new String[langList2.size()];
+
+                        // use for loop
+                        for (int j = 0; j < langList2.size(); j++) {
+                            // concat array value
+
+                            stringBuilder2.append(langArray2[langList2.get(j)]);
+                            chosen2[j] = (langArray2[langList2.get(j)]); //to check again
+
+                            System.out.println("ko");
+                            // check condition
+                            if (j != langList2.size() - 1) {
+                                // When j value not equal
+                                // to lang list size - 1
+                                // add comma
+                                stringBuilder2.append(", ");
+                            }
+                        }
+                        // set text on textView
+                        platform.setText(stringBuilder2.toString());
+                    }
+                });
+
+                builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // dismiss dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder2.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // use for loop
+                        for (int j = 0; j < selectedPlatforms.length; j++) {
+                            // remove all selection
+                            selectedPlatforms[j] = false;
+                            // clear language list
+                            langList2.clear();
+                            // clear text view value
+                            platform.setText("");
+                        }
+                    }
+                });
+                // show dialog
+                builder2.show();
+            }
+
+        });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 user = new User(gender1, password, email1,username.getText().toString(),
                         age.getText().toString(),followers.getText().toString(),postuploads.getText().toString(),
-                        company1,influencer1,pro1, pro2);
+                        company1,influencer1,chosen, chosen2);
 
                 Model.instance.EditUser(user,new Model.EditUserListener() {
                     @Override
@@ -103,7 +307,6 @@ public class EditProfile extends Fragment {
                         }
                         else{
                             Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
-
                         }
 
                     }
@@ -116,6 +319,8 @@ public class EditProfile extends Fragment {
     }
 
 /////////////////////////////////////////////////////////
+
+    /*
 
     public String[] thedialog(TextView textView, String[] lang, String[] theArr, boolean[] selected) {
 
@@ -219,10 +424,11 @@ public class EditProfile extends Fragment {
                 builder.show();
             }
 
-
         });
-
         return chosen;
+
+
     }
+    */
     ////////////////////////////////////////////////////////////////////////////////
 }

@@ -161,4 +161,9 @@
         android:name="com.example.collabme.offers.inprogressfragment"
         android:label="fragment_inprogressfragment"
         tools:layout="@layout/fragment_inprogressfragment" /><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
+    <fragment
+        android:id="@+id/fragment_Search"
+        android:name="com.example.collabme.offers.Fragment_Search"
+        android:label="fragment__search"
+        tools:layout="@layout/fragment__search" />
 </navigation>

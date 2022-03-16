@@ -46,6 +46,13 @@ public interface RetrofitInterface {
     @POST("/offer/editOffer/{id}")
     Call<Offer> editOffer(@Path("id") String offerId,@Header("authorization") String token, @Body Map<String, Object> newOffer);
 
+    @POST("/offer/deleteOffer/{id}")
+    Call<Void> deleteoffer(@Path("id") String offerId,@Header("authorization") String token);
+
+
+    @POST("/users/authenticate")
+    Call<Void> getuserislogin(@Header("authorization") String token);
+
 
 
 }

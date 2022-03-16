@@ -106,8 +106,6 @@ public class HomeFragment extends Fragment {
                          proffesions = profile.getProfessions();
                          followers =  profile.getFollowers();
                          postuploads =  profile.getNumOfPosts();
-
-
                     }
                 });
                 if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
@@ -198,18 +196,23 @@ public class HomeFragment extends Fragment {
 
         }
         public void bind(Offer offer){
-
             headline_offer.setText(offer.getHeadline());
             Offer_date.setText(offer.getFinishDate());
             Offer_status.setText(offer.getStatus());
-
-
-
             Model.instance.getuserbyusername(offer.getUser(), new Model.GetUserByIdListener() {
                 @Override
                 public void onComplete(User profile) {
-                 stUsername = profile.getUsername();
-                   username.setText(stUsername);
+                 if(profile==null){
+                    Model.instance.deleteoffer(offer, new Model.deleteoffer() {
+                        @Override
+                        public void onComplete() {
+                            Model.instance.refreshPostList();
+                        }
+                    });
+                 }else{
+                     stUsername = profile.getUsername();
+                     username.setText(stUsername);
+                 }
 
                 }
             });

@@ -1,8 +1,11 @@
 package com.example.collabme.model;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
+import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -26,11 +29,12 @@ public class Model {
     public static final String MY_PREFRENCE = "myPrefs";
     public static final String TOKEN = "myToken";
     //Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostLastUpdateDate",0);
-
+    public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     MutableLiveData<OffersListLoadingState> offersListLoadingState = new MutableLiveData<OffersListLoadingState>();
     MutableLiveData<List<Offer>> offersList = new MutableLiveData<List<Offer>>();
     public String username1="liem";
     public String offerId = "622e2fed8fba1393eee2da12";
+
 
 
     /**
@@ -73,8 +77,9 @@ public class Model {
 
     }
 
+
     public interface deleteoffer{
-        void onComplete(int code);
+        void onComplete();
 
     }
     public interface EditUserListener{
@@ -87,6 +92,21 @@ public class Model {
     }
     public interface GetAllOffersListener{
         void onComplete(List<Offer> list);
+    }
+
+    public Boolean isSignIn () {
+        // Check if user is signed in (non-null) and update UI accordingly.
+
+        offersListLoadingState.setValue(OffersListLoadingState.loading);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        return null;
+
     }
 
     /**
@@ -267,6 +287,35 @@ public class Model {
 
     }
 
+
+    public void deleteoffer(Offer offer,deleteoffer deleteofferlisner){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        String tokenAccess = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+
+        Call<Void> call = retrofitInterface.deleteoffer(offer.getIdOffer(),"Bearer "+tokenAccess);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                deleteofferlisner.onComplete();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("TAG","basaaaaaa  a a a "+t);
+                deleteofferlisner.onComplete();
+            }
+        });
+
+    }
 
     public void editOffer(Offer newOffer, EditOfferListener editOfferListener){
         // getOfferById(offerId, getOfferListener);

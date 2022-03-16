@@ -36,15 +36,14 @@ public class EditProfile extends Fragment {
     String email1, gender1, username1, age1, Followers, posts;
     boolean[] selectedProfessions = new boolean[16];
     boolean[] selectedPlatforms = new boolean[5];
+    ArrayList<Integer> langList = new ArrayList<>();
+    ;
     User user;
 
     String[] chosen;
-    ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
     String[] langArray2 = {"youtube", "facebook", "tiktok", "instagram", "twitter"};
-
-    ArrayList<String> professionsArr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,6 +118,7 @@ public class EditProfile extends Fragment {
 /////////////////////////////////////////////////////////
 
     public String[] thedialog(TextView textView, String[] lang, String[] theArr, boolean[] selected) {
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,15 +133,18 @@ public class EditProfile extends Fragment {
                 builder.setCancelable(false);
                 int m = 0;
 
-                for (int k = 0; k < theArr.length; k++) {
-                    for (int h = 0; h < lang.length; h++) {
-                        if (theArr[k].equals(lang[h])) {
-                            langList.add(h);
-                            Collections.sort(langList);
-                            selected[h] = true;
+                    for (int k = 0; k < lang.length; k++) {
+                        for (int h = 0; h < theArr.length; h++) {
+                            if (theArr[h]!=null) {
+                                if (theArr[h].equals(lang[k])) {
+                                    langList.add(k);
+                                    Collections.sort(langList);
+                                    selected[k] = true;
+                                }
+                            }
                         }
                     }
-                }
+
 
                 builder.setMultiChoiceItems(lang, selected, new DialogInterface.OnMultiChoiceClickListener() {
 
@@ -165,15 +168,18 @@ public class EditProfile extends Fragment {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        StringBuilder stringBuilder;
                         // Initialize string builder
-                        StringBuilder stringBuilder = new StringBuilder();
+                        stringBuilder = new StringBuilder();
                         chosen = new String[langList.size()];
 
                         // use for loop
                         for (int j = 0; j < langList.size(); j++) {
                             // concat array value
-                            stringBuilder.append(lang[langList.get(j)]);
-                            chosen[j] = (lang[langList.get(j)]); //to check again
+
+                                stringBuilder.append(lang[langList.get(j)]);
+                                chosen[j] = (lang[langList.get(j)]); //to check again
+
                             System.out.println("ko");
                             // check condition
                             if (j != langList.size() - 1) {
@@ -184,7 +190,7 @@ public class EditProfile extends Fragment {
                             }
                         }
                         // set text on textView
-                        professions.setText(stringBuilder.toString());
+                        textView.setText(stringBuilder.toString());
                     }
                 });
 

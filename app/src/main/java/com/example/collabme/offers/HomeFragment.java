@@ -19,7 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.collabme.R;
-import com.example.collabme.model.Model;
+import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Offer;
 import com.example.collabme.model.User;
 import com.example.collabme.viewmodel.offersviewmodel;
@@ -59,7 +60,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
         swipeRefresh = view.findViewById(R.id.offers_swiperefresh);
-        swipeRefresh.setOnRefreshListener(Model.instance::refreshPostList);
+        swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
 
         RecyclerView list = view.findViewById(R.id.offers_rv);
         list.setHasFixedSize(true);
@@ -71,9 +72,9 @@ public class HomeFragment extends Fragment {
 
         setHasOptionsMenu(true);
         viewModel.getData().observe(getViewLifecycleOwner(), list1 -> refresh());
-        swipeRefresh.setRefreshing(Model.instance.getoffersListLoadingState().getValue() == Model.OffersListLoadingState.loading);
-        Model.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
-            if (PostsListLoadingState == Model.OffersListLoadingState.loading){
+        swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
+        ModelOffers.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
+            if (PostsListLoadingState == ModelOffers.OffersListLoadingState.loading){
                 swipeRefresh.setRefreshing(true);
             }else{
                 swipeRefresh.setRefreshing(false);
@@ -89,7 +90,7 @@ public class HomeFragment extends Fragment {
                 String status = viewModel.getData().getValue().get(position).getStatus();
                 String date = viewModel.getData().getValue().get(position).getFinishDate();
 
-                Model.instance.getUserById(viewModel.getData().getValue().get(position).getUser(), new Model.GetUserByIdListener() {
+                ModelUsers.instance3.getUserById(viewModel.getData().getValue().get(position).getUser(), new ModelUsers.GetUserByIdListener() {
                     @Override
                     public void onComplete(User profile) {
                          stUsername = profile.getUsername();
@@ -197,11 +198,11 @@ public class HomeFragment extends Fragment {
             headline_offer.setText(offer.getHeadline());
             Offer_date.setText(offer.getFinishDate());
             Offer_status.setText(offer.getStatus());
-            Model.instance.getuserbyusername(offer.getUser(), new Model.GetUserByIdListener() {
+            ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
                 @Override
                 public void onComplete(User profile) {
                  if(profile==null){
-                    Model.instance.deleteoffer(offer, new Model.deleteoffer() {
+                    ModelOffers.instance.deleteoffer(offer, new ModelOffers.deleteoffer() {
                         @Override
                         public void onComplete() {
                             refresh();

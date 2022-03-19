@@ -3,10 +3,6 @@ package com.example.collabme.offers;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.collabme.model.Model;
-import com.example.collabme.model.Offer;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Offer;
 import com.example.collabme.model.User;
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
 
         String uniqueKey = UUID.randomUUID().toString();
 
-        Model.instance.getUserConnect(new Model.getuserconnect() {
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {
                 if(profile!=null) {
@@ -169,7 +169,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
                         price.getText().toString(),  uniqueKey,  status.getText().toString(), chosenOffers,  userConnected.getUsername(),
                         intrestedVerify.isChecked());
 
-                Model.instance.addOffer(offer, new Model.addOfferListener() {
+                ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
                     @Override
                     public void onComplete(int code) {
 

@@ -13,9 +13,9 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.collabme.offers.MainActivity;
-import com.example.collabme.model.Model;
 import com.example.collabme.R;
+import com.example.collabme.model.Modelauth;
+import com.example.collabme.offers.MainActivity;
 
 public class LoginFragment extends Fragment {
 
@@ -41,7 +41,7 @@ public class LoginFragment extends Fragment {
         password = view.findViewById(R.id.fragment_login_password);
 
         login = view.findViewById(R.id.fragment_login_loginbtn);
-        login.setOnClickListener(v -> Model.instance.Login(username.getText().toString(),password.getText().toString(), new Model.loginListener() {
+        login.setOnClickListener(v -> Modelauth.instance2.Login(username.getText().toString(),password.getText().toString(), new Modelauth.loginListener() {
             @Override
             public void onComplete(int code) {
                 if(code==200) {

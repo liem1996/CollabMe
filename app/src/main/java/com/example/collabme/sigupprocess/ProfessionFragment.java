@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.collabme.model.Model;
 import com.example.collabme.R;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.model.User;
 import com.example.collabme.offers.MainActivity;
 
@@ -96,11 +96,11 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         User user = new User(gender,password,email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
 
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
-        continueBtn.setOnClickListener(v-> Model.instance.sighup(user, new Model.signupListener() {
+        continueBtn.setOnClickListener(v-> Modelauth.instance2.sighup(user, new Modelauth.signupListener() {
             @Override
             public void onComplete(int code) {
                 if(code==200){
-                    Model.instance.Login(username, password, code1 -> { });
+                    Modelauth.instance2.Login(username, password, code1 -> { });
                     toFeedActivity();
                     Toast.makeText(getActivity(),"hiiii11122", Toast.LENGTH_LONG).show();
                 }else{

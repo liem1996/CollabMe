@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.collabme.R;
-import com.example.collabme.model.Model;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.offers.MainActivity;
 
 public class IntroActivity extends AppCompatActivity {
@@ -20,7 +20,7 @@ public class IntroActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Model.instance.isSignIn(new Model.islogin() {
+           Modelauth.instance2.isSignIn(new Modelauth.islogin() {
                 @Override
                 public void onComplete(boolean code) {
                     if(code==true){

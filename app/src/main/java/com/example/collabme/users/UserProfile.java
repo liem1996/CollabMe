@@ -13,8 +13,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.example.collabme.model.Model;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.User;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class UserProfile extends Fragment {
         chat=view.findViewById(R.id.fragment_userprofile_chatbtn);
         createAnOffer=view.findViewById(R.id.fragemnt_userprofile_create);
         edit=view.findViewById(R.id.fragemnt_userprofile_edit);
-         Model.instance.getUserConnect(new Model.getuserconnect() {
+         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {
                 if(profile!=null) {

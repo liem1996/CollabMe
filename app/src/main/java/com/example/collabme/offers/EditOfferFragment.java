@@ -19,7 +19,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.collabme.R;
-import com.example.collabme.model.Model;
+import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Offer;
 
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class EditOfferFragment extends Fragment {
                 }
             }
         });
-        
+
          */
 
 
@@ -128,7 +128,7 @@ public class EditOfferFragment extends Fragment {
         Offer offer = new Offer(description1,null,headline1,finishDate1,price1,oldIdOffer,status1,newProfession,null,interestedVerify1);
 
         Log.d("TAG","new Offer : "+offer);
-        Model.instance.editOffer(offer, code -> {
+        ModelOffers.instance.editOffer(offer, code -> {
             if(code == 200) {
                 Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
             }

@@ -8,18 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.collabme.model.Model;
-import com.example.collabme.model.User;
 import com.example.collabme.R;
-
-
-import org.w3c.dom.Text;
+import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -299,7 +295,7 @@ public class EditProfile extends Fragment {
                         age.getText().toString(),followers.getText().toString(),postuploads.getText().toString(),
                         company1,influencer1,chosen, chosen2);
 
-                Model.instance.EditUser(user,new Model.EditUserListener() {
+                ModelUsers.instance3.EditUser(user,new ModelUsers.EditUserListener() {
                     @Override
                     public void onComplete(int code) {
                         if(code == 200) {

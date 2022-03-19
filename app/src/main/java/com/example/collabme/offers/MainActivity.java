@@ -12,8 +12,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.collabme.model.Model;
 import com.example.collabme.R;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.sigupprocess.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.menu_logout:
 
                     // Model.instance.getUserName(email);
-                    Model.instance.logout(new Model.logout() {
+                    Modelauth.instance2.logout(new Modelauth.logout() {
                         @Override
                         public void onComplete(int code) {
                             if(code==200) {

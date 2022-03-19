@@ -16,21 +16,23 @@
         tools:targetApi="m">
         <activity
             android:name=".sigupprocess.IntroActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".offers.MainActivity"
-            android:exported="true" >
-
-
-        </activity>
-        <activity
-            android:name=".sigupprocess.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".offers.MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".sigupprocess.LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+
 
         </activity>
     </application>

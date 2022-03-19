@@ -50,8 +50,8 @@ public interface RetrofitInterface {
     Call<Void> deleteoffer(@Path("id") String offerId,@Header("authorization") String token);
 
 
-    @POST("/users/authenticate")
-    Call<Void> getuserislogin(@Header("authorization") String token);
+    @GET("/users/authenticate")
+    Call<Boolean> getuserislogin(@Header("authorization") String token);
 
 
 

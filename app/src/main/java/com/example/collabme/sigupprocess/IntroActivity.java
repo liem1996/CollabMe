@@ -20,18 +20,16 @@ public class IntroActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (Model.instance.isSignIn())
-            {
-                Model.instance.mainThread.post(() -> {
-                    toFeedActivity();
-                });
-            }
-            else {
-                Model.instance.mainThread.post(() -> {
-                    toLoginActivity();
-                });
-            }
-
+            Model.instance.isSignIn(new Model.islogin() {
+                @Override
+                public void onComplete(boolean code) {
+                    if(code==true){
+                        toFeedActivity();
+                    }else{
+                        toLoginActivity();
+                    }
+                }
+            });
 
     }
 

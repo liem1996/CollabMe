@@ -95,6 +95,7 @@ public class HomeFragment extends Fragment {
                 Model.instance.getUserById(viewModel.getData().getValue().get(position).getUser(), new Model.GetUserByIdListener() {
                     @Override
                     public void onComplete(User profile) {
+
                          stUsername = profile.getUsername();
                          password = profile.getPassword();
                          influncer = profile.getInfluencer();

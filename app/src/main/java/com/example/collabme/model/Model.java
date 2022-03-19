@@ -33,7 +33,7 @@ public class Model {
     MutableLiveData<OffersListLoadingState> offersListLoadingState = new MutableLiveData<OffersListLoadingState>();
     MutableLiveData<List<Offer>> offersList = new MutableLiveData<List<Offer>>();
     public String username1="liem";
-    public String offerId = "622e2fed8fba1393eee2da12";
+
 
 
 
@@ -304,6 +304,11 @@ public class Model {
                             .edit()
                             .putString("tokenrefresh",tokenrefresh)
                             .commit();
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG",Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("username",username1)
+                            .commit();
                     Login.onComplete(200);
 
                 } else  {
@@ -353,10 +358,7 @@ public class Model {
     }
 
     public void editOffer(Offer newOffer, EditOfferListener editOfferListener){
-        // getOfferById(offerId, getOfferListener);
-        offerId = "622f01aaf5223e5bc4be080a";
-
-        retrofit = new Retrofit.Builder()
+         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -369,7 +371,7 @@ public class Model {
 
         Map<String, Object> map = newOffer.toJson();
 
-        Call<Offer> call = retrofitInterface.editOffer(offerId,"Bearer "+tokenAccess,map);
+        Call<Offer> call = retrofitInterface.editOffer(newOffer.getIdOffer(),"Bearer "+tokenAccess,map);
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
@@ -385,8 +387,8 @@ public class Model {
 
     }
 
-    public void getOfferById(GetOfferListener getOfferListener) {
-        offerId = "622f01aaf5223e5bc4be080a";
+    public void getOfferById(String offerid,GetOfferListener getOfferListener) {
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -399,7 +401,7 @@ public class Model {
 
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<Offer> call = retrofitInterface.getOfferById(offerId,"Bearer "+tokenAccess);
+        Call<Offer> call = retrofitInterface.getOfferById(offerid,"Bearer "+tokenAccess);
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
@@ -481,8 +483,12 @@ public class Model {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
+        String username2= MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("username","");
+
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.getUser(username1,"Bearer "+tockenacsses);
+        Call<User> call = retrofitInterface.getUser(username2,"Bearer "+tockenacsses);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

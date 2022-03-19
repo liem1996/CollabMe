@@ -29,9 +29,6 @@ import com.example.collabme.viewmodel.offersviewmodel;
 
 public class HomeFragment extends Fragment {
 
-
-
-
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     OnItemClickListener listener;
@@ -95,7 +92,6 @@ public class HomeFragment extends Fragment {
                 Model.instance.getUserById(viewModel.getData().getValue().get(position).getUser(), new Model.GetUserByIdListener() {
                     @Override
                     public void onComplete(User profile) {
-
                          stUsername = profile.getUsername();
                          password = profile.getPassword();
                          influncer = profile.getInfluencer();
@@ -112,6 +108,8 @@ public class HomeFragment extends Fragment {
                 if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditProfile(stUsername, password, company, influncer, age,email,gender,palatform,proffesions,followers,postuploads));
                 }
+
+
                 /*
                 else if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview){
                     viewModel.deletePost(viewModel.getData().getValue().get(position), () -> {
@@ -155,7 +153,6 @@ public class HomeFragment extends Fragment {
         Button Editview;
 
         public MyViewHolder(@NonNull View itemView) {
-
             super(itemView);
             headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline);
             Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date);
@@ -207,7 +204,7 @@ public class HomeFragment extends Fragment {
                     Model.instance.deleteoffer(offer, new Model.deleteoffer() {
                         @Override
                         public void onComplete() {
-                            Model.instance.refreshPostList();
+                            refresh();
                         }
                     });
                  }else{

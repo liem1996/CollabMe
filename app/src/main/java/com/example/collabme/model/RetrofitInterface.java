@@ -53,6 +53,9 @@ public interface RetrofitInterface {
     @GET("/users/authenticate")
     Call<Boolean> getuserislogin(@Header("authorization") String token);
 
+    @GET("/candidates/getCandidates/{id}")
+    Call<List<User>> getCandidates(@Path("id") String offerId,@Header("authorization") String token);
+
 
 
 }

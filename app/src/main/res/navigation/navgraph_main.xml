@@ -167,6 +167,11 @@
         android:label="fragment__search"
         tools:layout="@layout/fragment__search" />
     <fragment
+        android:id="@+id/candidatesFragment"
+        android:name="com.example.collabme.offers.CandidatesFragment"
+        android:label="fragment_candidates"
+        tools:layout="@layout/fragment_candidates" />
+    <fragment
         android:id="@+id/paymentFragment"
         android:name="com.example.collabme.offers.PaymentFragment"
         android:label="fragment_payment"

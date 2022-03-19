@@ -32,6 +32,9 @@ public class Model {
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     MutableLiveData<OffersListLoadingState> offersListLoadingState = new MutableLiveData<OffersListLoadingState>();
     MutableLiveData<List<Offer>> offersList = new MutableLiveData<List<Offer>>();
+
+    MutableLiveData<OffersListLoadingState> candidatesListLoadingState = new MutableLiveData<OffersListLoadingState>();
+    MutableLiveData<List<User>> candidatesList = new MutableLiveData<List<User>>();
     public String username1="liem";
 
 
@@ -90,6 +93,10 @@ public class Model {
     public interface islogin{
         void onComplete(boolean boo);
 
+    }
+
+    public interface GetCandidatesListner{
+        void onComplete(int code);
     }
 
     public Model() {
@@ -578,6 +585,47 @@ public class Model {
 
     }
 
+    public LiveData<OffersListLoadingState> candidatesListLoadingState() {
+        return candidatesListLoadingState;
+    }
 
+    public LiveData<List<User>> getAllCandidates(Offer offer){
+        if (candidatesList.getValue() == null) { refreshCandidatesList(offer); };
+        return candidatesList;
+    }
+    public void refreshCandidatesList(Offer offer){
+        candidatesListLoadingState.setValue(OffersListLoadingState.loading);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+
+        Call<List<User>> call = retrofitInterface.getCandidates(offer.getIdOffer(),"Bearer " + tockenacsses);
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.code() == 200) {
+                    List<User> stList = response.body();
+                    candidatesList.postValue(stList);
+                    candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                candidatesList.postValue(null);
+            }
+        });
+
+
+    }
 
 }

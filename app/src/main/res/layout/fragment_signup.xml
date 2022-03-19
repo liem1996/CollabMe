@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="446dp"
-        android:layout_height="777dp"
+        android:layout_width="461dp"
+        android:layout_height="784dp"
         android:src="@drawable/ic_signup2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,20 +29,20 @@
 
     <EditText
         android:id="@+id/fragemnt_signup_username"
-        android:layout_width="227dp"
-        android:layout_height="37dp"
+        android:layout_width="222dp"
+        android:layout_height="26dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintHorizontal_bias="0.783"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357" />
+        app:layout_constraintVertical_bias="0.363" />
 
     <EditText
         android:id="@+id/fragemnt_signup_email"
-        android:layout_width="227dp"
-        android:layout_height="37dp"
+        android:layout_width="228dp"
+        android:layout_height="27dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,8 +53,8 @@
 
     <EditText
         android:id="@+id/fragemnt_signup_password"
-        android:layout_width="227dp"
-        android:layout_height="37dp"
+        android:layout_width="230dp"
+        android:layout_height="27dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,8 +65,8 @@
 
     <EditText
         android:id="@+id/fragemnt_signup_age"
-        android:layout_width="227dp"
-        android:layout_height="37dp"
+        android:layout_width="219dp"
+        android:layout_height="23dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,10 +82,10 @@
         android:background="#F3F3F3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.646"
+        app:layout_constraintHorizontal_bias="0.69"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.717" />
+        app:layout_constraintVertical_bias="0.71" />
 
     <Button
         android:id="@+id/fragemnt_signup_uploadbtn"
@@ -117,16 +117,12 @@
         android:id="@+id/fragemnt_signup_continuebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="64dp"
         android:backgroundTint="#4c266a"
         android:text="continue"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragemnt_signup_backbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toEndOf="@+id/fragemnt_signup_backbtn"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn"
-        app:layout_constraintVertical_bias="0.555" />
+        app:layout_constraintStart_toEndOf="@+id/fragemnt_signup_backbtn" />
 
     <CheckBox
         android:id="@+id/fragment_signup_company"

@@ -12,19 +12,18 @@
         android:layout_height="155dp">
 
         <ImageView
-            android:id="@+id/candidates_listrow_image"
+            android:id="@+id/row_candidates_profile"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src=""
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.044"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/profile"
-
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.009"
+            app:srcCompat="@drawable/profile" />
 
         <TextView
             android:id="@+id/candidates_listrow_username"
@@ -45,11 +44,10 @@
             android:layout_marginEnd="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.212"
-            app:layout_constraintStart_toStartOf="candidates_listrow_username"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/candidates_listrow_username"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

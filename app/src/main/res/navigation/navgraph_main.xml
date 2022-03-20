@@ -115,6 +115,9 @@
         <argument
             android:name="offerId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_editOfferFragment_to_candidatesFragment"
+            app:destination="@id/candidatesFragment" />
     </fragment>
     <fragment
         android:id="@+id/doneStatusFragment"
@@ -140,7 +143,11 @@
         android:id="@+id/candidatesFragment"
         android:name="com.example.collabme.offers.CandidatesFragment"
         android:label="fragment_candidates"
-        tools:layout="@layout/fragment_candidates" />
+        tools:layout="@layout/fragment_candidates" >
+        <argument
+            android:name="offerId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.example.collabme.offers.PaymentFragment"

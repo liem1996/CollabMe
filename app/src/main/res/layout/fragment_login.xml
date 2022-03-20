@@ -49,16 +49,15 @@
         android:id="@+id/fragment_login_password"
         android:layout_width="128dp"
         android:layout_height="47dp"
+        android:background="@android:color/transparent"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.579"
-        android:background="@android:color/transparent"
-        />
+        app:layout_constraintVertical_bias="0.579" />
 
     <TextView
         android:id="@+id/fragment_login_newuser"

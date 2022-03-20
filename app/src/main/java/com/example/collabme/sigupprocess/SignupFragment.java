@@ -27,7 +27,7 @@ import java.util.List;
 public class SignupFragment extends Fragment {
 
     EditText username, password,email,age;
-    Button signup;
+    Button signup, back;
     CheckBox company, influencer;
     Spinner gender;
     String selectedGender;
@@ -61,6 +61,7 @@ public class SignupFragment extends Fragment {
         age = view.findViewById(R.id.fragemnt_signup_age);
         company = view.findViewById(R.id.fragment_signup_company);
         influencer = view.findViewById(R.id.fragment_signup_influencer);
+        back = view.findViewById(R.id.fragemnt_signup_backbtn);
 
         signup = view.findViewById(R.id.fragemnt_signup_continuebtn);
 
@@ -81,6 +82,13 @@ public class SignupFragment extends Fragment {
                     }
                 }
             });
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_signupFragment2_to_fragment_login);
+            }
         });
 
         return view;

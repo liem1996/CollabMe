@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
 import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.model.User;
 
 import java.util.ArrayList;
@@ -36,7 +37,6 @@ public class SignupFragment extends Fragment {
 
     String username1,password1,email1,age1, selectedGender1;
     boolean company1,influencer1;
-
 
 
     @Override
@@ -66,11 +66,21 @@ public class SignupFragment extends Fragment {
 
         signup.setOnClickListener(v -> {
             saveDetails();
-            authforuser();
-            if(goodsign) {
-                Navigation.findNavController(v).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username1, password1, influencer1,
-                        company1, email1, age1, selectedGender1, null, null, null));
-            }
+            Modelauth.instance2.getUserByUserNameInSignIn(username1, new Modelauth.getUserByUserNameInSignIn() {
+                @Override
+                public void onComplete(User profile) {
+                    if (profile != null) {
+                        Toast.makeText(getContext(), "Your username is taken", Toast.LENGTH_SHORT).show();
+                        goodsign=false;
+                        return;
+                    }
+                    authforuser();
+                    if(goodsign) {
+                        Navigation.findNavController(v).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username1, password1, influencer1,
+                                company1, email1, age1, selectedGender1, null, null, null));
+                    }
+                }
+            });
         });
 
         return view;
@@ -118,33 +128,13 @@ public class SignupFragment extends Fragment {
         });
     }
 
-    private boolean isExistedUserName(String username){
-        ModelUsers.instance3.getuserbyusername(username, new ModelUsers.GetUserByIdListener() {
-            @Override
-            public void onComplete(User profile) {
-                if (profile == null)
-                {
-                    isUsername = true;
-                }
-                else{
-                    isUsername = false;
-                }
-            }
-        });
-        return isUsername;
-    }
-
-    private void authforuser(){
+    public void authforuser(){
         if(password1.isEmpty() || username1.isEmpty() || email1.isEmpty()) {
             Toast.makeText(getContext(), "You have to fill username,password and email fields", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
         }
-        if (!isExistedUserName(username1)){
-            Toast.makeText(getContext(), "Your username is taken", Toast.LENGTH_SHORT).show();
-            goodsign=false;
-            return;
-        }
+
         if (!email1.matches(emailPattern)) {
             Toast.makeText(getContext(), "Your email was written wrong", Toast.LENGTH_SHORT).show();
             goodsign=false;

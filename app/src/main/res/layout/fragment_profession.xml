@@ -26,15 +26,15 @@
             android:id="@+id/fragemnt_profession_sport"
             android:layout_width="115dp"
             android:layout_height="48dp"
-            android:layout_marginTop="250dp"
+            android:layout_marginTop="200dp"
             android:backgroundTint="#8450A0"
-            android:text="sport"
             android:clickable="true"
+            android:focusable="true"
+            android:text="sport"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.162"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:focusable="true" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/fragemnt_profession_cooking"
@@ -223,11 +223,11 @@
             android:id="@+id/fragemnt_profession_continuebtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="52dp"
             android:backgroundTint="#4c266a"
             android:text="continue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintHorizontal_bias="0.207"
             app:layout_constraintStart_toEndOf="@+id/fragemnt_profession_backbtn"
             app:layout_constraintTop_toBottomOf="@+id/fragemnt_profession_lifestyle" />
 
@@ -235,13 +235,12 @@
             android:id="@+id/fragemnt_profession_backbtn"
             android:layout_width="115dp"
             android:layout_height="48dp"
-            android:layout_marginTop="56dp"
             android:backgroundTint="#4c266a"
             android:text="back"
+            app:layout_constraintBaseline_toBaselineOf="@+id/fragemnt_profession_continuebtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.162"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragemnt_profession_other" />
+            app:layout_constraintHorizontal_bias="0.237"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

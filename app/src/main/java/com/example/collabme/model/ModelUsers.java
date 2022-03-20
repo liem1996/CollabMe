@@ -1,7 +1,11 @@
 package com.example.collabme.model;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+
+import androidx.core.os.HandlerCompat;
 
 import java.util.HashMap;
 
@@ -17,6 +21,7 @@ public class ModelUsers {
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://10.0.2.2:4000";
     public static final ModelUsers instance3 = new ModelUsers();
+ //   public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
     public interface getuserconnect{
         void onComplete(User profile);

@@ -17,6 +17,9 @@ public interface RetrofitInterface {
     @GET("/users/getUser/{username}")
     Call<User> getUser(@Path("username") String username,@Header("authorization") String token);
 
+    @GET("/auth/getUserByUserNameInSignIn/{username}")
+    Call<User> getUserByUserNameInSignIn(@Path("username") String username);
+
     @GET("/users/getUserById/{id}")
     Call<User> getUserById(@Path("id") String id,@Header("authorization") String token);
 

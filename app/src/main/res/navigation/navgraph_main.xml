@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.collabme.offers.HomeFragment"
+        android:name="com.example.collabme.HomeOffers.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -100,7 +100,7 @@
     <action android:id="@+id/action_global_homeFragment2" app:destination="@id/homeFragment" />
     <fragment
         android:id="@+id/addOfferDetailsFragemnt"
-        android:name="com.example.collabme.offers.AddOfferDetailsFragemnt"
+        android:name="com.example.collabme.actionsOnOffers.AddOfferDetailsFragemnt"
         android:label="fragment_add_offer_details_fragemnt"
         tools:layout="@layout/fragment_add_offer_details_fragemnt" >
         <action
@@ -109,7 +109,7 @@
     </fragment><action android:id="@+id/action_global_addOfferDetailsFragemnt" app:destination="@id/addOfferDetailsFragemnt"/>
     <fragment
         android:id="@+id/editOfferFragment"
-        android:name="com.example.collabme.offers.EditOfferFragment"
+        android:name="com.example.collabme.actionsOnOffers.EditOfferFragment"
         android:label="fragment_edit_offer"
         tools:layout="@layout/fragment_edit_offer" >
         <argument
@@ -121,17 +121,17 @@
     </fragment>
     <fragment
         android:id="@+id/doneStatusFragment"
-        android:name="com.example.collabme.offers.DoneStatusFragment"
+        android:name="com.example.collabme.status.DoneStatusFragment"
         android:label="fragment_done_status"
         tools:layout="@layout/fragment_done_status" />
     <fragment
         android:id="@+id/closeStatusfragment"
-        android:name="com.example.collabme.offers.CloseStatusfragment"
+        android:name="com.example.collabme.status.CloseStatusfragment"
         android:label="fragment_close_statusfragment"
         tools:layout="@layout/fragment_close_statusfragment" />
     <fragment
         android:id="@+id/inprogressfragment"
-        android:name="com.example.collabme.offers.inprogressfragment"
+        android:name="com.example.collabme.status.inprogressfragment"
         android:label="fragment_inprogressfragment"
         tools:layout="@layout/fragment_inprogressfragment" /><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
     <fragment
@@ -141,7 +141,7 @@
         tools:layout="@layout/fragment__search" />
     <fragment
         android:id="@+id/candidatesFragment"
-        android:name="com.example.collabme.offers.CandidatesFragment"
+        android:name="com.example.collabme.pagesForOffers.CandidatesFragment"
         android:label="fragment_candidates"
         tools:layout="@layout/fragment_candidates" >
         <argument
@@ -150,14 +150,14 @@
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"
-        android:name="com.example.collabme.offers.PaymentFragment"
+        android:name="com.example.collabme.pagesForOffers.PaymentFragment"
         android:label="fragment_payment"
         tools:layout="@layout/fragment_payment" />
     <fragment
         android:id="@+id/offerDetailsFragment"
-        android:name="com.example.collabme.offers.OfferDetailsFragment"
+        android:name="com.example.collabme.status.OfferopenstatusFragment"
         android:label="fragment_offer_details"
-        tools:layout="@layout/fragment_offer_details" >
+        tools:layout="@layout/fragment_offer_openstatus" >
         <action
             android:id="@+id/action_offerDetailsFragment_to_editOfferFragment"
             app:destination="@id/editOfferFragment" />

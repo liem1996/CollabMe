@@ -1,4 +1,4 @@
-package com.example.collabme.offers;
+package com.example.collabme.pagesForOffers;
 
 import android.os.Bundle;
 

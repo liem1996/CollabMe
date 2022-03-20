@@ -1,4 +1,4 @@
-package com.example.collabme.model;
+package com.example.collabme.objects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

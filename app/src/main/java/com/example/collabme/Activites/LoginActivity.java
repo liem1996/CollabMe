@@ -1,12 +1,12 @@
-package com.example.collabme.sigupprocess;
+package com.example.collabme.Activites;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
-
-import android.os.Bundle;
 
 import com.example.collabme.R;
 

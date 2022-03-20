@@ -1,4 +1,4 @@
-package com.example.collabme.sigupprocess;
+package com.example.collabme.TheSighUPProcess;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

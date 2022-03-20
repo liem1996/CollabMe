@@ -1,5 +1,5 @@
 
-package com.example.collabme.model;
+package com.example.collabme.objects;
 
 import java.util.HashMap;
 import java.util.List;

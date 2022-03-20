@@ -1,4 +1,4 @@
-package com.example.collabme.sigupprocess;
+package com.example.collabme.TheSighUPProcess;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,8 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.collabme.R;
 import com.example.collabme.model.Modelauth;
-import com.example.collabme.model.User;
-import com.example.collabme.offers.MainActivity;
+import com.example.collabme.objects.User;
+import com.example.collabme.Activites.MainActivity;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.example.collabme.model;
+package com.example.collabme.objects;
 
 import android.app.Application;
 import android.content.Context;

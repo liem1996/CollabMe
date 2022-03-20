@@ -17,11 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Offer;
+import com.example.collabme.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,19 +88,22 @@ public class EditOfferFragment extends Fragment {
                 status.setText(offer.getStatus());
                 price.setText(offer.getPrice());
                 interestedVerify.setChecked(offer.getIntrestedVerify());
-
-                Log.d("TAG", " user id:   "+ (String) offer.getUser());
-                ModelUsers.instance3.getUserById(offer.getUser(), profile -> {
-                    if(profile!=null) {
-                        proposer.setText(profile.getUsername());
+                ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                    @Override
+                    public void onComplete(User profile) {
+                        if(profile!=null) {
+                            proposer.setText(profile.getUsername());
+                        }
                     }
                 });
+//                Log.d("TAG", " user id:   "+ (String) offer.getUser());
+//                ModelUsers.instance3.getUserById(offer.getUser(), profile -> {
+//                    if(profile!=null) {
+//                        proposer.setText(profile.getUsername());
+//                    }
+//                });
                 professionArr = offer.getProfession();
 
-
-                //newProfession = setDialog(profession,langArray,oldProfession,selectedLanguage);
-
-                //Log.d("TAG","newwwwwww" + newProfession);
         }
     });
         profession.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +210,7 @@ public class EditOfferFragment extends Fragment {
         candidates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Navigation.findNavController(v).navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId));
             }
         });
         saveBtn.setOnClickListener(v -> saveOfferDetails());

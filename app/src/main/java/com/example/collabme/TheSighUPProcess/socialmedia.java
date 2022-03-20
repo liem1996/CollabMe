@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -23,6 +24,7 @@ public class socialmedia extends Fragment {
     String password1, email1, age1,selectedGender;
     View view;
     Boolean influencer1, company1;
+    String followersCheck, postsCheck;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +55,9 @@ public class socialmedia extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_socialmedia_to_signupFragment2);
+
+                    Navigation.findNavController(view).navigate(R.id.action_socialmedia_to_signupFragment2);
+
             }
         });
         countinue.setOnClickListener(v -> toProfession());
@@ -87,9 +91,37 @@ public class socialmedia extends Fragment {
             i++;
         }
 
-        Navigation.findNavController(view).navigate(socialmediaDirections.actionSocialmediaToProfessionFragment(username1, password1,influencer1,
-                company1,email1,age1 ,selectedGender ,platform,followers.getText().toString(), posts.getText().toString()));
+        followersCheck = followers.getText().toString();
+        postsCheck = posts.getText().toString();
 
+        if((!followersCheck.equals(""))&& !isInteger(followersCheck))
+        {
+            Toast.makeText(getContext(), "Your followers field is not an integer", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if((!postsCheck.equals(""))&& !isInteger(postsCheck))
+        {
+            Toast.makeText(getContext(), "Your posts/uploads field is not an integer", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+
+            Navigation.findNavController(view).navigate(socialmediaDirections.actionSocialmediaToProfessionFragment(username1, password1, influencer1,
+                    company1, email1, age1, selectedGender, platform, followers.getText().toString(), posts.getText().toString()));
+
+        }
+    }
+
+    public static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        } catch(NullPointerException e) {
+            return false;
+        }
+        // only got here if we didn't return false
+        return true;
     }
 
 

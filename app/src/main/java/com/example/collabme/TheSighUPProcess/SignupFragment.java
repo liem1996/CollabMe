@@ -32,7 +32,7 @@ public class SignupFragment extends Fragment {
     String selectedGender;
     List<String> genderStrings;
     String emailPattern ="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    boolean isUsername, goodsign;
+    boolean goodsign;
 
     String username1,password1,email1,age1, selectedGender1;
     boolean company1,influencer1;
@@ -136,19 +136,38 @@ public class SignupFragment extends Fragment {
     }
 
     public void authforuser(){
-        if(password1.isEmpty() || username1.isEmpty() || email1.isEmpty()) {
-            Toast.makeText(getContext(), "You have to fill username,password and email fields", Toast.LENGTH_SHORT).show();
-            goodsign=false;
-            return;
-        }
-
         if (!email1.matches(emailPattern)) {
             Toast.makeText(getContext(), "Your email was written wrong", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
         }
 
+        if(password1.isEmpty() || username1.isEmpty() || email1.isEmpty()) {
+            Toast.makeText(getContext(), "You have to fill username,password and email fields", Toast.LENGTH_SHORT).show();
+            goodsign=false;
+            return;
+        }
+
+        if((!age1.equals(""))&& !isInteger(age1))
+        {
+            Toast.makeText(getContext(), "Your age field is not an integer", Toast.LENGTH_SHORT).show();
+            goodsign=false;
+            return;
+        }
+
         goodsign=true;
+    }
+
+    public static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        } catch(NullPointerException e) {
+            return false;
+        }
+        // only got here if we didn't return false
+        return true;
     }
 
 }

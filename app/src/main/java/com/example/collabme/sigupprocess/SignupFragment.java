@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -28,6 +29,7 @@ public class SignupFragment extends Fragment {
     Spinner gender;
     String selectedGender;
     List<String> genderStrings;
+    String emailPattern ="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     String username1,password1,email1,age1, selectedGender1;
     boolean company1,influencer1;
@@ -62,8 +64,24 @@ public class SignupFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveDetails();
-                Navigation.findNavController(v).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username1, password1,influencer1,
-                        company1,email1,age1 ,selectedGender1 ,null,null, null));
+                if(password1.isEmpty()) {
+                    Toast.makeText(getContext(), "Your password is null", Toast.LENGTH_SHORT).show();
+                } else
+                if (username1.isEmpty()){
+                    Toast.makeText(getContext(), "Your username is taken or null", Toast.LENGTH_SHORT).show();
+                } else
+                if (email1.isEmpty()|| (!email1.matches(emailPattern))) {
+                    Toast.makeText(getContext(), "Your email was written wrong or null", Toast.LENGTH_SHORT).show();
+                } else
+                if (password1.isEmpty()&&username1.isEmpty()&&email1.isEmpty())
+                {
+                    Toast.makeText(getContext(), "You have to fill username,password and email fields!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Navigation.findNavController(v).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username1, password1, influencer1,
+                            company1, email1, age1, selectedGender1, null, null, null));
+                }
+
             }
         });
 

@@ -165,4 +165,9 @@
             android:name="offerId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/myOffersFragment"
+        android:name="com.example.collabme.HomeOffers.MyOffersFragment"
+        android:label="fragment_my_offers"
+        tools:layout="@layout/fragment_my_offers" /><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
 </navigation>

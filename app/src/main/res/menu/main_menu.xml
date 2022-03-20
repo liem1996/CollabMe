@@ -27,5 +27,10 @@
         android:icon="@drawable/profile"
         android:title="profile"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/myoffers"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:title="myoffers"
+        app:showAsAction="always" />
 
 </menu>

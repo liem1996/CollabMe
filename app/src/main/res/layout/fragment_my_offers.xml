@@ -1,102 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     tools:context=".HomeOffers.MyOffersFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/myoffers_swiperefresh"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/myoffers_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="502dp"
-            android:layout_height="922dp"
-            android:src="@drawable/ic_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.175"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_offersheadlin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.513"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.162" />
-
-        <TextView
-            android:id="@+id/fragment_myoffers_profile"
-            android:layout_width="44dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginBottom="4dp"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_myoffers_offers"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/fragment_myoffers_offers"
-            app:layout_constraintTop_toTopOf="@+id/fragment_myoffers_offers"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/fragment_myoffers_offers"
-            android:layout_width="45dp"
-            android:layout_height="35dp"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_myoffers_chat"
-            app:layout_constraintEnd_toStartOf="@+id/fragment_myoffers_profile"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/fragment_myoffers_chat"
-            app:layout_constraintTop_toTopOf="@+id/fragment_myoffers_chat"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/fragment_myoffers_chat"
-            android:layout_width="54dp"
-            android:layout_height="38dp"
-            android:layout_marginEnd="28dp"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_myoffers_search"
-            app:layout_constraintEnd_toStartOf="@+id/fragment_myoffers_offers"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/fragment_myoffers_search"
-            app:layout_constraintTop_toTopOf="@+id/fragment_myoffers_search"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/fragment_myoffers_home"
-            android:layout_width="45dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/fragment_myoffers_search" />
-
-        <TextView
-            android:id="@+id/fragment_myoffers_search"
-            android:layout_width="49dp"
-            android:layout_height="38dp"
-            android:layout_marginEnd="28dp"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_myoffers_home"
-            app:layout_constraintEnd_toStartOf="@+id/fragment_myoffers_chat"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/fragment_myoffers_home"
-            app:layout_constraintTop_toTopOf="@+id/fragment_myoffers_home"
-            app:layout_constraintVertical_bias="0.0" />
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

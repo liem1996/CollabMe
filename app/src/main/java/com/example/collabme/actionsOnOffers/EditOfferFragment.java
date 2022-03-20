@@ -31,8 +31,8 @@ import java.util.Collections;
 
 public class EditOfferFragment extends Fragment {
 
-    EditText  headline, description, finishDate, status, price, coupon;
-    TextView proposer,profession;
+    EditText  headline, description, finishDate, price;
+    TextView proposer,profession,status;
     CheckBox interestedVerify;
     Button candidates, saveBtn;
     String[] professionArr;

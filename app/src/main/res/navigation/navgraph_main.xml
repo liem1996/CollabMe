@@ -57,6 +57,9 @@
         <argument
             android:name="offerId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_homeFragment_to_offerDetailsFragment"
+            app:destination="@id/offerDetailsFragment" />
 
     </fragment>
     <fragment
@@ -155,7 +158,7 @@
         tools:layout="@layout/fragment_payment" />
     <fragment
         android:id="@+id/offerDetailsFragment"
-        android:name="com.example.collabme.status.OfferopenstatusFragment"
+        android:name="com.example.collabme.status.OpenStatusFragment"
         android:label="fragment_offer_details"
         tools:layout="@layout/fragment_offer_openstatus" >
         <action
@@ -165,4 +168,9 @@
             android:name="offerId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/myOffersFragment"
+        android:name="com.example.collabme.HomeOffers.MyOffersFragment"
+        android:label="fragment_my_offers"
+        tools:layout="@layout/fragment_my_offers" /><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
 </navigation>

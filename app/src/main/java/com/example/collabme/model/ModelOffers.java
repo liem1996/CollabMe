@@ -6,6 +6,11 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.collabme.objects.MyApplication;
+import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.RetrofitInterface;
+import com.example.collabme.objects.User;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

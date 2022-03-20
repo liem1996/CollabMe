@@ -1,4 +1,4 @@
-package com.example.collabme.offers;
+package com.example.collabme.status;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment;
 import com.example.collabme.R;
 
 
-public class OfferDetailsFragment extends Fragment {
+public class OfferopenstatusFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_offer_details, container, false);
+        return inflater.inflate(R.layout.fragment_offer_openstatus, container, false);
     }
 }

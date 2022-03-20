@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.collabme.R;
 import com.example.collabme.model.ModelUsers;
-import com.example.collabme.model.User;
+import com.example.collabme.objects.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

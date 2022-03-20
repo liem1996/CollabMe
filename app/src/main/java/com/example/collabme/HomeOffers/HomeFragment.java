@@ -1,4 +1,4 @@
-package com.example.collabme.offers;
+package com.example.collabme.HomeOffers;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -22,8 +22,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
-import com.example.collabme.model.Offer;
-import com.example.collabme.model.User;
+import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.offersviewmodel;
 
 import java.util.ArrayList;

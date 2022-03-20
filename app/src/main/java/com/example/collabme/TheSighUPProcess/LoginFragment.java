@@ -1,4 +1,4 @@
-package com.example.collabme.sigupprocess;
+package com.example.collabme.TheSighUPProcess;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
 import com.example.collabme.model.Modelauth;
-import com.example.collabme.offers.MainActivity;
+import com.example.collabme.Activites.MainActivity;
 
 public class LoginFragment extends Fragment {
 

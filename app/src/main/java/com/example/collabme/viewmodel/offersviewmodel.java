@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.collabme.model.ModelOffers;
-import com.example.collabme.model.Offer;
+import com.example.collabme.objects.Offer;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.collabme.offers;
+package com.example.collabme.actionsOnOffers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,8 +18,8 @@ import androidx.navigation.Navigation;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
-import com.example.collabme.model.Offer;
-import com.example.collabme.model.User;
+import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

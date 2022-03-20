@@ -1,4 +1,4 @@
-package com.example.collabme.sigupprocess;
+package com.example.collabme.TheSighUPProcess;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,9 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
-import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
-import com.example.collabme.model.User;
+import com.example.collabme.objects.User;
 
 import java.util.ArrayList;
 import java.util.List;

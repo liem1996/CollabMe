@@ -1,11 +1,11 @@
 package com.example.collabme.model;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
-import androidx.core.os.HandlerCompat;
+import com.example.collabme.objects.MyApplication;
+import com.example.collabme.objects.RetrofitInterface;
+import com.example.collabme.objects.User;
 
 import java.util.HashMap;
 

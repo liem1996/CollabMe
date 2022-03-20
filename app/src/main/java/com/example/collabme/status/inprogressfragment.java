@@ -1,4 +1,4 @@
-package com.example.collabme.offers;
+package com.example.collabme.status;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

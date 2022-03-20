@@ -1,4 +1,4 @@
-package com.example.collabme.sigupprocess;
+package com.example.collabme.Activites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.collabme.R;
 import com.example.collabme.model.Modelauth;
-import com.example.collabme.offers.MainActivity;
 
 public class IntroActivity extends AppCompatActivity {
 

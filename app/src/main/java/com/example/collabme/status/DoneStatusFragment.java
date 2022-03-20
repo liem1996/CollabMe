@@ -1,4 +1,4 @@
-package com.example.collabme.offers;
+package com.example.collabme.status;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,10 +11,10 @@ import com.example.collabme.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MyOffersFragment#newInstance} factory method to
+ * Use the {@link DoneStatusFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyOffersFragment extends Fragment {
+public class DoneStatusFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +25,7 @@ public class MyOffersFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MyOffersFragment() {
+    public DoneStatusFragment() {
         // Required empty public constructor
     }
 
@@ -35,11 +35,11 @@ public class MyOffersFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MyOffersFragment.
+     * @return A new instance of fragment DoneStatusFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyOffersFragment newInstance(String param1, String param2) {
-        MyOffersFragment fragment = new MyOffersFragment();
+    public static DoneStatusFragment newInstance(String param1, String param2) {
+        DoneStatusFragment fragment = new DoneStatusFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,6 +60,6 @@ public class MyOffersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_offers, container, false);
+        return inflater.inflate(R.layout.fragment_done_status, container, false);
     }
 }

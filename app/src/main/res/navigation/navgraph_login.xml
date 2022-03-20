@@ -55,6 +55,9 @@
             android:name="postsuploads"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_socialmedia_to_signupFragment2"
+            app:destination="@id/signupFragment2" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment2"
@@ -98,6 +101,9 @@
             android:name="postuploads"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_signupFragment2_to_fragment_login"
+            app:destination="@id/fragment_login" />
     </fragment>
     <fragment
         android:id="@+id/professionFragment"
@@ -137,6 +143,9 @@
             android:name="postsuploads"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_professionFragment_to_socialmedia"
+            app:destination="@id/socialmedia" />
     </fragment>
     <action android:id="@+id/action_global_socialmedia" app:destination="@id/socialmedia" />
     <action android:id="@+id/action_global_professionFragment" app:destination="@id/professionFragment" />

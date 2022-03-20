@@ -17,7 +17,7 @@ import com.example.collabme.R;
 public class socialmedia extends Fragment {
 
     CheckBox instegram, twitter,tiktok,facebook,youtube;
-    Button countinue;
+    Button countinue, back;
     EditText followers, posts;
     String username1;
     String password1, email1, age1,selectedGender;
@@ -48,7 +48,14 @@ public class socialmedia extends Fragment {
         age1 =socialmediaArgs.fromBundle(getArguments()).getAge();
         selectedGender = socialmediaArgs.fromBundle(getArguments()).getGender();
 
+        back = view.findViewById(R.id.fragment_socialmedia_back);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_socialmedia_to_signupFragment2);
+            }
+        });
         countinue.setOnClickListener(v -> toProfession());
 
         return view;

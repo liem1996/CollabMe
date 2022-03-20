@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
 import com.example.collabme.model.Modelauth;
@@ -21,7 +22,7 @@ import java.util.Arrays;
 
 public class ProfessionFragment extends Fragment implements View.OnClickListener{
 
-     Button continueBtn;
+     Button continueBtn, backBtn;
 
     String username, password, email, gender, age, followers, numOfPosts;
     boolean company, influencer;
@@ -78,6 +79,8 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         lifestyle = view.findViewById(R.id.fragemnt_profession_lifestyle);
         lifestyle.setOnClickListener(this);
 
+        backBtn = view.findViewById(R.id.fragemnt_profession_backbtn);
+
         professions = new String[16];
         influencer =  ProfessionFragmentArgs.fromBundle(getArguments()).getInfluencer();
         company =  ProfessionFragmentArgs.fromBundle(getArguments()).getCompany();
@@ -90,9 +93,6 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         numOfPosts = ProfessionFragmentArgs.fromBundle(getArguments()).getPostsuploads();
         platforms = ProfessionFragmentArgs.fromBundle(getArguments()).getPlatform();
 
-
-
-
         User user = new User(gender,password,email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
 
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
@@ -102,12 +102,19 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
                 if(code==200){
                     Modelauth.instance2.Login(username, password, code1 -> { });
                     toFeedActivity();
-                    Toast.makeText(getActivity(),"hiiii11122", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Welcome to Collab Me!", Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(getActivity(), "no", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Sign up went wrong", Toast.LENGTH_LONG).show();
                 }
             }
         }));
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_professionFragment_to_socialmedia);
+            }
+        });
 
         return view;
     }

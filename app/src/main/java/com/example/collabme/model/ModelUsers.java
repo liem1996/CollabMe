@@ -18,9 +18,6 @@ public class ModelUsers {
     private String BASE_URL = "http://10.0.2.2:4000";
     public static final ModelUsers instance3 = new ModelUsers();
 
-
-
-
     public interface getuserconnect{
         void onComplete(User profile);
 
@@ -34,7 +31,6 @@ public class ModelUsers {
         void onComplete(int code);
 
     }
-
 
     public void getUserById(String id, GetUserByIdListener getUserByIdListener) {
         retrofit = new Retrofit.Builder()

@@ -68,18 +68,6 @@ public class HomeFragment extends Fragment {
         adapter = new MyAdapter();
         list.setAdapter(adapter);
 
-        setHasOptionsMenu(true);
-        viewModel.getData().observe(getViewLifecycleOwner(), list1 -> refresh());
-        swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
-        ModelOffers.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
-            if (PostsListLoadingState == ModelOffers.OffersListLoadingState.loading){
-                swipeRefresh.setRefreshing(true);
-            }else{
-                swipeRefresh.setRefreshing(false);
-            }
-
-        });
-
 
         adapter.setListener(new OnItemClickListener() {
             @Override
@@ -93,7 +81,7 @@ public class HomeFragment extends Fragment {
                 if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview) {
                     Offer offer =viewModel.getData().getValue().get(position);
                     List<String> arrayList = new LinkedList<>();
-                   arrayList= offer.setusersandadd(viewModel.getData().getValue().get(position).getUsers(),viewModel.getData().getValue().get(position).getUser());
+                    arrayList= offer.setusersandadd(viewModel.getData().getValue().get(position).getUsers(),viewModel.getData().getValue().get(position).getUser());
                     offer.setUsers(ChangeToArray(arrayList));
                     ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
                         @Override
@@ -108,6 +96,10 @@ public class HomeFragment extends Fragment {
                         }
                     });
 
+                }else{
+                    Offer offer =viewModel.getData().getValue().get(position);
+                    String offerId = offer.getIdOffer();
+                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToOfferDetailsFragment(offerId));
                 }
                 /*
                 else if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview){
@@ -134,7 +126,21 @@ public class HomeFragment extends Fragment {
 
         });
 
-        adapter.notifyDataSetChanged();
+        setHasOptionsMenu(true);
+        viewModel.getData().observe(getViewLifecycleOwner(), list1 -> refresh());
+        swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
+        ModelOffers.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
+            if (PostsListLoadingState == ModelOffers.OffersListLoadingState.loading){
+                swipeRefresh.setRefreshing(true);
+            }else{
+                swipeRefresh.setRefreshing(false);
+            }
+
+        });
+
+
+
+        //adapter.notifyDataSetChanged();
 
         return view;
     }
@@ -170,6 +176,14 @@ public class HomeFragment extends Fragment {
                     int viewid = v.getId();
                     listener.onItemClick(position,itemView,viewid);
                 }
+            });
+
+            itemView.setOnClickListener(v -> {
+                int viewId = v.getId();
+
+                int pos = getAdapterPosition();
+                listener.onItemClick(pos,v,viewId);
+
             });
 
 

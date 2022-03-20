@@ -98,7 +98,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/fragment_editOffer_description" />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_editOffer_status"
         android:layout_width="228dp"
         android:layout_height="31dp"

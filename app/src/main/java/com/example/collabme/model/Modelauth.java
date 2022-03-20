@@ -33,7 +33,10 @@ public class Modelauth {
     }
     public interface islogin{
         void onComplete(boolean boo);
+    }
 
+    public interface getUserByUserNameInSignIn{
+        void onComplete(User profile);
     }
 
     public void isSignIn (islogin isloginlisenter) {
@@ -194,9 +197,29 @@ public class Modelauth {
                 logout.onComplete(400);
             }
         });
-
-
     }
 
+    /////////////////////////
+
+    public void getUserByUserNameInSignIn(String username, Modelauth.getUserByUserNameInSignIn getUserByUserNameInSignIn) {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        Call<User> call = retrofitInterface.getUserByUserNameInSignIn(username);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                getUserByUserNameInSignIn.onComplete(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                getUserByUserNameInSignIn.onComplete(null);
+            }
+        });
+    }
 
 }

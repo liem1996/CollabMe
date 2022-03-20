@@ -57,41 +57,32 @@
         <action
             android:id="@+id/action_homeFragment_to_editOfferFragment"
             app:destination="@id/editOfferFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_editProfile"
-            app:destination="@id/editProfile" />
         <argument
-            android:name="username"
-            app:argType="string" />
-        <argument android:name="password"
+            android:name="proposer"
             app:argType="string" />
         <argument
-            android:name="company"
-            app:argType="boolean" />
-        <argument
-            android:name="influencer"
-            app:argType="boolean" />
-        <argument
-            android:name="age"
+            android:name="headline"
+            app:argType="string" />
+        <argument android:name="Descriptioan"
             app:argType="string" />
         <argument
-            android:name="email"
+            android:name="finishdate"
             app:argType="string" />
         <argument
-            android:name="gender"
+            android:name="status"
             app:argType="string" />
         <argument
-            android:name="platform"
+            android:name="proffesion"
             app:argType="string[]" />
         <argument
-            android:name="profession"
+            android:name="price"
+            app:argType="string" />
+        <argument
+            android:name="candidates"
             app:argType="string[]" />
         <argument
-            android:name="followers"
-            app:argType="string" />
-        <argument
-            android:name="postsuploads"
-            app:argType="string" />
+            android:name="intrested"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/editProfile"
@@ -145,7 +136,35 @@
         android:id="@+id/editOfferFragment"
         android:name="com.example.collabme.offers.EditOfferFragment"
         android:label="fragment_edit_offer"
-        tools:layout="@layout/fragment_edit_offer" />
+        tools:layout="@layout/fragment_edit_offer" >
+        <argument
+            android:name="proposer"
+            app:argType="string" />
+        <argument
+            android:name="headline"
+            app:argType="string" />
+        <argument
+            android:name="Descriptioan"
+            app:argType="string" />
+        <argument
+            android:name="finishdate"
+            app:argType="string" />
+        <argument
+            android:name="status"
+            app:argType="string" />
+        <argument
+            android:name="proffesion"
+            app:argType="string[]" />
+        <argument
+            android:name="price"
+            app:argType="string" />
+        <argument
+            android:name="candidates"
+            app:argType="string[]" />
+        <argument
+            android:name="intrested"
+            app:argType="boolean" />
+    </fragment>
     <fragment
         android:id="@+id/doneStatusFragment"
         android:name="com.example.collabme.offers.DoneStatusFragment"

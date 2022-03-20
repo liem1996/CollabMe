@@ -73,20 +73,6 @@
             app:layout_constraintVertical_bias="0.009"
             app:srcCompat="@drawable/profile" />
 
-        <Button
-            android:id="@+id/fragemnt_item_edit"
-            android:layout_width="69dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="52dp"
-            android:backgroundTint="#4c266a"
-            android:text="Edit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.941"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
-
         <TextView
             android:id="@+id/myoffers_listrow_date"
             android:layout_width="wrap_content"
@@ -133,6 +119,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.816" />
+
+        <Button
+            android:id="@+id/fragemnt_item_edit"
+            android:layout_width="76dp"
+            android:layout_height="42dp"
+            android:backgroundTint="#4c266a"
+            android:text="Edit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.947"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.495" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

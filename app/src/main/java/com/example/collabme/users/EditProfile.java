@@ -99,9 +99,13 @@ public class EditProfile extends Fragment {
                     for (int h = 0; h < professionArr.length; h++) {
                         if (professionArr[h]!=null) {
                             if (professionArr[h].equals(langArray[k])) {
-                                langList.add(k);
-                                Collections.sort(langList);
-                                selectedProfessions[k] = true;
+                                if(!langList.contains(k)) {
+
+                                    langList.add(k);
+                                    Collections.sort(langList);
+                                    selectedProfessions[k] = true;
+
+                                }
                             }
                         }
                     }

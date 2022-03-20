@@ -3,7 +3,11 @@ package com.example.collabme.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class Offer {
@@ -34,6 +38,9 @@ public class Offer {
     @SerializedName("User")
     @Expose
     private String user;
+    @SerializedName("Users")
+    @Expose
+    private String [] users;
     @SerializedName("IntrestedVerify")
     @Expose
     private boolean intrestedVerify;
@@ -140,10 +147,33 @@ public class Offer {
         this.delete = delete;
     }
 
+    /**
+     *
+     * @return
+     * The users
+     */
+    public String[] getUsers() {
+        return users;
+    }
 
 
+    public List<String> setusersandadd(String[] users, String newuser) {
+        int openArray = 0;
 
-    public Offer(String description,String coupon, String headline,String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
+        List<String> useres2 = new LinkedList<String>();
+        useres2 = Arrays.asList(users);
+        List<String> arraylist = new ArrayList<>(useres2);
+        if(!arraylist.contains(newuser)){
+            arraylist.add(newuser);
+        }
+        return arraylist;
+    }
+
+    public void setUsers(String[] users) {
+        this.users = users;
+    }
+
+    public Offer(String description, String coupon, String headline, String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
         this.coupon = coupon;
         this.description = description;
         this.idOffer = idOffer;
@@ -155,7 +185,10 @@ public class Offer {
         this.user = user;
         this.intrestedVerify = intrestedVerify;
 
+
     }
+
+
 
 
     public static Offer create(Map<String, Object> json) {
@@ -168,13 +201,12 @@ public class Offer {
         String status = (String) json.get("Status");
         String[] profession =(String[]) json.get("Profession");
         String user = (String) json.get("User");
+        String [] users = (String[]) json.get("Users");
         boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
         boolean delete = (boolean) json.get("Isdelete");
-
-
-
         Offer offer = new Offer(description,coupon,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
         offer.setdelete(delete);
+        offer.setUsers(users);
 
         return offer;
     }
@@ -192,6 +224,7 @@ public class Offer {
         json.put("User",user);
         json.put("IntrestedVerify", intrestedVerify);
         json.put("Isdelete", delete);
+        json.put("Users", users);
         return json;
     }
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,10 @@ import com.example.collabme.model.Offer;
 import com.example.collabme.model.User;
 import com.example.collabme.viewmodel.offersviewmodel;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 //
 
 
@@ -35,16 +40,9 @@ public class HomeFragment extends Fragment {
     OnItemClickListener listener;
     ImageView imagePostFrame;
     offersviewmodel viewModel;
-    String proposer;
-    String descriptiaon ;
-    boolean intrested ;
-    String finishdate;
-    String status;
-    String price;
-    String headline;
-    String[] proffesions;
-    String[] candidates;
+    String idoffer;
     String stUsername;
+    ArrayList<Offer> offers = new ArrayList<>();
 
 
 
@@ -86,25 +84,31 @@ public class HomeFragment extends Fragment {
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view,int idview) {
-                headline = viewModel.getData().getValue().get(position).getHeadline();
-                status = viewModel.getData().getValue().get(position).getStatus();
-                finishdate = viewModel.getData().getValue().get(position).getFinishDate();
-                descriptiaon = viewModel.getData().getValue().get(position).getDescription();
-                intrested = viewModel.getData().getValue().get(position).getIntrestedVerify();
-                price = viewModel.getData().getValue().get(position).getPrice();
-                proposer = viewModel.getData().getValue().get(position).getUser();
-                proffesions=viewModel.getData().getValue().get(position).getProfession();
+                idoffer = viewModel.getData().getValue().get(position).getIdOffer();
 
                 if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
-                   Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(proposer, headline, descriptiaon, finishdate, status,proffesions,price,candidates,intrested));
+                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
                 }
 
-                if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
-                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(proposer, headline, descriptiaon, finishdate, status,proffesions,price,candidates,intrested));
+                if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview) {
+                    Offer offer =viewModel.getData().getValue().get(position);
+                    List<String> arrayList = new LinkedList<>();
+                   arrayList= offer.setusersandadd(viewModel.getData().getValue().get(position).getUsers(),viewModel.getData().getValue().get(position).getUser());
+                    offer.setUsers(ChangeToArray(arrayList));
+                    ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                        @Override
+                        public void onComplete(int code) {
+                            if(code==200){
+                                Toast.makeText(getActivity(), "yay i did it ", Toast.LENGTH_LONG).show();
+
+                            }else{
+                                Toast.makeText(getActivity(), "bozzz off", Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                    });
 
                 }
-
-
                 /*
                 else if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview){
                     viewModel.deletePost(viewModel.getData().getValue().get(position), () -> {
@@ -115,7 +119,7 @@ public class HomeFragment extends Fragment {
                     });
 
                  */
-                }
+            }
                 /*
                 else if(view.findViewById(R.id.myoffers_listrow_delete).getId()==idview){
                     viewModel.deletePost(viewModel.getData().getValue().get(position), () -> {
@@ -128,7 +132,7 @@ public class HomeFragment extends Fragment {
 
                  */
 
-            });
+        });
 
         adapter.notifyDataSetChanged();
 
@@ -142,7 +146,7 @@ public class HomeFragment extends Fragment {
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-         TextView Offer_date,Offer_status;
+        TextView Offer_date,Offer_status;
         TextView headline_offer,username;
         ImageView imge_x, image_vi,image_offer;
         Button Editview;
@@ -157,6 +161,7 @@ public class HomeFragment extends Fragment {
             image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
             imge_x =(ImageView)itemView.findViewById(R.id.myoffers_listrow_delete);
             Editview = (Button) itemView.findViewById(R.id.fragemnt_item_edit);
+
 
             Editview.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -173,7 +178,7 @@ public class HomeFragment extends Fragment {
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
-                    listener.onItemClick(position,itemView,viewid);
+                    itemView.setVisibility(View.GONE);
                 }
             });
             image_vi.setOnClickListener(new View.OnClickListener() {
@@ -195,20 +200,22 @@ public class HomeFragment extends Fragment {
             ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
                 @Override
                 public void onComplete(User profile) {
-                 if(profile==null){
-                    ModelOffers.instance.deleteoffer(offer, new ModelOffers.deleteoffer() {
-                        @Override
-                        public void onComplete() {
-                            refresh();
-                        }
-                    });
-                 }else{
-                     stUsername = profile.getUsername();
-                     username.setText(stUsername);
-                 }
+                    if(profile==null){
+                        ModelOffers.instance.deleteoffer(offer, new ModelOffers.deleteoffer() {
+                            @Override
+                            public void onComplete() {
+                                refresh();
+                            }
+                        });
+                    }else{
+                        stUsername = profile.getUsername();
+                        username.setText(stUsername);
+                    }
 
                 }
             });
+
+
 
 
 
@@ -237,8 +244,8 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Offer post = viewModel.getData().getValue().get(position);
-            holder.bind(post);
+            Offer offer = viewModel.getData().getValue().get(position);
+            holder.bind(offer);
 
         }
 
@@ -251,10 +258,14 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    public String [] ChangeToArray(List<String> array){
+        String [] arrayList = new String [array.size()];
+        for(int i=0;i<array.size();i++){
+            arrayList[i]=array.get(i);
+        }
 
-
-
-
+        return arrayList;
+    }
 
 
 }

@@ -126,14 +126,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_headline" />
 
+
     <Button
         android:id="@+id/fragemnt_offerdetails_chatBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="#4c266a"
         android:text="chat"
+        app:layout_constraintStart_toEndOf="@+id/fragemnt_offerdetails_checkbox"
+        app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_price" />
+
+    <Button
+        android:id="@+id/fragemnt_offerdetails_editBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#4c266a"
+        android:text="Edit"
         app:layout_constraintStart_toEndOf="@+id/fragemnt_offerdetails_checkbox"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_price" />
 
@@ -142,11 +154,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="#4c266a"
         android:text="upload"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toEndOf="@+id/fragemnt_offerdetails_chatBtn"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_price" />
 

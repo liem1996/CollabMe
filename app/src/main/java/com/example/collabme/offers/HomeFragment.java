@@ -35,17 +35,17 @@ public class HomeFragment extends Fragment {
     OnItemClickListener listener;
     ImageView imagePostFrame;
     offersviewmodel viewModel;
-    String stUsername;
-    String password ;
-    boolean influncer ;
-    boolean company;
-    String age;
-    String email;
-    String gender;
-    String[] palatform ;
+    String proposer;
+    String descriptiaon ;
+    boolean intrested ;
+    String finishdate;
+    String status;
+    String price;
+    String headline;
     String[] proffesions;
-    String followers;
-    String postuploads;
+    String[] candidates;
+    String stUsername;
+
 
 
     @Override
@@ -86,28 +86,22 @@ public class HomeFragment extends Fragment {
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view,int idview) {
-                String stheadline = viewModel.getData().getValue().get(position).getHeadline();
-                String status = viewModel.getData().getValue().get(position).getStatus();
-                String date = viewModel.getData().getValue().get(position).getFinishDate();
+                headline = viewModel.getData().getValue().get(position).getHeadline();
+                status = viewModel.getData().getValue().get(position).getStatus();
+                finishdate = viewModel.getData().getValue().get(position).getFinishDate();
+                descriptiaon = viewModel.getData().getValue().get(position).getDescription();
+                intrested = viewModel.getData().getValue().get(position).getIntrestedVerify();
+                price = viewModel.getData().getValue().get(position).getPrice();
+                proposer = viewModel.getData().getValue().get(position).getUser();
+                proffesions=viewModel.getData().getValue().get(position).getProfession();
 
-                ModelUsers.instance3.getUserById(viewModel.getData().getValue().get(position).getUser(), new ModelUsers.GetUserByIdListener() {
-                    @Override
-                    public void onComplete(User profile) {
-                         stUsername = profile.getUsername();
-                         password = profile.getPassword();
-                         influncer = profile.getInfluencer();
-                         company = profile.getCompany();
-                         age = profile.getAge();
-                         email = profile.getEmail();
-                         gender = profile.getSex();
-                         palatform = profile.getPlatforms();
-                         proffesions = profile.getProfessions();
-                         followers =  profile.getFollowers();
-                         postuploads =  profile.getNumOfPosts();
-                    }
-                });
                 if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
-                   Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditProfile(stUsername, password, company, influncer, age,email,gender,palatform,proffesions,followers,postuploads));
+                   Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(proposer, headline, descriptiaon, finishdate, status,proffesions,price,candidates,intrested));
+                }
+
+                if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
+                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(proposer, headline, descriptiaon, finishdate, status,proffesions,price,candidates,intrested));
+
                 }
 
 
@@ -215,7 +209,7 @@ public class HomeFragment extends Fragment {
 
                 }
             });
-            Editview.setVisibility(View.GONE);
+
 
 
 

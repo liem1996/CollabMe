@@ -29,10 +29,10 @@ import java.util.Collections;
 
 public class EditOfferFragment extends Fragment {
 
-    EditText  headline, description, finishDate, status, candidates, price, coupon;
+    EditText  headline, description, finishDate, status, price, coupon;
     TextView proposer,profession;
     CheckBox interestedVerify;
-    Button chatBtn, saveBtn;
+    Button candidates, saveBtn;
     String[] professionArr;
     String[] oldProfession;
     String oldIdOffer, oldProposer, offerId;
@@ -56,7 +56,7 @@ public class EditOfferFragment extends Fragment {
         finishDate = view.findViewById(R.id.fragment_editOffer_finishdate);
         status = view.findViewById(R.id.fragment_editOffer_status);
         profession = view.findViewById(R.id.fragment_editOffer_profession);
-        //candidates = view.findViewById(R.id.fragment_editOffer_candidates);
+        candidates = view.findViewById(R.id.fragment_editOffer_candidatesBtn);
         price = view.findViewById(R.id.fragment_editOffer_price);
         interestedVerify = view.findViewById(R.id.fragment_editOffer_checkbox);
         saveBtn = view.findViewById(R.id.fragment_editOffer_saveBtn);
@@ -202,8 +202,12 @@ public class EditOfferFragment extends Fragment {
         });
 
 
+        candidates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
+            }
+        });
         saveBtn.setOnClickListener(v -> saveOfferDetails());
 
         return view;

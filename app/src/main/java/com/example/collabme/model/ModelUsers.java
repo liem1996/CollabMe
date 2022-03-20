@@ -19,8 +19,6 @@ public class ModelUsers {
     public static final ModelUsers instance3 = new ModelUsers();
 
 
-
-
     public interface getuserconnect{
         void onComplete(User profile);
 

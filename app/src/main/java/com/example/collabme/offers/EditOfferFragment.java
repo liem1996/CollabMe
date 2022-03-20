@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Offer;
 
 import java.util.ArrayList;
@@ -32,14 +33,13 @@ public class EditOfferFragment extends Fragment {
     TextView proposer,profession;
     CheckBox interestedVerify;
     Button chatBtn, saveBtn;
-
+    String[] professionArr;
     String[] oldProfession;
-    String oldIdOffer, oldProposer;
-    ArrayList<Integer> langList = new java.util.ArrayList<>();
+    String oldIdOffer, oldProposer, offerId;
+    ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
-    String[] chosenOffers;
-    boolean[] selectedLanguage= new boolean[langArray.length];
+    boolean[] selectedProfessions = new boolean[16];
     String[] chosen;
     String[] newProfession;
 
@@ -58,55 +58,150 @@ public class EditOfferFragment extends Fragment {
         profession = view.findViewById(R.id.fragment_editOffer_profession);
         //candidates = view.findViewById(R.id.fragment_editOffer_candidates);
         price = view.findViewById(R.id.fragment_editOffer_price);
-        //coupon = view.findViewById(R.id.fragment_editOffer_coupon);
         interestedVerify = view.findViewById(R.id.fragment_editOffer_checkbox);
         saveBtn = view.findViewById(R.id.fragment_editOffer_saveBtn);
         newProfession = new String[16];
+        offerId = EditOfferFragmentArgs.fromBundle(getArguments()).getOfferId();
 
-        /*
-        Model.instance.getOfferById(o,new Model.GetOfferListener() {
+        ModelOffers.instance.getOfferById(offerId, offer -> {
+            if(offer!=null) {
+                //initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+                oldIdOffer = offer.getIdOffer();
+                oldProfession = offer.getProfession();
+                oldProposer = offer.getUser();
+                String[] strings = oldProfession;
+                StringBuffer sb = new StringBuffer();
+                for(int i = 0; i < strings.length; i++) {
+                    sb.append(strings[i]);
+                    if(i<strings.length-1) {
+                        sb.append(", ");
+                    }
+                }
+                String str = sb.toString();
+
+                profession.setText(str);
+                headline.setText(offer.getHeadline());
+                description.setText(offer.getDescription());
+                finishDate.setText(offer.getFinishDate());
+                status.setText(offer.getStatus());
+                price.setText(offer.getPrice());
+                interestedVerify.setChecked(offer.getIntrestedVerify());
+
+                Log.d("TAG", " user id:   "+ (String) offer.getUser());
+                ModelUsers.instance3.getUserById(offer.getUser(), profile -> {
+                    if(profile!=null) {
+                        proposer.setText(profile.getUsername());
+                    }
+                });
+                professionArr = offer.getProfession();
+
+
+                //newProfession = setDialog(profession,langArray,oldProfession,selectedLanguage);
+
+                //Log.d("TAG","newwwwwww" + newProfession);
+        }
+    });
+        profession.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(Offer offer) {
-                if(offer!=null) {
-                    //initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
-                    oldIdOffer = offer.getIdOffer();
-                    oldProfession = offer.getProfession();
-                    oldProposer = offer.getUser();
-                    String[] strings = oldProfession;
-                    StringBuffer sb = new StringBuffer();
-                    for(int i = 0; i < strings.length; i++) {
-                        sb.append(strings[i]);
-                        if(i<strings.length-1) {
-                            sb.append(", ");
+            public void onClick(View v) {
+                // Initialize alert dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(false);
+                int m = 0;
+
+                for (int k = 0; k < langArray.length; k++) {
+                    for (int h = 0; h < professionArr.length; h++) {
+                        if (professionArr[h]!=null) {
+                            if (professionArr[h].equals(langArray[k])) {
+                                if(!langList.contains(k)) {
+                                    langList.add(k);
+                                    Collections.sort(langList);
+                                    selectedProfessions[k] = true;
+                                }
+                            }
                         }
                     }
-                    String str = sb.toString();
-
-                    profession.setText(str);
-                    //profession.setText(strings.toString());
-                    headline.setText(offer.getHeadline());
-                    description.setText(offer.getDescription());
-                    finishDate.setText(offer.getFinishDate());
-                    status.setText(offer.getStatus());
-                    price.setText(offer.getPrice());
-                    interestedVerify.setChecked(offer.getIntrestedVerify());
-
-                    Log.d("TAG", " user id:   "+ (String) offer.getUser());
-                    Model.instance.getUserById(offer.getUser(), profile -> {
-                        if(profile!=null) {
-                            proposer.setText(profile.getUsername());
-                        }
-                    });
-
-                    newProfession = thedialog(profession,langArray,oldProfession,selectedLanguage);
-
-                    Log.d("TAG","newwwwwww" + newProfession);
-
                 }
+
+
+                builder.setMultiChoiceItems(langArray, selectedProfessions, new DialogInterface.OnMultiChoiceClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                        // check condition
+                        if (b) {
+                            // when checkbox selected
+                            // Add position in lang list
+                            langList.add(i);
+                            // Sort array list
+                            Collections.sort(langList);
+                        } else {
+                            // when checkbox unselected
+                            // Remove position from langList
+                            langList.remove(Integer.valueOf(i));
+                        }
+                    }
+                });
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        StringBuilder stringBuilder;
+                        // Initialize string builder
+                        stringBuilder = new StringBuilder();
+                        chosen = new String[langList.size()];
+                        profession.clearComposingText();
+                        professionArr = chosen;
+
+                        // use for loop
+                        for (int j = 0; j < langList.size(); j++) {
+                            // concat array value
+
+                            stringBuilder.append(langArray[langList.get(j)]);
+                            chosen[j] = (langArray[langList.get(j)]); //to check again
+
+                            System.out.println("ko");
+                            // check condition
+                            if (j != langList.size() - 1) {
+                                // When j value not equal
+                                // to lang list size - 1
+                                // add comma
+                                stringBuilder.append(", ");
+                            }
+                        }
+                        // set text on textView
+                        profession.setText(stringBuilder.toString());
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // dismiss dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // use for loop
+                        for (int j = 0; j < selectedProfessions.length; j++) {
+                            // remove all selection
+                            selectedProfessions[j] = false;
+                            // clear language list
+                            langList.clear();
+                            // clear text view value
+                            profession.setText("");
+                        }
+                    }
+                });
+                // show dialog
+                builder.show();
             }
+
         });
 
-         */
+
 
 
         saveBtn.setOnClickListener(v -> saveOfferDetails());
@@ -115,7 +210,7 @@ public class EditOfferFragment extends Fragment {
     }
 
     private void saveOfferDetails() {
-        newProfession = thedialog(profession,langArray,oldProfession,selectedLanguage);
+        newProfession = chosen;
         String headline1 = headline.getText().toString();
         String description1 = description.getText().toString();
         String finishDate1 = finishDate.getText().toString();
@@ -164,83 +259,4 @@ public class EditOfferFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) { }
         });
     }
-
-    public String[] thedialog(TextView textView, String[] lang, String[] theArr, boolean[] selected) {
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Select:");
-                builder.setCancelable(false);
-                int m = 0;
-
-                for (int k = 0; k < theArr.length; k++) {
-                    for (int h = 0; h < lang.length; h++) {
-                        if (theArr[k].equals(lang[h])) {
-                            langList.add(h);
-                            Collections.sort(langList);
-                            selected[h] = true;
-                        }
-                    }
-                }
-
-                builder.setMultiChoiceItems(lang, selected, new DialogInterface.OnMultiChoiceClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        if (b) {
-                            langList.add(i);
-                            Collections.sort(langList);
-                        } else {
-                            langList.remove(Integer.valueOf(i));
-                        }
-                    }
-                });
-
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        StringBuilder stringBuilder = new StringBuilder();
-                        chosen = new String[langList.size()];
-
-
-                        for (int j = 0; j < langList.size(); j++) {
-                            stringBuilder.append(lang[langList.get(j)]);
-                            chosen[j] = (lang[langList.get(j)]); //to check again
-                            System.out.println("ko");
-                            if (j != langList.size() - 1) {
-                                stringBuilder.append(", ");
-                            }
-                        }
-                        profession.setText(stringBuilder.toString());
-                    }
-                });
-
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // dismiss dialog
-                        dialogInterface.dismiss();
-                    }
-                });
-                builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        for (int j = 0; j < selected.length; j++) {
-                            selected[j] = false;
-                            langList.clear();
-                            profession.setText("");
-                        }
-                    }
-                });
-                builder.show();
-            }
-
-
-        });
-
-        return chosen;
-    }
-
 }

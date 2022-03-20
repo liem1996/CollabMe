@@ -32,8 +32,11 @@
             android:name=".Activites.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan">
+        </activity>
 
-
+        <activity
+            android:name=".Activites.Pop"
+            android:theme="@style/AppTheme.CustomTheme">
         </activity>
     </application>
 

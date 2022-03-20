@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.Pop;
 import com.example.collabme.R;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.Activites.MainActivity;
@@ -21,10 +22,8 @@ public class LoginFragment extends Fragment {
 
     EditText username, password;
     Button login;
-    TextView signup;
+    TextView signup, forgotpassword;
     View view;
-
-
 
     private void toFeedActivity() {
         Intent intent = new Intent(getContext(), MainActivity.class);
@@ -39,6 +38,7 @@ public class LoginFragment extends Fragment {
 
         username = view.findViewById(R.id.fragment_login_username);
         password = view.findViewById(R.id.fragment_login_password);
+        forgotpassword = view.findViewById(R.id.fragment_login_forgotpass);
 
         login = view.findViewById(R.id.fragment_login_loginbtn);
         login.setOnClickListener(v -> Modelauth.instance2.Login(username.getText().toString(),password.getText().toString(), new Modelauth.loginListener() {
@@ -49,17 +49,22 @@ public class LoginFragment extends Fragment {
 
                 }
                 else{
-                    Toast.makeText(getActivity(), "boo", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Login succeded! Welcome to CollabMe!", Toast.LENGTH_LONG).show();
                 }
             }
         }));
         signup = view.findViewById(R.id.fragment_login_newuser);
         signup.setOnClickListener(v -> handleSighUp());
 
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext() , Pop.class));
+            }
+        });
+
         return view;
     }
-
-
 
 
     private void handleSighUp() {

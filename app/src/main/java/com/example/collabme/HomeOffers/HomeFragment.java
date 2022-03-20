@@ -44,8 +44,6 @@ public class HomeFragment extends Fragment {
     String stUsername;
     ArrayList<Offer> offers = new ArrayList<>();
 
-
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

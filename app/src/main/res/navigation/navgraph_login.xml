@@ -149,4 +149,9 @@
     </fragment>
     <action android:id="@+id/action_global_socialmedia" app:destination="@id/socialmedia" />
     <action android:id="@+id/action_global_professionFragment" app:destination="@id/professionFragment" />
+    <fragment
+        android:id="@+id/fragment_popup_window"
+        android:name="com.example.collabme.TheSighUPProcess.fragment_popup_window"
+        android:label="fragment_popup_window"
+        tools:layout="@layout/fragment_popup_window" />
 </navigation>

@@ -3,6 +3,7 @@ package com.example.collabme.Activites;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.collabme.R;
@@ -14,6 +15,8 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {

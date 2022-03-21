@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
@@ -26,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         navCtl = navHost.getNavController();
 
         // TODO: 3/13/2022 do not deletee!!!!!
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        //ActionBar actionBar = getSupportActionBar();
+       // actionBar.hide();
 
         ////
 

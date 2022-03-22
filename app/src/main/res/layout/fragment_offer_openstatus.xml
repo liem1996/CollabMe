@@ -8,24 +8,13 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="446dp"
-        android:layout_height="777dp"
-        android:src="@drawable/ic_background"
+        android:layout_width="461dp"
+        android:layout_height="778dp"
+        android:src="@drawable/ic_offer_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="394dp"
-        android:layout_height="615dp"
-        android:src="@drawable/ic_offerdetails5"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.495" />
 
     <CheckBox
         android:id="@+id/fragemnt_offerdetails_checkbox"
@@ -41,78 +30,65 @@
         android:id="@+id/fragemnt_offerdetails_proposer"
         android:layout_width="237dp"
         android:layout_height="35dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toTopOf="@+id/imageView11" />
+        tools:layout_editor_absoluteY="272dp" />
 
     <TextView
         android:id="@+id/fragemnt_offerdetails_headline"
         android:layout_width="237dp"
         android:layout_height="35dp"
-        android:layout_marginStart="140dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_proposer" />
 
     <TextView
         android:id="@+id/fragemnt_offerdetails_finishdate"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="225dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_description" />
 
     <TextView
         android:id="@+id/fragemnt_offerdetails_status"
         android:layout_width="237dp"
         android:layout_height="35dp"
-        android:layout_marginStart="140dp"
         android:layout_marginTop="6dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_finishdate" />
 
     <Spinner
         android:id="@+id/fragemnt_offerdetails_profession"
         android:layout_width="237dp"
         android:layout_height="35dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_status" />
 
     <TextView
         android:id="@+id/fragemnt_offerdetails_price"
         android:layout_width="237dp"
         android:layout_height="35dp"
-        android:layout_marginStart="140dp"
         android:layout_marginTop="6dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_profession" />
 
     <TextView
@@ -155,10 +131,10 @@
         android:id="@+id/fragemnt_offerdetails_candidatesBtn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
+        android:layout_marginStart="108dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="#4c266a"
-        android:text="All candidates"
+        android:text="candidates"
         app:layout_constraintStart_toEndOf="@+id/fragemnt_offerdetails_checkbox"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_offerdetails_price" />
 

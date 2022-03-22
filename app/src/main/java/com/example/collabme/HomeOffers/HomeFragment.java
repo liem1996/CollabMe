@@ -72,10 +72,6 @@ public class HomeFragment extends Fragment {
             public void onItemClick(int position, View view,int idview) {
                 idoffer = viewModel.getData().getValue().get(position).getIdOffer();
 
-                if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
-                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
-                }
-
                 if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview) {
                     Offer offer =viewModel.getData().getValue().get(position);
                     List<String> arrayList = new LinkedList<>();
@@ -94,7 +90,9 @@ public class HomeFragment extends Fragment {
                         }
                     });
 
-                }else{
+                }else if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
+                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
+                } else{
                     Offer offer =viewModel.getData().getValue().get(position);
                     String offerId = offer.getIdOffer();
                     Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToOfferDetailsFragment(offerId));
@@ -159,7 +157,6 @@ public class HomeFragment extends Fragment {
             super(itemView);
             headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline);
             Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date);
-            Offer_status=(TextView)itemView.findViewById(R.id.myoffers_listrow_status);
             username=(TextView)itemView.findViewById(R.id.myoffers_listrow_username);
             image_offer =(ImageView)itemView.findViewById(R.id.myoffers_listrow_image);
             image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
@@ -208,7 +205,6 @@ public class HomeFragment extends Fragment {
         public void bind(Offer offer){
             headline_offer.setText(offer.getHeadline());
             Offer_date.setText(offer.getFinishDate());
-            Offer_status.setText(offer.getStatus());
             ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
                 @Override
                 public void onComplete(User profile) {

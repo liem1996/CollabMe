@@ -5,15 +5,24 @@
       <map>
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_background.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14322916666666666" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_login.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_logo_page.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_menu.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_menu2.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_payment.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_pic.xml" value="0.14322916666666666" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_pic2.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_profession.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_professions.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_profile.xml" value="0.14322916666666666" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_screen_c.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_sicialmedia.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_signup2.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_social_media.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_intro.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_login.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment__search.xml" value="0.4" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment__search.xml" value="0.264" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_add_offer_details_fragemnt.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_close_statusfragment.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_done_status.xml" value="0.22826086956521738" />
@@ -25,7 +34,7 @@
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_my_offers.xml" value="0.14166666666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_details.xml" value="0.23278985507246377" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_payment.xml" value="0.264" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_profession.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_profession.xml" value="0.2" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_signup.xml" value="0.2" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_socialmedia.xml" value="0.264" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_user_profile.xml" value="0.264" />
@@ -46,6 +55,18 @@
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/menu/main_menu.xml" value="0.19635416666666666" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/collabme/app/src/main/res/layout/activity_main.xml" value="0.11614583333333334" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/collabme/app/src/main/res/layout/login.xml" value="0.13020833333333334" />
+        <entry key="app/src/main/res/drawable/ic_offer_details.xml" value="0.3005128205128205" />
+        <entry key="app/src/main/res/drawable/ic_offerdetails4.xml" value="0.3005128205128205" />
+        <entry key="app/src/main/res/drawable/ic_offerdetails5.xml" value="0.30520833333333336" />
+        <entry key="app/src/main/res/drawable/ic_profession.xml" value="0.3005128205128205" />
+        <entry key="app/src/main/res/drawable/ic_professions.xml" value="0.3005128205128205" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.18297101449275363" />
+        <entry key="app/src/main/res/layout/fragment_edit_offer.xml" value="0.27709305432805337" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18297101449275363" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18297101449275363" />
+        <entry key="app/src/main/res/layout/fragment_offer_openstatus.xml" value="0.4182790671316959" />
+        <entry key="app/src/main/res/layout/fragment_profession.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/offers_list_row.xml" value="0.18297101449275363" />
       </map>
     </option>
   </component>

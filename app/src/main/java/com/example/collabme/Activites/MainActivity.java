@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         navCtl = navHost.getNavController();
 
         // TODO: 3/13/2022 do not deletee!!!!!
-        //ActionBar actionBar = getSupportActionBar();
-       // actionBar.hide();
+      // ActionBar actionBar = getSupportActionBar();
+       //actionBar.hide();
 
         ////
 

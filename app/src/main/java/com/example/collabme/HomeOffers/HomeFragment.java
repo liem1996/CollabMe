@@ -157,7 +157,6 @@ public class HomeFragment extends Fragment {
             super(itemView);
             headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline);
             Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date);
-            Offer_status=(TextView)itemView.findViewById(R.id.myoffers_listrow_status);
             username=(TextView)itemView.findViewById(R.id.myoffers_listrow_username);
             image_offer =(ImageView)itemView.findViewById(R.id.myoffers_listrow_image);
             image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
@@ -206,7 +205,6 @@ public class HomeFragment extends Fragment {
         public void bind(Offer offer){
             headline_offer.setText(offer.getHeadline());
             Offer_date.setText(offer.getFinishDate());
-            Offer_status.setText(offer.getStatus());
             ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
                 @Override
                 public void onComplete(User profile) {

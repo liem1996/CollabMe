@@ -72,10 +72,6 @@ public class HomeFragment extends Fragment {
             public void onItemClick(int position, View view,int idview) {
                 idoffer = viewModel.getData().getValue().get(position).getIdOffer();
 
-                if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
-                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
-                }
-
                 if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview) {
                     Offer offer =viewModel.getData().getValue().get(position);
                     List<String> arrayList = new LinkedList<>();
@@ -94,7 +90,9 @@ public class HomeFragment extends Fragment {
                         }
                     });
 
-                }else{
+                }else if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
+                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
+                } else{
                     Offer offer =viewModel.getData().getValue().get(position);
                     String offerId = offer.getIdOffer();
                     Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToOfferDetailsFragment(offerId));

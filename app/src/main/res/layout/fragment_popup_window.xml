@@ -6,6 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".Activites.Pop">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="165dp"
+        android:layout_height="33dp"
+        app:cardBackgroundColor="#DFDADA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.715"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45">
+
+        <EditText
+            android:id="@+id/fragment_pop_username"
+            android:layout_width="158dp"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="165dp"
+        android:layout_height="33dp"
+        app:cardBackgroundColor="#DFDADA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.715"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.525">
+
+        <EditText
+            android:id="@+id/fragment_pop_email"
+            android:layout_width="158dp"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent" />
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="297dp"
@@ -33,43 +69,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.32" />
 
-    <EditText
-        android:id="@+id/fragment_pop_username"
-        android:layout_width="158dp"
-        android:layout_height="34dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.451" />
-
-    <EditText
-        android:id="@+id/fragment_pop_email"
-        android:layout_width="158dp"
-        android:layout_height="34dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.535" />
-
     <Button
         android:id="@+id/fragemnt_pop_sendBtn"
         android:layout_width="108dp"
         android:layout_height="46dp"
         android:backgroundTint="#4c266a"
         android:text="send"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.652"
-        />
+        app:layout_constraintVertical_bias="0.652" />
 
     <TextView
         android:id="@+id/fragment_pop_yourpasswordis"
@@ -113,7 +125,7 @@
         android:id="@+id/textView4"
         android:layout_width="103dp"
         android:layout_height="32dp"
-        android:text="Password:"
+        android:text="Email:"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

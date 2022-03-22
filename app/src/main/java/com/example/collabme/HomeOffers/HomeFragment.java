@@ -205,7 +205,6 @@ public class HomeFragment extends Fragment {
         public void bind(Offer offer){
             headline_offer.setText(offer.getHeadline());
             Offer_date.setText(offer.getFinishDate());
-            Offer_status.setText(offer.getStatus());
             ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
                 @Override
                 public void onComplete(User profile) {

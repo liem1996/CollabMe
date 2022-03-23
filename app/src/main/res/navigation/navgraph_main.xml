@@ -173,4 +173,11 @@
         android:name="com.example.collabme.HomeOffers.MyOffersFragment"
         android:label="fragment_my_offers"
         tools:layout="@layout/fragment_my_offers" /><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
+    <action android:id="@+id/action_global_fragment_Search" app:destination="@id/fragment_Search" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.collabme.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
+    <action android:id="@+id/action_global_chatFragment" app:destination="@id/chatFragment" />
 </navigation>

@@ -7,32 +7,78 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.collabme.ChatFragment;
+import com.example.collabme.HomeOffers.HomeFragment;
+import com.example.collabme.HomeOffers.MyOffersFragment;
 import com.example.collabme.R;
+import com.example.collabme.databinding.ActivityMainBinding;
 import com.example.collabme.model.Modelauth;
+import com.example.collabme.search.Fragment_Search;
+import com.example.collabme.users.UserProfile;
 
 public class MainActivity extends AppCompatActivity {
     NavController navCtl;
+    ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         NavHost navHost = (NavHost)getSupportFragmentManager().findFragmentById(R.id.nav_main);
         navCtl = navHost.getNavController();
 
         // TODO: 3/13/2022 do not deletee!!!!!
-      // ActionBar actionBar = getSupportActionBar();
-       //actionBar.hide();
+//       ActionBar actionBar = getSupportActionBar();
+//       actionBar.hide();
 
         ////
 
 
         NavigationUI.setupActionBarWithNavController(this, navCtl);
         // this is the main activity
+
+        binding.bottomNavigation.setOnItemSelectedListener(item->{
+
+            switch(item.getItemId()){
+                case R.id.nav_home:
+                    navCtl.navigate(R.id.homeFragment);
+//                    replaceFragment(new HomeFragment());
+                    break;
+                case R.id.nav_search:
+                    navCtl.navigate(R.id.fragment_Search);
+//                    replaceFragment(new Fragment_Search());
+                    break;
+                case R.id.nav_chat:
+                    navCtl.navigate(R.id.chatFragment);
+//                    replaceFragment(new ChatFragment());
+                    break;
+                case R.id.nav_offer:
+                    navCtl.navigate(R.id.myOffersFragment);
+//                    replaceFragment(new MyOffersFragment());
+                    break;
+                case R.id.nav_account:
+                    navCtl.navigate(R.id.userProfile);
+//                    replaceFragment(new UserProfile());
+                    break;
+            }
+            return true;
+        });
+    }
+
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_main, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override

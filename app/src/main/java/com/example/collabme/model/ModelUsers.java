@@ -37,7 +37,9 @@ public class ModelUsers {
 
     }
 
-    public void getUserById(String id, GetUserByIdListener getUserByIdListener) {
+
+
+    public void getuserbyusername(String username1, GetUserByIdListener getUserByIdListener) {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -48,39 +50,19 @@ public class ModelUsers {
                 .getString("tokenAcsses","");
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.getUserById(id,"Bearer "+tockenacsses);
+        Call<User> call = retrofitInterface.getUser(username1,"Bearer "+tockenacsses);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                if(response.code()==200) {
+                    getUserByIdListener.onComplete(response.body());
+                }else if (response.code()==403){
+                    ModelOffers.instance.changeAcssesToken();
+                    ModelUsers.instance3.getuserbyusername(username1,getUserByIdListener);
 
-                getUserByIdListener.onComplete(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                getUserByIdListener.onComplete(null);
-            }
-        });
-    }
-
-
-    public void getuserbyusername(String username, GetUserByIdListener getUserByIdListener) {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        String tockenacsses = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
-
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.getUser(username,"Bearer "+tockenacsses);
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-
-                getUserByIdListener.onComplete(response.body());
+                }else{
+                    getUserByIdListener.onComplete(null);
+                }
             }
 
             @Override
@@ -110,8 +92,15 @@ public class ModelUsers {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                if(response.code()==200) {
+                    getuserconnect.onComplete(response.body());
+                }else if (response.code()==403){
+                    ModelOffers.instance.changeAcssesToken();
+                    ModelUsers.instance3.getUserConnect(getuserconnect);
 
-                getuserconnect.onComplete(response.body());
+                }else{
+                    getuserconnect.onComplete(null);
+                }
             }
 
             @Override
@@ -141,8 +130,14 @@ public class ModelUsers {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d("TAG",""+response);
-
-                editUserListener.onComplete(200);
+                if(response.code()==200) {
+                    editUserListener.onComplete(200);
+                }else if(response.code()==403){
+                    ModelOffers.instance.changeAcssesToken();
+                    ModelUsers.instance3.EditUser(profile,editUserListener);
+                }else{
+                    editUserListener.onComplete(400);
+                }
             }
 
             @Override

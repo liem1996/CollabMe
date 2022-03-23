@@ -7,9 +7,9 @@
     tools:context=".status.OpenStatusFragment">
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="461dp"
-        android:layout_height="778dp"
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_offer_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

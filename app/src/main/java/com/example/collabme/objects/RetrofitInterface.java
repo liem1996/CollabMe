@@ -20,8 +20,6 @@ public interface RetrofitInterface {
     @GET("/auth/getUserByUserNameInSignIn/{username}")
     Call<User> getUserByUserNameInSignIn(@Path("username") String username);
 
-    @GET("/users/getUserById/{id}")
-    Call<User> getUserById(@Path("id") String id,@Header("authorization") String token);
 
     @POST("/auth/login")
     Call<tokenrespone> executeLogin(@Body HashMap<String, String> map);
@@ -36,7 +34,7 @@ public interface RetrofitInterface {
     Call<User> editUser(@Path("username") String username,@Header("authorization") String token, @Body Map<String, Object> newUser);
 
     @POST("/offer/addNewOffer")
-    Call<Offer> executenewOffer(@Body HashMap<String, Object> map,@Header("authorization") String token);
+    Call<Offer> executenewOffer(@Body Map<String, Object> map,@Header("authorization") String token);
 
 
     @GET("/offer/getOfferById/{id}")
@@ -58,6 +56,10 @@ public interface RetrofitInterface {
 
     @GET("/candidates/getCandidates/{id}")
     Call<List<User>> getCandidates(@Path("id") String offerId,@Header("authorization") String token);
+
+    @GET("/auth/refreshToken")
+    Call<tokenrespone> getnewtoken(@Header("authorization") String token);
+
 
 
 }

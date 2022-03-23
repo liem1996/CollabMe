@@ -203,13 +203,14 @@ public class EditProfile extends Fragment {
 
                 for (int km = 0; km < langArray2.length; km++) {
                     for (int he = 0; he < platformArr.length; he++) {
-
+                        if (platformArr[he] != null) {
                             if (platformArr[he].equals(langArray2[km])) {
                                 langList2.add(km);
                                 Collections.sort(langList2);
                                 selectedPlatforms[km] = true;
                             }
 
+                        }
                     }
                 }
 

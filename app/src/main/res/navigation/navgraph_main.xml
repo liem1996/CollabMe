@@ -141,7 +141,35 @@
         android:id="@+id/fragment_Search"
         android:name="com.example.collabme.search.Fragment_Search"
         android:label="fragment__search"
-        tools:layout="@layout/fragment__search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_fragment_Search_to_fragment_search_results"
+            app:destination="@id/fragment_search_results" />
+        <argument
+            android:name="freeSearch"
+            app:argType="string" />
+        <argument
+            android:name="Professions"
+            app:argType="string[]" />
+        <argument
+            android:name="Proposer"
+            app:argType="string" />
+        <argument
+            android:name="FromPrice"
+            app:argType="string" />
+        <argument
+            android:name="ToPrice"
+            app:argType="string" />
+        <argument
+            android:name="Headline"
+            app:argType="string" />
+        <argument
+            android:name="FromDates"
+            app:argType="boolean" />
+        <argument
+            android:name="ToDates"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/candidatesFragment"
         android:name="com.example.collabme.pagesForOffers.CandidatesFragment"
@@ -173,4 +201,34 @@
         android:name="com.example.collabme.HomeOffers.MyOffersFragment"
         android:label="fragment_my_offers"
         tools:layout="@layout/fragment_my_offers" /><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
+    <fragment
+        android:id="@+id/fragment_search_results"
+        android:name="com.example.collabme.search.fragment_search_results"
+        android:label="fragment_search_results"
+        tools:layout="@layout/fragment_search_results" >
+        <argument
+            android:name="freeSearch"
+            app:argType="string" />
+        <argument
+            android:name="Professions"
+            app:argType="string[]" />
+        <argument
+            android:name="Proposer"
+            app:argType="string" />
+        <argument
+            android:name="FromPrice"
+            app:argType="string" />
+        <argument
+            android:name="ToPrice"
+            app:argType="string" />
+        <argument
+            android:name="Headline"
+            app:argType="string" />
+        <argument
+            android:name="FromDates"
+            app:argType="string" />
+        <argument
+            android:name="ToDates"
+            app:argType="string" />
+    </fragment>
 </navigation>

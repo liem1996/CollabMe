@@ -191,7 +191,6 @@ public class MyOffersFragment extends Fragment {
         public void bindoffer(Offer offer,int pos,View item){
             headline_offer.setText(offer.getHeadline());
             Offer_date.setText(offer.getFinishDate());
-            Offer_status.setText(offer.getStatus());
             username.setText(offer.getUser());
             ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                 @Override

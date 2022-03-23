@@ -24,7 +24,7 @@ import java.util.Collections;
 public class EditProfile extends Fragment {
     TextView platform, professions;
     EditText username, age, followers, postuploads;
-    Button chat, save, cancel, uploadphoto, delete;
+    Button chat, save, uploadphoto, delete;
     String[] platformArr;
     String[] professionArr;
     String password;
@@ -56,7 +56,6 @@ public class EditProfile extends Fragment {
         delete = view.findViewById(R.id.fragemnt_edituser_delete);
         uploadphoto = view.findViewById(R.id.fragemnt_edituser_upload);
         save = view.findViewById(R.id.fragemnt_edituser_save);
-        cancel = view.findViewById(R.id.fragemnt_edituser_cancel);
 
         username1 = EditProfileArgs.fromBundle(getArguments()).getUsername();
         password = EditProfileArgs.fromBundle(getArguments()).getPassword();
@@ -146,7 +145,6 @@ public class EditProfile extends Fragment {
                             stringBuilder.append(langArray[langList.get(j)]);
                             chosen[j] = (langArray[langList.get(j)]); //to check again
 
-                            System.out.println("ko");
                             // check condition
                             if (j != langList.size() - 1) {
                                 // When j value not equal

@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         navCtl = navHost.getNavController();
 
         // TODO: 3/13/2022 do not deletee!!!!!
-//       ActionBar actionBar = getSupportActionBar();
-//       actionBar.hide();
+       ActionBar actionBar = getSupportActionBar();
+       actionBar.hide();
 
         ////
 
@@ -51,34 +51,22 @@ public class MainActivity extends AppCompatActivity {
             switch(item.getItemId()){
                 case R.id.nav_home:
                     navCtl.navigate(R.id.homeFragment);
-//                    replaceFragment(new HomeFragment());
                     break;
                 case R.id.nav_search:
                     navCtl.navigate(R.id.fragment_Search);
-//                    replaceFragment(new Fragment_Search());
                     break;
                 case R.id.nav_chat:
                     navCtl.navigate(R.id.chatFragment);
-//                    replaceFragment(new ChatFragment());
                     break;
                 case R.id.nav_offer:
                     navCtl.navigate(R.id.myOffersFragment);
-//                    replaceFragment(new MyOffersFragment());
                     break;
                 case R.id.nav_account:
                     navCtl.navigate(R.id.userProfile);
-//                    replaceFragment(new UserProfile());
                     break;
             }
             return true;
         });
-    }
-
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_main, fragment);
-        fragmentTransaction.commit();
     }
 
     @Override
@@ -94,59 +82,59 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if(!super.onOptionsItemSelected(item)){
-
-            switch (item.getItemId()){
-                case R.id.profiel_fragment:
-                    navCtl.navigate(R.id.action_global_userProfile2);
-
-                    break;
-
-                case R.id.home_fragment:
-
-                    // Model.instance.getUserName(email);
-                    navCtl.navigate(R.id.action_global_homeFragment2);
-                    break;
-
-                case R.id.menu_logout:
-
-                    // Model.instance.getUserName(email);
-                    Modelauth.instance2.logout(new Modelauth.logout() {
-                        @Override
-                        public void onComplete(int code) {
-                            if(code==200) {
-                                toLoginActivity();
-                            }
-                            else{
-                                Toast.makeText(MainActivity.this, "boo boo", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                    break;
-
-                case R.id.addoffer:
-                    // Model.instance.getUserName(email);
-                    navCtl.navigate(R.id.action_global_addOfferDetailsFragemnt);
-                    break;
-                case R.id.item_editOffer:
-                    // Model.instance.getUserName(email);
-                    navCtl.navigate(R.id.action_global_editOfferFragment);
-                    break;
-
-                case R.id.myoffers:
-                    // Model.instance.getUserName(email);
-                    navCtl.navigate(R.id.action_global_myOffersFragment);
-                    break;
-
-
-            }
-
-
-        }
-
-        return false;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//
+//        if(!super.onOptionsItemSelected(item)){
+//
+//            switch (item.getItemId()){
+//                case R.id.profiel_fragment:
+//                    navCtl.navigate(R.id.action_global_userProfile2);
+//
+//                    break;
+//
+//                case R.id.home_fragment:
+//
+//                    // Model.instance.getUserName(email);
+//                    navCtl.navigate(R.id.action_global_homeFragment2);
+//                    break;
+//
+//                case R.id.menu_logout:
+//
+//                    // Model.instance.getUserName(email);
+//                    Modelauth.instance2.logout(new Modelauth.logout() {
+//                        @Override
+//                        public void onComplete(int code) {
+//                            if(code==200) {
+//                                toLoginActivity();
+//                            }
+//                            else{
+//                                Toast.makeText(MainActivity.this, "boo boo", Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                    });
+//                    break;
+//
+//                case R.id.addoffer:
+//                    // Model.instance.getUserName(email);
+//                    navCtl.navigate(R.id.action_global_addOfferDetailsFragemnt);
+//                    break;
+//                case R.id.item_editOffer:
+//                    // Model.instance.getUserName(email);
+//                    navCtl.navigate(R.id.action_global_editOfferFragment);
+//                    break;
+//
+//                case R.id.myoffers:
+//                    // Model.instance.getUserName(email);
+//                    navCtl.navigate(R.id.action_global_myOffersFragment);
+//                    break;
+//
+//
+//            }
+//
+//
+//        }
+//
+//        return false;
+//    }
 }

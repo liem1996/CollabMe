@@ -27,7 +27,10 @@
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/login.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_list_row.xml" value="0.264" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/border.xml" value="0.19814814814814816" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/edittextbackground.xml" value="0.19814814814814816" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_background.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_edit_profile.xml" value="0.19814814814814816" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_editoffernew.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_intro.xml" value="0.1375" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.20520833333333333" />
@@ -49,21 +52,24 @@
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_login.xml" value="0.2536231884057971" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_main.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/candidtaes_list_row.xml" value="0.15472972972972973" />
-        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment__search.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment__search.xml" value="0.264" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_add_offer_details_fragemnt.xml" value="0.2" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_candidates.xml" value="0.23731884057971014" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_close_statusfragment.xml" value="0.15677083333333333" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_done_status.xml" value="0.15677083333333333" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_edit_offer.xml" value="0.23125" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_edit_profile.xml" value="0.2" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_inprogressfragment.xml" value="0.15677083333333333" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_my_offers.xml" value="0.12702702702702703" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_openstatus.xml" value="0.15324074074074073" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_payment.xml" value="0.23731884057971014" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_popup_window.xml" value="0.2" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_profession.xml" value="0.176" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_search_results.xml" value="0.1787037037037037" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_signup.xml" value="0.2" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_socialmedia.xml" value="0.21510416666666668" />
-        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_user_profile.xml" value="0.16" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_user_profile.xml" value="0.2" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/login.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_list_row.xml" value="0.15677083333333333" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/popup_window.xml" value="0.17239583333333333" />

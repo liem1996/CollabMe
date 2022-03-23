@@ -10,6 +10,7 @@ import com.example.collabme.objects.MyApplication;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.RetrofitInterface;
 import com.example.collabme.objects.User;
+import com.example.collabme.objects.tokenrespone;
 
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +70,65 @@ public class ModelOffers {
     }
 
 
+    public void changeAcssesToken(){
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        String tokenrefresh = MyApplication.getContext()
+                .getSharedPreferences("TAG1", Context.MODE_PRIVATE)
+                .getString("tokenrefresh","");
+        Call<tokenrespone> call = retrofitInterface.getnewtoken("Bearer " + tokenrefresh);
+        call.enqueue(new Callback<tokenrespone>() {
+            @Override
+            public void onResponse(Call<tokenrespone> call, Response<tokenrespone> response) {
+                if(response.code()==200) {
+                    String tokenResponse = response.body().getaccessToken();
+                    String tokenrefresh = response.body().getrefreshToken();
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("tokenAcsses", tokenResponse)
+                            .commit();
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG1", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("tokenrefresh", tokenrefresh)
+                            .commit();
+                }else{
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("tokenAcsses", "")
+                            .commit();
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG1", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("tokenrefresh", "")
+                            .commit();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<tokenrespone> call, Throwable t) {
+                MyApplication.getContext()
+                        .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                        .edit()
+                        .putString("tokenAcsses", "")
+                        .commit();
+                MyApplication.getContext()
+                        .getSharedPreferences("TAG1", Context.MODE_PRIVATE)
+                        .edit()
+                        .putString("tokenrefresh", "")
+                        .commit();
+            }
+        });
+
+    }
+
     /**
      *
      * the section of the offers
@@ -109,6 +169,13 @@ public class ModelOffers {
                     offersList.postValue(stList);
                     offersListLoadingState.postValue(OffersListLoadingState.loaded);
 
+                }else if(response.code()==403){
+                    ModelOffers.instance.changeAcssesToken();
+                    ModelOffers.instance.refreshPostList();
+
+                }else{
+                    offersList.postValue(null);
+                    offersListLoadingState.postValue(OffersListLoadingState.loaded);
                 }
             }
 
@@ -129,18 +196,8 @@ public class ModelOffers {
                 .build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("Description", offer.getDescription());
-        map.put("HeadLine", offer.getHeadline());
-        map.put("Price", offer.getPrice());
-        map.put("Coupon", offer.getCoupon());
-        map.put("IdOffer", offer.getIdOffer());
-        map.put("Status", offer.getStatus());
-        map.put("Profession", offer.getProfession());
-        map.put("User", offer.getUser());
-        map.put("IntrestedVerify", offer.getIntrestedVerify());
-
-
+        Map<String, Object> map = new HashMap<>();
+        map = offer.toJson();
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
@@ -154,9 +211,11 @@ public class ModelOffers {
 
                     addOffer.onComplete(200);
 
-                } else {
+                } else if(response.code()==403){
+                    ModelOffers.instance.changeAcssesToken();
+                    ModelOffers.instance.addOffer(offer,addOffer);
+                }else{
                     addOffer.onComplete(400);
-
                 }
             }
 
@@ -186,7 +245,15 @@ public class ModelOffers {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                deleteofferlisner.onComplete();
+                if (response.code() == 200) {
+                    deleteofferlisner.onComplete();
+
+                } else if (response.code() == 403) {
+                    ModelOffers.instance.changeAcssesToken();
+                    ModelOffers.instance.deleteoffer(offer,deleteofferlisner);
+                } else {
+                    deleteofferlisner.onComplete();
+                }
             }
 
             @Override
@@ -216,7 +283,15 @@ public class ModelOffers {
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
-                editOfferListener.onComplete(200);
+                if(response.code()==200) {
+                    editOfferListener.onComplete(200);
+                }
+                else if (response.code() == 403) {
+                    ModelOffers.instance.changeAcssesToken();
+                    ModelOffers.instance.editOffer(newOffer,editOfferListener);
+                } else {
+                    editOfferListener.onComplete(400);
+                }
             }
 
             @Override
@@ -246,7 +321,15 @@ public class ModelOffers {
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
-                getOfferListener.onComplete(response.body());
+                if(response.code()==200) {
+                    getOfferListener.onComplete(response.body());
+                }
+                else if (response.code() == 403) {
+                    ModelOffers.instance.changeAcssesToken();
+                    ModelOffers.instance.getOfferById(offerid,getOfferListener);
+                } else {
+                    getOfferListener.onComplete(null);
+                }
             }
             @Override
             public void onFailure(Call<Offer> call, Throwable t) {
@@ -284,9 +367,17 @@ public class ModelOffers {
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                List<User> stList = response.body();
                 if (response.code() == 200) {
-                    List<User> stList = response.body();
                     candidatesList.postValue(stList);
+                    candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
+
+                }else if (response.code() == 403) {
+                    ModelOffers.instance.changeAcssesToken();
+                    ModelOffers.instance.refreshCandidatesList(offer);
+
+                } else {
+                    candidatesList.postValue(null);
                     candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
 
                 }

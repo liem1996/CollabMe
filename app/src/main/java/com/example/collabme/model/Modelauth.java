@@ -23,6 +23,8 @@ public class Modelauth {
     public String username1="liem";
 
 
+
+
     /**
      * interfaces authentication
      */
@@ -47,7 +49,6 @@ public class Modelauth {
     public void isSignIn (islogin isloginlisenter) {
         // Check if user is signed in (non-null) and update UI accordingly.
 
-
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -65,11 +66,15 @@ public class Modelauth {
 
                 if (response.code() == 200) {
 
-                    isloginlisenter.onComplete(response.body());
+                    isloginlisenter.onComplete(true);
 
-                } else {
+                } else if(response.code()==403) {
+                        ModelOffers.instance.changeAcssesToken();
+                        Modelauth.instance2.isSignIn(isloginlisenter);
+
+
+                }else{
                     isloginlisenter.onComplete(false);
-
                 }
             }
 

@@ -13,12 +13,9 @@ import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
+
 
 public class Modelauth {
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String BASE_URL = "http://10.0.2.2:4000";
     public static final Modelauth instance2 = new Modelauth();
     public String username1="liem";
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
@@ -101,7 +98,7 @@ public class Modelauth {
 
         HashMap<String, Object> map = new HashMap<>();
         map = profile.tojson();
-        Call<Void> call = retrofitInterface.executeSignup(map);
+        Call<Void> call = tokensrefresh.retrofitInterface.executeSignup(map);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -215,7 +212,7 @@ public class Modelauth {
 
 
         tokensrefresh.retrofitInterface = tokensrefresh.retrofit.create(RetrofitInterface.class);
-        Call<User> call = retrofitInterface.getUserByUserNameInSignIn(username);
+        Call<User> call = tokensrefresh.retrofitInterface.getUserByUserNameInSignIn(username);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

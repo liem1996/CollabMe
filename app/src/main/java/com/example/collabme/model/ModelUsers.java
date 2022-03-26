@@ -35,8 +35,6 @@ public class ModelUsers {
     }
 
 
-
-
     public void getuserbyusername(String username1, GetUserByIdListener getUserByIdListener) {
         tokensrefresh.retroServer();
 

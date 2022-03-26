@@ -141,11 +141,10 @@ public class Fragment_Search extends Fragment {
             public void onClick(View v) {
                searchAcordingtoParamters();
                 Navigation.findNavController(v).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
-                freeSearch1, professionArr, proposer1, fromprice1, toprice1, headline1,fromdates1, todates1));
+                freeSearch1, chosen, proposer1, fromprice1, toprice1, headline1,fromdates1, todates1));
 
             }
         });
-                 // TODO to check the professtions sending again
 
         return view;
     }

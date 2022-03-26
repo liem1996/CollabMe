@@ -3,27 +3,15 @@ package com.example.collabme.Activites;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.collabme.ChatFragment;
-import com.example.collabme.HomeOffers.HomeFragment;
-import com.example.collabme.HomeOffers.MyOffersFragment;
 import com.example.collabme.R;
 import com.example.collabme.databinding.ActivityMainBinding;
-import com.example.collabme.model.Modelauth;
-import com.example.collabme.search.Fragment_Search;
-import com.example.collabme.users.UserProfile;
 
 public class MainActivity extends AppCompatActivity {
     NavController navCtl;

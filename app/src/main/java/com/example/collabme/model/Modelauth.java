@@ -6,6 +6,7 @@ import com.example.collabme.objects.MyApplication;
 import com.example.collabme.objects.RetrofitInterface;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokenrespone;
+import com.example.collabme.objects.tokensrefresh;
 
 import java.util.HashMap;
 
@@ -13,7 +14,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Modelauth {
     private Retrofit retrofit;
@@ -21,8 +21,7 @@ public class Modelauth {
     private String BASE_URL = "http://10.0.2.2:4000";
     public static final Modelauth instance2 = new Modelauth();
     public String username1="liem";
-
-
+    public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
 
 
     /**
@@ -49,30 +48,40 @@ public class Modelauth {
     public void isSignIn (islogin isloginlisenter) {
         // Check if user is signed in (non-null) and update UI accordingly.
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        tokensrefresh.retroServer();
 
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
-        Call<Boolean> call = retrofitInterface.getuserislogin("Bearer " + tockenacsses);
+
+        Call<Boolean> call = tokensrefresh.retrofitInterface.getuserislogin("Bearer " + tockenacsses);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
 
                 if (response.code() == 200) {
-
                     isloginlisenter.onComplete(true);
 
                 } else if(response.code()==403) {
-                        ModelOffers.instance.changeAcssesToken();
-                        Modelauth.instance2.isSignIn(isloginlisenter);
+                    tokensrefresh.changeAcssesToken();
+                    String tockennew = tokensrefresh.gettockenAcsses();
+                    Call<Boolean> call1 = tokensrefresh.retrofitInterface.getuserislogin("Bearer "+tockennew);
+                    call1.enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            if(response.code()==200){
+                                isloginlisenter.onComplete(true);
+                            }else{
+                                isloginlisenter.onComplete(false);
+                            }
+                        }
 
-
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            isloginlisenter.onComplete(false);
+                        }
+                    });
                 }else{
                     isloginlisenter.onComplete(false);
                 }
@@ -87,12 +96,9 @@ public class Modelauth {
     }
 
     public void sighup(User profile,signupListener sighup) {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        tokensrefresh.retroServer();
 
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
         HashMap<String, Object> map = new HashMap<>();
         map = profile.tojson();
         Call<Void> call = retrofitInterface.executeSignup(map);
@@ -117,18 +123,14 @@ public class Modelauth {
 
 
     public void Login(String username,String password,loginListener Login){
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        tokensrefresh.retroServer();
 
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
         HashMap<String, String> map = new HashMap<>();
         map.put("Username", username);
         map.put("Password", password);
         username1=username;
 
-        Call<tokenrespone> call = retrofitInterface.executeLogin(map);
+        Call<tokenrespone> call = tokensrefresh.retrofitInterface.executeLogin(map);
         call.enqueue(new Callback<tokenrespone>() {
             @Override
             public void onResponse(Call<tokenrespone> call, Response<tokenrespone> response) {
@@ -169,18 +171,15 @@ public class Modelauth {
     }
 
     public void logout(logout logout){
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        tokensrefresh.retroServer();
 
         String tokenrefresh = MyApplication.getContext()
                 .getSharedPreferences("TAG1", Context.MODE_PRIVATE)
                 .getString("tokenrefresh","");
 
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
-        Call<Void> call = retrofitInterface.excutelogout("Bearer "+tokenrefresh);
+
+        Call<Void> call = tokensrefresh.retrofitInterface.excutelogout("Bearer "+tokenrefresh);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -212,12 +211,10 @@ public class Modelauth {
     /////////////////////////
 
     public void getUserByUserNameInSignIn(String username, Modelauth.getUserByUserNameInSignIn getUserByUserNameInSignIn) {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        tokensrefresh.retroServer();
 
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        tokensrefresh.retrofitInterface = tokensrefresh.retrofit.create(RetrofitInterface.class);
         Call<User> call = retrofitInterface.getUserByUserNameInSignIn(username);
         call.enqueue(new Callback<User>() {
             @Override

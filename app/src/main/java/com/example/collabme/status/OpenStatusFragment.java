@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
 import com.example.collabme.actionsOnOffers.EditOfferFragmentArgs;
@@ -24,7 +25,7 @@ public class OpenStatusFragment extends Fragment {
 
     String offerId;
     TextView proposer,status, headline, description, finishDate, price;
-    Button candidates, chat, upload;
+    Button candidates, chat, upload, edit;
     CheckBox interestedVerify;
     Spinner profession;
 
@@ -43,10 +44,12 @@ public class OpenStatusFragment extends Fragment {
         price = view.findViewById(R.id.fragemnt_offerdetails_price);
         interestedVerify = view.findViewById(R.id.fragemnt_offerdetails_checkbox);
 
+        edit = view.findViewById(R.id.fragemnt_offerdetails_editBtn);
         chat  = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
         upload  = view.findViewById(R.id.fragemnt_offerdetails_uploadBtn);
         candidates = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn2);
 
+        edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
             initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);

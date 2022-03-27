@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#4c266a"
-        android:text="Edit"
+        android:text="save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.869"
@@ -33,16 +33,16 @@
 
     <Button
         android:id="@+id/fragment_editOffer_candidatesBtn"
-        android:layout_width="128dp"
-        android:layout_height="45dp"
+        android:layout_width="138dp"
+        android:layout_height="42dp"
         android:backgroundTint="#4c266a"
         android:text="candidates"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintHorizontal_bias="0.586"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.782" />
+        app:layout_constraintVertical_bias="0.801" />
 
     <CheckBox
         android:id="@+id/fragment_editOffer_checkbox"
@@ -50,38 +50,38 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84" />
+        app:layout_constraintVertical_bias="0.869" />
 
     <EditText
         android:id="@+id/fragment_editOffer_headline"
-        android:layout_width="175dp"
-        android:layout_height="40dp"
+        android:layout_width="176dp"
+        android:layout_height="36dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Headline"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.661"
+        app:layout_constraintHorizontal_bias="0.687"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.378" />
+        app:layout_constraintVertical_bias="0.367" />
 
     <EditText
         android:id="@+id/fragment_editOffer_finishdate"
-        android:layout_width="175dp"
-        android:layout_height="40dp"
+        android:layout_width="184dp"
+        android:layout_height="31dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="finish date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.661"
+        app:layout_constraintHorizontal_bias="0.731"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567" />
+        app:layout_constraintVertical_bias="0.582" />
 
     <EditText
         android:id="@+id/fragment_editOffer_price"
@@ -89,61 +89,63 @@
         android:layout_height="40dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="price"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.618"
+        app:layout_constraintHorizontal_bias="0.682"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.711" />
+        app:layout_constraintVertical_bias="0.738" />
 
     <EditText
         android:id="@+id/fragment_editOffer_description"
-        android:layout_width="332dp"
-        android:layout_height="66dp"
+        android:layout_width="313dp"
+        android:layout_height="76dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="description"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.479" />
+        app:layout_constraintVertical_bias="0.475" />
 
     <TextView
         android:id="@+id/fragment_editOffer_profession"
-        android:layout_width="89dp"
-        android:layout_height="32dp"
+        android:layout_width="184dp"
+        android:layout_height="24dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.731"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665" />
+        app:layout_constraintVertical_bias="0.676" />
 
     <TextView
         android:id="@+id/fragment_editOffer_proposer"
-        android:layout_width="89dp"
-        android:layout_height="32dp"
+        android:layout_width="174dp"
+        android:layout_height="24dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.683"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.328" />
+        app:layout_constraintVertical_bias="0.314" />
 
     <TextView
         android:id="@+id/fragment_editOffer_status"
-        android:layout_width="89dp"
-        android:layout_height="32dp"
+        android:layout_width="183dp"
+        android:layout_height="28dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.723"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.617" />
+        app:layout_constraintVertical_bias="0.624" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

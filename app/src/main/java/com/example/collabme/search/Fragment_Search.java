@@ -25,7 +25,6 @@ import java.util.List;
 public class Fragment_Search extends Fragment {
 
     Offer[] offersFromSearch;
-
     EditText proposer,headline,todates, toprice, fromdates, fromprice, freeSearch;
     TextView professions;
     Button search;
@@ -36,8 +35,6 @@ public class Fragment_Search extends Fragment {
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
     String[] professionArr;
     String[] chosen;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

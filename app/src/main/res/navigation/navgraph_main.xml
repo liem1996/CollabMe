@@ -139,7 +139,14 @@
         android:id="@+id/inprogressfragment"
         android:name="com.example.collabme.status.inprogressfragment"
         android:label="fragment_inprogressfragment"
-        tools:layout="@layout/fragment_inprogressfragment" /><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
+        tools:layout="@layout/fragment_inprogressfragment" >
+        <action
+            android:id="@+id/action_inprogressfragment_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+        <argument
+            android:name="offerId"
+            app:argType="string" />
+    </fragment><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
     <fragment
         android:id="@+id/fragment_Search"
         android:name="com.example.collabme.search.Fragment_Search"
@@ -178,6 +185,9 @@
         <argument
             android:name="offerId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_offerDetailsFragment_to_inprogressfragment"
+            app:destination="@id/inprogressfragment" />
     </fragment>
     <fragment
         android:id="@+id/myOffersFragment"

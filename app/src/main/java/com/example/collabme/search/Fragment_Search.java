@@ -8,16 +8,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.collabme.HomeOffers.HomeFragment;
+import com.example.collabme.HomeOffers.HomeFragmentDirections;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
+import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 import com.example.collabme.users.UserProfileDirections;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Fragment_Search extends Fragment {
@@ -158,7 +172,5 @@ public class Fragment_Search extends Fragment {
          fromprice1 = fromprice.getText().toString();
          freeSearch1 = freeSearch.getText().toString();
     }
-
-
 
 }

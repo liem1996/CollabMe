@@ -88,7 +88,7 @@ public class UserProfile extends Fragment {
         createAnOffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
+                Navigation.findNavController(v).navigate(R.id.action_userProfile_to_addOfferDetailsFragemnt);
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +97,6 @@ public class UserProfile extends Fragment {
                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToEditProfile2(username.getText().toString(),password,company1,influencer1,age.getText().toString(),email1,gender1,plat,pref,followers.getText().toString(),postuploads.getText().toString()));
             }
         });
-
-
 
 
         return view;

@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_userProfile_to_editProfile2"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_userProfile_to_addOfferDetailsFragemnt"
+            app:destination="@id/addOfferDetailsFragemnt" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"

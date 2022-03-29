@@ -7,25 +7,16 @@
     tools:context=".actionsOnOffers.AddOfferDetailsFragemnt">
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="446dp"
-        android:layout_height="777dp"
-        android:src="@drawable/ic_background"
+        android:id="@+id/imageView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_offer_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="394dp"
-        android:layout_height="615dp"
-        android:src="@drawable/ic_offerdetails5"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.495" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
         android:id="@+id/fragemnt_done_checkbox"
@@ -41,63 +32,61 @@
 
     <EditText
         android:id="@+id/fragemnt_done_headline"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="140dp"
+        android:layout_width="210dp"
+        android:layout_height="28dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintHorizontal_bias="0.741"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintVertical_bias="0.361" />
 
     <EditText
         android:id="@+id/fragemnt_done_finishdate"
-        android:layout_width="220dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="140dp"
+        android:layout_width="203dp"
+        android:layout_height="27dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="328dp"
+        android:layout_marginBottom="304dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_description"
         app:layout_constraintVertical_bias="0.127" />
 
     <EditText
         android:id="@+id/fragemnt_done_price"
-        android:layout_width="237dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginBottom="204dp"
+        android:layout_width="205dp"
+        android:layout_height="26dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView11" />
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.734" />
 
     <EditText
         android:id="@+id/fragemnt_done_description"
         android:layout_width="324dp"
         android:layout_height="50dp"
         android:layout_marginTop="36dp"
-        android:layout_marginBottom="408dp"
+        android:layout_marginBottom="356dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_headline"
         app:layout_constraintVertical_bias="0.0" />
@@ -120,6 +109,19 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
+        android:id="@+id/fragemnt_done_chat2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#4c266a"
+        android:text="candidates"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.805" />
+
+    <Button
         android:id="@+id/fragemnt_done_saveBtn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,6 +138,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragemnt_newoffer_price"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <TextView
         android:id="@+id/fragment_data_status"
         android:layout_width="198dp"
@@ -144,29 +147,15 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.759"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.585" />
-
-    <TextView
-        android:id="@+id/fragment_done_candidates"
-        android:layout_width="177dp"
-        android:layout_height="34dp"
-        android:text="Can't be added yet"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.755"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.753" />
-
+        app:layout_constraintVertical_bias="0.619" />
 
     <TextView
         android:id="@+id/fragment_done_profession"
-        android:layout_width="246dp"
-        android:layout_height="46dp"
+        android:layout_width="232dp"
+        android:layout_height="42dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="@android:drawable/editbox_background"
@@ -177,10 +166,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintHorizontal_bias="0.737"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649" />
+        app:layout_constraintVertical_bias="0.69" />
 
     <TextView
         android:id="@+id/fragemnt_done_proposer"
@@ -189,10 +178,10 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.659"
+        app:layout_constraintHorizontal_bias="0.676"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.223" />
+        app:layout_constraintVertical_bias="0.306" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

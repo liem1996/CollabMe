@@ -25,6 +25,7 @@ import com.example.collabme.HomeOffers.HomeFragment;
 import com.example.collabme.HomeOffers.HomeFragmentDirections;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelSearch;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
@@ -161,14 +162,18 @@ public class Fragment_Search extends Fragment {
 
         });
 
-
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                searchAcordingtoParamters();
-                offersFromSearch=viewModel.getOfferFromFreeSearch(freeSearch1).getValue().toArray(new Offer[0]);
-                Navigation.findNavController(v).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
-                offersFromSearch));
+                viewModel.getOfferFromFreeSearch(freeSearch1, new ModelSearch.getOfferFromFreeSearchListener() {
+                    @Override
+                    public void onComplete(List<Offer> offers) {
+                        offersFromSearch = offers.toArray(new Offer[0]);
+                        Navigation.findNavController(v).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
+                                offersFromSearch));
+                    }
+                });
 
             }
         });

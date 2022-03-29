@@ -149,29 +149,9 @@
             android:id="@+id/action_fragment_Search_to_fragment_search_results"
             app:destination="@id/fragment_search_results" />
         <argument
-            android:name="freeSearch"
-            app:argType="string" />
-        <argument
-            android:name="Professions"
-            app:argType="string[]" />
-        <argument
-            android:name="Proposer"
-            app:argType="string" />
-        <argument
-            android:name="FromPrice"
-            app:argType="string" />
-        <argument
-            android:name="ToPrice"
-            app:argType="string" />
-        <argument
-            android:name="Headline"
-            app:argType="string" />
-        <argument
-            android:name="FromDates"
-            app:argType="boolean" />
-        <argument
-            android:name="ToDates"
-            app:argType="string" />
+            android:name="searchoffers"
+            app:argType="com.example.collabme.objects.Offer[]"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/candidatesFragment"
@@ -210,36 +190,8 @@
         android:label="fragment_search_results"
         tools:layout="@layout/fragment_search_results" >
         <argument
-            android:name="freeSearch"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="Professions"
-            app:argType="string[]"
-            app:nullable="true" />
-        <argument
-            android:name="Proposer"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="FromPrice"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="ToPrice"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="Headline"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="FromDates"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="ToDates"
-            app:argType="string"
+            android:name="searchoffers"
+            app:argType="com.example.collabme.objects.Offer[]"
             app:nullable="true" />
     </fragment>
     <fragment

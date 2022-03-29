@@ -78,24 +78,24 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.731"
+        app:layout_constraintHorizontal_bias="0.729"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintVertical_bias="0.579" />
 
     <EditText
         android:id="@+id/fragment_editOffer_price"
-        android:layout_width="175dp"
-        android:layout_height="40dp"
+        android:layout_width="177dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
-        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.682"
+        app:layout_constraintHorizontal_bias="0.674"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.738" />
+        app:layout_constraintVertical_bias="0.709" />
 
     <EditText
         android:id="@+id/fragment_editOffer_description"

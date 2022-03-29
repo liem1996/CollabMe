@@ -17,7 +17,6 @@ import androidx.navigation.Navigation;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelUsers;
-import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class UserProfile extends Fragment {
         chat=view.findViewById(R.id.fragment_userprofile_chatbtn);
         createAnOffer=view.findViewById(R.id.fragemnt_userprofile_create);
         edit=view.findViewById(R.id.fragemnt_userprofile_edit);
-        logout=view.findViewById(R.id.logout);
+
          ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {
@@ -102,24 +101,6 @@ public class UserProfile extends Fragment {
             }
         });
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    // Model.instance.getUserName(email);
-                    Modelauth.instance2.logout(new Modelauth.logout() {
-                        @Override
-                        public void onComplete(int code) {
-                            if(code==200) {
-                                toLoginActivity();
-                            }
-                            else{
-                                //Toast.makeText(MainActivity.this, "boo boo", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-            }
-        });
 
 
         return view;

@@ -1,8 +1,12 @@
 package com.example.collabme.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Offer {
+public class Offer implements Parcelable{
     @SerializedName("Description")
     @Expose
     private String description;
@@ -47,6 +51,54 @@ public class Offer {
     @SerializedName("Isdelete")
     @Expose
     private boolean delete;
+
+    protected Offer(Parcel in) {
+        description = in.readString();
+        headline = in.readString();
+        finishDate = in.readString();
+        price = in.readString();
+        coupon = in.readString();
+        idOffer = in.readString();
+        status = in.readString();
+        profession = in.createStringArray();
+        user = in.readString();
+        users = in.createStringArray();
+        intrestedVerify = in.readByte() != 0;
+        delete = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(description);
+        dest.writeString(headline);
+        dest.writeString(finishDate);
+        dest.writeString(price);
+        dest.writeString(coupon);
+        dest.writeString(idOffer);
+        dest.writeString(status);
+        dest.writeStringArray(profession);
+        dest.writeString(user);
+        dest.writeStringArray(users);
+        dest.writeByte((byte) (intrestedVerify ? 1 : 0));
+        dest.writeByte((byte) (delete ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Offer> CREATOR = new Creator<Offer>() {
+        @Override
+        public Offer createFromParcel(Parcel in) {
+            return new Offer(in);
+        }
+
+        @Override
+        public Offer[] newArray(int size) {
+            return new Offer[size];
+        }
+    };
 
     /**
      *

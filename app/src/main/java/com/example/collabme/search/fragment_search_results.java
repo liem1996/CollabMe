@@ -36,8 +36,7 @@ import java.util.List;
 
 public class fragment_search_results extends Fragment {
 
-    String freeSearch1, proposer1, fromprice1, toprice1, headline1,fromdates1, todates1;
-    String[] chosen;
+    Offer[] offersFromSearch;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     String idoffer;
@@ -46,25 +45,12 @@ public class fragment_search_results extends Fragment {
     String stUsername;
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(searchviewmodel.class);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search_results, container, false);
 
-        freeSearch1 = fragment_search_resultsArgs.fromBundle(getArguments()).getFreeSearch();
-        chosen = fragment_search_resultsArgs.fromBundle(getArguments()).getProfessions();
-        proposer1 = fragment_search_resultsArgs.fromBundle(getArguments()).getProposer();
-        fromdates1 = fragment_search_resultsArgs.fromBundle(getArguments()).getFromDates();
-        fromprice1 = fragment_search_resultsArgs.fromBundle(getArguments()).getFromPrice();
-        toprice1 = fragment_search_resultsArgs.fromBundle(getArguments()).getToPrice();
-        headline1 = fragment_search_resultsArgs.fromBundle(getArguments()).getHeadline();
-        todates1 = fragment_search_resultsArgs.fromBundle(getArguments()).getToDates();
+        offersFromSearch = fragment_search_resultsArgs.fromBundle(getArguments()).getSearchoffers();
 
         //////////////////////////////////////////////////////////////////////////
 
@@ -82,15 +68,15 @@ public class fragment_search_results extends Fragment {
         adapter.setListener(new fragment_search_results.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view,int idview) {
-                idoffer = viewModel.getOfferFromFreeSearch(freeSearch1).getValue().get(position).getIdOffer();
+                idoffer = offersFromSearch[position].getIdOffer();
 
                 if(view.findViewById(R.id.fragment_search_results_check).getId()==idview) {
 
-                    Offer offer =viewModel.getOfferFromFreeSearch(freeSearch1).getValue().get(position);
+                    Offer offer =offersFromSearch[position];
                     List<String> arrayList = new LinkedList<>();
 
-                    arrayList= offer.setusersandadd(viewModel.getOfferFromFreeSearch(freeSearch1).getValue().get(position).getUsers(),
-                            viewModel.getOfferFromFreeSearch(freeSearch1).getValue().get(position).getUser());
+                    arrayList= offer.setusersandadd(offersFromSearch[position].getUsers(),
+                            offersFromSearch[position].getUser());
 
                     offer.setUsers(ChangeToArray(arrayList));
 
@@ -110,7 +96,7 @@ public class fragment_search_results extends Fragment {
                 }else if(view.findViewById(R.id.fragment_search_results_edit).getId()==idview) {
                 //    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
                 } else{
-                    Offer offer =viewModel.getOfferFromFreeSearch(freeSearch1).getValue().get(position);
+                    Offer offer =offersFromSearch[position];
                     String offerId = offer.getIdOffer();
                  //   Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToOfferDetailsFragment(offerId));
                 }
@@ -243,17 +229,17 @@ public class fragment_search_results extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull fragment_search_results.MyViewHolder holder, int position) {
-            Offer offer = viewModel.getOfferFromFreeSearch(freeSearch1).getValue().get(position);
+            Offer offer = offersFromSearch[position];
             holder.bind(offer);
 
         }
 
         @Override
         public int getItemCount() {
-            if(viewModel.getOfferFromFreeSearch(freeSearch1).getValue() == null){
+            if(offersFromSearch == null){
                 return 0;
             }
-            return viewModel.getOfferFromFreeSearch(freeSearch1).getValue().size();
+            return offersFromSearch.length;
         }
     }
 

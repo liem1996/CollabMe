@@ -1,5 +1,9 @@
 package com.example.collabme.TheSighUPProcess;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,22 +21,29 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SignupFragment extends Fragment {
 
     EditText username, password,email,age;
-    Button signup, back;
+    Button signup, back,uploads;
     CheckBox company, influencer;
     Spinner gender;
     String selectedGender;
     List<String> genderStrings;
     String emailPattern ="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     boolean goodsign;
+    private String mImageUrl = "";
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_PIC = 2;
 
     String username1,password1,email1,age1, selectedGender1;
     boolean company1,influencer1;
@@ -61,6 +72,7 @@ public class SignupFragment extends Fragment {
         company = view.findViewById(R.id.fragment_signup_company);
         influencer = view.findViewById(R.id.fragment_signup_influencer);
         back = view.findViewById(R.id.fragemnt_signup_backbtn);
+        uploads = view.findViewById(R.id.fragemnt_signup_uploadbtn);
 
         signup = view.findViewById(R.id.fragemnt_signup_continuebtn);
 
@@ -72,6 +84,8 @@ public class SignupFragment extends Fragment {
                     if (profile != null) {
                         Toast.makeText(getContext(), "Your username is taken", Toast.LENGTH_SHORT).show();
                         goodsign=false;
+
+
                         return;
                     }
                     authforuser();
@@ -90,8 +104,61 @@ public class SignupFragment extends Fragment {
             }
         });
 
+        uploads.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
         return view;
     }
+
+    public void openGallery() {
+        Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
+        photoPicerIntent.setType("image/jpeg");
+        startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_PIC) {
+            if (resultCode == RESULT_OK) {
+                Uri uri = data.getData();
+                ModelPhotos.instance3.uploadImage(uri,getActivity(),"hello", new ModelPhotos.PostProfilePhoto() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200){
+                            Toast.makeText(getContext(), "niceeee", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+
+            }
+        }
+    }
+
+
+    public byte[] getBytes(InputStream is) throws IOException {
+        ByteArrayOutputStream byteBuff = new ByteArrayOutputStream();
+
+        int buffSize = 1024;
+        byte[] buff = new byte[buffSize];
+
+        int len = 0;
+        while ((len = is.read(buff)) != -1) {
+            byteBuff.write(buff, 0, len);
+        }
+
+        return byteBuff.toByteArray();
+    }
+
+
+
+
 
     private void saveDetails() {
         username1 = username.getText().toString();

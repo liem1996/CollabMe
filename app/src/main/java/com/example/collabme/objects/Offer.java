@@ -27,9 +27,6 @@ public class Offer implements Parcelable{
     @SerializedName("Price")
     @Expose
     private String price;
-    @SerializedName("Coupon")
-    @Expose
-    private String  coupon;
     @SerializedName("IdOffer")
     @Expose
     private String idOffer;
@@ -57,7 +54,6 @@ public class Offer implements Parcelable{
         headline = in.readString();
         finishDate = in.readString();
         price = in.readString();
-        coupon = in.readString();
         idOffer = in.readString();
         status = in.readString();
         profession = in.createStringArray();
@@ -73,7 +69,6 @@ public class Offer implements Parcelable{
         dest.writeString(headline);
         dest.writeString(finishDate);
         dest.writeString(price);
-        dest.writeString(coupon);
         dest.writeString(idOffer);
         dest.writeString(status);
         dest.writeStringArray(profession);
@@ -123,14 +118,6 @@ public class Offer implements Parcelable{
      */
     public String getFinishDate() {
         return finishDate;
-    }
-    /**
-     *
-     * @return
-     * The coupon
-     */
-    public String getCoupon() {
-        return coupon;
     }
     /**
      *
@@ -225,8 +212,7 @@ public class Offer implements Parcelable{
         this.users = users;
     }
 
-    public Offer(String description, String coupon, String headline, String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
-        this.coupon = coupon;
+    public Offer(String description, String headline, String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
         this.description = description;
         this.idOffer = idOffer;
         this.headline = headline;
@@ -244,7 +230,6 @@ public class Offer implements Parcelable{
 
 
     public static Offer create(Map<String, Object> json) {
-        String coupon = (String) json.get("Coupon");
         String description = (String) json.get("Description");
         String idOffer = (String) json.get("IdOffer");
         String headline = (String) json.get("Headline");
@@ -256,7 +241,7 @@ public class Offer implements Parcelable{
         String [] users = (String[]) json.get("Users");
         boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
         boolean delete = (boolean) json.get("Isdelete");
-        Offer offer = new Offer(description,coupon,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
+        Offer offer = new Offer(description,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
         offer.setdelete(delete);
         offer.setUsers(users);
 
@@ -266,7 +251,6 @@ public class Offer implements Parcelable{
     public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<String, Object>();
         json.put("Description",description);
-        json.put("Coupon",coupon);
         json.put("HeadLine",headline);
         json.put("FinishDate",finishDate);
         json.put("Price",price);

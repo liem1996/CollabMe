@@ -69,5 +69,7 @@ public interface RetrofitInterface {
     @GET("/auth/refreshToken")
     Call<tokenrespone> getnewtoken(@Header("authorization") String token);
 
+    @GET("/search/getOfferFromFreeSearch/{freesearch}")
+    Call<List<Offer>> getOfferFromFreeSearch(@Path("freesearch") String freesearch,@Header("authorization") String token);
 
 }

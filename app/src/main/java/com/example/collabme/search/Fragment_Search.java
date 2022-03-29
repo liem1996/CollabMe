@@ -1,7 +1,6 @@
 package com.example.collabme.search;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,39 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.collabme.HomeOffers.HomeFragment;
-import com.example.collabme.HomeOffers.HomeFragmentDirections;
 import com.example.collabme.R;
-import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelSearch;
-import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.Offer;
-import com.example.collabme.objects.User;
-import com.example.collabme.users.UserProfileDirections;
-import com.example.collabme.viewmodel.searchviewmodel;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 
 public class Fragment_Search extends Fragment {
 
     Offer[] offersFromSearch;
-    searchviewmodel viewModel;
+
     EditText proposer,headline,todates, toprice, fromdates, fromprice, freeSearch;
     TextView professions;
     Button search;
@@ -53,11 +37,7 @@ public class Fragment_Search extends Fragment {
     String[] professionArr;
     String[] chosen;
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(searchviewmodel.class);
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -166,11 +146,11 @@ public class Fragment_Search extends Fragment {
             @Override
             public void onClick(View v) {
                searchAcordingtoParamters();
-                viewModel.getOfferFromFreeSearch(freeSearch1, new ModelSearch.getOfferFromFreeSearchListener() {
+                ModelSearch.instance.getOfferFromFreeSearch(freeSearch1, new ModelSearch.getOfferFromFreeSearchListener() {
                     @Override
                     public void onComplete(List<Offer> offers) {
                         offersFromSearch = offers.toArray(new Offer[0]);
-                        Navigation.findNavController(v).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
+                        Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
                                 offersFromSearch));
                     }
                 });

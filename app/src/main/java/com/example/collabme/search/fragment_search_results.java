@@ -1,16 +1,6 @@
 package com.example.collabme.search;
 
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.collabme.HomeOffers.HomeFragment;
-import com.example.collabme.HomeOffers.HomeFragmentDirections;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
-import com.example.collabme.users.EditProfileArgs;
-import com.example.collabme.viewmodel.offersviewmodel;
-import com.example.collabme.viewmodel.searchviewmodel;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -40,7 +31,7 @@ public class fragment_search_results extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     String idoffer;
-    searchviewmodel viewModel;
+
     OnItemClickListener listener;
     String stUsername;
 
@@ -139,13 +130,14 @@ public class fragment_search_results extends Fragment {
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline);
-            Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date);
-            username=(TextView)itemView.findViewById(R.id.myoffers_listrow_username);
-            image_offer =(ImageView)itemView.findViewById(R.id.myoffers_listrow_image);
-            image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
-            imge_x =(ImageView)itemView.findViewById(R.id.myoffers_listrow_delete);
-            Editview = (Button) itemView.findViewById(R.id.fragemnt_item_edit);
+            headline_offer=(TextView)itemView.findViewById(R.id.fragment_search_results_headline);
+            Offer_date=(TextView)itemView.findViewById(R.id.fragment_search_results_date);
+            username=(TextView)itemView.findViewById(R.id.fragment_search_results_username);
+            image_offer =(ImageView)itemView.findViewById(R.id.fragment_search_results_offerimage);
+            image_vi =(ImageView)itemView.findViewById(R.id.fragment_search_results_check);
+            imge_x =(ImageView)itemView.findViewById(R.id.fragment_search_results_delete);
+            Editview = (Button) itemView.findViewById(R.id.fragment_search_results_edit);
+
 
 
             Editview.setOnClickListener(new View.OnClickListener() {

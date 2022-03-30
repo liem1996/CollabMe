@@ -31,6 +31,9 @@ public class ModelSearch {
     public interface getOfferFromFreeSearchListener{
         void onComplete(List<Offer> offers);
     }
+    public interface getOfferFromSpecificSearchListener{
+        void onComplete(List<Offer> offers);
+    }
 
     public void getOfferFromFreeSearch(String freesearch, ModelSearch.getOfferFromFreeSearchListener getOfferFromFreeSearchListener) {
 
@@ -80,4 +83,54 @@ public class ModelSearch {
         });
     }
 
+    public void getOfferFromSpecificSearch(String description, String headline, String fromdate, String todate, String fromprice,
+            String toprice, String[] professions, String user, ModelSearch.getOfferFromSpecificSearchListener getOfferFromSpecificSearchListener) {
+
+        tokensrefresh.retroServer();
+
+        String tokenAccess = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        Call<List<Offer>> call = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(description, headline, fromdate, todate,
+                fromprice, toprice, professions,user,"Bearer "+tokenAccess);
+        call.enqueue(new Callback<List<Offer>>() {
+            @Override
+            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
+                if(response.code()==200) {
+                    getOfferFromSpecificSearchListener.onComplete(response.body());
+                }
+                else if (response.code() == 403) {
+                    tokensrefresh.changeAcssesToken();
+                    String tockennew = tokensrefresh.gettockenAcsses();
+                    Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(description, headline, fromdate, todate,
+                            fromprice, toprice, professions,user,"Bearer "+tockennew);
+                    call1.enqueue(new Callback<List<Offer>>() {
+                        @Override
+                        public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response1) {
+                            if(response1.code()==200){
+                                getOfferFromSpecificSearchListener.onComplete(response.body());
+                            }else{
+                                getOfferFromSpecificSearchListener.onComplete(null);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Offer>> call, Throwable t) {
+                            getOfferFromSpecificSearchListener.onComplete(null);
+                        }
+                    });
+                } else {
+                    getOfferFromSpecificSearchListener.onComplete(null);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Offer>> call, Throwable t) {
+                Log.d("TAG","failed in specific search"+t);
+
+                getOfferFromSpecificSearchListener.onComplete(null);
+
+            }
+        });
+    }
 }

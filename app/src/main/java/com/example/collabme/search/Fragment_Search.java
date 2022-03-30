@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,8 @@ public class Fragment_Search extends Fragment {
     Offer[] offersFromSearch;
     EditText proposer,headline,todates, toprice, fromdates, fromprice, freeSearch;
     TextView professions;
-    Button search, freesearchbutton;
+    Button search;
+    ImageView freesearchbutton;
     String proposer1, headline1, todates1,fromdates1,toprice1,freeSearch1,fromprice1;
     boolean[] selectedProfessions = new boolean[16];
     ArrayList<Integer> langList = new ArrayList<>();
@@ -161,7 +163,8 @@ public class Fragment_Search extends Fragment {
             @Override
             public void onClick(View v) {
                 searchAcordingtoParamters();
-                ModelSearch.instance.getOfferFromFreeSearch(freeSearch1, new ModelSearch.getOfferFromFreeSearchListener() {
+                ModelSearch.instance.getOfferFromSpecificSearch(null,headline1,fromdates1,todates1,fromprice1,toprice1,
+                        chosen, proposer1, new ModelSearch.getOfferFromSpecificSearchListener() {
                     @Override
                     public void onComplete(List<Offer> offers) {
                         offersFromSearch = offers.toArray(new Offer[0]);
@@ -176,6 +179,7 @@ public class Fragment_Search extends Fragment {
 
         return view;
     }
+// TODO to add descruption field ------------------!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public void searchAcordingtoParamters() {
          proposer1 = proposer.getText().toString();

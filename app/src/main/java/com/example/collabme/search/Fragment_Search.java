@@ -27,7 +27,7 @@ public class Fragment_Search extends Fragment {
     Offer[] offersFromSearch;
     EditText proposer,headline,todates, toprice, fromdates, fromprice, freeSearch;
     TextView professions;
-    Button search;
+    Button search, freesearchbutton;
     String proposer1, headline1, todates1,fromdates1,toprice1,freeSearch1,fromprice1;
     boolean[] selectedProfessions = new boolean[16];
     ArrayList<Integer> langList = new ArrayList<>();
@@ -51,6 +51,7 @@ public class Fragment_Search extends Fragment {
         search = view.findViewById(R.id.fragment_Search_button_search);
         professions = view.findViewById(R.id.fragment_Search_profession);
         freeSearch = view.findViewById(R.id.fragment_Search_freesearch);
+        freesearchbutton = view.findViewById(R.id.fragment_search_freesearc_btn);
 
         professions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +140,7 @@ public class Fragment_Search extends Fragment {
 
         });
 
-        search.setOnClickListener(new View.OnClickListener() {
+        freesearchbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                searchAcordingtoParamters();
@@ -151,6 +152,24 @@ public class Fragment_Search extends Fragment {
                                 offersFromSearch));
                     }
                 });
+
+
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchAcordingtoParamters();
+                ModelSearch.instance.getOfferFromFreeSearch(freeSearch1, new ModelSearch.getOfferFromFreeSearchListener() {
+                    @Override
+                    public void onComplete(List<Offer> offers) {
+                        offersFromSearch = offers.toArray(new Offer[0]);
+                        Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
+                                offersFromSearch));
+                    }
+                });
+
 
             }
         });

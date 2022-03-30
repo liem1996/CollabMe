@@ -4,62 +4,47 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link inprogressfragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class inprogressfragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public inprogressfragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment inprogressfragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static inprogressfragment newInstance(String param1, String param2) {
-        inprogressfragment fragment = new inprogressfragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    String offerId;
+    TextView proposer,status, headline, description, finishDate, price;
+    Button candidates, chat, upload, edit;
+    CheckBox interestedVerify;
+    Spinner profession;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
+        offerId = OpenStatusFragmentArgs.fromBundle(getArguments()).getOfferId();
+        proposer = view.findViewById(R.id.fragemnt_inprogress_proposer);
+        headline = view.findViewById(R.id.fragemnt_inprogress_headline);
+        description = view.findViewById(R.id.fragemnt_inprogress_description);
+        finishDate = view.findViewById(R.id.fragemnt_inprogress_finishdate);
+        status = view.findViewById(R.id.fragment_inprogress_status);
+        profession = view.findViewById(R.id.fragment_inprogress_profession);
+        price = view.findViewById(R.id.fragemnt_inprogress_price);
+        interestedVerify = view.findViewById(R.id.fragemnt_inprogress_checkbox);
+        edit = view.findViewById(R.id.fragemnt_inprogress_edit);
+        chat  = view.findViewById(R.id.fragemnt_inprogress_chat);
+        upload  = view.findViewById(R.id.fragemnt_inprogress_upload);
+        candidates = view.findViewById(R.id.fragemnt_inprogress_candidate);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
+
+
+        edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToEditOfferFragment(offerId)));
+
+        return view;
     }
 }

@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,14 +17,13 @@ import androidx.navigation.Navigation;
 import com.example.collabme.R;
 import com.example.collabme.actionsOnOffers.EditOfferFragmentArgs;
 import com.example.collabme.model.ModelOffers;
-import com.example.collabme.objects.Offer;
 
 
 public class OpenStatusFragment extends Fragment {
 
     String offerId;
     TextView proposer,status, headline, description, finishDate, price;
-    Button candidates, chat, upload, edit;
+    Button candidates, chat, choosen, edit;
     CheckBox interestedVerify;
     Spinner profession;
 
@@ -46,7 +44,7 @@ public class OpenStatusFragment extends Fragment {
 
         edit = view.findViewById(R.id.fragemnt_offerdetails_editBtn);
         chat  = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
-        upload  = view.findViewById(R.id.fragemnt_offerdetails_uploadBtn);
+        choosen  = view.findViewById(R.id.fragemnt_offerdetails_choosenBtn);
         candidates = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn2);
 
         edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
@@ -61,6 +59,13 @@ public class OpenStatusFragment extends Fragment {
             price.setText(offer.getPrice());
             interestedVerify.setChecked(offer.getIntrestedVerify());
 
+        });
+
+        choosen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToInprogressfragment(offerId));
+            }
         });
 
 

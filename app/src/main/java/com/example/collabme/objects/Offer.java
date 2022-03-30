@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -195,6 +194,10 @@ public class Offer implements Parcelable{
         return users;
     }
 
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public List<String> setusersandadd(String[] users, String newuser) {
         int openArray = 0;

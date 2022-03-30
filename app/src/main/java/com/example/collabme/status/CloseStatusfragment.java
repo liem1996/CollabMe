@@ -1,66 +1,94 @@
 package com.example.collabme.status;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CloseStatusfragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class CloseStatusfragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CloseStatusfragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CloseStatusfragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CloseStatusfragment newInstance(String param1, String param2) {
-        CloseStatusfragment fragment = new CloseStatusfragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    String offerId;
+    TextView proposer,status, headline, description, finishDate, price;
+    Button delete;
+    CheckBox interestedVerify;
+    Spinner profession;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
+        offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
+        proposer = view.findViewById(R.id.fragemnt_close_proposer);
+        headline = view.findViewById(R.id.fragemnt_close_headline);
+        description = view.findViewById(R.id.fragemnt_close_description);
+        finishDate = view.findViewById(R.id.fragemnt_close_finishdate);
+        status = view.findViewById(R.id.fragemnt_close_status);
+        profession = view.findViewById(R.id.fragemnt_close_profession);
+        price = view.findViewById(R.id.fragemnt_close_price);
+        interestedVerify = view.findViewById(R.id.fragemnt_close_checkbox);
+
+        delete  = view.findViewById(R.id.fragemnt_close_delete);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_close_statusfragment, container, false);
+
+        ModelOffers.instance.getOfferById(offerId, offer -> {
+            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+            headline.setText(offer.getHeadline());
+            proposer.setText(offer.getUser());
+            description.setText(offer.getDescription());
+            finishDate.setText(offer.getFinishDate());
+            status.setText(offer.getStatus());
+            price.setText(offer.getPrice());
+            interestedVerify.setChecked(offer.getIntrestedVerify());
+        });
+
+
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        return view;
+    }
+
+    private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
+        int tmp = 0;
+        for(int j = 0 ; j<size;j++){
+            if(array[j] != null){
+                tmp++;
+            }
+        }
+        String[] items = new String[tmp];
+
+        for(int i = 0 ; i<tmp;i++){
+            items[i] = array[i];
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextSize(25);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
     }
 }

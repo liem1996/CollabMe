@@ -229,7 +229,7 @@ public class EditOfferFragment extends Fragment {
         //String candidates1 = candidates.getText().toString();
         //String coupon1 = coupon.getText().toString();
         boolean interestedVerify1 = interestedVerify.isChecked();
-        Offer offer = new Offer(description1,null,headline1,finishDate1,price1,oldIdOffer,status1,newProfession,null,interestedVerify1);
+        Offer offer = new Offer(description1,headline1,finishDate1,price1,oldIdOffer,status1,newProfession,null,interestedVerify1);
 
         Log.d("TAG","new Offer : "+offer);
         ModelOffers.instance.editOffer(offer, code -> {

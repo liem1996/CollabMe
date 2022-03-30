@@ -4,62 +4,104 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DoneStatusFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class DoneStatusFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public DoneStatusFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DoneStatusFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DoneStatusFragment newInstance(String param1, String param2) {
-        DoneStatusFragment fragment = new DoneStatusFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    String offerId;
+    TextView proposer,status, headline, description, finishDate, price;
+    Button candidates, chat, payment, edit;
+    CheckBox interestedVerify;
+    Spinner profession;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
+        offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
+        proposer = view.findViewById(R.id.fragemnt_done_proposer);
+        headline = view.findViewById(R.id.fragemnt_done_headline);
+        description = view.findViewById(R.id.fragemnt_done_description);
+        finishDate = view.findViewById(R.id.fragemnt_done_finishdate);
+        status = view.findViewById(R.id.fragemnt_done_status);
+        profession = view.findViewById(R.id.fragemnt_done_profession);
+        price = view.findViewById(R.id.fragemnt_done_price);
+        interestedVerify = view.findViewById(R.id.fragemnt_done_checkbox);
+        edit = view.findViewById(R.id.fragemnt_done_editBtn);
+        chat  = view.findViewById(R.id.fragemnt_done_chatBtn);
+        payment  = view.findViewById(R.id.fragemnt_done_payment);
+        candidates = view.findViewById(R.id.fragemnt_done_candidatesBtn2);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_done_status, container, false);
+
+        ModelOffers.instance.getOfferById(offerId, offer -> {
+            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+            headline.setText(offer.getHeadline());
+            proposer.setText(offer.getUser());
+            description.setText(offer.getDescription());
+            finishDate.setText(offer.getFinishDate());
+            status.setText(offer.getStatus());
+            price.setText(offer.getPrice());
+            interestedVerify.setChecked(offer.getIntrestedVerify());
+        });
+
+        edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToEditOfferFragment(offerId)));
+
+
+        payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment());
+            }
+        });
+
+
+        candidates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToCandidatesFragment(offerId));
+
+            }
+        });
+
+
+        return view;
+    }
+
+    private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
+        int tmp = 0;
+        for(int j = 0 ; j<size;j++){
+            if(array[j] != null){
+                tmp++;
+            }
+        }
+        String[] items = new String[tmp];
+
+        for(int i = 0 ; i<tmp;i++){
+            items[i] = array[i];
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextSize(25);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
     }
 }

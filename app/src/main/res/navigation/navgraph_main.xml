@@ -129,7 +129,20 @@
         android:id="@+id/doneStatusFragment"
         android:name="com.example.collabme.status.DoneStatusFragment"
         android:label="fragment_done_status"
-        tools:layout="@layout/fragment_done_status" />
+        tools:layout="@layout/fragment_done_status" >
+        <action
+            android:id="@+id/action_doneStatusFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_doneStatusFragment_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+        <argument
+            android:name="offerid"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_doneStatusFragment_to_candidatesFragment"
+            app:destination="@id/candidatesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/closeStatusfragment"
         android:name="com.example.collabme.status.CloseStatusfragment"
@@ -146,6 +159,9 @@
         <argument
             android:name="offerId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_inprogressfragment_to_candidatesFragment"
+            app:destination="@id/candidatesFragment" />
     </fragment><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
     <fragment
         android:id="@+id/fragment_Search"
@@ -188,6 +204,9 @@
         <action
             android:id="@+id/action_offerDetailsFragment_to_inprogressfragment"
             app:destination="@id/inprogressfragment" />
+        <action
+            android:id="@+id/action_offerDetailsFragment_to_candidatesFragment"
+            app:destination="@id/candidatesFragment" />
     </fragment>
     <fragment
         android:id="@+id/myOffersFragment"

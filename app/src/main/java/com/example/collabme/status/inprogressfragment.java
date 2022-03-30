@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -13,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
 
 
 public class inprogressfragment extends Fragment {
@@ -42,9 +45,62 @@ public class inprogressfragment extends Fragment {
 
         // Inflate the layout for this fragment
 
+        ModelOffers.instance.getOfferById(offerId, offer -> {
+            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+            headline.setText(offer.getHeadline());
+            proposer.setText(offer.getUser());
+            description.setText(offer.getDescription());
+            finishDate.setText(offer.getFinishDate());
+            status.setText(offer.getStatus());
+            price.setText(offer.getPrice());
+            interestedVerify.setChecked(offer.getIntrestedVerify());
+        });
 
         edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToEditOfferFragment(offerId)));
 
+
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        candidates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToCandidatesFragment(offerId));
+
+            }
+        });
+
+
         return view;
+    }
+
+    private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
+        int tmp = 0;
+        for(int j = 0 ; j<size;j++){
+            if(array[j] != null){
+                tmp++;
+            }
+        }
+        String[] items = new String[tmp];
+
+        for(int i = 0 ; i<tmp;i++){
+            items[i] = array[i];
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextSize(25);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
     }
 }

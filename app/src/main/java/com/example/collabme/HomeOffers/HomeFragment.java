@@ -21,9 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
-import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.Offer;
-import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.offersviewmodel;
 
 import java.util.ArrayList;
@@ -205,29 +203,7 @@ public class HomeFragment extends Fragment {
         public void bind(Offer offer){
             headline_offer.setText(offer.getHeadline());
             Offer_date.setText(offer.getFinishDate());
-            ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
-                @Override
-                public void onComplete(User profile) {
-                    if(profile==null){
-                        ModelOffers.instance.deleteoffer(offer, new ModelOffers.deleteoffer() {
-                            @Override
-                            public void onComplete() {
-                                refresh();
-                            }
-                        });
-                    }else{
-                        stUsername = profile.getUsername();
-                        username.setText(stUsername);
-                    }
-
-                }
-            });
-
-
-
-
-
-
+            username.setText(offer.getUser());
         }
     }
 

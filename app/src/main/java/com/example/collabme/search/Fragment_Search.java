@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,8 @@ public class Fragment_Search extends Fragment {
     Offer[] offersFromSearch;
     EditText proposer,headline,todates, toprice, fromdates, fromprice, freeSearch;
     TextView professions;
-    Button search, freesearchbutton;
+    Button search;
+    ImageView freesearchbutton;
     String proposer1, headline1, todates1,fromdates1,toprice1,freeSearch1,fromprice1;
     boolean[] selectedProfessions = new boolean[16];
     ArrayList<Integer> langList = new ArrayList<>();

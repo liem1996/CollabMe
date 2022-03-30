@@ -163,8 +163,8 @@ public class Fragment_Search extends Fragment {
             @Override
             public void onClick(View v) {
                 searchAcordingtoParamters();
-                ModelSearch.instance.getOfferFromSpecificSearch(null,headline1,fromdates1,todates1,fromprice1,toprice1,
-                        chosen, proposer1, new ModelSearch.getOfferFromSpecificSearchListener() {
+                ModelSearch.instance.getOfferFromSpecificSearch("null",headline1,fromdates1,todates1,fromprice1,toprice1,
+                        proposer1, new ModelSearch.getOfferFromSpecificSearchListener() {
                     @Override
                     public void onComplete(List<Offer> offers) {
                         offersFromSearch = offers.toArray(new Offer[0]);
@@ -183,11 +183,29 @@ public class Fragment_Search extends Fragment {
 
     public void searchAcordingtoParamters() {
          proposer1 = proposer.getText().toString();
+         if (proposer1.equals(" ")){
+             proposer1="null";
+         }
          headline1 = headline.getText().toString();
+        if (headline1.equals("")){
+            headline1="null";
+        }
          todates1 = todates.getText().toString();
+        if (todates1.equals("")){
+            todates1="null";
+        }
          fromdates1 = fromdates.getText().toString();
+        if (fromdates1.equals("")){
+            fromdates1="null";
+        }
          toprice1 = toprice.getText().toString();
+        if (toprice1.equals("")){
+            toprice1="null";
+        }
          fromprice1 = fromprice.getText().toString();
+        if (fromprice1.equals("")){
+            fromprice1="null";
+        }
          freeSearch1 = freeSearch.getText().toString();
     }
 

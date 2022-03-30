@@ -72,4 +72,14 @@ public interface RetrofitInterface {
     @GET("/search/getOfferFromFreeSearch/{freesearch}")
     Call<List<Offer>> getOfferFromFreeSearch(@Path("freesearch") String freesearch,@Header("authorization") String token);
 
+    @GET("/search/getOfferFromSpecificSearch/{description}/{headline}/{fromdate}/{todate}/{fromprice}/{toprice}/{professions}/{user}")
+    Call<List<Offer>> getOfferFromSpecificSearch(@Path("description") String description,
+                                                 @Path("headline") String headline,
+                                                 @Path("fromdate") String fromdate,
+                                                 @Path("todate") String todate,
+                                                 @Path("fromprice") String fromprice,
+                                                 @Path("toprice") String toprice,
+                                                 @Path("professions") String[] professions,
+                                                 @Path("user") String user,@Header("authorization") String token);
+
 }

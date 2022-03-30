@@ -163,7 +163,8 @@ public class Fragment_Search extends Fragment {
             @Override
             public void onClick(View v) {
                 searchAcordingtoParamters();
-                ModelSearch.instance.getOfferFromFreeSearch(freeSearch1, new ModelSearch.getOfferFromFreeSearchListener() {
+                ModelSearch.instance.getOfferFromSpecificSearch(null,headline1,fromdates1,todates1,fromprice1,toprice1,
+                        chosen, proposer1, new ModelSearch.getOfferFromSpecificSearchListener() {
                     @Override
                     public void onComplete(List<Offer> offers) {
                         offersFromSearch = offers.toArray(new Offer[0]);
@@ -178,6 +179,7 @@ public class Fragment_Search extends Fragment {
 
         return view;
     }
+// TODO to add descruption field ------------------!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public void searchAcordingtoParamters() {
          proposer1 = proposer.getText().toString();

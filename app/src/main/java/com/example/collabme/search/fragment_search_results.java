@@ -159,7 +159,7 @@ public class fragment_search_results extends Fragment {
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            headline_offer=(TextView)itemView.findViewById(R.id.fragment_search_results_headline);
+            headline_offer=(TextView)itemView.findViewById(R.id.fragment_search_results_headline_et);
             Offer_date=(TextView)itemView.findViewById(R.id.fragment_search_results_date);
             username=(TextView)itemView.findViewById(R.id.fragment_search_results_username);
             image_offer =(ImageView)itemView.findViewById(R.id.fragment_search_results_offerimage);

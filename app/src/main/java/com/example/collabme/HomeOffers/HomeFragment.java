@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -178,17 +178,17 @@ public class HomeFragment extends Fragment {
         TextView Offer_date,Offer_status;
         TextView headline_offer,username;
         ImageView imge_x, image_vi,image_offer;
-        Button Editview;
+        ImageButton Editview;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline);
-            Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date);
+            headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline_et);
+            Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date_et);
             username=(TextView)itemView.findViewById(R.id.myoffers_listrow_username);
             image_offer =(ImageView)itemView.findViewById(R.id.myoffers_listrow_image);
             image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
             imge_x =(ImageView)itemView.findViewById(R.id.myoffers_listrow_delete);
-            Editview = (Button) itemView.findViewById(R.id.fragemnt_item_edit);
+            Editview = itemView.findViewById(R.id.fragemnt_item_edit);
 
 
             Editview.setOnClickListener(new View.OnClickListener() {

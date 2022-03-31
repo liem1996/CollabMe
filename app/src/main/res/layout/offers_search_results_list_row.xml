@@ -26,129 +26,125 @@
 
         <ImageButton
             android:id="@+id/fragment_search_results_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="8dp"
             android:background="#0000"
             android:clickable="true"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.932"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.877"
-            app:srcCompat="@drawable/ic_x" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_search_results_date"
+            app:srcCompat="@drawable/ic_x"/>
 
         <ImageButton
             android:id="@+id/fragment_search_results_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="#0000"
             android:clickable="true"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.817"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.877"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_search_results_delete"
+            app:layout_constraintStart_toEndOf="@+id/fragment_search_results_offerimage"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_search_results_date"
             app:srcCompat="@drawable/ic_check" />
 
         <ImageView
             android:id="@+id/fragment_search_results_profile"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.103"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_search_results_offerimage"
+            app:layout_constraintStart_toStartOf="@+id/fragment_search_results_userimage"
+            app:layout_constraintTop_toTopOf="@+id/fragment_search_results_userimage"
             app:srcCompat="@drawable/profile" />
 
         <TextView
             android:id="@+id/fragment_search_results_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.272"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.117" />
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_search_results_profile"
+            app:layout_constraintStart_toEndOf="@+id/fragment_search_results_profile"
+            app:layout_constraintTop_toTopOf="@+id/fragment_search_results_profile" />
 
         <TextView
-            android:id="@+id/fragment_search_results_textview1"
+            android:id="@+id/fragment_search_results_headline_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="headline:"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.644"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.33" />
+            android:layout_marginStart="8dp"
+            android:text="Headline:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/fragment_search_results_offerimage"
+            app:layout_constraintTop_toTopOf="@+id/fragment_search_results_offerimage" />
 
         <TextView
-            android:id="@+id/fragment_search_results_headline"
-            android:layout_width="wrap_content"
+            android:id="@+id/fragment_search_results_headline_et"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:text="TextView"
-            app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_results_textview1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.869"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/fragment_search_results_headline_tv"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_search_results_userimage"
+            app:layout_constraintStart_toEndOf="@+id/fragment_search_results_headline_tv" />
 
         <TextView
-            android:id="@+id/fragment_search_results_textview2"
+            android:id="@+id/fragment_search_results_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="date:"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.62"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.588" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Date:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_search_results_date"
+            app:layout_constraintStart_toEndOf="@+id/fragment_search_results_offerimage"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_search_results_headline_tv" />
 
         <TextView
             android:id="@+id/fragment_search_results_date"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.863"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.588" />
+            app:layout_constraintStart_toEndOf="@+id/fragment_search_results_date_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_search_results_headline_et" />
 
         <ImageView
             android:id="@+id/fragment_search_results_offerimage"
-            android:layout_width="173dp"
-            android:layout_height="94dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.16"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.803"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
-        <Button
+        <ImageButton
             android:id="@+id/fragment_search_results_edit"
-            android:layout_width="68dp"
-            android:layout_height="37dp"
-            android:backgroundTint="#4c266a"
-            android:text="Edit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.632"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.898" />
-
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_search_results_userimage"
+            app:layout_constraintTop_toTopOf="@+id/fragment_search_results_userimage"
+            app:srcCompat="@drawable/ic_listrow_edit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

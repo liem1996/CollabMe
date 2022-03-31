@@ -7,6 +7,11 @@ import com.example.collabme.objects.RetrofitInterface;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokenrespone;
 import com.example.collabme.objects.tokensrefresh;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -19,7 +24,7 @@ public class Modelauth {
     public static final Modelauth instance2 = new Modelauth();
     public String username1="liem";
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
-
+    private CallbackManager callbackManager; // facebook auth
 
     /**
      * interfaces authentication
@@ -224,6 +229,33 @@ public class Modelauth {
                 getUserByUserNameInSignIn.onComplete(null);
             }
         });
+    }
+
+
+
+
+    public void facebookAuth(){
+
+//        callbackManager = CallbackManager.Factory.create();
+//        facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                info.setText("User ID: " + loginResult.getAccessToken().getUserId() + "\n" + "Auth Token: " + loginResult.getAccessToken().getToken());
+//                String imageURL = "https://graph.facebook.com/"+loginResult.getAccessToken().getUserId() +"/picture?return_ssl_resources=1";
+//                Picasso.get().load(imageURL).into(profileImg);
+//                toFeedActivity();
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                info.setText("Login attempt canceled.");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException e) {
+//                info.setText("Login attempt failed.");
+//            }
+//        });
     }
 
 }

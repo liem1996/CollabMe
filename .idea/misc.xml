@@ -70,8 +70,10 @@
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/menu/main_menu.xml" value="0.19635416666666666" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/collabme/app/src/main/res/layout/activity_main.xml" value="0.11614583333333334" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/collabme/app/src/main/res/layout/login.xml" value="0.13020833333333334" />
+        <entry key="app/src/main/res/layout/activity_facebook.xml" value="0.2427536231884058" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.17325227963525835" />
         <entry key="app/src/main/res/layout/fragment_edit_offer.xml" value="0.5704753961634695" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2427536231884058" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_offer_openstatus.xml" value="0.47533009034051427" />
       </map>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.collabme.objects.MyApplication;
+import com.example.collabme.objects.RetrofitInterface;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
@@ -33,7 +34,9 @@ public class ModelUsers {
         void onComplete(int code);
 
     }
-
+    public interface GetUserByUserEmail{
+        void onComplete(User profile);
+    }
 
     public void getuserbyusername(String username1, GetUserByIdListener getUserByIdListener) {
         tokensrefresh.retroServer();
@@ -131,6 +134,54 @@ public class ModelUsers {
             }
         });
 
+    }
+
+//    public void getUserByEmail(String email, ModelUsers.GetUserByUserEmail getUserByUserEmail) {
+//        tokensrefresh.retroServer();
+//
+//
+//        tokensrefresh.retrofitInterface = tokensrefresh.retrofit.create(RetrofitInterface.class);
+//        Call<User> call = tokensrefresh.retrofitInterface.getUserByEmail(email);
+//        call.enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//                getUserByUserEmail.onComplete(response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//                getUserByUserEmail.onComplete(null);
+//            }
+//        });
+//    }
+
+    public void getUserByEmail(String email, GetUserByUserEmail getUserByUserEmail) {
+        tokensrefresh.retroServer();
+
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+
+        Call<User> call = tokensrefresh.retrofitInterface.getUserByEmail(email,"Bearer "+tockenacsses);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.code()==200) {
+                    getUserByUserEmail.onComplete(response.body());
+                }else if (response.code()==403){
+                    tokensrefresh.changeAcssesToken();
+                    ModelUsers.instance3.getUserByEmail(email,getUserByUserEmail);
+                }else{
+                    getUserByUserEmail.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                getUserByUserEmail.onComplete(null);
+            }
+        });
     }
 
 

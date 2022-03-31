@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ public class UserProfile extends Fragment {
     TextView username,age,followers,postuploads;
     Spinner professions,platform;
     ArrayList<String>  platformArr;
-    Button chat,createAnOffer,edit,logout;
+    Button chat,createAnOffer,edit;
     ArrayList<String> professionsArr;
     String [] plat;
     String [] pref;
@@ -36,6 +37,7 @@ public class UserProfile extends Fragment {
     Boolean influencer1, company1;
     String email1;
     String gender1;
+    ImageView logout;
 
 
 
@@ -54,7 +56,7 @@ public class UserProfile extends Fragment {
         chat=view.findViewById(R.id.fragment_userprofile_chatbtn);
         createAnOffer=view.findViewById(R.id.fragemnt_userprofile_create);
         edit=view.findViewById(R.id.fragemnt_userprofile_edit);
-        logout = view.findViewById(R.id.fragemnt_userprofile_log);
+        logout = view.findViewById(R.id.fragment_userprofile_logoutBtn);
 
          ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
@@ -131,8 +133,6 @@ public class UserProfile extends Fragment {
         startActivity(intent);
         getActivity().finish();
     }
-
-
 
     private void initSpinnerFooter(int size,ArrayList<String> array,Spinner spinner) {
         int tmp = 0;

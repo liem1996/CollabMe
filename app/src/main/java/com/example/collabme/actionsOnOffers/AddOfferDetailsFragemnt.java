@@ -2,6 +2,7 @@ package com.example.collabme.actionsOnOffers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,25 +10,32 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.UUID;
 
 
 public class AddOfferDetailsFragemnt extends Fragment {
 
+    boolean goodsign = true;
     EditText headline,description,finishdate, price;
     TextView status, candidates,profession,proposer;
     Button save;
@@ -39,6 +47,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
+    ImageView logout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +65,8 @@ public class AddOfferDetailsFragemnt extends Fragment {
         price = view.findViewById(R.id.fragemnt_newoffer_price);
         intrestedVerify = view.findViewById(R.id.fragemnt_newoffer_checkbox);
         save = view.findViewById(R.id.fragemnt_newoffer_saveBtn);
+        logout = view.findViewById(R.id.fragment_newoffer_logoutBtn);
+
 
         status.setText("Open");
 
@@ -166,10 +177,15 @@ public class AddOfferDetailsFragemnt extends Fragment {
             @Override
             public void onClick(View v) {
 
+                checks();
 
-                    offer = new Offer(description.getText().toString(), headline.getText().toString(),finishdate.getText().toString(),
-                        price.getText().toString(),  uniqueKey,  status.getText().toString(), chosenOffers,  userConnected.getUsername(),
-                        intrestedVerify.isChecked());
+                if (goodsign){
+                    String[] dates1strings = finishdate.getText().toString().split("/" /*<- Regex */);
+                    String date=dates1strings[0]+dates1strings[1]+dates1strings[2];
+
+                    offer = new Offer(description.getText().toString(), headline.getText().toString(), date,
+                            price.getText().toString(), uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername(),
+                            intrestedVerify.isChecked());
 
                 ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
                     @Override
@@ -188,9 +204,53 @@ public class AddOfferDetailsFragemnt extends Fragment {
                     }
                 });
             }
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
         });
 
         return view;
+    }
+    public static boolean isValidFormat(String format, String value) {
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            date = sdf.parse(value);
+            if (!value.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return date != null;
+    }
+
+    public void checks(){
+        if (!isValidFormat("dd/MM/yyyy", finishdate.getText().toString())&&(!finishdate.getText().toString().equals(""))){
+            Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
+            goodsign=false;
+            return;
+        }
+    }
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
 }

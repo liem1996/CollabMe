@@ -2,6 +2,7 @@ package com.example.collabme.actionsOnOffers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,9 +21,11 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 
@@ -44,6 +48,8 @@ public class EditOfferFragment extends Fragment {
     boolean[] selectedProfessions = new boolean[16];
     String[] chosen;
     String[] newProfession;
+    ImageView logout;
+
 
 
 
@@ -64,6 +70,8 @@ public class EditOfferFragment extends Fragment {
         saveBtn = view.findViewById(R.id.fragment_editOffer_saveBtn);
         newProfession = new String[16];
         offerId = EditOfferFragmentArgs.fromBundle(getArguments()).getOfferId();
+        logout = view.findViewById(R.id.fragment_editOffer_logoutBtn);
+
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
             if(offer!=null) {
@@ -215,6 +223,23 @@ public class EditOfferFragment extends Fragment {
         });
         saveBtn.setOnClickListener(v -> saveOfferDetails());
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
+
         return view;
     }
 
@@ -267,5 +292,11 @@ public class EditOfferFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

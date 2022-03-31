@@ -1,6 +1,7 @@
 package com.example.collabme.HomeOffers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +20,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.viewmodel.offersviewmodel;
 
@@ -41,6 +44,8 @@ public class HomeFragment extends Fragment {
     String idoffer;
     String stUsername;
     ArrayList<Offer> offers = new ArrayList<>();
+    ImageView logout;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -55,6 +60,24 @@ public class HomeFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.offers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+
+        logout = view.findViewById(R.id.fragment_home_logoutBtn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
 
         RecyclerView list = view.findViewById(R.id.offers_rv);
         list.setHasFixedSize(true);
@@ -137,6 +160,12 @@ public class HomeFragment extends Fragment {
         //adapter.notifyDataSetChanged();
 
         return view;
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     private void refresh() {

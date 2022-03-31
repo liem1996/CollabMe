@@ -47,6 +47,20 @@
         app:layout_constraintVertical_bias="0.359" />
 
     <EditText
+        android:id="@+id/fragment_Search_description"
+        android:layout_width="196dp"
+        android:layout_height="41dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.665"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.283" />
+
+    <EditText
         android:id="@+id/fragment_Search_proposer"
         android:layout_width="175dp"
         android:layout_height="43dp"
@@ -152,7 +166,7 @@
         android:ems="10"
         android:inputType="text"
         android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_Search_from"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_Search_from_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.799"
         app:layout_constraintStart_toStartOf="parent" />
@@ -174,7 +188,7 @@
 
 
     <EditText
-        android:id="@+id/fragment_Search_from"
+        android:id="@+id/fragment_Search_from_price"
         android:layout_width="91dp"
         android:layout_height="35dp"
         android:background="@drawable/border"
@@ -229,4 +243,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.358" />
+
+    <ImageView
+        android:id="@+id/fragment_search_logoutBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

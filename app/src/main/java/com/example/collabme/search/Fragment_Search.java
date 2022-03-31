@@ -297,16 +297,25 @@ public class Fragment_Search extends Fragment {
             goodsign=false;
             return;
         }
+        else{
+            goodsign=true;
+        }
 
         if (!isValidFormat("dd/MM/yyyy", todates1)&&(!todates1.equals("null"))){
             Toast.makeText(getContext(), "to date is not a date format", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
         }
+        else{
+            goodsign=true;
+        }
         if ((!fromdates1.equals("null")&&todates1.equals("null")) || (!todates1.equals("null")&&fromdates1.equals("null"))){
             Toast.makeText(getContext(), "you have to fill both from and to date", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
+        }
+        else{
+            goodsign=true;
         }
 
         if ((!fromprice1.equals("null")&&todates1.equals("null")) || (!toprice1.equals("null")&&fromdates1.equals("null"))){
@@ -323,6 +332,9 @@ public class Fragment_Search extends Fragment {
             Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
+        }
+        else{
+            goodsign=true;
         }
     }
 

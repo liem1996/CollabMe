@@ -26,62 +26,59 @@ import java.util.ArrayList;
 
 public class UserProfile extends Fragment {
 
-    TextView username,age,followers,postuploads;
-    Spinner professions,platform;
-    ArrayList<String>  platformArr;
-    Button chat,createAnOffer,edit;
+    TextView usernameType, username, age, followers, postuploads, email, gender;
+    Spinner professions, platform;
+    ArrayList<String> platformArr;
+    Button chat, createAnOffer, edit;
     ArrayList<String> professionsArr;
-    String [] plat;
-    String [] pref;
-    String password ;
-    Boolean influencer1, company1;
-    String email1;
-    String gender1;
+    String[] plat;
+    String[] pref;
+    String password;
+    Boolean influencer, company;
     ImageView logout;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
-        username=view.findViewById(R.id.fragment_userprofile_username);
-
-        age=view.findViewById(R.id.fragment_userprofile_age);
-        platform=view.findViewById(R.id.fragemnt_signup_platform);
-        professions=view.findViewById(R.id.fragemnt_signup_proffesions);
-        followers=view.findViewById(R.id.fragment_userprofile_followers);
-        postuploads=view.findViewById(R.id.fragment_userprofile_postsuploads);
-        chat=view.findViewById(R.id.fragment_userprofile_chatbtn);
-        createAnOffer=view.findViewById(R.id.fragemnt_userprofile_create);
-        edit=view.findViewById(R.id.fragemnt_userprofile_edit);
+        usernameType = view.findViewById(R.id.fragment_userprofile_usernameType);
+        username = view.findViewById(R.id.fragment_userprofile_username);
+        age = view.findViewById(R.id.fragment_userprofile_age);
+        email = view.findViewById(R.id.fragment_userprofile_email);
+        gender = view.findViewById(R.id.fragemnt_userprofile_gender);
+        platform = view.findViewById(R.id.fragemnt_signup_platform);
+        professions = view.findViewById(R.id.fragemnt_signup_proffesions);
+        followers = view.findViewById(R.id.fragment_userprofile_followers);
+        postuploads = view.findViewById(R.id.fragment_userprofile_postsuploads);
+        chat = view.findViewById(R.id.fragment_userprofile_chatbtn);
+        createAnOffer = view.findViewById(R.id.fragemnt_userprofile_create);
+        edit = view.findViewById(R.id.fragemnt_userprofile_edit);
         logout = view.findViewById(R.id.fragment_userprofile_logoutBtn);
 
-         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {
-                if(profile!=null) {
+                if (profile != null) {
+                    checkUsernameType(profile);
                     username.setText(profile.getUsername());
+                    age.setText(profile.getAge());
                     followers.setText(profile.getFollowers());
                     postuploads.setText(profile.getNumOfPosts());
-                    age.setText(profile.getAge());
                     plat = profile.getPlatforms();
-                    pref=profile.getProfessions();
-                    gender1=profile.getSex();
-                    email1=profile.getEmail();
+                    pref = profile.getProfessions();
+                    gender.setText(profile.getSex());
+                    email.setText(profile.getEmail());
                     platformArr = ChangeToArray(profile.getPlatforms());
                     professionsArr = ChangeToArray(profile.getProfessions());
-                    password=profile.getPassword();
-                    influencer1 = profile.getInfluencer();
-                    company1 = profile.getInfluencer();
-                    initSpinnerFooter(platformArr.size(),platformArr,platform);
-                    initSpinnerFooter(professionsArr.size(),professionsArr,professions);
+                    password = profile.getPassword();
+                    influencer = profile.getInfluencer();
+                    company = profile.getInfluencer();
+                    initSpinnerFooter(platformArr.size(), platformArr, platform);
+                    initSpinnerFooter(professionsArr.size(), professionsArr, professions);
                 }
-
             }
         });
-
 
 
         //need to create chat
@@ -101,7 +98,7 @@ public class UserProfile extends Fragment {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToEditProfile2(username.getText().toString(),password,company1,influencer1,age.getText().toString(),email1,gender1,plat,pref,followers.getText().toString(),postuploads.getText().toString()));
+                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToEditProfile2(username.getText().toString(), password, company, influencer, age.getText().toString(), email.toString(), gender.toString(), plat, pref, followers.getText().toString(), postuploads.getText().toString()));
             }
         });
 
@@ -109,23 +106,34 @@ public class UserProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 Modelauth.instance2.logout(new Modelauth.logout() {
-                        @Override
-                        public void onComplete(int code) {
-                            if(code==200) {
-                                toLoginActivity();
-                            }
-                            else{
+                    @Override
+                    public void onComplete(int code) {
+                        if (code == 200) {
+                            toLoginActivity();
+                        } else {
 
-                            }
                         }
-                    });
+                    }
+                });
             }
         });
 
-
-
         return view;
+    }
 
+    private void checkUsernameType(User profile) {
+        if (profile.getInfluencer() && profile.getCompany()) {
+            usernameType.setText("Influencer & Company profile");
+            return;
+        }
+        if (profile.getInfluencer()) {
+            usernameType.setText("Influencer profile");
+            return;
+        }
+        if (profile.getCompany()) {
+            usernameType.setText("Company profile");
+            return;
+        }
     }
 
     private void toLoginActivity() {
@@ -134,16 +142,16 @@ public class UserProfile extends Fragment {
         getActivity().finish();
     }
 
-    private void initSpinnerFooter(int size,ArrayList<String> array,Spinner spinner) {
+    private void initSpinnerFooter(int size, ArrayList<String> array, Spinner spinner) {
         int tmp = 0;
-        for(int j = 0 ; j<size;j++){
-            if(array.get(j) != null){
+        for (int j = 0; j < size; j++) {
+            if (array.get(j) != null) {
                 tmp++;
             }
         }
         String[] items = new String[tmp];
 
-        for(int i = 0 ; i<tmp;i++){
+        for (int i = 0; i < tmp; i++) {
             items[i] = array.get(i);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
@@ -151,22 +159,21 @@ public class UserProfile extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                ((TextView) parent.getChildAt(0)).setTextSize(18);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
-    public ArrayList<String> ChangeToArray(String [] array){
-        ArrayList<String> arrayList=new ArrayList<>();
-        for(int i=0;i<array.length;i++){
+    public ArrayList<String> ChangeToArray(String[] array) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
             arrayList.add(array[i]);
         }
 
         return arrayList;
     }
-
-
 }

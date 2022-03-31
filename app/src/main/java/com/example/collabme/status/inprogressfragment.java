@@ -1,65 +1,136 @@
 package com.example.collabme.status;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.Modelauth;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link inprogressfragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class inprogressfragment extends Fragment {
+    String offerId;
+    TextView proposer,status, headline, description, finishDate, price;
+    Button candidates, chat, upload, edit;
+    CheckBox interestedVerify;
+    Spinner profession;
+    ImageView logout;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public inprogressfragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment inprogressfragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static inprogressfragment newInstance(String param1, String param2) {
-        inprogressfragment fragment = new inprogressfragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
+        offerId = OpenStatusFragmentArgs.fromBundle(getArguments()).getOfferId();
+        proposer = view.findViewById(R.id.fragemnt_inprogress_proposer);
+        headline = view.findViewById(R.id.fragemnt_inprogress_headline);
+        description = view.findViewById(R.id.fragemnt_inprogress_description);
+        finishDate = view.findViewById(R.id.fragemnt_inprogress_finishdate);
+        status = view.findViewById(R.id.fragment_inprogress_status);
+        profession = view.findViewById(R.id.fragment_inprogress_profession);
+        price = view.findViewById(R.id.fragemnt_inprogress_price);
+        interestedVerify = view.findViewById(R.id.fragemnt_inprogress_checkbox);
+        edit = view.findViewById(R.id.fragemnt_inprogress_edit);
+        chat  = view.findViewById(R.id.fragemnt_inprogress_chat);
+        upload  = view.findViewById(R.id.fragemnt_inprogress_upload);
+        candidates = view.findViewById(R.id.fragemnt_inprogress_candidate);
+        logout = view.findViewById(R.id.fragment_inprogress_logoutBtn);
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
+
+        ModelOffers.instance.getOfferById(offerId, offer -> {
+            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+            headline.setText(offer.getHeadline());
+            proposer.setText(offer.getUser());
+            description.setText(offer.getDescription());
+            finishDate.setText(offer.getFinishDate());
+            status.setText(offer.getStatus());
+            price.setText(offer.getPrice());
+            interestedVerify.setChecked(offer.getIntrestedVerify());
+        });
+
+        edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToEditOfferFragment(offerId)));
+
+
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        candidates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToCandidatesFragment(offerId));
+
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
+
+        return view;
+    }
+
+    private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
+        int tmp = 0;
+        for(int j = 0 ; j<size;j++){
+            if(array[j] != null){
+                tmp++;
+            }
+        }
+        String[] items = new String[tmp];
+
+        for(int i = 0 ; i<tmp;i++){
+            items[i] = array[i];
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextSize(25);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

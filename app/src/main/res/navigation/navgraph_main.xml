@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_userProfile_to_editProfile2"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_userProfile_to_addOfferDetailsFragemnt"
+            app:destination="@id/addOfferDetailsFragemnt" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -126,7 +129,20 @@
         android:id="@+id/doneStatusFragment"
         android:name="com.example.collabme.status.DoneStatusFragment"
         android:label="fragment_done_status"
-        tools:layout="@layout/fragment_done_status" />
+        tools:layout="@layout/fragment_done_status" >
+        <action
+            android:id="@+id/action_doneStatusFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_doneStatusFragment_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+        <argument
+            android:name="offerid"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_doneStatusFragment_to_candidatesFragment"
+            app:destination="@id/candidatesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/closeStatusfragment"
         android:name="com.example.collabme.status.CloseStatusfragment"
@@ -136,7 +152,17 @@
         android:id="@+id/inprogressfragment"
         android:name="com.example.collabme.status.inprogressfragment"
         android:label="fragment_inprogressfragment"
-        tools:layout="@layout/fragment_inprogressfragment" /><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
+        tools:layout="@layout/fragment_inprogressfragment" >
+        <action
+            android:id="@+id/action_inprogressfragment_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+        <argument
+            android:name="offerId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_inprogressfragment_to_candidatesFragment"
+            app:destination="@id/candidatesFragment" />
+    </fragment><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
     <fragment
         android:id="@+id/fragment_Search"
         android:name="com.example.collabme.search.Fragment_Search"
@@ -146,29 +172,9 @@
             android:id="@+id/action_fragment_Search_to_fragment_search_results"
             app:destination="@id/fragment_search_results" />
         <argument
-            android:name="freeSearch"
-            app:argType="string" />
-        <argument
-            android:name="Professions"
-            app:argType="string[]" />
-        <argument
-            android:name="Proposer"
-            app:argType="string" />
-        <argument
-            android:name="FromPrice"
-            app:argType="string" />
-        <argument
-            android:name="ToPrice"
-            app:argType="string" />
-        <argument
-            android:name="Headline"
-            app:argType="string" />
-        <argument
-            android:name="FromDates"
-            app:argType="boolean" />
-        <argument
-            android:name="ToDates"
-            app:argType="string" />
+            android:name="searchoffers"
+            app:argType="com.example.collabme.objects.Offer[]"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/candidatesFragment"
@@ -195,48 +201,33 @@
         <argument
             android:name="offerId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_offerDetailsFragment_to_inprogressfragment"
+            app:destination="@id/inprogressfragment" />
+        <action
+            android:id="@+id/action_offerDetailsFragment_to_candidatesFragment"
+            app:destination="@id/candidatesFragment" />
     </fragment>
     <fragment
         android:id="@+id/myOffersFragment"
         android:name="com.example.collabme.HomeOffers.MyOffersFragment"
         android:label="fragment_my_offers"
-        tools:layout="@layout/fragment_my_offers" /><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
+        tools:layout="@layout/fragment_my_offers" >
+        <action
+            android:id="@+id/action_myOffersFragment_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+        <argument
+            android:name="offerid"
+            app:argType="string" />
+    </fragment><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
     <fragment
         android:id="@+id/fragment_search_results"
         android:name="com.example.collabme.search.fragment_search_results"
         android:label="fragment_search_results"
         tools:layout="@layout/fragment_search_results" >
         <argument
-            android:name="freeSearch"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="Professions"
-            app:argType="string[]"
-            app:nullable="true" />
-        <argument
-            android:name="Proposer"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="FromPrice"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="ToPrice"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="Headline"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="FromDates"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="ToDates"
-            app:argType="string"
+            android:name="searchoffers"
+            app:argType="com.example.collabme.objects.Offer[]"
             app:nullable="true" />
     </fragment>
     <fragment

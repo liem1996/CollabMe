@@ -1,11 +1,12 @@
 package com.example.collabme.HomeOffers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,9 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.offersviewmodel;
@@ -36,7 +39,7 @@ public class MyOffersFragment extends Fragment {
     MyoffersAdapter adapter1;
     SwipeRefreshLayout swipeRefresh;
     OnItemClickListeneroffers listener;
-    ImageView imagePostFrame;
+    ImageView imagePostFrame, logout;
     offersviewmodel viewModel;
     String idoffer;
     String stUsername;
@@ -55,6 +58,24 @@ public class MyOffersFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+
+        logout = view.findViewById(R.id.fragment_myoffers_logoutBtn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
 
         RecyclerView list2 = view.findViewById(R.id.myoffers_rv);
         list2.setHasFixedSize(true);
@@ -83,7 +104,7 @@ public class MyOffersFragment extends Fragment {
                 idoffer = viewModel.getData().getValue().get(position).getIdOffer();
 
                 if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
-                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
+                    Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(idoffer));
                 }
 
                 if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview) {
@@ -135,6 +156,12 @@ public class MyOffersFragment extends Fragment {
         return view;
     }
 
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
     private void refresh() {
         adapter1.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
@@ -145,17 +172,17 @@ public class MyOffersFragment extends Fragment {
         TextView Offer_date,Offer_status;
         TextView headline_offer,username;
         ImageView imge_x, image_vi,image_offer;
-        Button Editview;
+        ImageButton Editview;
 
         public MyViewHolderoffers(@NonNull View itemView) {
             super(itemView);
-            headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline);
-            Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date);
+            headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline_et);
+            Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date_et);
             username=(TextView)itemView.findViewById(R.id.myoffers_listrow_username);
             image_offer =(ImageView)itemView.findViewById(R.id.myoffers_listrow_image);
             image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
             imge_x =(ImageView)itemView.findViewById(R.id.myoffers_listrow_delete);
-            Editview = (Button) itemView.findViewById(R.id.fragemnt_item_edit);
+            Editview = itemView.findViewById(R.id.fragemnt_item_edit);
 
 
             Editview.setOnClickListener(new View.OnClickListener() {

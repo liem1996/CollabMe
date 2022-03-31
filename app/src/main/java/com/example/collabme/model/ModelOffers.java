@@ -303,9 +303,6 @@ public class ModelOffers {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
-
-
-
         Call<Offer> call = tokensrefresh.retrofitInterface.getOfferById(offerid,"Bearer "+tokenAccess);
         call.enqueue(new Callback<Offer>() {
             @Override

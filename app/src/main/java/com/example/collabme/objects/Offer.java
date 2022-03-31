@@ -1,5 +1,8 @@
 package com.example.collabme.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Offer {
+public class Offer implements Parcelable{
     @SerializedName("Description")
     @Expose
     private String description;
@@ -23,9 +26,6 @@ public class Offer {
     @SerializedName("Price")
     @Expose
     private String price;
-    @SerializedName("Coupon")
-    @Expose
-    private String  coupon;
     @SerializedName("IdOffer")
     @Expose
     private String idOffer;
@@ -47,6 +47,52 @@ public class Offer {
     @SerializedName("Isdelete")
     @Expose
     private boolean delete;
+
+    protected Offer(Parcel in) {
+        description = in.readString();
+        headline = in.readString();
+        finishDate = in.readString();
+        price = in.readString();
+        idOffer = in.readString();
+        status = in.readString();
+        profession = in.createStringArray();
+        user = in.readString();
+        users = in.createStringArray();
+        intrestedVerify = in.readByte() != 0;
+        delete = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(description);
+        dest.writeString(headline);
+        dest.writeString(finishDate);
+        dest.writeString(price);
+        dest.writeString(idOffer);
+        dest.writeString(status);
+        dest.writeStringArray(profession);
+        dest.writeString(user);
+        dest.writeStringArray(users);
+        dest.writeByte((byte) (intrestedVerify ? 1 : 0));
+        dest.writeByte((byte) (delete ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Offer> CREATOR = new Creator<Offer>() {
+        @Override
+        public Offer createFromParcel(Parcel in) {
+            return new Offer(in);
+        }
+
+        @Override
+        public Offer[] newArray(int size) {
+            return new Offer[size];
+        }
+    };
 
     /**
      *
@@ -71,14 +117,6 @@ public class Offer {
      */
     public String getFinishDate() {
         return finishDate;
-    }
-    /**
-     *
-     * @return
-     * The coupon
-     */
-    public String getCoupon() {
-        return coupon;
     }
     /**
      *
@@ -157,6 +195,10 @@ public class Offer {
     }
 
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public List<String> setusersandadd(String[] users, String newuser) {
         int openArray = 0;
 
@@ -173,8 +215,7 @@ public class Offer {
         this.users = users;
     }
 
-    public Offer(String description, String coupon, String headline, String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
-        this.coupon = coupon;
+    public Offer(String description, String headline, String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
         this.description = description;
         this.idOffer = idOffer;
         this.headline = headline;
@@ -192,7 +233,6 @@ public class Offer {
 
 
     public static Offer create(Map<String, Object> json) {
-        String coupon = (String) json.get("Coupon");
         String description = (String) json.get("Description");
         String idOffer = (String) json.get("IdOffer");
         String headline = (String) json.get("Headline");
@@ -204,7 +244,7 @@ public class Offer {
         String [] users = (String[]) json.get("Users");
         boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
         boolean delete = (boolean) json.get("Isdelete");
-        Offer offer = new Offer(description,coupon,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
+        Offer offer = new Offer(description,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
         offer.setdelete(delete);
         offer.setUsers(users);
 
@@ -214,7 +254,6 @@ public class Offer {
     public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<String, Object>();
         json.put("Description",description);
-        json.put("Coupon",coupon);
         json.put("HeadLine",headline);
         json.put("FinishDate",finishDate);
         json.put("Price",price);

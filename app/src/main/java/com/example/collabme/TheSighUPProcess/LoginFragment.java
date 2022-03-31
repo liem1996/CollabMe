@@ -85,7 +85,7 @@ public class LoginFragment extends Fragment {
 
                 }
                 else{
-                    Toast.makeText(getActivity(), "Login succeded! Welcome to CollabMe!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "boo! it failed!", Toast.LENGTH_LONG).show();
                 }
             }
         }));

@@ -5,21 +5,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface RetrofitInterface {
+
+    @Multipart
+    @POST("/image/upload")
+    Call<Void> postImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
 
     @GET("/users/getUser/{username}")
     Call<User> getUser(@Path("username") String username,@Header("authorization") String token);
 
     @GET("/auth/getUserByUserNameInSignIn/{username}")
     Call<User> getUserByUserNameInSignIn(@Path("username") String username);
-
 
     @POST("/auth/login")
     Call<tokenrespone> executeLogin(@Body HashMap<String, String> map);
@@ -60,7 +67,17 @@ public interface RetrofitInterface {
     @GET("/auth/refreshToken")
     Call<tokenrespone> getnewtoken(@Header("authorization") String token);
 
+    @GET("/search/getOfferFromFreeSearch/{freesearch}")
+    Call<List<Offer>> getOfferFromFreeSearch(@Path("freesearch") String freesearch,@Header("authorization") String token);
 
+    @GET("/search/getOfferFromSpecificSearch/{description}/{headline}/{fromdate}/{todate}/{fromprice}/{toprice}/{user}")
+    Call<List<Offer>> getOfferFromSpecificSearch(@Path("description") String description,
+                                                 @Path("headline") String headline,
+                                                 @Path("fromdate") String fromdate,
+                                                 @Path("todate") String todate,
+                                                 @Path("fromprice") String fromprice,
+                                                 @Path("toprice") String toprice,
+                                                 @Path("user") String user,@Header("authorization") String token);
 
     @GET("/users/getUser/getUserByEmail/{email}")
     Call<User> getUserByEmail(@Path("email") String email,@Header("authorization") String token);

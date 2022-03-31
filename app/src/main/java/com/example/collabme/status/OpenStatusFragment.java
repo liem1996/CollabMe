@@ -1,5 +1,6 @@
 package com.example.collabme.status;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,16 +9,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.actionsOnOffers.EditOfferFragmentArgs;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 
 
@@ -25,9 +28,12 @@ public class OpenStatusFragment extends Fragment {
 
     String offerId;
     TextView proposer,status, headline, description, finishDate, price;
-    Button candidates, chat, upload, edit;
+    Button candidates, chat, choosen, edit;
     CheckBox interestedVerify;
     Spinner profession;
+    Offer offer2;
+    ImageView logout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,26 +49,68 @@ public class OpenStatusFragment extends Fragment {
         profession = view.findViewById(R.id.fragemnt_offerdetails_profession);
         price = view.findViewById(R.id.fragemnt_offerdetails_price);
         interestedVerify = view.findViewById(R.id.fragemnt_offerdetails_checkbox);
-
         edit = view.findViewById(R.id.fragemnt_offerdetails_editBtn);
         chat  = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
-        upload  = view.findViewById(R.id.fragemnt_offerdetails_uploadBtn);
+        choosen  = view.findViewById(R.id.fragemnt_offerdetails_choosenBtn);
         candidates = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn2);
+        logout = view.findViewById(R.id.fragment_offerdetails_logoutBtn);
+
 
         edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
+
             initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
             headline.setText(offer.getHeadline());
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
             finishDate.setText(offer.getFinishDate());
-            status.setText("Open");
+            status.setText(offer.getStatus());
             price.setText(offer.getPrice());
             interestedVerify.setChecked(offer.getIntrestedVerify());
+            offer2=new Offer(description.getText().toString(),headline.getText().toString(),finishDate.getText().toString(),price.getText().toString(),offerId,status.getText().toString(),offer.getProfession(),offer.getUser(),interestedVerify.isChecked());
 
         });
 
+        choosen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                offer2.setStatus("inprogress");
+                ModelOffers.instance.editOffer(offer2, new ModelOffers.EditOfferListener() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToInprogressfragment(offerId));
+                        }
+                    }
+                });
+            }
+        });
+
+        candidates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToCandidatesFragment(offerId));
+
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
 
         return view;
     }
@@ -90,5 +138,11 @@ public class OpenStatusFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

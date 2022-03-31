@@ -1,5 +1,7 @@
 package com.example.collabme.objects;
 
+import android.net.Uri;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -40,6 +42,9 @@ public class User {
     @SerializedName("Email")
     @Expose
     String Email;
+    @SerializedName("Image")
+    @Expose
+    private Uri image;
 
 
     /**
@@ -153,6 +158,7 @@ public class User {
         String platforms []= (String[]) json.get("platforms");
         String password = (String) json.get("password");
         String Email = (String) json.get("Email");
+
         User user = new User(sex,password,Email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
 
         return user;
@@ -172,6 +178,19 @@ public class User {
         map.put("Profession",professions);
         map.put("Platform", platforms);
 
+
         return map;
+    }
+    /**
+     *
+     * @return
+     * The Bitmap
+     */
+    public Uri getImage() {
+        return image;
+    }
+
+    public void setImage(Uri image) {
+        this.image = image;
     }
 }

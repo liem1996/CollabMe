@@ -1,11 +1,12 @@
 package com.example.collabme.HomeOffers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,11 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
-import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
-import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.offersviewmodel;
 
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class HomeFragment extends Fragment {
     String idoffer;
     String stUsername;
     ArrayList<Offer> offers = new ArrayList<>();
+    ImageView logout;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -57,6 +60,24 @@ public class HomeFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.offers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+
+        logout = view.findViewById(R.id.fragment_home_logoutBtn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
 
         RecyclerView list = view.findViewById(R.id.offers_rv);
         list.setHasFixedSize(true);
@@ -141,6 +162,12 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
     private void refresh() {
         adapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
@@ -151,17 +178,17 @@ public class HomeFragment extends Fragment {
         TextView Offer_date,Offer_status;
         TextView headline_offer,username;
         ImageView imge_x, image_vi,image_offer;
-        Button Editview;
+        ImageButton Editview;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline);
-            Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date);
+            headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline_et);
+            Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date_et);
             username=(TextView)itemView.findViewById(R.id.myoffers_listrow_username);
             image_offer =(ImageView)itemView.findViewById(R.id.myoffers_listrow_image);
             image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
             imge_x =(ImageView)itemView.findViewById(R.id.myoffers_listrow_delete);
-            Editview = (Button) itemView.findViewById(R.id.fragemnt_item_edit);
+            Editview = itemView.findViewById(R.id.fragemnt_item_edit);
 
 
             Editview.setOnClickListener(new View.OnClickListener() {
@@ -205,29 +232,7 @@ public class HomeFragment extends Fragment {
         public void bind(Offer offer){
             headline_offer.setText(offer.getHeadline());
             Offer_date.setText(offer.getFinishDate());
-            ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
-                @Override
-                public void onComplete(User profile) {
-                    if(profile==null){
-                        ModelOffers.instance.deleteoffer(offer, new ModelOffers.deleteoffer() {
-                            @Override
-                            public void onComplete() {
-                                refresh();
-                            }
-                        });
-                    }else{
-                        stUsername = profile.getUsername();
-                        username.setText(stUsername);
-                    }
-
-                }
-            });
-
-
-
-
-
-
+            username.setText(offer.getUser());
         }
     }
 

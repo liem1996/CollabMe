@@ -1,5 +1,6 @@
 package com.example.collabme.TheSighUPProcess;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class socialmedia extends Fragment {
     View view;
     Boolean influencer1, company1;
     String followersCheck, postsCheck;
+    Bitmap bitmap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +50,8 @@ public class socialmedia extends Fragment {
         company1 =  socialmediaArgs.fromBundle(getArguments()).getCompany();
         email1 =  socialmediaArgs.fromBundle(getArguments()).getEmail();
         age1 =socialmediaArgs.fromBundle(getArguments()).getAge();
+        bitmap = ProfessionFragmentArgs.fromBundle(getArguments()).getBitmap();
+
         selectedGender = socialmediaArgs.fromBundle(getArguments()).getGender();
 
         back = view.findViewById(R.id.fragment_socialmedia_back);
@@ -105,9 +109,8 @@ public class socialmedia extends Fragment {
             return;
         }
         else {
-
             Navigation.findNavController(view).navigate(socialmediaDirections.actionSocialmediaToProfessionFragment(username1, password1, influencer1,
-                    company1, email1, age1, selectedGender, platform, followers.getText().toString(), posts.getText().toString()));
+                    company1, email1, age1, selectedGender, platform, followers.getText().toString(), posts.getText().toString(),bitmap));
 
         }
     }

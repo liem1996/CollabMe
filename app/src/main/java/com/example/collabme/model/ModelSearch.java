@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.collabme.objects.MyApplication;
 import com.example.collabme.objects.Offer;
-import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
 import java.util.HashMap;
@@ -93,12 +92,17 @@ public class ModelSearch {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
-            HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("professions",professions);
+        map.put("Description",description);
+        map.put("Headline",headline);
+        map.put("Fromdate",fromdate);
+        map.put("todate",todate);
+        map.put("fromprice",fromprice);
+        map.put("toprice",toprice);
+        map.put("user",user);
 
-            map.put("Profession",professions);
-
-        Call<List<Offer>> call = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(description, headline, fromdate, todate,
-                fromprice, toprice,user, map,"Bearer "+tokenAccess);
+        Call<List<Offer>> call = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(map,"Bearer "+tokenAccess);
         call.enqueue(new Callback<List<Offer>>() {
             @Override
             public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
@@ -108,8 +112,7 @@ public class ModelSearch {
                 else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
-                    Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(description, headline, fromdate, todate,
-                            fromprice, toprice,user,map,"Bearer "+tockennew);
+                    Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(map,"Bearer "+tockennew);
                     call1.enqueue(new Callback<List<Offer>>() {
                         @Override
                         public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response1) {

@@ -177,7 +177,7 @@ public class User {
         map.put("Influencer", influencer);
         map.put("Profession",professions);
         map.put("Platform", platforms);
-
+        map.put("Image", image);
 
         return map;
     }

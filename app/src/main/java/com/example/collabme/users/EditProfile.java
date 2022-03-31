@@ -2,19 +2,23 @@ package com.example.collabme.users;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
 import java.util.ArrayList;
@@ -34,6 +38,7 @@ public class EditProfile extends Fragment {
     boolean[] selectedPlatforms = new boolean[5];
     ArrayList<Integer> langList = new ArrayList<>();
     ArrayList<Integer> langList2 = new ArrayList<>();
+    ImageView logout;
 
     String[] chosen, chosen2;
 
@@ -56,6 +61,7 @@ public class EditProfile extends Fragment {
         delete = view.findViewById(R.id.fragemnt_edituser_delete);
         uploadphoto = view.findViewById(R.id.fragemnt_edituser_upload);
         save = view.findViewById(R.id.fragemnt_edituser_save);
+        logout = view.findViewById(R.id.fragment_edituser_logoutBtn);
 
         username1 = EditProfileArgs.fromBundle(getArguments()).getUsername();
         password = EditProfileArgs.fromBundle(getArguments()).getPassword();
@@ -310,7 +316,30 @@ public class EditProfile extends Fragment {
             }
         });
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
+
         return view;
         // Inflate the layout for this fragment
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

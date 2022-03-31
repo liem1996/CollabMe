@@ -57,19 +57,6 @@
         app:layout_constraintVertical_bias="0.924" />
 
     <Button
-        android:id="@+id/fragemnt_userprofile_log"
-        android:layout_width="115dp"
-        android:layout_height="53dp"
-        android:backgroundTint="#4c266a"
-        android:text="logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.851"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042" />
-
-    <Button
         android:id="@+id/fragemnt_userprofile_edit"
         android:layout_width="115dp"
         android:layout_height="53dp"
@@ -183,5 +170,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.829" />
+
+    <ImageView
+        android:id="@+id/fragment_userprofile_logoutBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

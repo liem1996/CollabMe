@@ -1,6 +1,7 @@
 package com.example.collabme.HomeOffers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.offersviewmodel;
@@ -36,7 +39,7 @@ public class MyOffersFragment extends Fragment {
     MyoffersAdapter adapter1;
     SwipeRefreshLayout swipeRefresh;
     OnItemClickListeneroffers listener;
-    ImageView imagePostFrame;
+    ImageView imagePostFrame, logout;
     offersviewmodel viewModel;
     String idoffer;
     String stUsername;
@@ -55,6 +58,24 @@ public class MyOffersFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+
+        logout = view.findViewById(R.id.fragment_myoffers_logoutBtn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
 
         RecyclerView list2 = view.findViewById(R.id.myoffers_rv);
         list2.setHasFixedSize(true);
@@ -133,6 +154,12 @@ public class MyOffersFragment extends Fragment {
         adapter1.notifyDataSetChanged();
 
         return view;
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     private void refresh() {

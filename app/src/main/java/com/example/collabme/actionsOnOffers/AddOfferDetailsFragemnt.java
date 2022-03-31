@@ -2,6 +2,7 @@ package com.example.collabme.actionsOnOffers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +10,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 
@@ -39,6 +43,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
+    ImageView logout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +61,8 @@ public class AddOfferDetailsFragemnt extends Fragment {
         price = view.findViewById(R.id.fragemnt_newoffer_price);
         intrestedVerify = view.findViewById(R.id.fragemnt_newoffer_checkbox);
         save = view.findViewById(R.id.fragemnt_newoffer_saveBtn);
+        logout = view.findViewById(R.id.fragment_newoffer_logoutBtn);
+
 
         status.setText("Open");
 
@@ -190,7 +197,30 @@ public class AddOfferDetailsFragemnt extends Fragment {
             }
         });
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
+
         return view;
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
 }

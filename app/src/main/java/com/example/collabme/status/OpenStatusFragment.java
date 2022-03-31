@@ -1,5 +1,6 @@
 package com.example.collabme.status;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +9,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.actionsOnOffers.EditOfferFragmentArgs;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 
 
@@ -28,6 +32,7 @@ public class OpenStatusFragment extends Fragment {
     CheckBox interestedVerify;
     Spinner profession;
     Offer offer2;
+    ImageView logout;
 
 
     @Override
@@ -48,6 +53,7 @@ public class OpenStatusFragment extends Fragment {
         chat  = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
         choosen  = view.findViewById(R.id.fragemnt_offerdetails_choosenBtn);
         candidates = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn2);
+        logout = view.findViewById(R.id.fragment_offerdetails_logoutBtn);
 
 
         edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
@@ -89,6 +95,22 @@ public class OpenStatusFragment extends Fragment {
             }
         });
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200) {
+                            toLoginActivity();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+            }
+        });
 
         return view;
     }
@@ -116,5 +138,11 @@ public class OpenStatusFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

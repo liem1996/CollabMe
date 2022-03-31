@@ -148,7 +148,7 @@ public class LoginFragment extends Fragment {
                                                         }
                                                         else if(!isCreated) {
                                                             Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalSocialmedia(name, "facebook", false,
-                                                                    true, email, "0", "?", null, null, null));
+                                                                    true, email, "0", "?", null, null, null,null));
                                                         }
                                                     }
                                                 });

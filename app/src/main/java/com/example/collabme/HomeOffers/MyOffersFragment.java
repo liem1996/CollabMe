@@ -104,7 +104,7 @@ public class MyOffersFragment extends Fragment {
                 idoffer = viewModel.getData().getValue().get(position).getIdOffer();
 
                 if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
-                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
+                    Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(idoffer));
                 }
 
                 if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview) {

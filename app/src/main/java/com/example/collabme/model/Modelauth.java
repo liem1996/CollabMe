@@ -1,6 +1,7 @@
 package com.example.collabme.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.example.collabme.objects.MyApplication;
 import com.example.collabme.objects.RetrofitInterface;
@@ -92,19 +93,18 @@ public class Modelauth {
 
     }
 
-    public void sighup(User profile,signupListener sighup) {
+    public void sighup(User profile, Context context, Bitmap bitmap,signupListener sighup) {
         tokensrefresh.retroServer();
-
-
         HashMap<String, Object> map = new HashMap<>();
+
         map = profile.tojson();
+
         Call<Void> call = tokensrefresh.retrofitInterface.executeSignup(map);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
                     sighup.onComplete(200);
-
                 } else {
                     sighup.onComplete(400);
 

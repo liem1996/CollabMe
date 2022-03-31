@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
-import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
@@ -132,15 +131,6 @@ public class SignupFragment extends Fragment {
             if(resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(),username1, new ModelPhotos.PostProfilePhoto() {
-                    @Override
-                    public void onComplete(int code) {
-                        if(code==200){
-                            Toast.makeText(getContext(), "yay", Toast.LENGTH_LONG).show();
-
-                        }
-                    }
-                });
             }
         }else if(requestCode==REQUEST_IMAGE_PIC){
             if(resultCode==RESULT_OK){

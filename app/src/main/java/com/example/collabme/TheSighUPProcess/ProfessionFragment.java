@@ -100,7 +100,8 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         User user = new User(gender,password,email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
 
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
-        continueBtn.setOnClickListener(v-> Modelauth.instance2.sighup(user, new Modelauth.signupListener() {
+
+        continueBtn.setOnClickListener(v-> Modelauth.instance2.sighup(user,getActivity(),bitmap, new Modelauth.signupListener() {
             @Override
             public void onComplete(int code) {
                 if(code==200){

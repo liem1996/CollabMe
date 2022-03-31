@@ -3,6 +3,8 @@ package com.example.collabme.TheSighUPProcess;
 import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -44,7 +47,7 @@ public class SignupFragment extends Fragment {
     private String mImageUrl = "";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
-
+    Bitmap imageBitmap;
     String username1,password1,email1,age1, selectedGender1;
     boolean company1,influencer1;
 
@@ -123,20 +126,41 @@ public class SignupFragment extends Fragment {
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_PIC) {
-            if (resultCode == RESULT_OK) {
-                Uri uri = data.getData();
-                ModelPhotos.instance3.uploadImage(uri,getActivity(),"hello", new ModelPhotos.PostProfilePhoto() {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_IMAGE_CAPTURE){
+            if(resultCode == RESULT_OK) {
+                Bundle extras = data.getExtras();
+                imageBitmap = (Bitmap) extras.get("data");
+                ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
                     @Override
                     public void onComplete(int code) {
                         if(code==200){
-                            Toast.makeText(getContext(), "niceeee", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "yay", Toast.LENGTH_LONG).show();
 
                         }
                     }
                 });
+            }
+        }else if(requestCode==REQUEST_IMAGE_PIC){
+            if(resultCode==RESULT_OK){
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    imageBitmap = BitmapFactory.decodeStream(imageStream);
+                    ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
+                        @Override
+                        public void onComplete(int code) {
+                            if(code==200){
+                                Toast.makeText(getContext(), "yay", Toast.LENGTH_LONG).show();
 
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }

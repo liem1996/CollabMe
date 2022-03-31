@@ -1,6 +1,8 @@
 
 package com.example.collabme.objects;
 
+import android.net.Uri;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,7 @@ public interface RetrofitInterface {
 
     @Multipart
     @POST("/image/upload")
-    Call<Void> postImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
+    Call<Uri> postImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
 
     @GET("/users/getUser/{username}")
     Call<User> getUser(@Path("username") String username,@Header("authorization") String token);

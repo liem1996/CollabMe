@@ -185,16 +185,27 @@ public class Fragment_Search extends Fragment {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 searchAcordingtoParamters();
                 checks();
                 if (goodsign) {
+                    String to, from;
                     String[] todates1strings = todates1.split("/" /*<- Regex */);
-                    String to=todates1strings[0]+todates1strings[1]+todates1strings[2];
+                    if (!todates1strings[0].equals("null")) {
+                         to = todates1strings[0] + todates1strings[1] + todates1strings[2];
+                    }
+                    else {
+                        to="null";
+                    }
                     String[] fromdates1strings = fromdates1.split("/" /*<- Regex */);
-                    String from=fromdates1strings[0]+fromdates1strings[1]+fromdates1strings[2];
-
+                    if (!fromdates1strings[0].equals("null")) {
+                        from = fromdates1strings[0] + fromdates1strings[1] + fromdates1strings[2];
+                    }
+                    else {
+                        from="null";
+                    }
                     ModelSearch.instance.getOfferFromSpecificSearch(description1, headline1, from, to, fromprice1, toprice1,
-                            proposer1, new ModelSearch.getOfferFromSpecificSearchListener() {
+                            proposer1, chosen, new ModelSearch.getOfferFromSpecificSearchListener() {
                                 @Override
                                 public void onComplete(List<Offer> offers) {
                                     offersFromSearch = offers.toArray(new Offer[0]);
@@ -318,7 +329,7 @@ public class Fragment_Search extends Fragment {
             goodsign=true;
         }
 
-        if ((!fromprice1.equals("null")&&todates1.equals("null")) || (!toprice1.equals("null")&&fromdates1.equals("null"))){
+        if ((!fromprice1.equals("null")&&toprice1.equals("null")) || (!toprice1.equals("null")&&fromprice1.equals("null"))){
             Toast.makeText(getContext(), "you have to fill both from and to price", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;

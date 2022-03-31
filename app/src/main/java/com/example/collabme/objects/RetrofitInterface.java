@@ -77,7 +77,9 @@ public interface RetrofitInterface {
                                                  @Path("todate") String todate,
                                                  @Path("fromprice") String fromprice,
                                                  @Path("toprice") String toprice,
-                                                 @Path("user") String user,@Header("authorization") String token);
+                                                 @Path("user") String user,
+                                                 @Body Map<String, Object> professions,
+                                                 @Header("authorization") String token);
 
     @GET("/users/getUser/getUserByEmail/{email}")
     Call<User> getUserByEmail(@Path("email") String email,@Header("authorization") String token);

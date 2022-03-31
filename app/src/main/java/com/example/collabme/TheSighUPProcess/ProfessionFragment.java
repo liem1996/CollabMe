@@ -3,6 +3,7 @@ package com.example.collabme.TheSighUPProcess;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.MainActivity;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
@@ -101,18 +103,37 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
 
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
 
-        continueBtn.setOnClickListener(v-> Modelauth.instance2.sighup(user,getActivity(),bitmap, new Modelauth.signupListener() {
+
+        continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(int code) {
-                if(code==200){
-                    Modelauth.instance2.Login(username, password, code1 -> { });
-                    toFeedActivity();
-                    Toast.makeText(getActivity(),"Welcome to Collab Me!", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getActivity(), "Sign up went wrong", Toast.LENGTH_LONG).show();
-                }
+            public void onClick(View v) {
+                ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
+                    @Override
+                    public void onComplete(Uri uri) {
+                        user.setImage(uri);
+                    }
+                });
+                Modelauth.instance2.sighup(user, new Modelauth.signupListener() {
+                    @Override
+                    public void onComplete(int code) {
+                        if(code==200){
+                            Modelauth.instance2.Login(username, password, new Modelauth.loginListener() {
+                                @Override
+                                public void onComplete(int code) {
+                                    toFeedActivity();
+                                    Toast.makeText(getActivity(),"Welcome to Collab Me!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                        }else{
+                            Toast.makeText(getActivity(), "Sign up went wrong", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
             }
-        }));
+        });
+
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,6 +2,7 @@ package com.example.collabme.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import com.example.collabme.objects.tokensrefresh;
 
@@ -23,7 +24,7 @@ public class ModelPhotos {
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
 
     public interface PostProfilePhoto{
-        void onComplete(int code);
+        void onComplete(Uri uri);
 
     }
 
@@ -62,21 +63,21 @@ public class ModelPhotos {
         MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
 
-        Call<Void> call = tokensrefresh.retrofitInterface.postImage(body,name);
-        call.enqueue(new Callback<Void>() {
+        Call<Uri> call = tokensrefresh.retrofitInterface.postImage(body,name);
+        call.enqueue(new Callback<Uri>() {
             @Override
-            public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
-                if (response.isSuccessful()) {
-                    postProfilePhoto.onComplete(200);
+            public void onResponse(Call<Uri> call, retrofit2.Response<Uri> response1) {
+                if (response1.code()==200) {
+                    postProfilePhoto.onComplete(response1.body());
 
                 } else {
-                    postProfilePhoto.onComplete(400);
+                    postProfilePhoto.onComplete(null);
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                postProfilePhoto.onComplete(400);
+            public void onFailure(Call<Uri> call, Throwable t) {
+                postProfilePhoto.onComplete(null);
 
             }
         });

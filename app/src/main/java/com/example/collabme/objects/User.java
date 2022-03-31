@@ -1,5 +1,7 @@
 package com.example.collabme.objects;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -40,6 +42,9 @@ public class User {
     @SerializedName("Email")
     @Expose
     String Email;
+    @SerializedName("Image")
+    @Expose
+    private Bitmap image;
 
 
     /**
@@ -173,5 +178,17 @@ public class User {
         map.put("Platform", platforms);
 
         return map;
+    }
+    /**
+     *
+     * @return
+     * The Bitmap
+     */
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 }

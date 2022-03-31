@@ -28,7 +28,7 @@ public class ModelPhotos {
     }
 
 
-    public void uploadImage(Bitmap imageBytes, Context context, PostProfilePhoto postProfilePhoto) {
+    public void uploadImage(Bitmap imageBytes, Context context,String username, PostProfilePhoto postProfilePhoto) {
         tokensrefresh.retroServer();
         File filesDir = context.getFilesDir();
         File file = new File(filesDir, "image" + ".png");
@@ -62,7 +62,7 @@ public class ModelPhotos {
         MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
 
-        Call<Void> call = tokensrefresh.retrofitInterface.postImage(body,name);
+        Call<Void> call = tokensrefresh.retrofitInterface.postImage(username,body,name);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {

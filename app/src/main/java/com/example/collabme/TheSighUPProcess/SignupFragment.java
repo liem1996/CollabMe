@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
-import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
@@ -94,7 +93,7 @@ public class SignupFragment extends Fragment {
                     authforuser();
                     if(goodsign) {
                         Navigation.findNavController(v).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username1, password1, influencer1,
-                                company1, email1, age1, selectedGender1, null, null, null));
+                                company1, email1, age1, selectedGender1, null, null, null,imageBitmap));
                     }
                 }
             });
@@ -132,15 +131,6 @@ public class SignupFragment extends Fragment {
             if(resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
-                    @Override
-                    public void onComplete(int code) {
-                        if(code==200){
-                            Toast.makeText(getContext(), "yay", Toast.LENGTH_LONG).show();
-
-                        }
-                    }
-                });
             }
         }else if(requestCode==REQUEST_IMAGE_PIC){
             if(resultCode==RESULT_OK){
@@ -148,15 +138,7 @@ public class SignupFragment extends Fragment {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imageStream);
-                    ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
-                        @Override
-                        public void onComplete(int code) {
-                            if(code==200){
-                                Toast.makeText(getContext(), "yay", Toast.LENGTH_LONG).show();
 
-                            }
-                        }
-                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();

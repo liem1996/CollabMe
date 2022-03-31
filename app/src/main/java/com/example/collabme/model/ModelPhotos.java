@@ -66,7 +66,6 @@ public class ModelPhotos {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
-
                 if (response.isSuccessful()) {
                     postProfilePhoto.onComplete(200);
 

@@ -58,6 +58,10 @@
         <action
             android:id="@+id/action_socialmedia_to_signupFragment2"
             app:destination="@id/signupFragment2" />
+        <argument
+            android:name="bitmap"
+            app:argType="android.graphics.Bitmap"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment2"
@@ -104,6 +108,10 @@
         <action
             android:id="@+id/action_signupFragment2_to_fragment_login"
             app:destination="@id/fragment_login" />
+        <argument
+            android:name="bitmap"
+            app:argType="android.graphics.Bitmap"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/professionFragment"
@@ -146,6 +154,10 @@
         <action
             android:id="@+id/action_professionFragment_to_socialmedia"
             app:destination="@id/socialmedia" />
+        <argument
+            android:name="bitmap"
+            app:argType="android.graphics.Bitmap"
+            app:nullable="true" />
     </fragment>
     <action android:id="@+id/action_global_socialmedia" app:destination="@id/socialmedia" />
     <action android:id="@+id/action_global_professionFragment" app:destination="@id/professionFragment" />

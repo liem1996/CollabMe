@@ -1,6 +1,7 @@
 package com.example.collabme.TheSighUPProcess;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,10 +13,10 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.MainActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
-import com.example.collabme.Activites.MainActivity;
 
 import java.util.Arrays;
 
@@ -29,6 +30,8 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
     String[] platforms,professions;
     int i = 0;
     int index=0;
+    Bitmap bitmap;
+
 
     Button sport, cooking,fashion, music, dance, cosmetic, travel, gaming, tech, food, art, animals, movies, photograph, other, lifestyle;
 
@@ -92,11 +95,13 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         followers = ProfessionFragmentArgs.fromBundle(getArguments()).getFollowers();
         numOfPosts = ProfessionFragmentArgs.fromBundle(getArguments()).getPostsuploads();
         platforms = ProfessionFragmentArgs.fromBundle(getArguments()).getPlatform();
+        bitmap = ProfessionFragmentArgs.fromBundle(getArguments()).getBitmap();
 
         User user = new User(gender,password,email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
 
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
-        continueBtn.setOnClickListener(v-> Modelauth.instance2.sighup(user, new Modelauth.signupListener() {
+
+        continueBtn.setOnClickListener(v-> Modelauth.instance2.sighup(user,getActivity(),bitmap, new Modelauth.signupListener() {
             @Override
             public void onComplete(int code) {
                 if(code==200){

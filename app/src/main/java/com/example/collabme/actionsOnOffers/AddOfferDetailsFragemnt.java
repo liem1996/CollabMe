@@ -25,13 +25,17 @@ import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.UUID;
 
 
 public class AddOfferDetailsFragemnt extends Fragment {
 
+    boolean goodsign = true;
     EditText headline,description,finishdate, price;
     TextView status, candidates,profession,proposer;
     Button save;
@@ -173,10 +177,15 @@ public class AddOfferDetailsFragemnt extends Fragment {
             @Override
             public void onClick(View v) {
 
+                checks();
 
-                    offer = new Offer(description.getText().toString(), headline.getText().toString(),finishdate.getText().toString(),
-                        price.getText().toString(),  uniqueKey,  status.getText().toString(), chosenOffers,  userConnected.getUsername(),
-                        intrestedVerify.isChecked());
+                if (goodsign){
+                    String[] dates1strings = finishdate.getText().toString().split("/" /*<- Regex */);
+                    String date=dates1strings[0]+dates1strings[1]+dates1strings[2];
+
+                    offer = new Offer(description.getText().toString(), headline.getText().toString(), date,
+                            price.getText().toString(), uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername(),
+                            intrestedVerify.isChecked());
 
                 ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
                     @Override
@@ -194,6 +203,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
                         }
                     }
                 });
+            }
             }
         });
 
@@ -216,7 +226,27 @@ public class AddOfferDetailsFragemnt extends Fragment {
 
         return view;
     }
+    public static boolean isValidFormat(String format, String value) {
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            date = sdf.parse(value);
+            if (!value.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return date != null;
+    }
 
+    public void checks(){
+        if (!isValidFormat("dd/MM/yyyy", finishdate.getText().toString())&&(!finishdate.getText().toString().equals(""))){
+            Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
+            goodsign=false;
+            return;
+        }
+    }
     private void toLoginActivity() {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);

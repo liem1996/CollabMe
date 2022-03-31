@@ -173,10 +173,8 @@ public class AddOfferDetailsFragemnt extends Fragment {
 
 
         save.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 checks();
 
                 if (goodsign){
@@ -243,8 +241,10 @@ public class AddOfferDetailsFragemnt extends Fragment {
     public void checks(){
         if (!isValidFormat("dd/MM/yyyy", finishdate.getText().toString())&&(!finishdate.getText().toString().equals(""))){
             Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+           goodsign=false;
             return;
+        }else{
+            goodsign = true;
         }
     }
     private void toLoginActivity() {

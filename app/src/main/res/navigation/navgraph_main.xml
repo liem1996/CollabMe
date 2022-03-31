@@ -212,7 +212,14 @@
         android:id="@+id/myOffersFragment"
         android:name="com.example.collabme.HomeOffers.MyOffersFragment"
         android:label="fragment_my_offers"
-        tools:layout="@layout/fragment_my_offers" /><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
+        tools:layout="@layout/fragment_my_offers" >
+        <action
+            android:id="@+id/action_myOffersFragment_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+        <argument
+            android:name="offerid"
+            app:argType="string" />
+    </fragment><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
     <fragment
         android:id="@+id/fragment_search_results"
         android:name="com.example.collabme.search.fragment_search_results"

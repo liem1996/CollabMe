@@ -19,8 +19,8 @@ import retrofit2.http.Path;
 public interface RetrofitInterface {
 
     @Multipart
-    @POST("/image/upload/{username}")
-    Call<Void> postImage(@Path("username") String username,@Part MultipartBody.Part image, @Part("upload") RequestBody name);
+    @POST("/image/upload")
+    Call<Void> postImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
 
     @GET("/users/getUser/{username}")
     Call<User> getUser(@Path("username") String username,@Header("authorization") String token);
@@ -78,5 +78,9 @@ public interface RetrofitInterface {
                                                  @Path("fromprice") String fromprice,
                                                  @Path("toprice") String toprice,
                                                  @Path("user") String user,@Header("authorization") String token);
+
+    @GET("/users/getUser/getUserByEmail/{email}")
+    Call<User> getUserByEmail(@Path("email") String email,@Header("authorization") String token);
+
 
 }

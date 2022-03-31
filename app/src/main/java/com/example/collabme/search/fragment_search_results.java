@@ -43,11 +43,6 @@ public class fragment_search_results extends Fragment {
 
         offersFromSearch = fragment_search_resultsArgs.fromBundle(getArguments()).getSearchoffers();
 
-        //////////////////////////////////////////////////////////////////////////
-
-     //   swipeRefresh = view.findViewById(R.id.fragment_search_results_swiperefresh);
-      //  swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
-
         RecyclerView list = view.findViewById(R.id.search_results_rv);
         list.setHasFixedSize(true);
 
@@ -97,18 +92,6 @@ public class fragment_search_results extends Fragment {
         });
 
         setHasOptionsMenu(true);
-        /*
-        viewModel.getOfferFromFreeSearch(freeSearch1).observe(getViewLifecycleOwner(), list1 -> refresh());
-
-        swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
-        ModelOffers.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
-            if (PostsListLoadingState == ModelOffers.OffersListLoadingState.loading){
-                swipeRefresh.setRefreshing(true);
-            }else{
-                swipeRefresh.setRefreshing(false);
-            }
-
-        });*/
 
         //////////////////////////////////////////////////////////////////////////
 

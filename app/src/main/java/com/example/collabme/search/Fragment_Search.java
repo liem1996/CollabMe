@@ -49,8 +49,6 @@ public class Fragment_Search extends Fragment {
     TextView professions;
     Button search;
     ImageView freesearchbutton, logout;
-    String proposer1, headline1, todates1,fromdates1,toprice1,freeSearch1,fromprice1;
-    ImageView freesearchbutton;
     String proposer1, headline1, todates1,fromdates1,toprice1,freeSearch1,fromprice1, description1;
     boolean[] selectedProfessions = new boolean[16];
     ArrayList<Integer> langList = new ArrayList<>();

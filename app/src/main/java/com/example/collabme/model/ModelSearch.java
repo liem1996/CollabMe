@@ -84,7 +84,7 @@ public class ModelSearch {
     }
 
     public void getOfferFromSpecificSearch(String description, String headline, String fromdate, String todate, String fromprice,
-            String toprice, String[] professions, String user, ModelSearch.getOfferFromSpecificSearchListener getOfferFromSpecificSearchListener) {
+            String toprice, String user, ModelSearch.getOfferFromSpecificSearchListener getOfferFromSpecificSearchListener) {
 
         tokensrefresh.retroServer();
 
@@ -93,7 +93,7 @@ public class ModelSearch {
                 .getString("tokenAcsses","");
 
         Call<List<Offer>> call = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(description, headline, fromdate, todate,
-                fromprice, toprice, professions,user,"Bearer "+tokenAccess);
+                fromprice, toprice,user,"Bearer "+tokenAccess);
         call.enqueue(new Callback<List<Offer>>() {
             @Override
             public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
@@ -104,7 +104,7 @@ public class ModelSearch {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
                     Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(description, headline, fromdate, todate,
-                            fromprice, toprice, professions,user,"Bearer "+tockennew);
+                            fromprice, toprice,user,"Bearer "+tockennew);
                     call1.enqueue(new Callback<List<Offer>>() {
                         @Override
                         public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response1) {

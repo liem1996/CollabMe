@@ -81,4 +81,8 @@ public interface RetrofitInterface {
                                                  @Path("toprice") String toprice,
                                                  @Path("user") String user,@Header("authorization") String token);
 
+    @GET("/users/getUser/getUserByEmail/{email}")
+    Call<User> getUserByEmail(@Path("email") String email,@Header("authorization") String token);
+
+
 }

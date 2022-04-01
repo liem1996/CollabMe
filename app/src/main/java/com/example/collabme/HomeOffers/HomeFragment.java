@@ -26,6 +26,7 @@ import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.viewmodel.offersviewmodel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -45,6 +46,7 @@ public class HomeFragment extends Fragment {
     String stUsername;
     ArrayList<Offer> offers = new ArrayList<>();
     ImageView logout;
+    FloatingActionButton addOfferBtn;
 
 
     @Override
@@ -76,6 +78,14 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+            }
+        });
+
+        addOfferBtn = view.findViewById(R.id.fragment_home_addOffer_fab);
+        addOfferBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_global_addOfferDetailsFragemnt);
             }
         });
 

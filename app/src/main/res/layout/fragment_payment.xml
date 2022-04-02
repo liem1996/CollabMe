@@ -7,7 +7,7 @@
     tools:context=".pagesForOffers.PaymentFragment">
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/image_payment_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_payments"
@@ -20,100 +20,100 @@
 
     <EditText
         android:id="@+id/fragment_payment_card_number_et"
-        android:layout_width="184dp"
-        android:layout_height="31dp"
+        android:layout_width="175dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.766"
+        app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.374" />
+        app:layout_constraintVertical_bias="0.38" />
 
     <EditText
         android:id="@+id/fragment_payment_exp_et"
-        android:layout_width="184dp"
-        android:layout_height="34dp"
+        android:layout_width="175dp"
+        android:layout_height="25dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.775"
+        app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@android:color/transparent"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintVertical_bias="0.44" />
 
     <EditText
         android:id="@+id/fragment_payment_cvv_et"
-        android:layout_width="173dp"
-        android:layout_height="27dp"
+        android:layout_width="175dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/fragment_payment_id_et"
-        android:layout_width="179dp"
-        android:layout_height="34dp"
+        android:layout_width="175dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.758"
+        app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.559" />
 
     <EditText
         android:id="@+id/fragment_payment_name_et"
-        android:layout_width="169dp"
-        android:layout_height="32dp"
+        android:layout_width="175dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.743"
+        app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintVertical_bias="0.618" />
 
     <EditText
         android:id="@+id/fragment_payment_offer_et"
-        android:layout_width="191dp"
-        android:layout_height="32dp"
+        android:layout_width="175dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.683" />
+        app:layout_constraintVertical_bias="0.678" />
 
     <EditText
         android:id="@+id/fragment_payment_bank_account_et"
-        android:layout_width="181dp"
-        android:layout_height="29dp"
+        android:layout_width="175dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.756"
+        app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.739" />
+        app:layout_constraintVertical_bias="0.737" />
 
     <Button
         android:id="@+id/fragment_payment_back_btn"
@@ -123,11 +123,11 @@
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintHorizontal_bias="0.30"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882" />
+        app:layout_constraintVertical_bias="0.85" />
 
     <Button
         android:id="@+id/fragment_payment_submit_btn"
@@ -140,7 +140,7 @@
         app:layout_constraintHorizontal_bias="0.735"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882" />
+        app:layout_constraintVertical_bias="0.85" />
 
     <ImageView
         android:id="@+id/fragment_payment_logoutBtn"
@@ -148,11 +148,11 @@
         android:layout_height="40dp"
         android:layout_marginTop="85dp"
         android:layout_marginEnd="16dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

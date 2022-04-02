@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,21 +21,24 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Modelauth;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class DoneStatusFragment extends Fragment {
 
     String offerId;
-    TextView proposer,status, headline, description, finishDate, price;
-    Button candidates, chat, payment, edit;
+    TextView proposer, status, headline, description, finishDate, price;
+    Button paymentBtn;
+    FloatingActionButton chatBtn;
+    ImageButton editBtn, candidatesBtn;
     CheckBox interestedVerify;
     Spinner profession;
     ImageView logout;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
         offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
         proposer = view.findViewById(R.id.fragemnt_done_proposer);
@@ -45,17 +49,16 @@ public class DoneStatusFragment extends Fragment {
         profession = view.findViewById(R.id.fragemnt_done_profession);
         price = view.findViewById(R.id.fragemnt_done_price);
         interestedVerify = view.findViewById(R.id.fragemnt_done_checkbox);
-        edit = view.findViewById(R.id.fragemnt_done_editBtn);
-        chat  = view.findViewById(R.id.fragemnt_done_chatBtn);
-        payment  = view.findViewById(R.id.fragemnt_done_payment);
-        candidates = view.findViewById(R.id.fragemnt_done_candidatesBtn2);
+        editBtn = view.findViewById(R.id.fragemnt_done_editBtn);
+        chatBtn = view.findViewById(R.id.fragemnt_done_chatBtn);
+        paymentBtn = view.findViewById(R.id.fragemnt_done_payment);
+        candidatesBtn = view.findViewById(R.id.fragemnt_done_candidatesBtn);
         logout = view.findViewById(R.id.fragment_done_logoutBtn);
-
 
         // Inflate the layout for this fragment
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
-            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+            initSpinnerFooter(offer.getProfession().length, offer.getProfession(), profession);
             headline.setText(offer.getHeadline());
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
@@ -65,18 +68,16 @@ public class DoneStatusFragment extends Fragment {
             interestedVerify.setChecked(offer.getIntrestedVerify());
         });
 
-        edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToEditOfferFragment(offerId)));
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToEditOfferFragment(offerId)));
 
-
-        payment.setOnClickListener(new View.OnClickListener() {
+        paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment());
             }
         });
 
-
-        candidates.setOnClickListener(new View.OnClickListener() {
+        candidatesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToCandidatesFragment(offerId));
@@ -90,10 +91,9 @@ public class DoneStatusFragment extends Fragment {
                 Modelauth.instance2.logout(new Modelauth.logout() {
                     @Override
                     public void onComplete(int code) {
-                        if(code==200) {
+                        if (code == 200) {
                             toLoginActivity();
-                        }
-                        else{
+                        } else {
 
                         }
                     }
@@ -106,14 +106,14 @@ public class DoneStatusFragment extends Fragment {
 
     private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
         int tmp = 0;
-        for(int j = 0 ; j<size;j++){
-            if(array[j] != null){
+        for (int j = 0; j < size; j++) {
+            if (array[j] != null) {
                 tmp++;
             }
         }
         String[] items = new String[tmp];
 
-        for(int i = 0 ; i<tmp;i++){
+        for (int i = 0; i < tmp; i++) {
             items[i] = array[i];
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
@@ -121,11 +121,12 @@ public class DoneStatusFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                ((TextView) parent.getChildAt(0)).setTextSize(18);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 

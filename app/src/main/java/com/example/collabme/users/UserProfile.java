@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ public class UserProfile extends Fragment {
     TextView usernameType, username, age, followers, postuploads, email, gender;
     Spinner professions, platform;
     ArrayList<String> platformArr;
-    Button chat, createAnOffer, edit;
+    ImageButton editBtn;
     ArrayList<String> professionsArr;
     String[] plat;
     String[] pref;
@@ -51,9 +52,7 @@ public class UserProfile extends Fragment {
         professions = view.findViewById(R.id.fragemnt_signup_proffesions);
         followers = view.findViewById(R.id.fragment_userprofile_followers);
         postuploads = view.findViewById(R.id.fragment_userprofile_postsuploads);
-        chat = view.findViewById(R.id.fragment_userprofile_chatbtn);
-        createAnOffer = view.findViewById(R.id.fragemnt_userprofile_create);
-        edit = view.findViewById(R.id.fragemnt_userprofile_edit);
+        editBtn = view.findViewById(R.id.fragemnt_userprofile_editBtn);
         logout = view.findViewById(R.id.fragment_userprofile_logoutBtn);
 
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
@@ -81,24 +80,10 @@ public class UserProfile extends Fragment {
         });
 
 
-        //need to create chat
-        chat.setOnClickListener(new View.OnClickListener() {
+        editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToHomeFragment2());
-            }
-        });
-        createAnOffer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_userProfile_to_addOfferDetailsFragemnt);
-            }
-        });
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToEditProfile2(username.getText().toString(), password, company, influencer, age.getText().toString(), email.toString(), gender.toString(), plat, pref, followers.getText().toString(), postuploads.getText().toString()));
+                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToEditProfile2(username.getText().toString(), password, company, influencer, age.getText().toString(), email.getText().toString(), gender.getText().toString(), plat, pref, followers.getText().toString(), postuploads.getText().toString()));
             }
         });
 

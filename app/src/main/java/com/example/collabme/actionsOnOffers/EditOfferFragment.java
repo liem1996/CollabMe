@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,10 +36,11 @@ import java.util.Collections;
 
 public class EditOfferFragment extends Fragment {
 
-    EditText  headline, description, finishDate, price;
-    TextView proposer,profession,status;
+    EditText headline, description, finishDate, price;
+    TextView proposer, profession, status;
     CheckBox interestedVerify;
-    Button candidates, saveBtn;
+    Button saveBtn;
+    ImageButton candidatesBtn, cancelBtn;
     String[] professionArr;
     String[] oldProfession;
     String oldIdOffer, oldProposer, offerId;
@@ -51,39 +53,40 @@ public class EditOfferFragment extends Fragment {
     ImageView logout;
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_edit_offer, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_offer, container, false);
         proposer = view.findViewById(R.id.fragment_editOffer_proposer);
         headline = view.findViewById(R.id.fragment_editOffer_headline);
         description = view.findViewById(R.id.fragment_editOffer_description);
         finishDate = view.findViewById(R.id.fragment_editOffer_finishdate);
         status = view.findViewById(R.id.fragment_editOffer_status);
         profession = view.findViewById(R.id.fragment_editOffer_profession);
-        candidates = view.findViewById(R.id.fragment_editOffer_candidatesBtn);
+        candidatesBtn = view.findViewById(R.id.fragment_editOffer_candidatesBtn);
         price = view.findViewById(R.id.fragment_editOffer_price);
         interestedVerify = view.findViewById(R.id.fragment_editOffer_checkbox);
+        cancelBtn = view.findViewById(R.id.fragment_editOffer_cancelBtn);
         saveBtn = view.findViewById(R.id.fragment_editOffer_saveBtn);
         newProfession = new String[16];
         offerId = EditOfferFragmentArgs.fromBundle(getArguments()).getOfferId();
         logout = view.findViewById(R.id.fragment_editOffer_logoutBtn);
 
 
+        cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+
         ModelOffers.instance.getOfferById(offerId, offer -> {
-            if(offer!=null) {
+            if (offer != null) {
                 //initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
                 oldIdOffer = offer.getIdOffer();
                 oldProfession = offer.getProfession();
                 oldProposer = offer.getUser();
                 String[] strings = oldProfession;
                 StringBuffer sb = new StringBuffer();
-                for(int i = 0; i < strings.length; i++) {
+                for (int i = 0; i < strings.length; i++) {
                     sb.append(strings[i]);
-                    if(i<strings.length-1) {
+                    if (i < strings.length - 1) {
                         sb.append(", ");
                     }
                 }
@@ -99,7 +102,7 @@ public class EditOfferFragment extends Fragment {
                 ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                     @Override
                     public void onComplete(User profile) {
-                        if(profile!=null) {
+                        if (profile != null) {
                             proposer.setText(profile.getUsername());
                         }
                     }
@@ -112,8 +115,8 @@ public class EditOfferFragment extends Fragment {
 //                });
                 professionArr = offer.getProfession();
 
-        }
-    });
+            }
+        });
         profession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,9 +127,9 @@ public class EditOfferFragment extends Fragment {
 
                 for (int k = 0; k < langArray.length; k++) {
                     for (int h = 0; h < professionArr.length; h++) {
-                        if (professionArr[h]!=null) {
+                        if (professionArr[h] != null) {
                             if (professionArr[h].equals(langArray[k])) {
-                                if(!langList.contains(k)) {
+                                if (!langList.contains(k)) {
                                     langList.add(k);
                                     Collections.sort(langList);
                                     selectedProfessions[k] = true;
@@ -214,13 +217,13 @@ public class EditOfferFragment extends Fragment {
 
         });
 
-
-        candidates.setOnClickListener(new View.OnClickListener() {
+        candidatesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId));
             }
         });
+
         saveBtn.setOnClickListener(v -> saveOfferDetails());
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -229,10 +232,9 @@ public class EditOfferFragment extends Fragment {
                 Modelauth.instance2.logout(new Modelauth.logout() {
                     @Override
                     public void onComplete(int code) {
-                        if(code==200) {
+                        if (code == 200) {
                             toLoginActivity();
-                        }
-                        else{
+                        } else {
 
                         }
                     }
@@ -254,14 +256,13 @@ public class EditOfferFragment extends Fragment {
         //String candidates1 = candidates.getText().toString();
         //String coupon1 = coupon.getText().toString();
         boolean interestedVerify1 = interestedVerify.isChecked();
-        Offer offer = new Offer(description1,headline1,finishDate1,price1,oldIdOffer,status1,newProfession,null,interestedVerify1);
+        Offer offer = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null, interestedVerify1);
 
-        Log.d("TAG","new Offer : "+offer);
+        Log.d("TAG", "new Offer : " + offer);
         ModelOffers.instance.editOffer(offer, code -> {
-            if(code == 200) {
+            if (code == 200) {
                 Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
-            }
-            else{
+            } else {
                 Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
 
             }
@@ -271,14 +272,14 @@ public class EditOfferFragment extends Fragment {
 
     private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
         int tmp = 0;
-        for(int j = 0 ; j<size;j++){
-            if(array[j] != null){
+        for (int j = 0; j < size; j++) {
+            if (array[j] != null) {
                 tmp++;
             }
         }
         String[] items = new String[tmp];
 
-        for(int i = 0 ; i<tmp;i++){
+        for (int i = 0; i < tmp; i++) {
             items[i] = array[i];
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
@@ -286,11 +287,12 @@ public class EditOfferFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                ((TextView) parent.getChildAt(0)).setTextSize(18);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 

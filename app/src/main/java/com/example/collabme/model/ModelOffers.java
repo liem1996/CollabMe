@@ -11,6 +11,7 @@ import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,33 +36,35 @@ public class ModelOffers {
      * interfaces
      */
 
-    public interface addOfferListener{
+    public interface addOfferListener {
         void onComplete(int code);
     }
 
 
-    public enum OffersListLoadingState{
+    public enum OffersListLoadingState {
         loading,
         loaded
     }
 
-    public interface GetOfferListener{
+    public interface GetOfferListener {
         void onComplete(Offer offer);
 
     }
-    public interface EditOfferListener{
+
+    public interface EditOfferListener {
         void onComplete(int code);
 
     }
 
 
-    public interface deleteoffer{
+    public interface deleteoffer {
         void onComplete();
 
     }
 
     public ModelOffers() {
-        offersListLoadingState.setValue(OffersListLoadingState.loaded);;
+        offersListLoadingState.setValue(OffersListLoadingState.loaded);
+        ;
     }
 
 
@@ -80,41 +83,47 @@ public class ModelOffers {
         return offersListLoadingState;
     }
 
-    public LiveData<List<Offer>> getAll(){
-        if (offersList.getValue() == null) { refreshPostList(); };
-        return  offersList;
+    public LiveData<List<Offer>> getAll() {
+        if (offersList.getValue() == null) {
+            refreshPostList();
+        }
+        ;
+        return offersList;
     }
-    public void refreshPostList(){
+
+    public void refreshPostList() {
         offersListLoadingState.setValue(OffersListLoadingState.loading);
 
         tokensrefresh.retroServer();
 
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
 
         Call<List<Offer>> call = tokensrefresh.retrofitInterface.getoffers("Bearer " + tockenacsses);
         call.enqueue(new Callback<List<Offer>>() {
             @Override
-            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
+            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) { //TODO::shows ONLY open status offers
                 if (response.code() == 200) {
                     List<Offer> stList = response.body();
-                    offersList.postValue(stList);
+                    List<Offer> openOfferLst = updateOpenStatusOffersList(stList);
+                    offersList.postValue(openOfferLst);
                     offersListLoadingState.postValue(OffersListLoadingState.loaded);
 
-                }else if(response.code()==403){
+                } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
-                   String tockennew = tokensrefresh.gettockenAcsses();
-                    Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getoffers("Bearer "+tockennew);
+                    String tockennew = tokensrefresh.gettockenAcsses();
+                    Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getoffers("Bearer " + tockennew);
                     call1.enqueue(new Callback<List<Offer>>() {
                         @Override
                         public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response1) {
                             List<Offer> stList = response1.body();
-                            if(response1.code()==200){
-                                offersList.postValue(stList);
+                            if (response1.code() == 200) {
+                                List<Offer> openOfferLst = updateOpenStatusOffersList(stList);
+                                offersList.postValue(openOfferLst);
                                 offersListLoadingState.postValue(OffersListLoadingState.loaded);
-                            }else{
+                            } else {
                                 offersList.postValue(null);
                                 offersListLoadingState.postValue(OffersListLoadingState.loaded);
                             }
@@ -127,7 +136,7 @@ public class ModelOffers {
                         }
                     });
 
-                }else{
+                } else {
                     offersList.postValue(null);
                     offersListLoadingState.postValue(OffersListLoadingState.loaded);
                 }
@@ -142,6 +151,15 @@ public class ModelOffers {
 
     }
 
+    private List<Offer> updateOpenStatusOffersList(List<Offer> stList) {
+        List<Offer> openOfferLst = new LinkedList<>();
+        for (int i = 0; i < stList.size(); i++) {
+            if (stList.get(i).getStatus().equals("Open"))
+                openOfferLst.add(stList.get(i));
+        }
+        return openOfferLst;
+    }
+
 
     public void addOffer(Offer offer, ModelOffers.addOfferListener addOffer) {
         tokensrefresh.retroServer();
@@ -149,9 +167,9 @@ public class ModelOffers {
         Map<String, Object> map = offer.toJson();
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
-        Call<Offer> call = tokensrefresh.retrofitInterface.executenewOffer(map,"Bearer " + tockenacsses);
+        Call<Offer> call = tokensrefresh.retrofitInterface.executenewOffer(map, "Bearer " + tockenacsses);
         Map<String, Object> finalMap = map;
         call.enqueue(new Callback<Offer>() {
             @Override
@@ -161,16 +179,16 @@ public class ModelOffers {
 
                     addOffer.onComplete(200);
 
-                } else if(response.code()==403){
+                } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
-                    Call<Offer> call1 = tokensrefresh.retrofitInterface.executenewOffer(map,"Bearer "+tockennew);
+                    Call<Offer> call1 = tokensrefresh.retrofitInterface.executenewOffer(map, "Bearer " + tockennew);
                     call1.enqueue(new Callback<Offer>() {
                         @Override
                         public void onResponse(Call<Offer> call, Response<Offer> response1) {
-                            if(response1.code()==200){
+                            if (response1.code() == 200) {
                                 addOffer.onComplete(200);
-                            }else{
+                            } else {
                                 addOffer.onComplete(400);
                             }
                         }
@@ -180,7 +198,7 @@ public class ModelOffers {
                             addOffer.onComplete(400);
                         }
                     });
-                }else{
+                } else {
                     addOffer.onComplete(400);
                 }
             }
@@ -193,17 +211,16 @@ public class ModelOffers {
     }
 
 
-
-    public void deleteoffer(Offer offer,deleteoffer deleteofferlisner){
+    public void deleteoffer(Offer offer, deleteoffer deleteofferlisner) {
         tokensrefresh.retroServer();
 
 
         String tokenAccess = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
 
-        Call<Void> call = tokensrefresh.retrofitInterface.deleteoffer(offer.getIdOffer(),"Bearer "+tokenAccess);
+        Call<Void> call = tokensrefresh.retrofitInterface.deleteoffer(offer.getIdOffer(), "Bearer " + tokenAccess);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -213,13 +230,13 @@ public class ModelOffers {
                 } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
-                    Call<Void> call1 = tokensrefresh.retrofitInterface.deleteoffer(offer.getIdOffer(),"Bearer "+tockennew);
+                    Call<Void> call1 = tokensrefresh.retrofitInterface.deleteoffer(offer.getIdOffer(), "Bearer " + tockennew);
                     call1.enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response1) {
-                            if(response1.code()==200){
+                            if (response1.code() == 200) {
                                 deleteofferlisner.onComplete();
-                            }else{
+                            } else {
                                 deleteofferlisner.onComplete();
                             }
                         }
@@ -236,41 +253,40 @@ public class ModelOffers {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("TAG","basaaaaaa  a a a "+t);
+                Log.d("TAG", "basaaaaaa  a a a " + t);
                 deleteofferlisner.onComplete();
             }
         });
 
     }
 
-    public void editOffer(Offer newOffer, EditOfferListener editOfferListener){
+    public void editOffer(Offer newOffer, EditOfferListener editOfferListener) {
         tokensrefresh.retroServer();
 
 
         String tokenAccess = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
 
         Map<String, Object> map = newOffer.toJson();
 
-        Call<Offer> call = tokensrefresh.retrofitInterface.editOffer(newOffer.getIdOffer(),"Bearer "+tokenAccess,map);
+        Call<Offer> call = tokensrefresh.retrofitInterface.editOffer(newOffer.getIdOffer(), "Bearer " + tokenAccess, map);
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
-                if(response.code()==200) {
+                if (response.code() == 200) {
                     editOfferListener.onComplete(200);
-                }
-                else if (response.code() == 403) {
+                } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
-                    Call<Offer> call1 = tokensrefresh.retrofitInterface.editOffer(newOffer.getIdOffer(),"Bearer "+tockennew,map);
+                    Call<Offer> call1 = tokensrefresh.retrofitInterface.editOffer(newOffer.getIdOffer(), "Bearer " + tockennew, map);
                     call1.enqueue(new Callback<Offer>() {
                         @Override
                         public void onResponse(Call<Offer> call, Response<Offer> response1) {
-                            if(response1.code()==200){
+                            if (response1.code() == 200) {
                                 editOfferListener.onComplete(200);
-                            }else{
+                            } else {
                                 editOfferListener.onComplete(400);
                             }
                         }
@@ -287,39 +303,38 @@ public class ModelOffers {
 
             @Override
             public void onFailure(Call<Offer> call, Throwable t) {
-                Log.d("TAG","basaaaaaa  a a a "+t);
+                Log.d("TAG", "basaaaaaa  a a a " + t);
                 editOfferListener.onComplete(400);
             }
         });
 
     }
 
-    public void getOfferById(String offerid,GetOfferListener getOfferListener) {
+    public void getOfferById(String offerid, GetOfferListener getOfferListener) {
 
         tokensrefresh.retroServer();
 
 
         String tokenAccess = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
-        Call<Offer> call = tokensrefresh.retrofitInterface.getOfferById(offerid,"Bearer "+tokenAccess);
+        Call<Offer> call = tokensrefresh.retrofitInterface.getOfferById(offerid, "Bearer " + tokenAccess);
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {
-                if(response.code()==200) {
+                if (response.code() == 200) {
                     getOfferListener.onComplete(response.body());
-                }
-                else if (response.code() == 403) {
+                } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
-                    Call<Offer> call1 = tokensrefresh.retrofitInterface.getOfferById(offerid,"Bearer "+tockennew);
+                    Call<Offer> call1 = tokensrefresh.retrofitInterface.getOfferById(offerid, "Bearer " + tockennew);
                     call1.enqueue(new Callback<Offer>() {
                         @Override
                         public void onResponse(Call<Offer> call, Response<Offer> response1) {
-                            if(response1.code()==200){
+                            if (response1.code() == 200) {
                                 getOfferListener.onComplete(response.body());
-                            }else{
+                            } else {
                                 getOfferListener.onComplete(null);
                             }
                         }
@@ -333,9 +348,10 @@ public class ModelOffers {
                     getOfferListener.onComplete(null);
                 }
             }
+
             @Override
             public void onFailure(Call<Offer> call, Throwable t) {
-                Log.d("TAG","basaaaaaa  a a a "+t);
+                Log.d("TAG", "basaaaaaa  a a a " + t);
 
                 getOfferListener.onComplete(null);
 
@@ -360,7 +376,7 @@ public class ModelOffers {
         
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
 
         Call<List<User>> call = tokensrefresh.retrofitInterface.getCandidates(offer,"Bearer " + tockenacsses);
@@ -373,7 +389,7 @@ public class ModelOffers {
                     candidatesList.postValue(stList);
                     candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
 
-                }else if (response.code() == 403) {
+                } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
                     Call<List<User>> call1 = tokensrefresh.retrofitInterface.getCandidates(offer,"Bearer "+tockennew);
@@ -381,10 +397,10 @@ public class ModelOffers {
                         @Override
                         public void onResponse(Call<List<User>> call, Response<List<User>> response1) {
                             List<User> stList = response.body();
-                            if(response1.code()==200){
+                            if (response1.code() == 200) {
                                 candidatesList.postValue(stList);
                                 candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
-                            }else{
+                            } else {
                                 candidatesList.postValue(null);
                                 candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
                             }

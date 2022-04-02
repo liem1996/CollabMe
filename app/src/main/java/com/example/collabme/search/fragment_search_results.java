@@ -155,7 +155,7 @@ public class fragment_search_results extends Fragment {
         TextView Offer_date,Offer_status;
         TextView headline_offer,username;
         ImageView imge_x, image_vi,image_offer;
-        Button Editview;
+        ImageView Editview;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -165,9 +165,7 @@ public class fragment_search_results extends Fragment {
             image_offer =(ImageView)itemView.findViewById(R.id.fragment_search_results_offerimage);
             image_vi =(ImageView)itemView.findViewById(R.id.fragment_search_results_check);
             imge_x =(ImageView)itemView.findViewById(R.id.fragment_search_results_delete);
-            Editview = (Button) itemView.findViewById(R.id.fragment_search_results_edit);
-
-
+            Editview = itemView.findViewById(R.id.fragment_search_results_edit);
 
             Editview.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.collabme.objects.MyApplication;
 import com.example.collabme.objects.Offer;
-import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
 import java.util.HashMap;
@@ -85,7 +84,7 @@ public class ModelSearch {
     }
 
     public void getOfferFromSpecificSearch(String description, String headline, String fromdate, String todate, String fromprice,
-            String toprice, String user, String[] professions, ModelSearch.getOfferFromSpecificSearchListener getOfferFromSpecificSearchListener) {
+                                           String toprice, String user, ModelSearch.getOfferFromSpecificSearchListener getOfferFromSpecificSearchListener) {
 
         tokensrefresh.retroServer();
 
@@ -93,12 +92,9 @@ public class ModelSearch {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
 
-            HashMap<String, Object> map = new HashMap<>();
-
-            map.put("Profession",professions);
 
         Call<List<Offer>> call = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(description, headline, fromdate, todate,
-                fromprice, toprice,user, map,"Bearer "+tokenAccess);
+                fromprice, toprice,user,"Bearer "+tokenAccess);
         call.enqueue(new Callback<List<Offer>>() {
             @Override
             public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
@@ -109,7 +105,7 @@ public class ModelSearch {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
                     Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getOfferFromSpecificSearch(description, headline, fromdate, todate,
-                            fromprice, toprice,user,map,"Bearer "+tockennew);
+                            fromprice, toprice,user,"Bearer "+tockennew);
                     call1.enqueue(new Callback<List<Offer>>() {
                         @Override
                         public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response1) {
@@ -138,4 +134,5 @@ public class ModelSearch {
             }
         });
     }
+
 }

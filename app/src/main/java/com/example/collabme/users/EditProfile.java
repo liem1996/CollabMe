@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
@@ -26,9 +28,9 @@ import java.util.Collections;
 
 
 public class EditProfile extends Fragment {
-    TextView platform, professions;
-    EditText username, age, followers, postuploads;
-    Button chat, save, uploadphoto, delete;
+    TextView platform, professions, usernameType;
+    EditText username, age, followers, postuploads, email, gender;
+    Button saveBtn, deleteBtn;
     String[] platformArr;
     String[] professionArr;
     String password;
@@ -39,6 +41,7 @@ public class EditProfile extends Fragment {
     ArrayList<Integer> langList = new ArrayList<>();
     ArrayList<Integer> langList2 = new ArrayList<>();
     ImageView logout;
+    ImageButton galleryBtn, cameraBtn, cancelBtn;
 
     String[] chosen, chosen2;
 
@@ -52,15 +55,20 @@ public class EditProfile extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        username = view.findViewById(R.id.fragment_edituser_username2);
+        usernameType = view.findViewById(R.id.fragment_edituser_usernameType);
+        username = view.findViewById(R.id.fragment_edituser_username);
         age = view.findViewById(R.id.fragment_edituser_age);
-        platform = view.findViewById(R.id.fragment_edituser_platform);
         professions = view.findViewById(R.id.fragment_edituser_profession);
         followers = view.findViewById(R.id.fragment_edituser_followers);
         postuploads = view.findViewById(R.id.fragment_edituser_postsuploads);
-        delete = view.findViewById(R.id.fragemnt_edituser_delete);
-        uploadphoto = view.findViewById(R.id.fragemnt_edituser_upload);
-        save = view.findViewById(R.id.fragemnt_edituser_save);
+        platform = view.findViewById(R.id.fragment_edituser_platform);
+        email = view.findViewById(R.id.fragment_edituser_email);
+        gender = view.findViewById(R.id.fragemnt_edituser_gender);
+        galleryBtn = view.findViewById(R.id.fragment_edituser_galleryBtn);
+        cameraBtn = view.findViewById(R.id.fragment_edituser_cameraBtn);
+        deleteBtn = view.findViewById(R.id.fragemnt_edituser_deleteBtn);
+        saveBtn = view.findViewById(R.id.fragemnt_edituser_saveBtn);
+        cancelBtn = view.findViewById(R.id.fragment_edituser_cancelBtn);
         logout = view.findViewById(R.id.fragment_edituser_logoutBtn);
 
         username1 = EditProfileArgs.fromBundle(getArguments()).getUsername();
@@ -75,14 +83,21 @@ public class EditProfile extends Fragment {
         influencer1 = EditProfileArgs.fromBundle(getArguments()).getInfluencer();
         company1 = EditProfileArgs.fromBundle(getArguments()).getCompany();
 
+        updateUsernameType(influencer1, company1);
         username.setText(username1);
         age.setText(age1);
-        // platform.
         //professions
         followers.setText(Followers);
         postuploads.setText(posts);
-        //delete
-        uploadphoto.setText(posts);
+        //platform
+        email.setText(email1);
+        gender.setText(gender1);
+        gender.setEnabled(false);
+
+
+        //deleteBtn
+        cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        //TODO:: add functionality for camera and gallery image button
         //edit
         //cancel
 
@@ -102,9 +117,9 @@ public class EditProfile extends Fragment {
 
                 for (int k = 0; k < langArray.length; k++) {
                     for (int h = 0; h < professionArr.length; h++) {
-                        if (professionArr[h]!=null) {
+                        if (professionArr[h] != null) {
                             if (professionArr[h].equals(langArray[k])) {
-                                if(!langList.contains(k)) {
+                                if (!langList.contains(k)) {
 
                                     langList.add(k);
                                     Collections.sort(langList);
@@ -218,7 +233,6 @@ public class EditProfile extends Fragment {
                     }
                 }
 
-
                 builder2.setMultiChoiceItems(langArray2, selectedPlatforms, new DialogInterface.OnMultiChoiceClickListener() {
 
                     @Override
@@ -294,20 +308,20 @@ public class EditProfile extends Fragment {
 
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user = new User(gender1, password, email1,username.getText().toString(),
-                        age.getText().toString(),followers.getText().toString(),postuploads.getText().toString(),
-                        company1,influencer1,chosen, chosen2);
+                user = new User(gender1, password, email1, username.getText().toString(),
+                        age.getText().toString(), followers.getText().toString(), postuploads.getText().toString(),
+                        company1, influencer1, chosen, chosen2);
 
-                ModelUsers.instance3.EditUser(user,new ModelUsers.EditUserListener() {
+                ModelUsers.instance3.EditUser(user, new ModelUsers.EditUserListener() {
                     @Override
                     public void onComplete(int code) {
-                        if(code == 200) {
+                        if (code == 200) {
                             Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
-                        }
-                        else{
+                            Navigation.findNavController(v).navigateUp();
+                        } else {
                             Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
                         }
 
@@ -322,10 +336,9 @@ public class EditProfile extends Fragment {
                 Modelauth.instance2.logout(new Modelauth.logout() {
                     @Override
                     public void onComplete(int code) {
-                        if(code==200) {
+                        if (code == 200) {
                             toLoginActivity();
-                        }
-                        else{
+                        } else {
 
                         }
                     }
@@ -341,5 +354,20 @@ public class EditProfile extends Fragment {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    private void updateUsernameType(Boolean influencer, Boolean company) {
+        if (influencer && company) {
+            usernameType.setText("Influencer & Company profile");
+            return;
+        }
+        if (influencer) {
+            usernameType.setText("Influencer profile");
+            return;
+        }
+        if (company) {
+            usernameType.setText("Company profile");
+            return;
+        }
     }
 }

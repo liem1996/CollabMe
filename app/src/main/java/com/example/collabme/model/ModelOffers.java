@@ -31,6 +31,8 @@ public class ModelOffers {
 
 
     /**
+     *
+     *
      * interfaces
      */
 
@@ -66,7 +68,10 @@ public class ModelOffers {
     }
 
 
+
+
     /**
+     *
      * the section of the offers
      * add
      * edit
@@ -358,38 +363,36 @@ public class ModelOffers {
         return candidatesListLoadingState;
     }
 
-    public LiveData<List<User>> getAllCandidates(Offer offer) {
-        if (candidatesList.getValue() == null) {
-            refreshCandidatesList(offer);
-        }
-        ;
+    public LiveData<List<User>> getAllCandidates(String offer){
+        if (candidatesList.getValue() == null) { refreshCandidatesList(offer); };
         return candidatesList;
     }
-
-    public void refreshCandidatesList(Offer offer) {
+    public void refreshCandidatesList(String offer){
         candidatesListLoadingState.setValue(OffersListLoadingState.loading);
 
         tokensrefresh.retroServer();
 
 
+        
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses", "");
 
 
-        Call<List<User>> call = tokensrefresh.retrofitInterface.getCandidates(offer.getIdOffer(), "Bearer " + tockenacsses);
+        Call<List<User>> call = tokensrefresh.retrofitInterface.getCandidates(offer,"Bearer " + tockenacsses);
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                List<User> stList = response.body();
+
                 if (response.code() == 200) {
+                    List<User> stList = response.body();
                     candidatesList.postValue(stList);
                     candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
 
                 } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
-                    Call<List<User>> call1 = tokensrefresh.retrofitInterface.getCandidates(offer.getIdOffer(), "Bearer " + tockennew);
+                    Call<List<User>> call1 = tokensrefresh.retrofitInterface.getCandidates(offer,"Bearer "+tockennew);
                     call1.enqueue(new Callback<List<User>>() {
                         @Override
                         public void onResponse(Call<List<User>> call, Response<List<User>> response1) {

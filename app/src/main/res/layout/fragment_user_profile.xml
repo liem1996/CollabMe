@@ -7,7 +7,7 @@
     tools:context=".users.UserProfile">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/image_userprofile_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_user_profile"
@@ -160,7 +160,7 @@
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_listrow_edit"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/image_userprofile_background"
         app:layout_constraintTop_toBottomOf="@+id/fragment_userprofile_logoutBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

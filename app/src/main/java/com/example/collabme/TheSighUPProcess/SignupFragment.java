@@ -196,7 +196,7 @@ public class SignupFragment extends Fragment {
         gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                ((TextView) parent.getChildAt(0)).setTextSize(20);
                 selectedGender = items[position];
             }
 

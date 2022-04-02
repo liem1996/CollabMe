@@ -7,7 +7,7 @@
     tools:context=".search.fragment_search_results">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/image_offer_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search_results"

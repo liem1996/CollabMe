@@ -106,7 +106,7 @@ public class CloseStatusfragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                ((TextView) parent.getChildAt(0)).setTextSize(18);
             }
 
             @Override

@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Liel/AndroidStudioProjects/CollabMe/app/src/main/res/layout/candidtaes_list_row.xml" value="0.1" />
+        <entry key="..\:/Users/Liel/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_candidates.xml" value="0.1" />
+        <entry key="..\:/Users/Liel/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_background.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_pic.xml" value="0.14322916666666666" />

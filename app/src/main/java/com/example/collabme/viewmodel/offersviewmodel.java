@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class offersviewmodel  extends ViewModel {
 
     LiveData<List<Offer>> data;
     MutableLiveData<Offer> data1;
+    LiveData<List<User>> data2;
 
     public offersviewmodel(){
         data = ModelOffers.instance.getAll();
@@ -28,6 +30,15 @@ public class offersviewmodel  extends ViewModel {
         // TODO: 3/14/2022 to do a delete to offer
        // Model.instance.deletePost(data1.getValue(),listener);
         return data1;
+    }
+
+    public LiveData<List<User>> getCandidates(String offer) {
+        data2 = ModelOffers.instance.getAllCandidates(offer);
+        return data2;
+    }
+
+    public void refreshCandidatesList(String offerId){
+        ModelOffers.instance.refreshCandidatesList(offerId);
     }
 
 

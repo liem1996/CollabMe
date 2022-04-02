@@ -24,7 +24,7 @@ public interface RetrofitInterface {
     Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
 
 
-    @Multipart
+
     @GET("/image/file/{filename}")
     Call<ResponseBody> getimage(@Path("filename") String namefile);
 

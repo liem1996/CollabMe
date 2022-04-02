@@ -1,13 +1,15 @@
 package com.example.collabme.users;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -18,10 +20,15 @@ import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -59,25 +66,34 @@ public class UserProfile extends Fragment {
             @Override
             public void onComplete(User profile) {
                 if (profile != null) {
-                    checkUsernameType(profile);
-                    username.setText(profile.getUsername());
-                    age.setText(profile.getAge());
-                    followers.setText(profile.getFollowers());
-                    postuploads.setText(profile.getNumOfPosts());
-                    plat = profile.getPlatforms();
-                    pref = profile.getProfessions();
-                    gender.setText(profile.getSex());
-                    email.setText(profile.getEmail());
-                    platformArr = ChangeToArray(profile.getPlatforms());
-                    professionsArr = ChangeToArray(profile.getProfessions());
-                    password = profile.getPassword();
-                    influencer = profile.getInfluencer();
-                    company = profile.getInfluencer();
-                    initSpinnerFooter(platformArr.size(), platformArr, platform);
-                    initSpinnerFooter(professionsArr.size(), professionsArr, professions);
+                    ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
+                        @Override
+                        public void onComplete(String responseBody) {
+
+                            checkUsernameType(profile);
+                            username.setText(profile.getUsername());
+                            age.setText(profile.getAge());
+                            followers.setText(profile.getFollowers());
+                            postuploads.setText(profile.getNumOfPosts());
+                            plat = profile.getPlatforms();
+                            pref = profile.getProfessions();
+                            gender.setText(profile.getSex());
+                            email.setText(profile.getEmail());
+                            platformArr = ChangeToArray(profile.getPlatforms());
+                            professionsArr = ChangeToArray(profile.getProfessions());
+                            password = profile.getPassword();
+                            influencer = profile.getInfluencer();
+                            company = profile.getInfluencer();
+                            initSpinnerFooter(platformArr.size(), platformArr, platform);
+                            initSpinnerFooter(professionsArr.size(), professionsArr, professions);
+                        }
+                    });
                 }
             }
         });
+
+
+
 
 
         editBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +122,24 @@ public class UserProfile extends Fragment {
         return view;
     }
 
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            Log.e("src",src);
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            Log.e("Bitmap","returned");
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("Exception",e.getMessage());
+            return null;
+        }
+    }
     private void checkUsernameType(User profile) {
         if (profile.getInfluencer() && profile.getCompany()) {
             usernameType.setText("Influencer & Company profile");

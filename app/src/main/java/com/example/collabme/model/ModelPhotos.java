@@ -29,7 +29,7 @@ public class ModelPhotos {
     }
 
     public interface getimagesfile{
-        void onComplete(ResponseBody responseBody);
+        void onComplete(String responseBody);
 
     }
 
@@ -97,13 +97,18 @@ public class ModelPhotos {
 
 
     public void getimages(String urlphoto, getimagesfile getimagesfile) {
+        tokensrefresh.retroServer();
         Call<ResponseBody> call = tokensrefresh.retrofitInterface.getimage(urlphoto);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response1) {
                 if (response1.code()==200) {
-                    System.out.println(response1.body().contentType());
-                    getimagesfile.onComplete(response1.body());
+
+                    try {
+                        getimagesfile.onComplete(response1.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
                     getimagesfile.onComplete(null);

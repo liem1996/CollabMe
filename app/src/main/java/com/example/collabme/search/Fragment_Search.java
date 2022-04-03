@@ -207,23 +207,13 @@ public class Fragment_Search extends Fragment {
                         from="null";
                     }
 
-                    ModelSearch.instance.getOfferFromSpecificSearch(description1, headline1, from, to, fromprice1, toprice1,
-                            proposer1, offers -> {
+                    ModelSearch.instance.getOfferFromSpecificSearch(description1, headline1, from, to, fromprice1, toprice1, proposer1,
+                            chosen, offers -> {
                                 offersFromSearch = offers.toArray(new Offer[0]);
-                                if (chosen!=null &&offersFromSearch.length!=0) {
-                                    for (int i = 0; i < offersFromSearch.length; i++) {
-                                        if (offersFromSearch[i].getProfession().length == chosen.length) {
-                                            if (equalsArr(offersFromSearch[i].getProfession(), chosen)) {
-                                                Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
-                                                        offersFromSearch));
-                                            }
-                                        }
-                                    }
-                                }
-                                else {
+
                                     Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
                                             offersFromSearch));
-                                }
+
                             });
                 }
 

@@ -79,7 +79,7 @@ public class OpenStatusFragment extends Fragment {
         choosen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                offer2.setStatus("inprogress");
+                offer2.setStatus("InProgress");
                 ModelOffers.instance.editOffer(offer2, new ModelOffers.EditOfferListener() {
                     @Override
                     public void onComplete(int code) {

@@ -224,7 +224,7 @@ public class EditOfferFragment extends Fragment {
             }
         });
 
-        saveBtn.setOnClickListener(v -> saveOfferDetails());
+        saveBtn.setOnClickListener(v -> saveOfferDetails(v));
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,7 +245,7 @@ public class EditOfferFragment extends Fragment {
         return view;
     }
 
-    private void saveOfferDetails() {
+    private void saveOfferDetails(View v) {
         newProfession = chosen;
         String headline1 = headline.getText().toString();
         String description1 = description.getText().toString();
@@ -262,9 +262,9 @@ public class EditOfferFragment extends Fragment {
         ModelOffers.instance.editOffer(offer, code -> {
             if (code == 200) {
                 Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                Navigation.findNavController(v).navigateUp();
             } else {
                 Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
-
             }
 
         });

@@ -26,6 +26,7 @@ import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.viewmodel.offersviewmodel;
+import com.facebook.login.LoginManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Modelauth.instance2.logout(code -> {
                     if (code == 200) {
+                        LoginManager.getInstance().logOut();
                         toLoginActivity();
                     }
                 });

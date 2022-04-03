@@ -78,15 +78,8 @@ public interface RetrofitInterface {
     @GET("/search/getOfferFromFreeSearch/{freesearch}")
     Call<List<Offer>> getOfferFromFreeSearch(@Path("freesearch") String freesearch,@Header("authorization") String token);
 
-    @GET("/search/getOfferFromSpecificSearch/{description}/{headline}/{fromdate}/{todate}/{fromprice}/{toprice}/{user}")
-    Call<List<Offer>> getOfferFromSpecificSearch(@Path("description") String description,
-                                                 @Path("headline") String headline,
-                                                 @Path("fromdate") String fromdate,
-                                                 @Path("todate") String todate,
-                                                 @Path("fromprice") String fromprice,
-                                                 @Path("toprice") String toprice,
-                                                 @Path("user") String user,
-                                                 @Header("authorization") String token);
+    @POST("/search/getOfferFromSpecificSearch")
+    Call<List<Offer>> getOfferFromSpecificSearch(@Body Map<String, Object> offer, @Header("authorization") String token);
 
     @GET("/users/getUser/getUserByEmail/{email}")
     Call<User> getUserByEmail(@Path("email") String email,@Header("authorization") String token);

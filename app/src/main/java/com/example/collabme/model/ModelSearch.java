@@ -84,7 +84,7 @@ public class ModelSearch {
     }
 
     public void getOfferFromSpecificSearch(String description, String headline, String fromdate, String todate, String fromprice,
-            String toprice, String user, String[] professions, ModelSearch.getOfferFromSpecificSearchListener getOfferFromSpecificSearchListener) {
+                                           String toprice, String user, String[] professions, ModelSearch.getOfferFromSpecificSearchListener getOfferFromSpecificSearchListener) {
 
         tokensrefresh.retroServer();
 
@@ -94,9 +94,9 @@ public class ModelSearch {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("professions",professions);
-        map.put("Description",description);
-        map.put("Headline",headline);
-        map.put("Fromdate",fromdate);
+        map.put("description",description);
+        map.put("headline",headline);
+        map.put("fromdate",fromdate);
         map.put("todate",todate);
         map.put("fromprice",fromprice);
         map.put("toprice",toprice);

@@ -2,7 +2,6 @@ package com.example.collabme.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 
 import com.example.collabme.objects.tokensrefresh;
 
@@ -15,6 +14,7 @@ import java.io.IOException;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -24,9 +24,16 @@ public class ModelPhotos {
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
 
     public interface PostProfilePhoto{
-        void onComplete(Uri uri);
+        void onComplete(String uri);
 
     }
+
+    public interface getimagesfile{
+        void onComplete(String responseBody);
+
+    }
+
+
 
 
     public void uploadImage(Bitmap imageBytes, Context context, PostProfilePhoto postProfilePhoto) {
@@ -63,12 +70,17 @@ public class ModelPhotos {
         MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
 
-        Call<Uri> call = tokensrefresh.retrofitInterface.postImage(body,name);
-        call.enqueue(new Callback<Uri>() {
+        Call<ResponseBody> call = tokensrefresh.retrofitInterface.postImage(body,name);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<Uri> call, retrofit2.Response<Uri> response1) {
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response1) {
                 if (response1.code()==200) {
-                    postProfilePhoto.onComplete(response1.body());
+                    System.out.println(response1.body().contentType());
+                    try {
+                        postProfilePhoto.onComplete(response1.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
                     postProfilePhoto.onComplete(null);
@@ -76,8 +88,35 @@ public class ModelPhotos {
             }
 
             @Override
-            public void onFailure(Call<Uri> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 postProfilePhoto.onComplete(null);
+
+            }
+        });
+    }
+
+
+    public void getimages(String urlphoto, getimagesfile getimagesfile) {
+        tokensrefresh.retroServer();
+        Call<ResponseBody> call = tokensrefresh.retrofitInterface.getimage(urlphoto);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response1) {
+                if (response1.code()==200) {
+                    try {
+                        getimagesfile.onComplete(response1.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    getimagesfile.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                getimagesfile.onComplete(null);
 
             }
         });

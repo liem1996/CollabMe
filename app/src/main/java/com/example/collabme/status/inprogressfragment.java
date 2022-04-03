@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,12 +21,15 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Modelauth;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class inprogressfragment extends Fragment {
     String offerId;
     TextView proposer,status, headline, description, finishDate, price;
-    Button candidates, chat, upload, edit;
+    Button upload;
+    FloatingActionButton chatBtn;
+    ImageButton editBtn, candidatesBtn;
     CheckBox interestedVerify;
     Spinner profession;
     ImageView logout;
@@ -44,10 +48,10 @@ public class inprogressfragment extends Fragment {
         profession = view.findViewById(R.id.fragment_inprogress_profession);
         price = view.findViewById(R.id.fragemnt_inprogress_price);
         interestedVerify = view.findViewById(R.id.fragemnt_inprogress_checkbox);
-        edit = view.findViewById(R.id.fragemnt_inprogress_edit);
-        chat  = view.findViewById(R.id.fragemnt_inprogress_chat);
+        editBtn = view.findViewById(R.id.fragemnt_inprogress_edit);
+        chatBtn  = view.findViewById(R.id.fragemnt_inprogress_chat);
         upload  = view.findViewById(R.id.fragemnt_inprogress_upload);
-        candidates = view.findViewById(R.id.fragemnt_inprogress_candidate);
+        candidatesBtn = view.findViewById(R.id.fragemnt_inprogress_candidate);
         logout = view.findViewById(R.id.fragment_inprogress_logoutBtn);
 
 
@@ -64,8 +68,7 @@ public class inprogressfragment extends Fragment {
             interestedVerify.setChecked(offer.getIntrestedVerify());
         });
 
-        edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToEditOfferFragment(offerId)));
-
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToEditOfferFragment(offerId)));
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +77,7 @@ public class inprogressfragment extends Fragment {
             }
         });
 
-
-        candidates.setOnClickListener(new View.OnClickListener() {
+        candidatesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToCandidatesFragment(offerId));
@@ -120,7 +122,7 @@ public class inprogressfragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                ((TextView) parent.getChildAt(0)).setTextSize(18);
             }
 
             @Override

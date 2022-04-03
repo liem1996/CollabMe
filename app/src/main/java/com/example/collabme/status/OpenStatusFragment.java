@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,17 +23,20 @@ import com.example.collabme.actionsOnOffers.EditOfferFragmentArgs;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class OpenStatusFragment extends Fragment {
 
     String offerId;
-    TextView proposer,status, headline, description, finishDate, price;
-    Button candidates, chat, choosen, edit;
+    TextView proposer, status, headline, description, finishDate, price;
+    Button choosen;
     CheckBox interestedVerify;
     Spinner profession;
     Offer offer2;
     ImageView logout;
+    ImageButton editBtn, candidatesBtn;
+    FloatingActionButton chatBtn;
 
 
     @Override
@@ -49,18 +53,18 @@ public class OpenStatusFragment extends Fragment {
         profession = view.findViewById(R.id.fragemnt_offerdetails_profession);
         price = view.findViewById(R.id.fragemnt_offerdetails_price);
         interestedVerify = view.findViewById(R.id.fragemnt_offerdetails_checkbox);
-        edit = view.findViewById(R.id.fragemnt_offerdetails_editBtn);
-        chat  = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
-        choosen  = view.findViewById(R.id.fragemnt_offerdetails_choosenBtn);
-        candidates = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn2);
+        editBtn = view.findViewById(R.id.fragemnt_offerdetails_editBtn);
+        chatBtn = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
+        choosen = view.findViewById(R.id.fragemnt_offerdetails_choosenBtn);
+        candidatesBtn = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn);
         logout = view.findViewById(R.id.fragment_offerdetails_logoutBtn);
 
 
-        edit.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
 
-            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+            initSpinnerFooter(offer.getProfession().length, offer.getProfession(), profession);
             headline.setText(offer.getHeadline());
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
@@ -68,18 +72,18 @@ public class OpenStatusFragment extends Fragment {
             status.setText(offer.getStatus());
             price.setText(offer.getPrice());
             interestedVerify.setChecked(offer.getIntrestedVerify());
-            offer2=new Offer(description.getText().toString(),headline.getText().toString(),finishDate.getText().toString(),price.getText().toString(),offerId,status.getText().toString(),offer.getProfession(),offer.getUser(),interestedVerify.isChecked());
+            offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price.getText().toString(), offerId, status.getText().toString(), offer.getProfession(), offer.getUser(), interestedVerify.isChecked());
 
         });
 
         choosen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                offer2.setStatus("inprogress");
+                offer2.setStatus("InProgress");
                 ModelOffers.instance.editOffer(offer2, new ModelOffers.EditOfferListener() {
                     @Override
                     public void onComplete(int code) {
-                        if(code==200) {
+                        if (code == 200) {
                             Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToInprogressfragment(offerId));
                         }
                     }
@@ -87,7 +91,7 @@ public class OpenStatusFragment extends Fragment {
             }
         });
 
-        candidates.setOnClickListener(new View.OnClickListener() {
+        candidatesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToCandidatesFragment(offerId));
@@ -101,10 +105,9 @@ public class OpenStatusFragment extends Fragment {
                 Modelauth.instance2.logout(new Modelauth.logout() {
                     @Override
                     public void onComplete(int code) {
-                        if(code==200) {
+                        if (code == 200) {
                             toLoginActivity();
-                        }
-                        else{
+                        } else {
 
                         }
                     }
@@ -117,14 +120,14 @@ public class OpenStatusFragment extends Fragment {
 
     private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
         int tmp = 0;
-        for(int j = 0 ; j<size;j++){
-            if(array[j] != null){
+        for (int j = 0; j < size; j++) {
+            if (array[j] != null) {
                 tmp++;
             }
         }
         String[] items = new String[tmp];
 
-        for(int i = 0 ; i<tmp;i++){
+        for (int i = 0; i < tmp; i++) {
             items[i] = array[i];
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
@@ -132,11 +135,12 @@ public class OpenStatusFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                ((TextView) parent.getChildAt(0)).setTextSize(18);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 

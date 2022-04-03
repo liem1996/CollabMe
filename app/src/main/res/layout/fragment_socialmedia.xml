@@ -74,9 +74,23 @@
         app:layout_constraintVertical_bias="0.647" />
 
     <EditText
+        android:id="@+id/fragment_socialmedia_followers"
+        android:layout_width="195dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.788" />
+
+    <EditText
         android:id="@+id/fragment_socialmedia_postsuploads"
-        android:layout_width="156dp"
-        android:layout_height="32dp"
+        android:layout_width="170dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="textPersonName"
@@ -85,21 +99,7 @@
         app:layout_constraintHorizontal_bias="0.788"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846" />
-
-    <EditText
-        android:id="@+id/fragment_socialmedia_followers"
-        android:layout_width="196dp"
-        android:layout_height="30dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.748"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.788" />
+        app:layout_constraintVertical_bias="0.848" />
 
     <Button
         android:id="@+id/fragment_socialmedia_continue"

@@ -25,6 +25,7 @@ import com.example.collabme.model.ModelSearch;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 
+import java.sql.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ import java.time.format.DateTimeParseException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Date;
@@ -204,16 +206,17 @@ public class Fragment_Search extends Fragment {
                     else {
                         from="null";
                     }
-                    ModelSearch.instance.getOfferFromSpecificSearch(description1, headline1, from, to, fromprice1, toprice1,
-                            proposer1, chosen, new ModelSearch.getOfferFromSpecificSearchListener() {
-                                @Override
-                                public void onComplete(List<Offer> offers) {
-                                    offersFromSearch = offers.toArray(new Offer[0]);
+
+                    ModelSearch.instance.getOfferFromSpecificSearch(description1, headline1, from, to, fromprice1, toprice1, proposer1,
+                            chosen, offers -> {
+                                offersFromSearch = offers.toArray(new Offer[0]);
+
                                     Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
                                             offersFromSearch));
-                                }
+
                             });
                 }
+
             }
         });
 
@@ -348,6 +351,15 @@ public class Fragment_Search extends Fragment {
             goodsign=true;
         }
     }
-
+    public static boolean equalsArr(Object[] a, Object[] b) {
+        if(a.length != b.length) return false;
+        outer: for(Object aObject : a) {
+            for(Object bObject : b) {
+                if(a.equals(b)) continue outer;
+            }
+            return false;
+        }
+        return true;
+    }
 
 }

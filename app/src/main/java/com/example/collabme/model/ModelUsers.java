@@ -155,7 +155,7 @@ public class ModelUsers {
 //        });
 //    }
 
-    public void getUserByEmail(String email, GetUserByUserEmail getUserByUserEmail) {
+    public void getUserByEmail(String email,String token, GetUserByUserEmail getUserByUserEmail) {
         tokensrefresh.retroServer();
 
         String tockenacsses = MyApplication.getContext()
@@ -163,7 +163,7 @@ public class ModelUsers {
                 .getString("tokenAcsses","");
 
 
-        Call<User> call = tokensrefresh.retrofitInterface.getUserByEmail(email,"Bearer "+tockenacsses);
+        Call<User> call = tokensrefresh.retrofitInterface.getUserByEmail(email,"Bearer "+token);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -171,7 +171,7 @@ public class ModelUsers {
                     getUserByUserEmail.onComplete(response.body());
                 }else if (response.code()==403){
                     tokensrefresh.changeAcssesToken();
-                    ModelUsers.instance3.getUserByEmail(email,getUserByUserEmail);
+                    ModelUsers.instance3.getUserByEmail(email,token,getUserByUserEmail);
                 }else{
                     getUserByUserEmail.onComplete(null);
                 }

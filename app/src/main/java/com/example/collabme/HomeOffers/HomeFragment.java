@@ -26,6 +26,9 @@ import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.viewmodel.offersviewmodel;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.widget.LoginButton;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -69,6 +72,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onComplete(int code) {
                         if(code==200) {
+                            LoginManager.getInstance().logOut();
                             toLoginActivity();
                         }
                         else{

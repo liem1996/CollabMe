@@ -103,7 +103,6 @@ public class ModelPhotos {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response1) {
                 if (response1.code()==200) {
-
                     try {
                         getimagesfile.onComplete(response1.body().string());
                     } catch (IOException e) {

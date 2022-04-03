@@ -3,8 +3,10 @@ package com.example.collabme.users;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +26,9 @@ import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
+import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 
@@ -44,6 +44,8 @@ public class UserProfile extends Fragment {
     String password;
     Boolean influencer, company;
     ImageView logout;
+    Bitmap bitmap;
+    ImageView profilepicture;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +63,7 @@ public class UserProfile extends Fragment {
         postuploads = view.findViewById(R.id.fragment_userprofile_postsuploads);
         editBtn = view.findViewById(R.id.fragemnt_userprofile_editBtn);
         logout = view.findViewById(R.id.fragment_userprofile_logoutBtn);
+        profilepicture = view.findViewById(R.id.fragment_userprofile_pic);
 
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
@@ -69,7 +72,6 @@ public class UserProfile extends Fragment {
                     ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
                         @Override
                         public void onComplete(String responseBody) {
-
                             checkUsernameType(profile);
                             username.setText(profile.getUsername());
                             age.setText(profile.getAge());
@@ -86,6 +88,11 @@ public class UserProfile extends Fragment {
                             company = profile.getInfluencer();
                             initSpinnerFooter(platformArr.size(), platformArr, platform);
                             initSpinnerFooter(professionsArr.size(), professionsArr, professions);
+                            //bitmap = StringToBitMap(responseBody);
+                            //profilepicture.setImageBitmap(bitmap);
+                           // Uri uri = getImageUri(bitmap);
+                            profilepicture.setImageURI(Uri.parse(responseBody));
+                            Picasso.get().load(responseBody).into(profilepicture);
                         }
                     });
                 }
@@ -123,22 +130,23 @@ public class UserProfile extends Fragment {
     }
 
 
-    public static Bitmap getBitmapFromURL(String src) {
+
+    public Bitmap StringToBitMap(String encodedString) {
         try {
-            Log.e("src",src);
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            Log.e("Bitmap","returned");
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Exception",e.getMessage());
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
             return null;
         }
+    }
+
+    public Uri getImageUri(Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
     private void checkUsernameType(User profile) {
         if (profile.getInfluencer() && profile.getCompany()) {

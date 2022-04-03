@@ -24,11 +24,11 @@ public class ModelOffers {
 
     public static final ModelOffers instance = new ModelOffers();
     MutableLiveData<OffersListLoadingState> offersListLoadingState = new MutableLiveData<OffersListLoadingState>();
-    MutableLiveData<List<Offer>> offersList = new MutableLiveData<List<Offer>>();
+    MutableLiveData<List<Offer>> offersListHome = new MutableLiveData<List<Offer>>();
+    MutableLiveData<List<Offer>> offersListMyOffer = new MutableLiveData<List<Offer>>();
     MutableLiveData<OffersListLoadingState> candidatesListLoadingState = new MutableLiveData<OffersListLoadingState>();
     MutableLiveData<List<User>> candidatesList = new MutableLiveData<List<User>>();
     public tokensrefresh tokensrefresh = new tokensrefresh();
-
 
     /**
      * interfaces
@@ -78,13 +78,32 @@ public class ModelOffers {
         return offersListLoadingState;
     }
 
-    public LiveData<List<Offer>> getAll() {
-        if (offersList.getValue() == null) {
+    public LiveData<List<Offer>> getAllOfferFromHome() {
+        if (offersListHome.getValue() == null) {
             refreshPostList();
         }
         ;
-        return offersList;
+        return offersListHome;
     }
+
+    public LiveData<List<Offer>> getAllOfferFromMyOffers() {
+        if (offersListMyOffer.getValue() == null) {
+            refreshPostList();
+        }
+        ;
+        return offersListMyOffer;
+    }
+
+    String pageType;
+
+    public void setPostListForHomeFragment() {
+        pageType = "Home";
+    }
+
+    public void setPostListForMyOffersFragment() {
+        pageType = "MyOffers";
+    }
+
 
     public void refreshPostList() {
         offersListLoadingState.setValue(OffersListLoadingState.loading);
@@ -99,11 +118,16 @@ public class ModelOffers {
         Call<List<Offer>> call = tokensrefresh.retrofitInterface.getoffers("Bearer " + tockenacsses);
         call.enqueue(new Callback<List<Offer>>() {
             @Override
-            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) { //TODO::shows ONLY open status offers
+            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
                 if (response.code() == 200) {
                     List<Offer> stList = response.body();
-                    List<Offer> openOfferLst = updateOpenStatusOffersList(stList);
-                    offersList.postValue(openOfferLst);
+                    if (pageType.equals("Home")) {
+                        List<Offer> openOfferLst = updateOpenStatusOffersList(stList);
+                        offersListHome.postValue(openOfferLst);
+                    } else //pageType.equals("MyOffer")
+                    {
+                        offersListMyOffer.postValue(stList);
+                    }
                     offersListLoadingState.postValue(OffersListLoadingState.loaded);
 
                 } else if (response.code() == 403) {
@@ -115,42 +139,51 @@ public class ModelOffers {
                         public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response1) {
                             List<Offer> stList = response1.body();
                             if (response1.code() == 200) {
-                                List<Offer> openOfferLst = updateOpenStatusOffersList(stList);
-                                offersList.postValue(openOfferLst);
+                                if (pageType.equals("Home")) {
+                                    List<Offer> openOfferLst = updateOpenStatusOffersList(stList);
+                                    offersListHome.postValue(openOfferLst);
+                                } else //pageType.equals("MyOffer")
+                                {
+                                    offersListMyOffer.postValue(stList);
+                                }
                                 offersListLoadingState.postValue(OffersListLoadingState.loaded);
                             } else {
-                                offersList.postValue(null);
+                                offersListHome.postValue(null);
+                                offersListMyOffer.postValue(null);
                                 offersListLoadingState.postValue(OffersListLoadingState.loaded);
                             }
                         }
 
                         @Override
                         public void onFailure(Call<List<Offer>> call, Throwable t) {
-                            offersList.postValue(null);
+                            offersListHome.postValue(null);
+                            offersListMyOffer.postValue(null);
                             offersListLoadingState.postValue(OffersListLoadingState.loaded);
                         }
                     });
 
                 } else {
-                    offersList.postValue(null);
+                    offersListHome.postValue(null);
+                    offersListMyOffer.postValue(null);
                     offersListLoadingState.postValue(OffersListLoadingState.loaded);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Offer>> call, Throwable t) {
-                offersList.postValue(null);
+                offersListHome.postValue(null);
+                offersListMyOffer.postValue(null);
             }
         });
-
 
     }
 
     private List<Offer> updateOpenStatusOffersList(List<Offer> stList) {
         List<Offer> openOfferLst = new LinkedList<>();
         for (int i = 0; i < stList.size(); i++) {
-            if (stList.get(i).getStatus().equals("Open"))
+            if (stList.get(i).getStatus().equals("Open")) {
                 openOfferLst.add(stList.get(i));
+            }
         }
         return openOfferLst;
     }

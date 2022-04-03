@@ -19,6 +19,7 @@ public class offersviewmodel  extends ViewModel {
     public offersviewmodel(){
         data = ModelOffers.instance.getAll();
         data1 = new MutableLiveData<>();
+
     }
     public LiveData<List<Offer>> getData() {
         return data;
@@ -32,14 +33,7 @@ public class offersviewmodel  extends ViewModel {
         return data1;
     }
 
-    public LiveData<List<User>> getCandidates(String offer) {
-        data2 = ModelOffers.instance.getAllCandidates(offer);
-        return data2;
-    }
 
-    public void refreshCandidatesList(String offerId){
-        ModelOffers.instance.refreshCandidatesList(offerId);
-    }
 
 
 }

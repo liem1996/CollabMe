@@ -44,6 +44,7 @@ public class ModelOffers {
     public enum OffersListLoadingState {
         loading,
         loaded
+
     }
 
     public interface GetOfferListener {
@@ -359,74 +360,6 @@ public class ModelOffers {
         });
     }
 
-    public LiveData<OffersListLoadingState> candidatesListLoadingState() {
-        return candidatesListLoadingState;
-    }
 
-    public LiveData<List<User>> getAllCandidates(String offer){
-        if (candidatesList.getValue() == null) { refreshCandidatesList(offer); };
-        return candidatesList;
-    }
-    public void refreshCandidatesList(String offer){
-        candidatesListLoadingState.setValue(OffersListLoadingState.loading);
-
-        tokensrefresh.retroServer();
-
-
-        
-        String tockenacsses = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses", "");
-
-
-        Call<List<User>> call = tokensrefresh.retrofitInterface.getCandidates(offer,"Bearer " + tockenacsses);
-        call.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-
-                if (response.code() == 200) {
-                    List<User> stList = response.body();
-                    candidatesList.postValue(stList);
-                    candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
-
-                } else if (response.code() == 403) {
-                    tokensrefresh.changeAcssesToken();
-                    String tockennew = tokensrefresh.gettockenAcsses();
-                    Call<List<User>> call1 = tokensrefresh.retrofitInterface.getCandidates(offer,"Bearer "+tockennew);
-                    call1.enqueue(new Callback<List<User>>() {
-                        @Override
-                        public void onResponse(Call<List<User>> call, Response<List<User>> response1) {
-                            List<User> stList = response.body();
-                            if (response1.code() == 200) {
-                                candidatesList.postValue(stList);
-                                candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
-                            } else {
-                                candidatesList.postValue(null);
-                                candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<User>> call, Throwable t) {
-                            candidatesList.postValue(null);
-                            candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
-                        }
-                    });
-
-                } else {
-                    candidatesList.postValue(null);
-                    candidatesListLoadingState.postValue(OffersListLoadingState.loaded);
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                candidatesList.postValue(null);
-            }
-        });
-
-
-    }
 
 }

@@ -7,7 +7,7 @@
     tools:context=".HomeOffers.MyOffersFragment">
 
     <ImageView
-        android:id="@+id/image_home_background"
+        android:id="@+id/image_candidate_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_my_offers"

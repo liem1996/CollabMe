@@ -166,6 +166,9 @@
         <action
             android:id="@+id/action_inprogressfragment_to_candidatesFragment"
             app:destination="@id/candidatesFragment" />
+        <action
+            android:id="@+id/action_inprogressfragment_to_fragment_mediaContent"
+            app:destination="@id/fragment_mediaContent" />
     </fragment><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
     <fragment
         android:id="@+id/fragment_Search"
@@ -255,5 +258,9 @@
         android:id="@+id/fragment_mediaContent"
         android:name="com.example.collabme.pagesForOffers.fragment_mediaContent"
         android:label="fragment_media_content"
-        tools:layout="@layout/fragment_media_content" />
+        tools:layout="@layout/fragment_media_content" >
+        <argument
+            android:name="offerId"
+            app:argType="string" />
+    </fragment>
 </navigation>

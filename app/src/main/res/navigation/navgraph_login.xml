@@ -70,48 +70,22 @@
         tools:layout="@layout/fragment_signup">
         <argument
             android:name="username"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="password"
-            app:argType="string" />
-        <argument
-            android:name="influencer"
-            app:argType="boolean" />
-        <argument
-            android:name="company"
-            app:argType="boolean" />
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="email"
-            app:argType="string" />
-        <argument
-            android:name="age"
-            app:argType="string" />
-        <argument
-            android:name="gender"
             app:argType="string"
             app:nullable="true" />
         <action
             android:id="@+id/action_signupFragment2_to_socialmedia"
             app:destination="@id/socialmedia" />
-        <argument
-            android:name="platform"
-            app:argType="string[]"
-            app:nullable="true" />
-        <argument
-            android:name="followers"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="postuploads"
-            app:argType="string"
-            app:nullable="true" />
         <action
             android:id="@+id/action_signupFragment2_to_fragment_login"
             app:destination="@id/fragment_login" />
-        <argument
-            android:name="bitmap"
-            app:argType="android.graphics.Bitmap"
-            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/professionFragment"
@@ -166,4 +140,5 @@
         android:name="com.example.collabme.TheSighUPProcess.fragment_popup_window"
         android:label="fragment_popup_window"
         tools:layout="@layout/fragment_popup_window" />
+    <action android:id="@+id/action_global_signupFragment2" app:destination="@id/signupFragment2" />
 </navigation>

@@ -2,11 +2,8 @@ package com.example.collabme.users;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +25,6 @@ import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 
@@ -44,7 +40,6 @@ public class UserProfile extends Fragment {
     String password;
     Boolean influencer, company;
     ImageView logout;
-    Bitmap bitmap;
     ImageView profilepicture;
 
     @Override
@@ -71,7 +66,7 @@ public class UserProfile extends Fragment {
                 if (profile != null) {
                     ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
                         @Override
-                        public void onComplete(String responseBody) {
+                        public void onComplete(Bitmap responseBody) {
                             checkUsernameType(profile);
                             username.setText(profile.getUsername());
                             age.setText(profile.getAge());
@@ -89,10 +84,11 @@ public class UserProfile extends Fragment {
                             initSpinnerFooter(platformArr.size(), platformArr, platform);
                             initSpinnerFooter(professionsArr.size(), professionsArr, professions);
                             //bitmap = StringToBitMap(responseBody);
-                            //profilepicture.setImageBitmap(bitmap);
-                           // Uri uri = getImageUri(bitmap);
-                            profilepicture.setImageURI(Uri.parse(responseBody));
-                            Picasso.get().load(responseBody).into(profilepicture);
+                            profilepicture.setImageBitmap(responseBody);
+                            //Uri uri = getImageUri(bitmap);
+                            profilepicture.setImageBitmap(responseBody);
+                            Uri uri = profile.getImageUri(responseBody,getActivity());
+                            Picasso.get().load(uri).into(profilepicture);
                         }
                     });
                 }
@@ -130,24 +126,6 @@ public class UserProfile extends Fragment {
     }
 
 
-
-    public Bitmap StringToBitMap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
-    }
-
-    public Uri getImageUri(Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
     private void checkUsernameType(User profile) {
         if (profile.getInfluencer() && profile.getCompany()) {
             usernameType.setText("Influencer & Company profile");

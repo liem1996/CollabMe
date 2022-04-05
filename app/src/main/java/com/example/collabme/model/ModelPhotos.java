@@ -2,6 +2,7 @@ package com.example.collabme.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.example.collabme.objects.tokensrefresh;
 
@@ -29,7 +30,7 @@ public class ModelPhotos {
     }
 
     public interface getimagesfile{
-        void onComplete(String responseBody);
+        void onComplete(Bitmap responseBody);
 
     }
 
@@ -104,7 +105,8 @@ public class ModelPhotos {
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response1) {
                 if (response1.code()==200) {
                     try {
-                        getimagesfile.onComplete(response1.body().string());
+                        Bitmap bitmap =   convertCompressedByteArrayToBitmap(response1.body().bytes());
+                        getimagesfile.onComplete(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -120,6 +122,10 @@ public class ModelPhotos {
 
             }
         });
+    }
+
+    public static Bitmap convertCompressedByteArrayToBitmap(byte[] src){
+        return BitmapFactory.decodeByteArray(src, 0, src.length);
     }
 
 

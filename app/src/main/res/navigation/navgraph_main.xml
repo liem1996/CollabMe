@@ -251,4 +251,9 @@
         android:name="com.example.collabme.pagesForOffers.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/fragment_mediaContent"
+        android:name="com.example.collabme.pagesForOffers.fragment_mediaContent"
+        android:label="fragment_media_content"
+        tools:layout="@layout/fragment_media_content" />
 </navigation>

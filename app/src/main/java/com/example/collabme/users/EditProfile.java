@@ -1,9 +1,15 @@
 package com.example.collabme.users;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +20,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -40,8 +50,12 @@ public class EditProfile extends Fragment {
     boolean[] selectedPlatforms = new boolean[5];
     ArrayList<Integer> langList = new ArrayList<>();
     ArrayList<Integer> langList2 = new ArrayList<>();
-    ImageView logout;
-    ImageButton galleryBtn, cameraBtn, cancelBtn;
+    ImageView logout,profilepicture,galleryBtn;
+    ImageButton  cameraBtn, cancelBtn;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_PIC = 2;
+    Bitmap bitmap;
+
 
     String[] chosen, chosen2;
 
@@ -70,6 +84,7 @@ public class EditProfile extends Fragment {
         saveBtn = view.findViewById(R.id.fragemnt_edituser_saveBtn);
         cancelBtn = view.findViewById(R.id.fragment_edituser_cancelBtn);
         logout = view.findViewById(R.id.fragment_edituser_logoutBtn);
+        profilepicture = view.findViewById(R.id.fragment_edituser_pic);
 
         username1 = EditProfileArgs.fromBundle(getArguments()).getUsername();
         password = EditProfileArgs.fromBundle(getArguments()).getPassword();
@@ -83,6 +98,7 @@ public class EditProfile extends Fragment {
         influencer1 = EditProfileArgs.fromBundle(getArguments()).getInfluencer();
         company1 = EditProfileArgs.fromBundle(getArguments()).getCompany();
 
+
         updateUsernameType(influencer1, company1);
         username.setText(username1);
         age.setText(age1);
@@ -93,7 +109,38 @@ public class EditProfile extends Fragment {
         email.setText(email1);
         gender.setText(gender1);
         gender.setEnabled(false);
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+            @Override
+            public void onComplete(User profile) {
+                if (profile != null) {
+                    ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
+                        @Override
+                        public void onComplete(Bitmap responseBody) {
+                            //Uri uri = getImageUri(bitmap);
+                            if(responseBody!=null) {
+                                profilepicture.setImageBitmap(responseBody);
+                                Uri uri = profile.getImageUri(responseBody, getActivity());
+                                Picasso.get().load(uri).into(profilepicture);
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCam();
+            }
+        });
 
         //deleteBtn
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
@@ -314,19 +361,39 @@ public class EditProfile extends Fragment {
                 user = new User(gender1, password, email1, username.getText().toString(),
                         age.getText().toString(), followers.getText().toString(), postuploads.getText().toString(),
                         company1, influencer1, chosen, chosen2);
+                if(bitmap!=null) {
+                    ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
+                        @Override
+                        public void onComplete(String uri) {
+                            user.setImage(uri);
+                            ModelUsers.instance3.EditUser(user, new ModelUsers.EditUserListener() {
+                                @Override
+                                public void onComplete(int code) {
+                                    if (code == 200) {
+                                        Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
+                                        Navigation.findNavController(v).navigateUp();
+                                    } else {
+                                        Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
+                                    }
 
-                ModelUsers.instance3.EditUser(user, new ModelUsers.EditUserListener() {
-                    @Override
-                    public void onComplete(int code) {
-                        if (code == 200) {
-                            Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(v).navigateUp();
-                        } else {
-                            Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
+                                }
+                            });
                         }
+                    });
+                }else{
+                    ModelUsers.instance3.EditUser(user, new ModelUsers.EditUserListener() {
+                        @Override
+                        public void onComplete(int code) {
+                            if (code == 200) {
+                                Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
+                                Navigation.findNavController(v).navigateUp();
+                            } else {
+                                Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
+                            }
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         });
 
@@ -348,6 +415,41 @@ public class EditProfile extends Fragment {
 
         return view;
         // Inflate the layout for this fragment
+    }
+
+    public void openGallery() {
+        Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
+        photoPicerIntent.setType("image/jpeg");
+        startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
+    }
+
+    public void openCam() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_IMAGE_CAPTURE){
+            if(resultCode == RESULT_OK) {
+                Bundle extras = data.getExtras();
+                bitmap = (Bitmap) extras.get("data");
+            }
+        }else if(requestCode==REQUEST_IMAGE_PIC){
+            if(resultCode==RESULT_OK){
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    bitmap = BitmapFactory.decodeStream(imageStream);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 
     private void toLoginActivity() {

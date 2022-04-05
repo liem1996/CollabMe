@@ -113,17 +113,19 @@ public class EditProfile extends Fragment {
             @Override
             public void onComplete(User profile) {
                 if (profile != null) {
-                    ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
-                        @Override
-                        public void onComplete(Bitmap responseBody) {
-                            //Uri uri = getImageUri(bitmap);
-                            if(responseBody!=null) {
-                                profilepicture.setImageBitmap(responseBody);
-                                Uri uri = profile.getImageUri(responseBody, getActivity());
-                                Picasso.get().load(uri).into(profilepicture);
+                    if(profile.getImage()!=null) {
+                        ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
+                            @Override
+                            public void onComplete(Bitmap responseBody) {
+                                //Uri uri = getImageUri(bitmap);
+                                if (responseBody != null) {
+                                    profilepicture.setImageBitmap(responseBody);
+                                    Uri uri = profile.getImageUri(responseBody, getActivity());
+                                    Picasso.get().load(uri).into(profilepicture);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             }
         });

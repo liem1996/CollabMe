@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,6 +124,8 @@ public class SignupFragment extends Fragment {
             }
         });
 
+
+        /*
         uploads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +133,7 @@ public class SignupFragment extends Fragment {
             }
         });
 
-
+         */
 
         return view;
     }
@@ -142,10 +143,7 @@ public class SignupFragment extends Fragment {
         photoPicerIntent.setType("image/jpeg");
         startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
     }
-    public void openCam() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
-    }
+
 
 
     @Override

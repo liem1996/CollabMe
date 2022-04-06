@@ -3,7 +3,6 @@ package com.example.collabme.search;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -25,23 +22,12 @@ import com.example.collabme.model.ModelSearch;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 
-import java.sql.Array;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 public class Fragment_Search extends Fragment {
@@ -69,12 +55,12 @@ public class Fragment_Search extends Fragment {
         proposer = view.findViewById(R.id.fragment_Search_proposer);
         headline = view.findViewById(R.id.fragment_Search_headline);
         fromdates = view.findViewById(R.id.fragment_Search_fromdates);
-        fromprice = view.findViewById(R.id.fragment_Search_from_price);
-        todates = view.findViewById(R.id.fragment_Search_todates);
-        toprice = view.findViewById(R.id.fragment_Search_toprice);
+        fromprice = view.findViewById(R.id.fragment_Search_from_price_et);
+        todates = view.findViewById(R.id.fragment_Search_todates_et);
+        toprice = view.findViewById(R.id.fragment_Search_toprice_et);
         search = view.findViewById(R.id.fragment_Search_button_search);
         professions = view.findViewById(R.id.fragment_Search_profession);
-        freeSearch = view.findViewById(R.id.fragment_Search_freesearch);
+        freeSearch = view.findViewById(R.id.fragment_Search_freesearch_et);
         freesearchbutton = view.findViewById(R.id.fragment_search_freesearc_btn);
         logout =view.findViewById(R.id.fragment_search_logoutBtn);
 

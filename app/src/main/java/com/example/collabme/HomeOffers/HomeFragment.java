@@ -23,8 +23,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.offersviewmodel;
 import com.facebook.login.LoginManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -173,23 +175,29 @@ public class HomeFragment extends Fragment {
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView Offer_date, Offer_status;
-        TextView headline_offer, username;
-        ImageView imge_x, image_vi, image_offer;
-        ImageButton Editview;
+        TextView offer_date, offer_status;
+        TextView offer_headline, offer_username;
+        ImageView offer_X_imb, offer_V_imb, offer_image;
+        ImageButton offer_edit_imb;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            headline_offer = (TextView) itemView.findViewById(R.id.myoffers_listrow_headline_et);
-            Offer_date = (TextView) itemView.findViewById(R.id.myoffers_listrow_date_et);
-            username = (TextView) itemView.findViewById(R.id.myoffers_listrow_username);
-            image_offer = (ImageView) itemView.findViewById(R.id.myoffers_listrow_image);
-            image_vi = (ImageView) itemView.findViewById(R.id.myoffers_listrow_check);
-            imge_x = (ImageView) itemView.findViewById(R.id.myoffers_listrow_delete);
-            Editview = itemView.findViewById(R.id.fragemnt_item_edit);
+            offer_username = (TextView) itemView.findViewById(R.id.myoffers_listrow_username);
+            offer_headline = (TextView) itemView.findViewById(R.id.myoffers_listrow_headline_et);
+            offer_date = (TextView) itemView.findViewById(R.id.myoffers_listrow_date_et);
+            offer_status = (TextView) itemView.findViewById(R.id.myoffers_listrow_status_et);
+            offer_image = (ImageView) itemView.findViewById(R.id.myoffers_listrow_image);
+            offer_V_imb = (ImageView) itemView.findViewById(R.id.myoffers_listrow_check);
+            offer_X_imb = (ImageView) itemView.findViewById(R.id.myoffers_listrow_delete);
+            offer_edit_imb = itemView.findViewById(R.id.fragemnt_item_edit);
 
+            itemView.setOnClickListener(v -> {
+                int viewId = v.getId();
+                int pos = getAdapterPosition();
+                listener.onItemClick(pos, v, viewId);
+            });
 
-            Editview.setOnClickListener(new View.OnClickListener() {
+            offer_edit_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -198,15 +206,7 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            itemView.setOnClickListener(v -> {
-                int viewId = v.getId();
-                int pos = getAdapterPosition();
-                listener.onItemClick(pos, v, viewId);
-
-            });
-
-
-            imge_x.setOnClickListener(new View.OnClickListener() {
+            offer_X_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int viewid = v.getId();
@@ -214,7 +214,8 @@ public class HomeFragment extends Fragment {
                     itemView.setVisibility(View.GONE);
                 }
             });
-            image_vi.setOnClickListener(new View.OnClickListener() {
+
+            offer_V_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int viewid = v.getId();
@@ -225,14 +226,31 @@ public class HomeFragment extends Fragment {
         }
 
         public void bind(Offer offer) {
-            headline_offer.setText(offer.getHeadline());
-            Offer_date.setText(offer.getFinishDate());
-            username.setText(offer.getUser());
+            offer_username.setText(offer.getUser());
+            offer_headline.setText(offer.getHeadline());
+            offer_date.setText(setValidDate(offer.getFinishDate()));
+            offer_status.setText(offer.getStatus());
+
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    if (!profile.getUsername().equals(offer.getUser()))
+                        offer_edit_imb.setVisibility(View.INVISIBLE);
+                    else {
+                        offer_V_imb.setVisibility(View.INVISIBLE);
+                        offer_X_imb.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
         }
     }
 
+    private String setValidDate(String date){
+        String newDate = date.substring(0,2)+"/"+date.substring(2,4)+"/"+date.substring(4);
+        return newDate;
+    }
 
-    //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
+    //////////////////////////MYYYYYYYY ADAPTERRRRRRRR///////////////////////
     interface OnItemClickListener {
         void onItemClick(int position, View view, int idview);
     }
@@ -275,6 +293,4 @@ public class HomeFragment extends Fragment {
 
         return arrayList;
     }
-
-
 }

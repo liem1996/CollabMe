@@ -103,16 +103,13 @@ public class MyOffersFragment extends Fragment {
                         }
                     });
 
-                }
-                else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
+                } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
                     Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(idoffer));
-                }
-                else
-                {
+                } else {
                     Offer offer = viewModel.getDataMyOffer().getValue().get(position);
                     String offerId = offer.getIdOffer();
                     String status = offer.getStatus();
-                    switch (status){
+                    switch (status) {
                         case "Open":
                             Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToOfferDetailsFragment(offerId));
                             break;
@@ -181,30 +178,21 @@ public class MyOffersFragment extends Fragment {
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
     class MyViewHolderoffers extends RecyclerView.ViewHolder {
-        TextView Offer_date, Offer_status;
-        TextView headline_offer, username;
-        ImageView imge_x, image_vi, image_offer;
-        ImageButton Editview;
+        TextView offer_date, offer_status;
+        TextView offer_headline, offer_username;
+        ImageView offer_X_imb, offer_V_imb, offer_image;
+        ImageButton offer_edit_imb;
 
         public MyViewHolderoffers(@NonNull View itemView) {
             super(itemView);
-            headline_offer = (TextView) itemView.findViewById(R.id.myoffers_listrow_headline_et);
-            Offer_date = (TextView) itemView.findViewById(R.id.myoffers_listrow_date_et);
-            username = (TextView) itemView.findViewById(R.id.myoffers_listrow_username);
-            image_offer = (ImageView) itemView.findViewById(R.id.myoffers_listrow_image);
-            image_vi = (ImageView) itemView.findViewById(R.id.myoffers_listrow_check);
-            imge_x = (ImageView) itemView.findViewById(R.id.myoffers_listrow_delete);
-            Editview = itemView.findViewById(R.id.fragemnt_item_edit);
-
-
-            Editview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    int viewid = v.getId();
-                    listener.onItemClickoffer(position, itemView, viewid);
-                }
-            });
+            offer_username = (TextView) itemView.findViewById(R.id.myoffers_listrow_username);
+            offer_headline = (TextView) itemView.findViewById(R.id.myoffers_listrow_headline_et);
+            offer_date = (TextView) itemView.findViewById(R.id.myoffers_listrow_date_et);
+            offer_status = (TextView) itemView.findViewById(R.id.myoffers_listrow_status_et);
+            offer_image = (ImageView) itemView.findViewById(R.id.myoffers_listrow_image);
+            offer_V_imb = (ImageView) itemView.findViewById(R.id.myoffers_listrow_check);
+            offer_X_imb = (ImageView) itemView.findViewById(R.id.myoffers_listrow_delete);
+            offer_edit_imb = itemView.findViewById(R.id.fragemnt_item_edit);
 
             itemView.setOnClickListener(v -> {
                 int viewId = v.getId();
@@ -213,7 +201,16 @@ public class MyOffersFragment extends Fragment {
 
             });
 
-            imge_x.setOnClickListener(new View.OnClickListener() {
+            offer_edit_imb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    int viewid = v.getId();
+                    listener.onItemClickoffer(position, itemView, viewid);
+                }
+            });
+
+            offer_X_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int viewid = v.getId();
@@ -221,7 +218,7 @@ public class MyOffersFragment extends Fragment {
                     itemView.setVisibility(View.GONE);
                 }
             });
-            image_vi.setOnClickListener(new View.OnClickListener() {
+            offer_V_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int viewid = v.getId();
@@ -229,26 +226,33 @@ public class MyOffersFragment extends Fragment {
                     listener.onItemClickoffer(position, itemView, viewid);
                 }
             });
-
-
         }
 
         public void bindoffer(Offer offer, int pos, View item) {
-            headline_offer.setText(offer.getHeadline());
-            Offer_date.setText(offer.getFinishDate());
-            username.setText(offer.getUser());
+            offer_username.setText(offer.getUser());
+            offer_headline.setText(offer.getHeadline());
+            offer_date.setText(setValidDate(offer.getFinishDate()));
+            offer_status.setText(offer.getStatus());
+
             ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                 @Override
                 public void onComplete(User profile) {
                     if (!profile.getUsername().equals(offer.getUser())) {
                         itemView.setVisibility(View.GONE);
                         //adapter1.offers.remove(offer);
-
+                        offer_edit_imb.setVisibility(View.INVISIBLE);
+                    } else {
+                        offer_V_imb.setVisibility(View.INVISIBLE);
+                        offer_X_imb.setVisibility(View.INVISIBLE);
                     }
                 }
             });
-
         }
+    }
+
+    private String setValidDate(String date){
+        String newDate = date.substring(0,2)+"/"+date.substring(2,4)+"/"+date.substring(4);
+        return newDate;
     }
 
 

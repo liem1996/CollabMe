@@ -91,6 +91,7 @@ public class EditProfile extends Fragment {
         postuploads.setText(posts);
         //platform
         email.setText(email1);
+        email.setEnabled(false);
         gender.setText(gender1);
         gender.setEnabled(false);
 

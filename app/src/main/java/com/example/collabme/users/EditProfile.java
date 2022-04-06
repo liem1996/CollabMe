@@ -437,6 +437,7 @@ public class EditProfile extends Fragment {
             if(resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 bitmap = (Bitmap) extras.get("data");
+                profilepicture.setImageBitmap(bitmap);
             }
         }else if(requestCode==REQUEST_IMAGE_PIC){
             if(resultCode==RESULT_OK){
@@ -444,6 +445,7 @@ public class EditProfile extends Fragment {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     bitmap = BitmapFactory.decodeStream(imageStream);
+                    profilepicture.setImageBitmap(bitmap);
 
                 } catch (Exception e) {
                     e.printStackTrace();

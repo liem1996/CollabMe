@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
        ActionBar actionBar = getSupportActionBar();
        actionBar.hide();
 
-        ////
-
-
         NavigationUI.setupActionBarWithNavController(this, navCtl);
         // this is the main activity
 

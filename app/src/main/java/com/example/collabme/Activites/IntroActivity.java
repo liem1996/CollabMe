@@ -15,7 +15,7 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-       ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
             try {
                 Thread.sleep(3000);
@@ -32,7 +32,6 @@ public class IntroActivity extends AppCompatActivity {
                     }
                 }
             });
-
     }
 
     private void toLoginActivity() {

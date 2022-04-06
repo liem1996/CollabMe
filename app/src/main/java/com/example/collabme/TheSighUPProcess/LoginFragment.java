@@ -3,6 +3,7 @@ package com.example.collabme.TheSighUPProcess;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.ColorSpace;
 import android.media.MediaSession2;
 import android.os.Bundle;
 import android.se.omapi.Session;
@@ -22,6 +23,7 @@ import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.Pop;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.Activites.MainActivity;
@@ -97,8 +99,13 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(int code) {
                 if(code==200) {
-                    toFeedActivity();
-
+                    ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                        @Override
+                        public void onComplete(User profile) {
+                            ModelOffers.instance.refreshPostList();
+                            toFeedActivity();
+                        }
+                    });
                 }
                 else{
                     Toast.makeText(getActivity(), "boo! it failed!", Toast.LENGTH_LONG).show();

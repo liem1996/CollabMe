@@ -59,7 +59,6 @@ public class MyOffersFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_offers, container, false);
 
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
-        ModelOffers.instance.setPostListForMyOffersFragment();
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
 
         logout = view.findViewById(R.id.fragment_myoffers_logoutBtn);
@@ -129,26 +128,20 @@ public class MyOffersFragment extends Fragment {
                     viewModel.deletePost(viewModel.getDataMyOffer().getValue().get(position), () -> {
                        // viewModel.getData().getValue().get(position).setImagePostUrl("0");
                         Model.instance.refreshPostList();
-
-
                     });
-
                  */
-            }
+
                 /*
                 else if(view.findViewById(R.id.myoffers_listrow_delete).getId()==idview){
                     viewModel.deletePost(viewModel.getDataMyOffer().getValue().get(position), () -> {
                        // viewModel.getData().getValue().get(position).setImagePostUrl("0");
                         Model.instance.refreshPostList();
-
-
                     });
                 }
-
                  */
-
+            }
         });
-
+        refresh();
         setHasOptionsMenu(true);
         viewModel.getDataMyOffer().observe(getViewLifecycleOwner(), list4 -> refresh());
         swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
@@ -175,6 +168,7 @@ public class MyOffersFragment extends Fragment {
         adapter1.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
     }
+
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
     class MyViewHolderoffers extends RecyclerView.ViewHolder {
@@ -238,7 +232,6 @@ public class MyOffersFragment extends Fragment {
                 @Override
                 public void onComplete(User profile) {
                     if (!profile.getUsername().equals(offer.getUser())) {
-                        itemView.setVisibility(View.GONE);
                         //adapter1.offers.remove(offer);
                         offer_edit_imb.setVisibility(View.INVISIBLE);
                     } else {
@@ -255,8 +248,8 @@ public class MyOffersFragment extends Fragment {
         return newDate;
     }
 
-
     //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
+
     interface OnItemClickListeneroffers {
         void onItemClickoffer(int position, View view, int idview);
     }
@@ -298,7 +291,6 @@ public class MyOffersFragment extends Fragment {
         for (int i = 0; i < array.size(); i++) {
             arrayList[i] = array.get(i);
         }
-
         return arrayList;
     }
 }

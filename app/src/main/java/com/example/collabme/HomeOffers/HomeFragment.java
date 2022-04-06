@@ -60,8 +60,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         swipeRefresh = view.findViewById(R.id.offers_swiperefresh);
-        ModelOffers.instance.setPostListForHomeFragment();
-        swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+        ModelUsers.instance3.getUserConnect(profile -> swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList));
 
         logout = view.findViewById(R.id.fragment_home_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -77,16 +76,10 @@ public class HomeFragment extends Fragment {
         });
 
         addOfferBtn = view.findViewById(R.id.fragment_home_addOffer_fab);
-        addOfferBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_global_addOfferDetailsFragemnt);
-            }
-        });
+        addOfferBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_global_addOfferDetailsFragemnt));
 
         RecyclerView list = view.findViewById(R.id.offers_rv);
         list.setHasFixedSize(true);
-
         list.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new MyAdapter();
@@ -125,24 +118,18 @@ public class HomeFragment extends Fragment {
                     viewModel.deletePost(viewModel.getDataHome().getValue().get(position), () -> {
                        // viewModel.getDataHome().getValue().get(position).setImagePostUrl("0");
                         Model.instance.refreshPostList();
-
-
                     });
-
                  */
-            }
+
                 /*
                 else if(view.findViewById(R.id.myoffers_listrow_delete).getId()==idview){
                     viewModel.deletePost(viewModel.getDataHome().getValue().get(position), () -> {
                        // viewModel.getDataHome().getValue().get(position).setImagePostUrl("0");
                         Model.instance.refreshPostList();
-
-
                     });
                 }
-
                  */
-
+            }
         });
 
         setHasOptionsMenu(true);
@@ -155,7 +142,6 @@ public class HomeFragment extends Fragment {
                 swipeRefresh.setRefreshing(false);
             }
         });
-
 
         //adapter.notifyDataSetChanged();
 
@@ -172,6 +158,7 @@ public class HomeFragment extends Fragment {
         adapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
     }
+
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -251,6 +238,7 @@ public class HomeFragment extends Fragment {
     }
 
     //////////////////////////MYYYYYYYY ADAPTERRRRRRRR///////////////////////
+
     interface OnItemClickListener {
         void onItemClick(int position, View view, int idview);
     }

@@ -35,15 +35,14 @@ import java.util.UUID;
 
 public class AddOfferDetailsFragemnt extends Fragment {
 
-    boolean goodsign = true;
-    EditText headline,description,finishdate, price;
-    TextView status, candidates,profession,proposer;
+    EditText headline, description, finishdate, price;
+    TextView status, candidates, profession, proposer;
     Button save;
     CheckBox intrestedVerify;
     Offer offer;
     User userConnected;
     boolean[] selectedLanguage;
-    String[] chosenOffers;
+    String[] chosenOffers, dateSplitArr;
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
@@ -68,7 +67,6 @@ public class AddOfferDetailsFragemnt extends Fragment {
         save = view.findViewById(R.id.fragemnt_newoffer_saveBtn);
         logout = view.findViewById(R.id.fragment_newoffer_logoutBtn);
 
-
         status.setText("Open");
 
         selectedLanguage = new boolean[langArray.length];
@@ -78,7 +76,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {
-                if(profile!=null) {
+                if (profile != null) {
                     userConnected = profile;
                     proposer.setText(profile.getUsername());
                 }
@@ -128,7 +126,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
                             // concat array value
                             stringBuilder.append(langArray[langList.get(j)]);
 
-                            chosenOffers[j]=(langArray[langList.get(j)]); //to check again
+                            chosenOffers[j] = (langArray[langList.get(j)]); //to check again
 
                             System.out.println("ko");
                             // check condition
@@ -168,45 +166,30 @@ public class AddOfferDetailsFragemnt extends Fragment {
                 // show dialog
                 builder.show();
             }
-
-
         });
-
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checks();
-
-                if (goodsign){
-                    if (!finishdate.getText().toString().equals("")) {
-                        String[] dates1strings = finishdate.getText().toString().split("/" /*<- Regex */);
-                        date = dates1strings[0] + dates1strings[1] + dates1strings[2];
-                    }
-                    else{
-                        date="";
-                    }
+                if (checkValidDate()) {
                     offer = new Offer(description.getText().toString(), headline.getText().toString(), date,
                             price.getText().toString(), uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername(),
                             intrestedVerify.isChecked());
 
-                ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
-                    @Override
-                    public void onComplete(int code) {
+                    ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
+                        @Override
+                        public void onComplete(int code) {
 
-                        if (code == 200) {
-                            //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
-
-                            Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
-
-                            Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
-
-                        } else {
-                            Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();
+                            if (code == 200) {
+                                //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
+                                Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
+                                Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
+                            } else {
+                                Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                });
-            }
+                    });
+                }
             }
         });
 
@@ -216,11 +199,8 @@ public class AddOfferDetailsFragemnt extends Fragment {
                 Modelauth.instance2.logout(new Modelauth.logout() {
                     @Override
                     public void onComplete(int code) {
-                        if(code==200) {
+                        if (code == 200) {
                             toLoginActivity();
-                        }
-                        else{
-
                         }
                     }
                 });
@@ -229,6 +209,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
 
         return view;
     }
+
     public static boolean isValidFormat(String format, String value) {
         Date date = null;
         try {
@@ -243,20 +224,25 @@ public class AddOfferDetailsFragemnt extends Fragment {
         return date != null;
     }
 
-    public void checks(){
-        if (!isValidFormat("dd/MM/yyyy", finishdate.getText().toString())&&(!finishdate.getText().toString().equals(""))){
+    public boolean checkValidDate() {
+        if (!isValidFormat("dd/MM/yyyy", finishdate.getText().toString()) || (finishdate.getText().toString().equals(""))) {
             Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
-           goodsign=false;
-            return;
-        }else{
-            goodsign = true;
+            return false;
+        } else {
+            dateSplitArr = finishdate.getText().toString().split("/" /*<- Regex */);
+            if (dateSplitArr[0].length() == 2 && dateSplitArr[1].length() == 2 && dateSplitArr[2].length() == 4) {
+                date = dateSplitArr[0] + dateSplitArr[1] + dateSplitArr[2];
+                return true;
+            } else {
+                Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
     }
+
     private void toLoginActivity() {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
     }
-
 }
-

@@ -245,8 +245,8 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private String setValidDate(String date){
-        String newDate = date.substring(0,2)+"/"+date.substring(2,4)+"/"+date.substring(4);
+    private String setValidDate(String date) {
+        String newDate = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);
         return newDate;
     }
 

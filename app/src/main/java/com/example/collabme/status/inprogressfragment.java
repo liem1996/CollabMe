@@ -94,9 +94,6 @@ public class inprogressfragment extends Fragment {
                         if(code==200) {
                             toLoginActivity();
                         }
-                        else{
-
-                        }
                     }
                 });
             }

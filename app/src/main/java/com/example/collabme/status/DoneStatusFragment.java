@@ -62,7 +62,7 @@ public class DoneStatusFragment extends Fragment {
             headline.setText(offer.getHeadline());
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
-            finishDate.setText(offer.getFinishDate());
+            finishDate.setText(setValidDate(offer.getFinishDate()));
             status.setText(offer.getStatus());
             price.setText(offer.getPrice());
             interestedVerify.setChecked(offer.getIntrestedVerify());
@@ -102,6 +102,11 @@ public class DoneStatusFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private String setValidDate(String date){
+        String newDate = date.substring(0,2)+"/"+date.substring(2,4)+"/"+date.substring(4);
+        return newDate;
     }
 
     private void initSpinnerFooter(int size, String[] array, Spinner spinner) {

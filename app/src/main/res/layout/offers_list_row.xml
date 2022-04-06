@@ -30,9 +30,9 @@
 
         <ImageButton
             android:id="@+id/myoffers_listrow_delete"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="8dp"
             android:background="#0000"
@@ -40,15 +40,15 @@
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myoffers_listrow_date_et"
+            app:layout_constraintTop_toBottomOf="@+id/myoffers_listrow_status_et"
             app:srcCompat="@drawable/ic_x" />
 
         <ImageButton
             android:id="@+id/myoffers_listrow_check"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="#0000"
@@ -57,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/myoffers_listrow_delete"
             app:layout_constraintStart_toEndOf="@+id/myoffers_listrow_image"
-            app:layout_constraintTop_toBottomOf="@+id/myoffers_listrow_date_et"
+            app:layout_constraintTop_toBottomOf="@+id/myoffers_listrow_status_tv"
             app:srcCompat="@drawable/ic_check" />
 
         <ImageView
@@ -87,6 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="-5dp"
             android:text="Headline:"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/myoffers_listrow_image"
@@ -109,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="Date:"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/myoffers_listrow_date_et"
@@ -121,13 +122,39 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:text="TextView"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/myoffers_listrow_date_tv"
             app:layout_constraintTop_toBottomOf="@+id/myoffers_listrow_headline_et" />
+
+        <TextView
+            android:id="@+id/myoffers_listrow_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Status:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/myoffers_listrow_status_et"
+            app:layout_constraintStart_toEndOf="@+id/myoffers_listrow_image"
+            app:layout_constraintTop_toBottomOf="@+id/myoffers_listrow_date_tv"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/myoffers_listrow_status_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/myoffers_listrow_status_tv"
+            app:layout_constraintTop_toBottomOf="@+id/myoffers_listrow_date_et" />
 
         <ImageView
             android:id="@+id/myoffers_listrow_image"
@@ -140,10 +167,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_launcher_foreground" />
 
+
+
         <ImageButton
             android:id="@+id/fragemnt_item_edit"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="@+id/imageView3"

@@ -107,23 +107,26 @@ public class EditProfile extends Fragment {
         postuploads.setText(posts);
         //platform
         email.setText(email1);
+        email.setEnabled(false);
         gender.setText(gender1);
         gender.setEnabled(false);
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {
                 if (profile != null) {
-                    ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
-                        @Override
-                        public void onComplete(Bitmap responseBody) {
-                            //Uri uri = getImageUri(bitmap);
-                            if(responseBody!=null) {
-                                profilepicture.setImageBitmap(responseBody);
-                                Uri uri = profile.getImageUri(responseBody, getActivity());
-                                Picasso.get().load(uri).into(profilepicture);
+                    if(profile.getImage()!=null) {
+                        ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
+                            @Override
+                            public void onComplete(Bitmap responseBody) {
+                                //Uri uri = getImageUri(bitmap);
+                                if (responseBody != null) {
+                                    profilepicture.setImageBitmap(responseBody);
+                                    Uri uri = profile.getImageUri(responseBody, getActivity());
+                                    Picasso.get().load(uri).into(profilepicture);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             }
         });

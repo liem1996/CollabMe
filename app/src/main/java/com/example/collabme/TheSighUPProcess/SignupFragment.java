@@ -26,6 +26,7 @@ import androidx.navigation.Navigation;
 import com.example.collabme.R;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
+import com.facebook.login.LoginManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -49,6 +50,8 @@ public class SignupFragment extends Fragment {
     Bitmap imageBitmap;
     String username1,password1,email1,age1, selectedGender1;
     boolean company1,influencer1;
+
+    String facebookUsername, facebookEmail, facebookPassword;
 
 
     @Override
@@ -76,8 +79,21 @@ public class SignupFragment extends Fragment {
         back = view.findViewById(R.id.fragemnt_signup_backbtn);
         uploads = view.findViewById(R.id.fragemnt_signup_uploadbtn);
 
-        signup = view.findViewById(R.id.fragemnt_signup_continuebtn);
+        facebookEmail = SignupFragmentArgs.fromBundle(getArguments()).getEmail();
+        facebookPassword = SignupFragmentArgs.fromBundle(getArguments()).getPassword();
+        facebookUsername = SignupFragmentArgs.fromBundle(getArguments()).getUsername();
 
+        if(facebookUsername!=null && facebookEmail!=null && facebookPassword!=null){
+            username.setText(facebookUsername);
+            password.setText(facebookPassword);
+            email.setText(facebookEmail);
+            username.setEnabled(false);
+            password.setEnabled(false);
+            email.setEnabled(false);
+
+        }
+
+        signup = view.findViewById(R.id.fragemnt_signup_continuebtn);
         signup.setOnClickListener(v -> {
             saveDetails();
             Modelauth.instance2.getUserByUserNameInSignIn(username1, new Modelauth.getUserByUserNameInSignIn() {
@@ -102,16 +118,22 @@ public class SignupFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LoginManager.getInstance().logOut();
+
                 Navigation.findNavController(view).navigate(R.id.action_signupFragment2_to_fragment_login);
             }
         });
 
+
+        /*
         uploads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGallery();
             }
         });
+
+         */
 
         return view;
     }

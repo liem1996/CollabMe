@@ -48,6 +48,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
     ImageView logout;
+    String date;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -178,9 +179,13 @@ public class AddOfferDetailsFragemnt extends Fragment {
                 checks();
 
                 if (goodsign){
-                    String[] dates1strings = finishdate.getText().toString().split("/" /*<- Regex */);
-                    String date=dates1strings[0]+dates1strings[1]+dates1strings[2];
-
+                    if (!finishdate.getText().toString().equals("")) {
+                        String[] dates1strings = finishdate.getText().toString().split("/" /*<- Regex */);
+                        date = dates1strings[0] + dates1strings[1] + dates1strings[2];
+                    }
+                    else{
+                        date="";
+                    }
                     offer = new Offer(description.getText().toString(), headline.getText().toString(), date,
                             price.getText().toString(), uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername(),
                             intrestedVerify.isChecked());

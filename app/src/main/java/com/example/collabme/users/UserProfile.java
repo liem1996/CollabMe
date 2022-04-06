@@ -84,11 +84,14 @@ public class UserProfile extends Fragment {
                             initSpinnerFooter(platformArr.size(), platformArr, platform);
                             initSpinnerFooter(professionsArr.size(), professionsArr, professions);
                             //bitmap = StringToBitMap(responseBody);
-                            profilepicture.setImageBitmap(responseBody);
+
                             //Uri uri = getImageUri(bitmap);
-                            profilepicture.setImageBitmap(responseBody);
-                            Uri uri = profile.getImageUri(responseBody,getActivity());
-                            Picasso.get().load(uri).into(profilepicture);
+                            if(responseBody!=null) {
+                                profilepicture.setImageBitmap(responseBody);
+
+                                Uri uri = profile.getImageUri(responseBody, getActivity());
+                                Picasso.get().load(uri).into(profilepicture);
+                            }
                         }
                     });
                 }

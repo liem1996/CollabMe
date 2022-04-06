@@ -125,7 +125,7 @@ public class SignupFragment extends Fragment {
         });
 
 
-        /*
+
         uploads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +133,7 @@ public class SignupFragment extends Fragment {
             }
         });
 
-         */
+
 
         return view;
     }

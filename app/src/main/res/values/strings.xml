@@ -8,5 +8,8 @@
     <string name="fb_login_protocol_scheme">fb345110900915930</string>
     <string name="facebook_client_token">d29cb1b3329e1363b8902920634c7c84</string>
 
+    <string name="googlepay_button_content_description">Google Pay</string>
+
+
 
 </resources>

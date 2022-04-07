@@ -255,9 +255,14 @@
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" >
         <action
+            android:id="@+id/action_chatFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
             android:id="@+id/action_chatFragment_to_chatFirstPage"
             app:destination="@id/chatFirstPage" />
     </fragment>
+
+        tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/fragment_mediaContent"
         android:name="com.example.collabme.pagesForOffers.fragment_mediaContent"

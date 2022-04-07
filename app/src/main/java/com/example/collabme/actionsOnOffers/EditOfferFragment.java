@@ -2,6 +2,8 @@ package com.example.collabme.actionsOnOffers;
 
 import static android.app.Activity.RESULT_OK;
 
+import static com.example.collabme.actionsOnOffers.AddOfferDetailsFragemnt.isValidFormat;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,7 +45,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 public class EditOfferFragment extends Fragment {
 
     EditText headline, description, finishDate, price;
@@ -51,9 +52,8 @@ public class EditOfferFragment extends Fragment {
     CheckBox interestedVerify;
     Button saveBtn;
     ImageButton candidatesBtn, cancelBtn;
-    String[] professionArr;
-    String[] oldProfession;
-    String oldIdOffer, oldProposer, offerId;
+    String[] professionArr, oldProfession, chosen, newProfession, dateSplitArr;
+    String oldIdOffer, oldProposer, offerId, date;
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
@@ -64,7 +64,7 @@ public class EditOfferFragment extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap imageBitmap;
-
+    ImageView logout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,7 +89,11 @@ public class EditOfferFragment extends Fragment {
         gallery = view.findViewById(R.id.fragemnt_editofferr_gallery2);
         profilepic = view.findViewById(R.id.fragemnt_editoffer_image2);
 
+
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        candidatesBtn.setOnClickListener(v -> Navigation.findNavController(v).
+                navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId)));
+        saveBtn.setOnClickListener(v -> saveOfferDetails(v));
 
 
 
@@ -112,7 +116,7 @@ public class EditOfferFragment extends Fragment {
                 profession.setText(str);
                 headline.setText(offer.getHeadline());
                 description.setText(offer.getDescription());
-                finishDate.setText(offer.getFinishDate());
+                finishDate.setText(setValidDate(offer.getFinishDate()));
                 status.setText(offer.getStatus());
                 price.setText(offer.getPrice());
                 interestedVerify.setChecked(offer.getIntrestedVerify());
@@ -146,6 +150,7 @@ public class EditOfferFragment extends Fragment {
                 }
             }
         });
+
         profession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,9 +173,7 @@ public class EditOfferFragment extends Fragment {
                     }
                 }
 
-
                 builder.setMultiChoiceItems(langArray, selectedProfessions, new DialogInterface.OnMultiChoiceClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                         // check condition
@@ -243,7 +246,6 @@ public class EditOfferFragment extends Fragment {
                 // show dialog
                 builder.show();
             }
-
         });
 
         camra.setOnClickListener(new View.OnClickListener() {
@@ -277,8 +279,6 @@ public class EditOfferFragment extends Fragment {
                     public void onComplete(int code) {
                         if (code == 200) {
                             toLoginActivity();
-                        } else {
-
                         }
                     }
                 });
@@ -286,6 +286,11 @@ public class EditOfferFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private String setValidDate(String date) {
+        String newDate = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);
+        return newDate;
     }
 
     private void saveOfferDetails(View v) {
@@ -300,6 +305,18 @@ public class EditOfferFragment extends Fragment {
         //String coupon1 = coupon.getText().toString();
         boolean interestedVerify1 = interestedVerify.isChecked();
         Offer offer1 = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null, interestedVerify1);
+        if (checkValidDate()) {
+            newProfession = chosen;
+            String headline1 = headline.getText().toString();
+            String description1 = description.getText().toString();
+            String finishDate1 = date;
+            String status1 = status.getText().toString();
+            //String[] profession1 = profession.getText().toString();
+            String price1 = price.getText().toString();
+            //String candidates1 = candidates.getText().toString();
+            //String coupon1 = coupon.getText().toString();
+            boolean interestedVerify1 = interestedVerify.isChecked();
+            Offer offer = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null, interestedVerify1);
 
         Log.d("TAG", "new Offer : " + offer1);
 
@@ -326,11 +343,37 @@ public class EditOfferFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
                 }
+            Log.d("TAG", "new Offer : " + offer);
+            ModelOffers.instance.editOffer(offer, code -> {
+                if (code == 200) {
+                    Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                    Navigation.findNavController(v).navigateUp();
+                } else {
+                    Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
+                }
 
             });
         }
 
 
+            });
+        }
+    }
+
+    public boolean checkValidDate() {
+        if (!isValidFormat("dd/MM/yyyy", finishDate.getText().toString()) || (finishDate.getText().toString().equals(""))) {
+            Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            dateSplitArr = finishDate.getText().toString().split("/" /*<- Regex */);
+            if (dateSplitArr[0].length() == 2 && dateSplitArr[1].length() == 2 && dateSplitArr[2].length() == 4) {
+                date = dateSplitArr[0] + dateSplitArr[1] + dateSplitArr[2];
+                return true;
+            } else {
+                Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
     }
 
     private void initSpinnerFooter(int size, String[] array, Spinner spinner) {

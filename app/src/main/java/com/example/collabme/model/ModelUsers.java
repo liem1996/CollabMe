@@ -7,6 +7,7 @@ import com.example.collabme.objects.MyApplication;
 import com.example.collabme.objects.RetrofitInterface;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
+import com.facebook.login.LoginManager;
 
 import java.util.HashMap;
 
@@ -16,25 +17,31 @@ import retrofit2.Response;
 
 public class ModelUsers {
 
-
     public static final ModelUsers instance3 = new ModelUsers();
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
- //   public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
+    private User userConnected;
+    //   public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
-    public interface getuserconnect{
+    public User getUser() {
+        return userConnected;
+    }
+
+    public interface getuserconnect {
         void onComplete(User profile);
 
     }
-    public interface GetUserByIdListener{
+
+    public interface GetUserByIdListener {
         void onComplete(User profile);
 
     }
 
-    public interface EditUserListener{
+    public interface EditUserListener {
         void onComplete(int code);
 
     }
-    public interface GetUserByUserEmail{
+
+    public interface GetUserByUserEmail {
         void onComplete(User profile);
     }
 
@@ -43,19 +50,20 @@ public class ModelUsers {
 
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
 
-        Call<User> call = tokensrefresh.retrofitInterface.getUser(username1,"Bearer "+tockenacsses);
+        Call<User> call = tokensrefresh.retrofitInterface.getUser(username1, "Bearer " + tockenacsses);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if(response.code()==200) {
-                    getUserByIdListener.onComplete(response.body());
-                }else if (response.code()==403){
+                if (response.code() == 200) {
+                    userConnected = response.body();
+                    getUserByIdListener.onComplete(userConnected);
+                } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
-                    ModelUsers.instance3.getuserbyusername(username1,getUserByIdListener);
-                }else{
+                    ModelUsers.instance3.getuserbyusername(username1, getUserByIdListener);
+                } else {
                     getUserByIdListener.onComplete(null);
                 }
             }
@@ -67,28 +75,32 @@ public class ModelUsers {
         });
     }
 
+    public void setUserConnected(User user) {
+        this.userConnected = user;
+    }
 
     public void getUserConnect(getuserconnect getuserconnect) {
         tokensrefresh.retroServer();
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
-        String username2= MyApplication.getContext()
+        String username2 = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("username","");
+                .getString("username", "");
 
 
-        Call<User> call = tokensrefresh.retrofitInterface.getUser(username2,"Bearer "+tockenacsses);
+        Call<User> call = tokensrefresh.retrofitInterface.getUser(username2, "Bearer " + tockenacsses);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if(response.code()==200) {
-                    getuserconnect.onComplete(response.body());
-                }else if (response.code()==403){
+                if (response.code() == 200) {
+                    userConnected = response.body();
+                    getuserconnect.onComplete(userConnected);
+                } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     ModelUsers.instance3.getUserConnect(getuserconnect);
-                }else{
+                } else {
                     getuserconnect.onComplete(null);
                 }
             }
@@ -100,35 +112,34 @@ public class ModelUsers {
         });
     }
 
-
-    public void EditUser(User profile,EditUserListener editUserListener){
+    public void EditUser(User profile, EditUserListener editUserListener) {
         tokensrefresh.retroServer();
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
         HashMap<String, Object> map = profile.tojson();
 
 
-        Call<User> call = tokensrefresh.retrofitInterface.editUser(profile.getUsername(),"Bearer "+ tockenacsses,map);
+        Call<User> call = tokensrefresh.retrofitInterface.editUser(profile.getUsername(), "Bearer " + tockenacsses, map);
         HashMap<String, Object> finalMap = map;
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d("TAG",""+response);
-                if(response.code()==200) {
+                Log.d("TAG", "" + response);
+                if (response.code() == 200) {
                     editUserListener.onComplete(200);
-                }else if(response.code()==403){
+                } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
-                    ModelUsers.instance3.EditUser(profile,editUserListener);
-                }else{
+                    ModelUsers.instance3.EditUser(profile, editUserListener);
+                } else {
                     editUserListener.onComplete(400);
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d("TAG","not "+t);
+                Log.d("TAG", "not " + t);
 
                 editUserListener.onComplete(400);
             }
@@ -155,24 +166,24 @@ public class ModelUsers {
 //        });
 //    }
 
-    public void getUserByEmail(String email,String token, GetUserByUserEmail getUserByUserEmail) {
+    public void getUserByEmail(String email, String token, GetUserByUserEmail getUserByUserEmail) {
         tokensrefresh.retroServer();
 
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getString("tokenAcsses","");
+                .getString("tokenAcsses", "");
 
 
-        Call<User> call = tokensrefresh.retrofitInterface.getUserByEmail(email,"Bearer "+token);
+        Call<User> call = tokensrefresh.retrofitInterface.getUserByEmail(email, "Bearer " + token);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if(response.code()==200) {
+                if (response.code() == 200) {
                     getUserByUserEmail.onComplete(response.body());
-                }else if (response.code()==403){
+                } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
-                    ModelUsers.instance3.getUserByEmail(email,token,getUserByUserEmail);
-                }else{
+                    ModelUsers.instance3.getUserByEmail(email, token, getUserByUserEmail);
+                } else {
                     getUserByUserEmail.onComplete(null);
                 }
             }
@@ -183,6 +194,4 @@ public class ModelUsers {
             }
         });
     }
-
-
 }

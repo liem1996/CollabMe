@@ -93,8 +93,6 @@ public class DoneStatusFragment extends Fragment {
                     public void onComplete(int code) {
                         if (code == 200) {
                             toLoginActivity();
-                        } else {
-
                         }
                     }
                 });

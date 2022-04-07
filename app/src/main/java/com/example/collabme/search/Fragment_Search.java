@@ -42,8 +42,7 @@ public class Fragment_Search extends Fragment {
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
-    String[] professionArr;
-    String[] chosen;
+    String[] professionArr, chosen;
     boolean goodsign=true;
 
     @Override
@@ -214,9 +213,6 @@ public class Fragment_Search extends Fragment {
                     public void onComplete(int code) {
                         if(code==200) {
                             toLoginActivity();
-                        }
-                        else{
-
                         }
                     }
                 });

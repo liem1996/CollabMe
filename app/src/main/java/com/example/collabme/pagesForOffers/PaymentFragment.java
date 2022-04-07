@@ -63,9 +63,6 @@ public class PaymentFragment extends Fragment {
                         if(code==200) {
                             toLoginActivity();
                         }
-                        else{
-
-                        }
                     }
                 });
             }

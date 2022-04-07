@@ -32,6 +32,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -58,6 +59,9 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-login:latest.release'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.google.android.gms:play-services-wallet:19.1.0'
+
 
 
 }

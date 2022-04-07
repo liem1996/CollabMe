@@ -12,4 +12,11 @@
         android:text="Chat fragment"
         android:textSize="20dp" />
 
+    <Button
+        android:id="@+id/tmp_payment_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="248dp"
+        android:layout_weight="1"
+        android:text="Button" />
+
 </LinearLayout>

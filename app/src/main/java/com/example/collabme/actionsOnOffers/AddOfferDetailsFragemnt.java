@@ -1,5 +1,7 @@
 package com.example.collabme.actionsOnOffers;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -53,12 +55,11 @@ public class AddOfferDetailsFragemnt extends Fragment {
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
-    ImageView logout,camra,gallery,profilepic;
+    ImageView logout,camra,gallery,profilepic;;
     String date;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap imageBitmap;
-
 
 
     @Override
@@ -192,26 +193,17 @@ public class AddOfferDetailsFragemnt extends Fragment {
                             intrestedVerify.isChecked());
 
                     if(imageBitmap!=null) {
-
                         ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
-
                             @Override
                             public void onComplete(String uri) {
-                                offer.setImage(uri);
                                 ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
                                     @Override
                                     public void onComplete(int code) {
-                    ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
-                        @Override
-                        public void onComplete(int code) {
 
                                         if (code == 200) {
                                             //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
-
                                             Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
-
                                             Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
-
                                         } else {
                                             Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();
                                         }
@@ -219,35 +211,21 @@ public class AddOfferDetailsFragemnt extends Fragment {
                                 });
                             }
                         });
-                    }else{
+                    }else {
                         ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
                             @Override
                             public void onComplete(int code) {
 
                                 if (code == 200) {
                                     //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
-
                                     Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
-
                                     Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
-
                                 } else {
                                     Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
                     }
-
-            }
-                            if (code == 200) {
-                                //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
-                                Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
-                                Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
-                            } else {
-                                Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
                 }
             }
         });
@@ -265,7 +243,6 @@ public class AddOfferDetailsFragemnt extends Fragment {
                 });
             }
         });
-
         camra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -279,7 +256,6 @@ public class AddOfferDetailsFragemnt extends Fragment {
                 openGallery();
             }
         });
-
         return view;
     }
 
@@ -319,13 +295,15 @@ public class AddOfferDetailsFragemnt extends Fragment {
         getActivity().finish();
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==REQUEST_IMAGE_CAPTURE){
             if(resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
-               imageBitmap = (Bitmap) extras.get("data");
+                imageBitmap = (Bitmap) extras.get("data");
                 profilepic.setImageBitmap(imageBitmap);
             }
         }else if(requestCode==REQUEST_IMAGE_PIC){
@@ -355,5 +333,5 @@ public class AddOfferDetailsFragemnt extends Fragment {
         startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
     }
 
-}
 
+}

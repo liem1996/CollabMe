@@ -58,13 +58,12 @@ public class EditOfferFragment extends Fragment {
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
     boolean[] selectedProfessions = new boolean[16];
-    String[] chosen;
-    String[] newProfession;
+
     ImageView logout,camra,gallery,profilepic;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap imageBitmap;
-    ImageView logout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -307,56 +306,48 @@ public class EditOfferFragment extends Fragment {
         Offer offer1 = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null, interestedVerify1);
         if (checkValidDate()) {
             newProfession = chosen;
-            String headline1 = headline.getText().toString();
-            String description1 = description.getText().toString();
-            String finishDate1 = date;
-            String status1 = status.getText().toString();
+            String headline2 = headline.getText().toString();
+            String description2 = description.getText().toString();
+            String finishDate2 = date;
+            String status2 = status.getText().toString();
             //String[] profession1 = profession.getText().toString();
-            String price1 = price.getText().toString();
+            String price2 = price.getText().toString();
             //String candidates1 = candidates.getText().toString();
             //String coupon1 = coupon.getText().toString();
-            boolean interestedVerify1 = interestedVerify.isChecked();
-            Offer offer = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null, interestedVerify1);
+            boolean interestedVerify2 = interestedVerify.isChecked();
+            Offer offer = new Offer(description2, headline2, finishDate2, price2, oldIdOffer, status2, newProfession, null, interestedVerify2);
 
-        Log.d("TAG", "new Offer : " + offer1);
+            Log.d("TAG", "new Offer : " + offer1);
 
-        if(imageBitmap!=null) {
-            ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
-                @Override
-                public void onComplete(String uri) {
-                    offer1.setImage(uri);
-                    ModelOffers.instance.editOffer(offer1, code -> {
-                        if (code == 200) {
-                            Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(v).navigateUp();
-                        } else {
-                            Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            });
-        }else{
-            ModelOffers.instance.editOffer(offer1, code -> {
-                if (code == 200) {
-                    Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
-                    Navigation.findNavController(v).navigateUp();
-                } else {
-                    Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
-                }
-            Log.d("TAG", "new Offer : " + offer);
-            ModelOffers.instance.editOffer(offer, code -> {
-                if (code == 200) {
-                    Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
-                    Navigation.findNavController(v).navigateUp();
-                } else {
-                    Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
-                }
+            if (imageBitmap != null) {
+                ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
+                    @Override
+                    public void onComplete(String uri) {
+                        offer1.setImage(uri);
+                        ModelOffers.instance.editOffer(offer1, code -> {
+                            if (code == 200) {
+                                Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                                Navigation.findNavController(v).navigateUp();
+                            } else {
+                                Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                });
+            } else {
+                ModelOffers.instance.editOffer(offer1, code -> {
+                    if (code == 200) {
+                        Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                        Navigation.findNavController(v).navigateUp();
+                    } else {
+                        Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
+                    }
+                    Log.d("TAG", "new Offer : " + offer);
 
-            });
-        }
+                });
 
 
-            });
+            }
         }
     }
 

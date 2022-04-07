@@ -1,4 +1,4 @@
-package com.example.collabme.pagesForOffers;
+package com.example.collabme.Chat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,7 +24,7 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(android.R.layout., container, false);
+        View view = inflater.inflate(R.layout.fragment_chat_first_page, container, false);
 
         tmpPayment = view.findViewById(R.id.tmp_payment_btn);
 

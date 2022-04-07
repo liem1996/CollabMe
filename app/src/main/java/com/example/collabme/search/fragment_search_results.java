@@ -57,9 +57,6 @@ public class fragment_search_results extends Fragment {
                         if(code==200) {
                             toLoginActivity();
                         }
-                        else{
-
-                        }
                     }
                 });
             }

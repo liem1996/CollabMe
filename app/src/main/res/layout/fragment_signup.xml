@@ -7,7 +7,7 @@
     tools:context=".TheSighUPProcess.SignupFragment">
 
     <ImageView
-        android:id="@+id/imageView16"
+        android:id="@+id/image_signup_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_sign_up"
@@ -25,67 +25,74 @@
         app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.302" />
+        app:layout_constraintVertical_bias="0.298" />
 
     <EditText
         android:id="@+id/fragemnt_signup_username"
-        android:layout_width="222dp"
-        android:layout_height="26dp"
+        android:layout_width="180dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.838"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
+        app:layout_constraintVertical_bias="0.386" />
 
     <EditText
         android:id="@+id/fragemnt_signup_email"
-        android:layout_width="228dp"
-        android:layout_height="27dp"
+        android:layout_width="180dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.445" />
 
     <EditText
         android:id="@+id/fragemnt_signup_password"
-        android:layout_width="230dp"
-        android:layout_height="27dp"
+        android:layout_width="180dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.871"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.502" />
 
     <EditText
         android:id="@+id/fragemnt_signup_age"
-        android:layout_width="219dp"
-        android:layout_height="23dp"
+        android:layout_width="180dp"
+        android:layout_height="25dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.555" />
+        app:layout_constraintVertical_bias="0.56" />
 
     <Spinner
         android:id="@+id/fragemnt_signup_gender"
-        android:layout_width="230dp"
-        android:layout_height="36dp"
-        android:background="#F3F3F3"
+        android:layout_width="195dp"
+        android:layout_height="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:drawableRight="@android:drawable/spinner_dropdown_background"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:spinnerMode="dropdown"
+        android:padding="4dp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.801"
+        app:layout_constraintHorizontal_bias="0.72"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        app:layout_constraintVertical_bias="0.646" />
 
     <Button
         android:id="@+id/fragemnt_signup_uploadbtn"

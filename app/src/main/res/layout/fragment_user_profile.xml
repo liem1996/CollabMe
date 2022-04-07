@@ -7,7 +7,7 @@
     tools:context=".users.UserProfile">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/image_userprofile_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_user_profile"
@@ -18,85 +18,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Spinner
-        android:id="@+id/fragemnt_signup_platform"
-        android:layout_width="175dp"
-        android:layout_height="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.762"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.699" />
-
-    <Spinner
-        android:id="@+id/fragemnt_signup_proffesions"
-        android:layout_width="175dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.803"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.508" />
-
-    <Button
-        android:id="@+id/fragemnt_userprofile_create"
-        android:layout_width="115dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#4c266a"
-        android:text="Create an offer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_userprofile_gender" />
-
-    <Button
-        android:id="@+id/fragemnt_userprofile_edit"
-        android:layout_width="115dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#4c266a"
-        android:text="edit profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_userprofile_gender" />
-
-    <Button
-        android:id="@+id/fragment_userprofile_chatbtn"
-        android:layout_width="115dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#4c266a"
-        android:text="chat"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_userprofile_gender" />
-
     <ImageView
         android:id="@+id/fragment_userprofile_pic"
-        android:layout_width="109dp"
-        android:layout_height="90dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:scaleType="fitCenter"
         android:src="@drawable/profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.162"
+        app:layout_constraintHorizontal_bias="0.138"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.271" />
+        app:layout_constraintVertical_bias="0.257"/>
 
     <TextView
         android:id="@+id/fragment_userprofile_usernameType"
         android:layout_width="175dp"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_userprofile_pic"
         app:layout_constraintStart_toEndOf="@+id/fragment_userprofile_pic"
         app:layout_constraintTop_toTopOf="@+id/fragment_userprofile_pic" />
@@ -112,6 +52,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.395" />
+
+    <TextView
+        android:id="@+id/fragment_userprofile_age"
+        android:layout_width="175dp"
+        android:layout_height="25dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.762"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.456" />
+
+    <Spinner
+        android:id="@+id/fragemnt_signup_proffesions"
+        android:layout_width="175dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.803"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.508" />
 
     <TextView
         android:id="@+id/fragment_userprofile_followers"
@@ -137,6 +103,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.637" />
 
+    <Spinner
+        android:id="@+id/fragemnt_signup_platform"
+        android:layout_width="175dp"
+        android:layout_height="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.762"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.699" />
+
     <TextView
         android:id="@+id/fragment_userprofile_email"
         android:layout_width="175dp"
@@ -150,22 +127,9 @@
         app:layout_constraintVertical_bias="0.76" />
 
     <TextView
-        android:id="@+id/fragment_userprofile_age"
-        android:layout_width="175dp"
-        android:layout_height="25dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.762"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.456" />
-
-    <TextView
         android:id="@+id/fragemnt_userprofile_gender"
         android:layout_width="175dp"
         android:layout_height="25dp"
-        android:background="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,10 +144,23 @@
         android:layout_height="40dp"
         android:layout_marginTop="85dp"
         android:layout_marginEnd="16dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/fragemnt_userprofile_editBtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_listrow_edit"
+        app:layout_constraintEnd_toEndOf="@+id/image_userprofile_background"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_userprofile_logoutBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

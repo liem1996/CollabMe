@@ -1,7 +1,13 @@
 package com.example.collabme.TheSighUPProcess;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.ColorSpace;
+import android.media.MediaSession2;
 import android.os.Bundle;
+import android.se.omapi.Session;
+import android.service.textservice.SpellCheckerService;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +23,7 @@ import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.Pop;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.Activites.MainActivity;
@@ -30,6 +37,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginBehavior;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Picasso;
@@ -46,21 +55,31 @@ public class LoginFragment extends Fragment {
     TextView signup, forgotpassword;
     View view;
     LoginButton facebook;
+    //Button facebookOnClick;
     TextView info;
     ImageView profileImg;
     private CallbackManager callbackManager;
     private static final String EMAIL = "email";
     String email="";
     String name = "";
+    String gender = "";
     boolean isCreated = false;
+    String facebookToken;
+    ProfileTracker profileTracker;
+
 
 
     AccessToken accessToken ;
     private void toFeedActivity() {
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        if(getContext() !=null) {
+
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,9 +89,8 @@ public class LoginFragment extends Fragment {
         username = view.findViewById(R.id.fragment_login_username);
         password = view.findViewById(R.id.fragment_login_password);
         forgotpassword = view.findViewById(R.id.fragment_login_forgotpass);
-
         facebook = view.findViewById(R.id.fragment_login_facebook);
-        facebook.setReadPermissions(Arrays.asList(EMAIL));
+        //facebook.setReadPermissions(Arrays.asList(EMAIL));
         facebook.setFragment(this);
 
 
@@ -81,8 +99,13 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(int code) {
                 if(code==200) {
-                    toFeedActivity();
-
+                    ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                        @Override
+                        public void onComplete(User profile) {
+                            ModelOffers.instance.refreshPostList();
+                            toFeedActivity();
+                        }
+                    });
                 }
                 else{
                     Toast.makeText(getActivity(), "boo! it failed!", Toast.LENGTH_LONG).show();
@@ -101,58 +124,59 @@ public class LoginFragment extends Fragment {
 
 
         callbackManager = CallbackManager.Factory.create();
-        facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        //facebook.setLoginBehavior(LoginBehavior.DEVICE_AUTH);
+
+        facebook.setOnClickListener(v -> facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 AccessToken accessToken = loginResult.getAccessToken();
-                ProfileTracker profileTracker;
-                AccessTokenTracker accessTokenTracker;
                 if(Profile.getCurrentProfile() == null) {
+
 
                     profileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                            currentProfile.getName();
                             GraphRequest request = GraphRequest.newMeRequest(
                                     accessToken,
                                     new GraphRequest.GraphJSONObjectCallback() {
                                         @Override
                                         public void onCompleted(@Nullable JSONObject jsonObject, @Nullable GraphResponse graphResponse) {
                                             try {
+                                                if (AccessToken.getCurrentAccessToken() == null) {
+
+                                                    return; // already logged out
+                                                }
                                                 email = jsonObject.getString("email");
                                                 name = jsonObject.getString("name");
                                                 Long id = jsonObject.getLong("id");
-                                               // String token = loginResult.getAccessToken().getToken();
-//                                                Modelauth.instance2.Login(name, "facebook", new Modelauth.loginListener() {
-//                                                    @Override
-//                                                    public void onComplete(int code) {
-//                                                        //Navigation.findNavController(view).navigate(LoginFragmentDirections);
-//                                                        toFeedActivity();
-//                                                    }
-//                                                });
-                                                ModelUsers.instance3.getUserByEmail(email, new ModelUsers.GetUserByUserEmail(){
+                                                //oldProfile.getPictureUri()
+                                                String token = loginResult.getAccessToken().getToken();
+                                                facebookToken = token;
+                                                String username2 = setUsername(email);
 
+                                                Modelauth.instance2.getUserByUserNameInSignIn(username2, new Modelauth.getUserByUserNameInSignIn() {
                                                     @Override
                                                     public void onComplete(User profile) {
                                                         if (profile != null) {
-                                                            Toast.makeText(getContext(), "Your username is taken", Toast.LENGTH_SHORT).show();
-                                                            Modelauth.instance2.Login(name, "facebook", new Modelauth.loginListener() {
+                                                            isCreated=false;
+                                                            Modelauth.instance2.Login(username2, "facebook", new Modelauth.loginListener() {
                                                                 @Override
                                                                 public void onComplete(int code) {
-                                                                    //Navigation.findNavController(view).navigate(LoginFragmentDirections);
                                                                     toFeedActivity();
+                                                                    Toast.makeText(getActivity(), "Welcome to Collab Me!", Toast.LENGTH_LONG).show();
                                                                 }
                                                             });
-                                                            isCreated = true;
+
                                                             return;
                                                         }
-                                                        else if(!isCreated) {
-                                                            Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalSocialmedia(name, "facebook", false,
-                                                                    true, email, "0", "?", null, null, null,null));
+                                                        else {
+//                                                            Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalSocialmedia(username2, "facebook", false,
+//                                                                    true, email, "age", gender, null, null, null,null));
+                                                           // handleSighUp();
+                                                            Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalSignupFragment2(username2,"facebook",email));
                                                         }
                                                     }
                                                 });
-
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -166,72 +190,19 @@ public class LoginFragment extends Fragment {
                         }
                     };
                     profileTracker.startTracking();
-                }else {
-
-                    Profile profile = Profile.getCurrentProfile();
-                    if (profile != null) {
-                        String facebookUserId = profile.getId();
-                        String facebookName = profile.getName();
-                        GraphRequest request = GraphRequest.newMeRequest(
-                                accessToken,
-                                new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(@Nullable JSONObject jsonObject, @Nullable GraphResponse graphResponse) {
-                                        try {
-                                            email = jsonObject.getString("email");
-                                            name = jsonObject.getString("name");
-                                            Long id = jsonObject.getLong("id");
-
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                });
-                        Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,name,email");
-                        request.setParameters(parameters);
-                        request.executeAsync();
-                    }
                 }
 
-                //facebook.setOnClickListener(v -> {
-                    //saveDetails();
-//                    Modelauth.instance2.getUserByEmail(email, new Modelauth.GetUserByUserEmail() {
-//                        @Override
-//                        public void onComplete(User profile) {
-//                            if (profile != null) {
-//                                Toast.makeText(getContext(), "Your username is taken", Toast.LENGTH_SHORT).show();
-//                                isCreated = false;
-//                                return;
-//                            }
-//                           else if(isCreated) {
-//                                Navigation.findNavController(view).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(name, "facebook", false,
-//                                        true, email, "0", "?", null, null, null));
-//                            }
-//                        }
-//                    });
-                //});
-               // Modelauth.instance2.Login(loginResult.getAccessToken().getUserId());
-//                info.setText("User ID: " + loginResult.getAccessToken().getUserId() + "\n" + "Auth Token: " + loginResult.getAccessToken().getToken());
-//                String imageURL = "https://graph.facebook.com/"+loginResult.getAccessToken().getUserId() +"/picture?return_ssl_resources=1";
-//                Picasso.get().load(imageURL).into(profileImg);
-//                accessToken = loginResult.getAccessToken();
-
-                //handleFacebookToken(loginResult.getAccessToken());
-              //  Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalSocialmedia("null","null",false,false,email,"null","null",null,null,null));
-                   //toFeedActivity();
             }
 
             @Override
             public void onCancel() {
-//                info.setText("Login attempt canceled.");
+
             }
 
             @Override
             public void onError(FacebookException e) {
-            //    info.setText("Login attempt failed.");
             }
-        });
+        }));
 
 
         return view;
@@ -272,7 +243,9 @@ public class LoginFragment extends Fragment {
 
     private void handleSighUp() {
 
-        Navigation.findNavController(view).navigate(R.id.action_fragment_login_to_signupFragment2);
+       // Navigation.findNavController(view).navigate(R.id.action_fragment_login_to_signupFragment2);
+       Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalSignupFragment2(null,null,null));
+
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -284,16 +257,28 @@ public class LoginFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        // accessTokenTracker.stopTracking();
-//        profileTracker.stopTracking();
-//    }
-//
-//    public void onStop(){
-//        super.onStop();
-//        accessTokenTracker.stopTracking();
-//        profileTracker.stopTracking();
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // accessTokenTracker.stopTracking();
+        if(profileTracker != null) {
+
+            profileTracker.stopTracking();
+        }
+    }
+
+    public void onStop(){
+        super.onStop();
+        //accessTokenTracker.stopTracking();
+        if(profileTracker != null) {
+            profileTracker.stopTracking();
+        }
+    }
+
+
+    public String setUsername(String email){
+        int index = email.indexOf('@');
+        return email.substring(0,index);
+    }
+
 }

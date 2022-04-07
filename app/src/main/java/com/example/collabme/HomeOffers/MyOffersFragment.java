@@ -54,7 +54,7 @@ public class MyOffersFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_offers,container,false);
+        View view = inflater.inflate(R.layout.fragment_my_offers, container, false);
 
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
@@ -63,15 +63,9 @@ public class MyOffersFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Modelauth.instance2.logout(new Modelauth.logout() {
-                    @Override
-                    public void onComplete(int code) {
-                        if(code==200) {
-                            toLoginActivity();
-                        }
-                        else{
-
-                        }
+                Modelauth.instance2.logout(code -> {
+                    if (code == 200) {
+                        toLoginActivity();
                     }
                 });
             }
@@ -85,73 +79,79 @@ public class MyOffersFragment extends Fragment {
         adapter1 = new MyoffersAdapter();
         list2.setAdapter(adapter1);
 
-        setHasOptionsMenu(true);
-        viewModel.getData().observe(getViewLifecycleOwner(), list4 -> refresh());
-        swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
-        ModelOffers.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
-            if (PostsListLoadingState == ModelOffers.OffersListLoadingState.loading){
-                swipeRefresh.setRefreshing(true);
-            }else{
-                swipeRefresh.setRefreshing(false);
-            }
-
-        });
-
-
-        adapter1.setListener(new  OnItemClickListeneroffers() {
+        adapter1.setListener(new OnItemClickListeneroffers() {
             @Override
-            public void onItemClickoffer(int position, View view,int idview) {
-                idoffer = viewModel.getData().getValue().get(position).getIdOffer();
+            public void onItemClickoffer(int position, View view, int idview) {
+                idoffer = viewModel.getDataMyOffer().getValue().get(position).getIdOffer();
 
-                if(view.findViewById(R.id.fragemnt_item_edit).getId()==idview) {
-                    Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(idoffer));
-                }
-
-                if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview) {
-                    Offer offer =viewModel.getData().getValue().get(position);
+                if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
+                    Offer offer = viewModel.getDataMyOffer().getValue().get(position);
                     List<String> arrayList = new LinkedList<>();
-                    arrayList= offer.setusersandadd(viewModel.getData().getValue().get(position).getUsers(),viewModel.getData().getValue().get(position).getUser());
+                    arrayList = offer.setusersandadd(viewModel.getDataMyOffer().getValue().get(position).getUsers(), viewModel.getDataMyOffer().getValue().get(position).getUser());
                     offer.setUsers(ChangeToArray(arrayList));
                     ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
                         @Override
                         public void onComplete(int code) {
-                            if(code==200){
+                            if (code == 200) {
                                 Toast.makeText(getActivity(), "yay i did it ", Toast.LENGTH_LONG).show();
-
-                            }else{
+                            } else {
                                 Toast.makeText(getActivity(), "bozzz off", Toast.LENGTH_LONG).show();
-
                             }
                         }
                     });
 
+                } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
+                    Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(idoffer));
+                } else {
+                    Offer offer = viewModel.getDataMyOffer().getValue().get(position);
+                    String offerId = offer.getIdOffer();
+                    String status = offer.getStatus();
+                    switch (status) {
+                        case "Open":
+                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToOfferDetailsFragment(offerId));
+                            break;
+                        case "InProgress":
+                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToInprogressfragment(offerId));
+                            break;
+                        case "Close":
+                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToCloseStatusfragment(offerId));
+                            break;
+                        case "Done":
+                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToDoneStatusFragment(offerId));
+                            break;
+                    }
                 }
                 /*
                 else if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview){
-                    viewModel.deletePost(viewModel.getData().getValue().get(position), () -> {
+                    viewModel.deletePost(viewModel.getDataMyOffer().getValue().get(position), () -> {
                        // viewModel.getData().getValue().get(position).setImagePostUrl("0");
                         Model.instance.refreshPostList();
-
-
                     });
-
                  */
-            }
+
                 /*
                 else if(view.findViewById(R.id.myoffers_listrow_delete).getId()==idview){
-                    viewModel.deletePost(viewModel.getData().getValue().get(position), () -> {
+                    viewModel.deletePost(viewModel.getDataMyOffer().getValue().get(position), () -> {
                        // viewModel.getData().getValue().get(position).setImagePostUrl("0");
                         Model.instance.refreshPostList();
-
-
                     });
                 }
-
                  */
-
+            }
+        });
+        refresh();
+        setHasOptionsMenu(true);
+        viewModel.getDataMyOffer().observe(getViewLifecycleOwner(), list4 -> refresh());
+        swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
+        ModelOffers.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
+            if (PostsListLoadingState == ModelOffers.OffersListLoadingState.loading) {
+                swipeRefresh.setRefreshing(true);
+            } else {
+                swipeRefresh.setRefreshing(false);
+            }
         });
 
-        adapter1.notifyDataSetChanged();
+        //adapter1.notifyDataSetChanged();
 
         return view;
     }
@@ -166,36 +166,43 @@ public class MyOffersFragment extends Fragment {
         adapter1.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
     }
+
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
-    class MyViewHolderoffers extends RecyclerView.ViewHolder{
-        TextView Offer_date,Offer_status;
-        TextView headline_offer,username;
-        ImageView imge_x, image_vi,image_offer;
-        ImageButton Editview;
+    class MyViewHolderoffers extends RecyclerView.ViewHolder {
+        TextView offer_date, offer_status;
+        TextView offer_headline, offer_username;
+        ImageView offer_X_imb, offer_V_imb, offer_image;
+        ImageButton offer_edit_imb;
 
         public MyViewHolderoffers(@NonNull View itemView) {
             super(itemView);
-            headline_offer=(TextView)itemView.findViewById(R.id.myoffers_listrow_headline_et);
-            Offer_date=(TextView)itemView.findViewById(R.id.myoffers_listrow_date_et);
-            username=(TextView)itemView.findViewById(R.id.myoffers_listrow_username);
-            image_offer =(ImageView)itemView.findViewById(R.id.myoffers_listrow_image);
-            image_vi =(ImageView)itemView.findViewById(R.id.myoffers_listrow_check);
-            imge_x =(ImageView)itemView.findViewById(R.id.myoffers_listrow_delete);
-            Editview = itemView.findViewById(R.id.fragemnt_item_edit);
+            offer_username = (TextView) itemView.findViewById(R.id.myoffers_listrow_username);
+            offer_headline = (TextView) itemView.findViewById(R.id.myoffers_listrow_headline_et);
+            offer_date = (TextView) itemView.findViewById(R.id.myoffers_listrow_date_et);
+            offer_status = (TextView) itemView.findViewById(R.id.myoffers_listrow_status_et);
+            offer_image = (ImageView) itemView.findViewById(R.id.myoffers_listrow_image);
+            offer_V_imb = (ImageView) itemView.findViewById(R.id.myoffers_listrow_check);
+            offer_X_imb = (ImageView) itemView.findViewById(R.id.myoffers_listrow_delete);
+            offer_edit_imb = itemView.findViewById(R.id.fragemnt_item_edit);
 
+            itemView.setOnClickListener(v -> {
+                int viewId = v.getId();
+                int pos = getAdapterPosition();
+                listener.onItemClickoffer(pos, v, viewId);
 
-            Editview.setOnClickListener(new View.OnClickListener() {
+            });
+
+            offer_edit_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     int viewid = v.getId();
-                    listener.onItemClickoffer(position,itemView,viewid);
+                    listener.onItemClickoffer(position, itemView, viewid);
                 }
             });
 
-
-            imge_x.setOnClickListener(new View.OnClickListener() {
+            offer_X_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int viewid = v.getId();
@@ -203,44 +210,52 @@ public class MyOffersFragment extends Fragment {
                     itemView.setVisibility(View.GONE);
                 }
             });
-            image_vi.setOnClickListener(new View.OnClickListener() {
+            offer_V_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
-                    listener.onItemClickoffer(position,itemView,viewid);
+                    listener.onItemClickoffer(position, itemView, viewid);
                 }
             });
-
-
-
         }
-        public void bindoffer(Offer offer,int pos,View item){
-            headline_offer.setText(offer.getHeadline());
-            Offer_date.setText(offer.getFinishDate());
-            username.setText(offer.getUser());
+
+        public void bindoffer(Offer offer, int pos, View item) {
+            offer_username.setText(offer.getUser());
+            offer_headline.setText(offer.getHeadline());
+            offer_date.setText(setValidDate(offer.getFinishDate()));
+            offer_status.setText(offer.getStatus());
+
             ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                 @Override
                 public void onComplete(User profile) {
-                    if(!profile.getUsername().equals(offer.getUser())) {
-                        itemView.setVisibility(View.GONE);
+                    if (!profile.getUsername().equals(offer.getUser())) {
                         //adapter1.offers.remove(offer);
-
+                        offer_edit_imb.setVisibility(View.INVISIBLE);
+                    } else {
+                        offer_V_imb.setVisibility(View.INVISIBLE);
+                        offer_X_imb.setVisibility(View.INVISIBLE);
                     }
                 }
             });
-
         }
     }
 
+    private String setValidDate(String date) {
+        String newDate = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);
+        return newDate;
+    }
 
     //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
-    interface OnItemClickListeneroffers{
-        void onItemClickoffer(int position,View view,int idview);
+
+    interface OnItemClickListeneroffers {
+        void onItemClickoffer(int position, View view, int idview);
     }
-    class MyoffersAdapter extends RecyclerView.Adapter<MyViewHolderoffers>{
+
+    class MyoffersAdapter extends RecyclerView.Adapter<MyViewHolderoffers> {
         List<Offer> offers = new LinkedList<>();
         View view;
+
         public void setListener(OnItemClickListeneroffers listener1) {
             listener = listener1;
         }
@@ -248,37 +263,32 @@ public class MyOffersFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolderoffers onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-             view = getLayoutInflater().inflate(R.layout.offers_list_row,parent,false);
+            view = getLayoutInflater().inflate(R.layout.offers_list_row, parent, false);
             MyViewHolderoffers holder = new MyViewHolderoffers(view);
             return holder;
         }
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolderoffers holder, int position) {
-            offers = viewModel.getData().getValue();
+            offers = viewModel.getDataMyOffer().getValue();
             Offer offer = offers.get(position);
-            holder.bindoffer(offer,position,view);
+            holder.bindoffer(offer, position, view);
         }
 
         @Override
         public int getItemCount() {
-            if(viewModel.getData().getValue() == null){
+            if (viewModel.getDataMyOffer().getValue() == null) {
                 return 0;
             }
-            return viewModel.getData().getValue().size();
+            return viewModel.getDataMyOffer().getValue().size();
         }
-
-
     }
 
-    public String [] ChangeToArray(List<String> array){
-        String [] arrayList = new String [array.size()];
-        for(int i=0;i<array.size();i++){
-            arrayList[i]=array.get(i);
+    public String[] ChangeToArray(List<String> array) {
+        String[] arrayList = new String[array.size()];
+        for (int i = 0; i < array.size(); i++) {
+            arrayList[i] = array.get(i);
         }
-
         return arrayList;
     }
-
-
 }

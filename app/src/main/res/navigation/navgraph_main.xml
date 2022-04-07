@@ -45,9 +45,6 @@
         <action
             android:id="@+id/action_userProfile_to_editProfile2"
             app:destination="@id/editProfile" />
-        <action
-            android:id="@+id/action_userProfile_to_addOfferDetailsFragemnt"
-            app:destination="@id/addOfferDetailsFragemnt" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -63,6 +60,9 @@
         <action
             android:id="@+id/action_homeFragment_to_offerDetailsFragment"
             app:destination="@id/offerDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addOfferDetailsFragemnt"
+            app:destination="@id/addOfferDetailsFragemnt" />
 
     </fragment>
     <fragment
@@ -147,7 +147,11 @@
         android:id="@+id/closeStatusfragment"
         android:name="com.example.collabme.status.CloseStatusfragment"
         android:label="fragment_close_statusfragment"
-        tools:layout="@layout/fragment_close_statusfragment" />
+        tools:layout="@layout/fragment_close_statusfragment" >
+        <argument
+            android:name="offerId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/inprogressfragment"
         android:name="com.example.collabme.status.inprogressfragment"
@@ -162,6 +166,9 @@
         <action
             android:id="@+id/action_inprogressfragment_to_candidatesFragment"
             app:destination="@id/candidatesFragment" />
+        <action
+            android:id="@+id/action_inprogressfragment_to_fragment_mediaContent"
+            app:destination="@id/fragment_mediaContent" />
     </fragment><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
     <fragment
         android:id="@+id/fragment_Search"
@@ -219,6 +226,18 @@
         <argument
             android:name="offerid"
             app:argType="string" />
+        <action
+            android:id="@+id/action_myOffersFragment_to_doneStatusFragment"
+            app:destination="@id/doneStatusFragment" />
+        <action
+            android:id="@+id/action_myOffersFragment_to_closeStatusfragment"
+            app:destination="@id/closeStatusfragment" />
+        <action
+            android:id="@+id/action_myOffersFragment_to_inprogressfragment"
+            app:destination="@id/inprogressfragment" />
+        <action
+            android:id="@+id/action_myOffersFragment_to_offerDetailsFragment"
+            app:destination="@id/offerDetailsFragment" />
     </fragment><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
     <fragment
         android:id="@+id/fragment_search_results"
@@ -238,5 +257,16 @@
         <action
             android:id="@+id/action_chatFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
+    </fragment>
+
+        tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/fragment_mediaContent"
+        android:name="com.example.collabme.pagesForOffers.fragment_mediaContent"
+        android:label="fragment_media_content"
+        tools:layout="@layout/fragment_media_content" >
+        <argument
+            android:name="offerId"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -26,9 +26,8 @@ import androidx.navigation.Navigation;
 import com.example.collabme.R;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
+import com.facebook.login.LoginManager;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +48,8 @@ public class SignupFragment extends Fragment {
     Bitmap imageBitmap;
     String username1,password1,email1,age1, selectedGender1;
     boolean company1,influencer1;
+
+    String facebookUsername, facebookEmail, facebookPassword;
 
 
     @Override
@@ -76,8 +77,21 @@ public class SignupFragment extends Fragment {
         back = view.findViewById(R.id.fragemnt_signup_backbtn);
         uploads = view.findViewById(R.id.fragemnt_signup_uploadbtn);
 
-        signup = view.findViewById(R.id.fragemnt_signup_continuebtn);
+        facebookEmail = SignupFragmentArgs.fromBundle(getArguments()).getEmail();
+        facebookPassword = SignupFragmentArgs.fromBundle(getArguments()).getPassword();
+        facebookUsername = SignupFragmentArgs.fromBundle(getArguments()).getUsername();
 
+        if(facebookUsername!=null && facebookEmail!=null && facebookPassword!=null){
+            username.setText(facebookUsername);
+            password.setText(facebookPassword);
+            email.setText(facebookEmail);
+            username.setEnabled(false);
+            password.setEnabled(false);
+            email.setEnabled(false);
+
+        }
+
+        signup = view.findViewById(R.id.fragemnt_signup_continuebtn);
         signup.setOnClickListener(v -> {
             saveDetails();
             Modelauth.instance2.getUserByUserNameInSignIn(username1, new Modelauth.getUserByUserNameInSignIn() {
@@ -102,9 +116,13 @@ public class SignupFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LoginManager.getInstance().logOut();
+
                 Navigation.findNavController(view).navigate(R.id.action_signupFragment2_to_fragment_login);
             }
         });
+
+
 
         uploads.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +130,8 @@ public class SignupFragment extends Fragment {
                 openGallery();
             }
         });
+
+
 
         return view;
     }
@@ -148,23 +168,6 @@ public class SignupFragment extends Fragment {
     }
 
 
-    public byte[] getBytes(InputStream is) throws IOException {
-        ByteArrayOutputStream byteBuff = new ByteArrayOutputStream();
-
-        int buffSize = 1024;
-        byte[] buff = new byte[buffSize];
-
-        int len = 0;
-        while ((len = is.read(buff)) != -1) {
-            byteBuff.write(buff, 0, len);
-        }
-
-        return byteBuff.toByteArray();
-    }
-
-
-
-
 
     private void saveDetails() {
         username1 = username.getText().toString();
@@ -196,7 +199,7 @@ public class SignupFragment extends Fragment {
         gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(25);
+                ((TextView) parent.getChildAt(0)).setTextSize(20);
                 selectedGender = items[position];
             }
 

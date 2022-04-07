@@ -23,6 +23,5 @@ public class LoginActivity extends AppCompatActivity {
         actionBar.hide();
 
         NavigationUI.setupActionBarWithNavController(this, navCtl);
-
     }
 }

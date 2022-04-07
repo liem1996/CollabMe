@@ -1,0 +1,117 @@
+package com.example.collabme.model;
+
+import android.content.Context;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.collabme.objects.MyApplication;
+import com.example.collabme.objects.User;
+import com.example.collabme.objects.tokensrefresh;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ModelCandidates {
+
+    public static final ModelCandidates instance2 = new ModelCandidates();
+    MutableLiveData<candidatelistloding> candidatesListLoadingState = new MutableLiveData<ModelCandidates.candidatelistloding>();
+    MutableLiveData<List<User>> candidatesList = new MutableLiveData<List<User>>();
+    public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
+
+    public ModelCandidates() {
+        candidatesListLoadingState.setValue(candidatelistloding.loaded);
+        ;
+    }
+
+    public enum candidatelistloding {
+        loading,
+        loaded
+
+    }
+
+
+    /**
+     *
+     * the section of the offers
+     * add
+     * edit
+     * get
+     * refreshomepage
+     */
+
+    public LiveData<candidatelistloding> getcandidateslistloding() {
+        return candidatesListLoadingState;
+    }
+
+    public LiveData<List<User>> getAll(String offerid) {
+        if (candidatesList.getValue() == null) {
+            refreshPostList(offerid);
+        }
+        ;
+        return candidatesList;
+    }
+
+    public void refreshPostList(String offerid) {
+        candidatesListLoadingState.setValue(candidatelistloding.loading);
+
+        tokensrefresh.retroServer();
+
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses", "");
+
+
+        Call<List<User>> call = tokensrefresh.retrofitInterface.getCandidates(offerid,"Bearer " + tockenacsses);
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) { //TODO::shows ONLY open status offers
+                if (response.code() == 200) {
+                    List<User> stList = response.body();
+                    candidatesList.postValue(stList);
+                    candidatesListLoadingState.postValue(candidatelistloding.loaded);
+
+                } else if (response.code() == 403) {
+                    tokensrefresh.changeAcssesToken();
+                    String tockennew = tokensrefresh.gettockenAcsses();
+                    Call<List<User>> call1 = tokensrefresh.retrofitInterface.getCandidates(offerid,"Bearer " + tockennew);
+                    call1.enqueue(new Callback<List<User>>() {
+                        @Override
+                        public void onResponse(Call<List<User>> call, Response<List<User>> response1) {
+                            List<User> stList = response1.body();
+                            if (response1.code() == 200) {
+                                List<User> stList2 = response.body();
+                                candidatesList.postValue(stList2);
+                                candidatesListLoadingState.postValue(candidatelistloding.loaded);
+                            } else {
+                                candidatesList.postValue(null);
+                                candidatesListLoadingState.postValue(candidatelistloding.loaded);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<User>> call, Throwable t) {
+                            candidatesList.postValue(null);
+                            candidatesListLoadingState.postValue(candidatelistloding.loaded);
+                        }
+                    });
+
+                } else {
+                    candidatesList.postValue(null);
+                    candidatesListLoadingState.postValue(candidatelistloding.loaded);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                candidatesList.postValue(null);
+            }
+        });
+
+
+    }
+
+}

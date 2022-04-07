@@ -254,4 +254,77 @@ public class Modelauth {
 //        });
     }
 
+
+//
+//
+//    public void loginWithFacebook(String username,String password,loginListener Login){
+//        tokensrefresh.retroServer();
+//
+//        HashMap<String, String> map = new HashMap<>();
+//        map.put("Username", username);
+//        map.put("Password", password);
+//        username1=username;
+//
+//        Call<tokenrespone> call = tokensrefresh.retrofitInterface.executeLogin(map);
+//        call.enqueue(new Callback<tokenrespone>() {
+//            @Override
+//            public void onResponse(Call<tokenrespone> call, Response<tokenrespone> response) {
+//                if (response.code() == 200) {
+//                    String tokenResponse = response.body().getaccessToken();
+//                    String tokenrefresh = response.body().getrefreshToken();
+//                    MyApplication.getContext()
+//                            .getSharedPreferences("TAG",Context.MODE_PRIVATE)
+//                            .edit()
+//                            .putString("tokenAcsses",tokenResponse)
+//                            .commit();
+//                    MyApplication.getContext()
+//                            .getSharedPreferences("TAG1",Context.MODE_PRIVATE)
+//                            .edit()
+//                            .putString("tokenrefresh",tokenrefresh)
+//                            .commit();
+//                    MyApplication.getContext()
+//                            .getSharedPreferences("TAG",Context.MODE_PRIVATE)
+//                            .edit()
+//                            .putString("username",username1)
+//                            .commit();
+//                    Login.onComplete(200);
+//
+//                } else  {
+//                    Login.onComplete(400);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(retrofit2.Call<tokenrespone> call, Throwable t) {
+//                Login.onComplete(400);
+//            }
+//
+//        });
+//
+//
+//
+//    }
+
+//    public void signupWithFacebook(User profile ,signupListener sighup) {
+//        tokensrefresh.retroServer();
+//        HashMap<String, Object> map = new HashMap<>();
+//        map = profile.tojson();
+//        Call<Void> call = tokensrefresh.retrofitInterface.signupWithFacebook(map);
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.code() == 200) {
+//                    sighup.onComplete(200);
+//                } else {
+//                    sighup.onComplete(400);
+//
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                sighup.onComplete(400);
+//            }
+//        });
+//    }
+
 }

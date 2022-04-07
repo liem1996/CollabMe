@@ -251,9 +251,13 @@
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.example.collabme.pagesForOffers.ChatFragment"
+        android:name="com.example.collabme.Chat.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_chatFirstPage"
+            app:destination="@id/chatFirstPage" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_mediaContent"
         android:name="com.example.collabme.pagesForOffers.fragment_mediaContent"
@@ -261,6 +265,27 @@
         tools:layout="@layout/fragment_media_content" >
         <argument
             android:name="offerId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFirstPage"
+        android:name="com.example.collabme.Chat.ChatFirstPage"
+        android:label="fragment_chat_first_page"
+        tools:layout="@layout/fragment_chat_first_page" >
+        <action
+            android:id="@+id/action_chatFirstPage_to_chatConnectionFragment"
+            app:destination="@id/chatConnectionFragment" />
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatConnectionFragment"
+        android:name="com.example.collabme.Chat.ChatConnectionFragment"
+        android:label="fragment_chat_connection"
+        tools:layout="@layout/fragment_chat_connection" >
+        <argument
+            android:name="username"
             app:argType="string" />
     </fragment>
 </navigation>

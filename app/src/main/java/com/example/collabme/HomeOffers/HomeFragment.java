@@ -92,14 +92,20 @@ public class HomeFragment extends Fragment {
 
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
                     Offer offer = viewModel.getDataHome().getValue().get(position);
-                    List<String> arrayList = new LinkedList<>();
-                    arrayList = offer.setusersandadd(viewModel.getDataHome().getValue().get(position).getUsers(), viewModel.getDataHome().getValue().get(position).getUser());
-                    offer.setUsers(ChangeToArray(arrayList));
                     ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
                         @Override
                         public void onComplete(int code) {
                             if (code == 200) {
-                                Toast.makeText(getActivity(), "yay i did it ", Toast.LENGTH_LONG).show();
+                                ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                                    @Override
+                                    public void onComplete(User profile) {
+                                        List<String> arrayList = new LinkedList<>();
+                                        arrayList = offer.setusersandadd(viewModel.getDataHome().getValue().get(position).getUsers(), profile.getUsername());
+                                        offer.setUsers(ChangeToArray(arrayList));
+                                        Toast.makeText(getActivity(), "you are a candidate", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
                             } else {
                                 Toast.makeText(getActivity(), "bozzz off", Toast.LENGTH_LONG).show();
                             }

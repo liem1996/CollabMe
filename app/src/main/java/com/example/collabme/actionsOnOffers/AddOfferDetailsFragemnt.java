@@ -1,9 +1,15 @@
 package com.example.collabme.actionsOnOffers;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +20,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,8 +56,13 @@ public class AddOfferDetailsFragemnt extends Fragment {
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
-    ImageView logout;
+    ImageView logout,camra,gallery,profilepic;
     String date;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_PIC = 2;
+    Bitmap imageBitmap;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +78,10 @@ public class AddOfferDetailsFragemnt extends Fragment {
         profession = view.findViewById(R.id.fragment_addoffer_profession);
         candidates = view.findViewById(R.id.fragment_newoffer_candidates);
         price = view.findViewById(R.id.fragemnt_newoffer_price);
+        camra = view.findViewById(R.id.fragemnt_newoffer_camra);
+        gallery = view.findViewById(R.id.fragemnt_newoffer_gallery);
         intrestedVerify = view.findViewById(R.id.fragemnt_newoffer_checkbox);
+        profilepic = view.findViewById(R.id.fragemnt_newoffer_image);
         save = view.findViewById(R.id.fragemnt_newoffer_saveBtn);
         logout = view.findViewById(R.id.fragment_newoffer_logoutBtn);
 
@@ -190,22 +207,50 @@ public class AddOfferDetailsFragemnt extends Fragment {
                             price.getText().toString(), uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername(),
                             intrestedVerify.isChecked());
 
-                ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
-                    @Override
-                    public void onComplete(int code) {
+                    if(imageBitmap!=null) {
 
-                        if (code == 200) {
-                            //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
+                        ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
 
-                            Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
+                            @Override
+                            public void onComplete(String uri) {
+                                offer.setImage(uri);
+                                ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
+                                    @Override
+                                    public void onComplete(int code) {
 
-                            Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
+                                        if (code == 200) {
+                                            //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
 
-                        } else {
-                            Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();
-                        }
+                                            Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
+
+                                            Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
+
+                                        } else {
+                                            Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }else{
+                        ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
+                            @Override
+                            public void onComplete(int code) {
+
+                                if (code == 200) {
+                                    //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
+
+                                    Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
+
+                                    Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
+
+                                } else {
+                                    Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
                     }
-                });
+
             }
             }
         });
@@ -224,6 +269,20 @@ public class AddOfferDetailsFragemnt extends Fragment {
                         }
                     }
                 });
+            }
+        });
+
+        camra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCam();
+            }
+        });
+
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
             }
         });
 
@@ -256,6 +315,42 @@ public class AddOfferDetailsFragemnt extends Fragment {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_IMAGE_CAPTURE){
+            if(resultCode == RESULT_OK) {
+                Bundle extras = data.getExtras();
+               imageBitmap = (Bitmap) extras.get("data");
+                profilepic.setImageBitmap(imageBitmap);
+            }
+        }else if(requestCode==REQUEST_IMAGE_PIC){
+            if(resultCode==RESULT_OK){
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    imageBitmap = BitmapFactory.decodeStream(imageStream);
+                    profilepic.setImageBitmap(imageBitmap);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    public void openGallery() {
+        Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
+        photoPicerIntent.setType("image/jpeg");
+        startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
+    }
+
+    public void openCam() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
     }
 
 }

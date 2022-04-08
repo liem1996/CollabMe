@@ -84,5 +84,6 @@ public interface RetrofitInterface {
     @GET("/users/getUser/getUserByEmail/{email}")
     Call<User> getUserByEmail(@Path("email") String email,@Header("authorization") String token);
 
-
+    @GET("/candidates/getoffersofUsers/{username}")
+    Call<List<Offer>> getUserOffersByOffersCandidates(@Path("username") String username, @Header("authorization") String token);
 }

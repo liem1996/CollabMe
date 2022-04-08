@@ -209,7 +209,7 @@ public class ModelOffers {
                 .getString("tokenAcsses", "");
 
         Call<Offer> call = tokensrefresh.retrofitInterface.executenewOffer(map, "Bearer " + tockenacsses);
-        Map<String, Object> finalMap = map;
+
         call.enqueue(new Callback<Offer>() {
             @Override
             public void onResponse(Call<Offer> call, Response<Offer> response) {

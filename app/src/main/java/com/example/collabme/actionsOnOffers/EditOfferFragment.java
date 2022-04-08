@@ -1,11 +1,17 @@
 package com.example.collabme.actionsOnOffers;
 
+import static android.app.Activity.RESULT_OK;
+
 import static com.example.collabme.actionsOnOffers.AddOfferDetailsFragemnt.isValidFormat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +27,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -48,7 +58,12 @@ public class EditOfferFragment extends Fragment {
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
     boolean[] selectedProfessions = new boolean[16];
-    ImageView logout;
+
+    ImageView logout,camra,gallery,profilepic;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_PIC = 2;
+    Bitmap imageBitmap;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,11 +84,17 @@ public class EditOfferFragment extends Fragment {
         newProfession = new String[16];
         offerId = EditOfferFragmentArgs.fromBundle(getArguments()).getOfferId();
         logout = view.findViewById(R.id.fragment_editOffer_logoutBtn);
+        camra = view.findViewById(R.id.fragemnt_editoffer_camra2);
+        gallery = view.findViewById(R.id.fragemnt_editofferr_gallery2);
+        profilepic = view.findViewById(R.id.fragemnt_editoffer_image2);
+
 
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         candidatesBtn.setOnClickListener(v -> Navigation.findNavController(v).
                 navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId)));
         saveBtn.setOnClickListener(v -> saveOfferDetails(v));
+
+
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
             if (offer != null) {
@@ -113,7 +134,19 @@ public class EditOfferFragment extends Fragment {
 //                    }
 //                });
                 professionArr = offer.getProfession();
-
+                if (offer.getImage() != null) {
+                    ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
+                        @Override
+                        public void onComplete(Bitmap responseBody) {
+                            //Uri uri = getImageUri(bitmap);
+                            if (responseBody != null) {
+                                profilepic.setImageBitmap(responseBody);
+                                Uri uri = offer.getImageUri(responseBody, getActivity());
+                                Picasso.get().load(uri).into(profilepic);
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -214,6 +247,29 @@ public class EditOfferFragment extends Fragment {
             }
         });
 
+        camra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCam();
+            }
+        });
+
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
+        candidatesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId));
+            }
+        });
+
+        saveBtn.setOnClickListener(v -> saveOfferDetails(v));
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,29 +293,61 @@ public class EditOfferFragment extends Fragment {
     }
 
     private void saveOfferDetails(View v) {
+        newProfession = chosen;
+        String headline1 = headline.getText().toString();
+        String description1 = description.getText().toString();
+        String finishDate1 = finishDate.getText().toString();
+        String status1 = status.getText().toString();
+        //String[] profession1 = profession.getText().toString();
+        String price1 = price.getText().toString();
+        //String candidates1 = candidates.getText().toString();
+        //String coupon1 = coupon.getText().toString();
+        boolean interestedVerify1 = interestedVerify.isChecked();
+        Offer offer1 = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null, interestedVerify1);
         if (checkValidDate()) {
             newProfession = chosen;
-            String headline1 = headline.getText().toString();
-            String description1 = description.getText().toString();
-            String finishDate1 = date;
-            String status1 = status.getText().toString();
+            String headline2 = headline.getText().toString();
+            String description2 = description.getText().toString();
+            String finishDate2 = date;
+            String status2 = status.getText().toString();
             //String[] profession1 = profession.getText().toString();
-            String price1 = price.getText().toString();
+            String price2 = price.getText().toString();
             //String candidates1 = candidates.getText().toString();
             //String coupon1 = coupon.getText().toString();
-            boolean interestedVerify1 = interestedVerify.isChecked();
-            Offer offer = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null, interestedVerify1);
+            boolean interestedVerify2 = interestedVerify.isChecked();
+            Offer offer = new Offer(description2, headline2, finishDate2, price2, oldIdOffer, status2, newProfession, null, interestedVerify2);
 
-            Log.d("TAG", "new Offer : " + offer);
-            ModelOffers.instance.editOffer(offer, code -> {
-                if (code == 200) {
-                    Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
-                    Navigation.findNavController(v).navigateUp();
-                } else {
-                    Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
-                }
+            Log.d("TAG", "new Offer : " + offer1);
 
-            });
+            if (imageBitmap != null) {
+                ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
+                    @Override
+                    public void onComplete(String uri) {
+                        offer1.setImage(uri);
+                        ModelOffers.instance.editOffer(offer1, code -> {
+                            if (code == 200) {
+                                Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                                Navigation.findNavController(v).navigateUp();
+                            } else {
+                                Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                });
+            } else {
+                ModelOffers.instance.editOffer(offer1, code -> {
+                    if (code == 200) {
+                        Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                        Navigation.findNavController(v).navigateUp();
+                    } else {
+                        Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
+                    }
+                    Log.d("TAG", "new Offer : " + offer);
+
+                });
+
+
+            }
         }
     }
 
@@ -310,4 +398,41 @@ public class EditOfferFragment extends Fragment {
         startActivity(intent);
         getActivity().finish();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_IMAGE_CAPTURE){
+            if(resultCode == RESULT_OK) {
+                Bundle extras = data.getExtras();
+                imageBitmap = (Bitmap) extras.get("data");
+                profilepic.setImageBitmap(imageBitmap);
+            }
+        }else if(requestCode==REQUEST_IMAGE_PIC){
+            if(resultCode==RESULT_OK){
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    imageBitmap = BitmapFactory.decodeStream(imageStream);
+                    profilepic.setImageBitmap(imageBitmap);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    public void openGallery() {
+        Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
+        photoPicerIntent.setType("image/jpeg");
+        startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
+    }
+
+    public void openCam() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
+    }
+
 }

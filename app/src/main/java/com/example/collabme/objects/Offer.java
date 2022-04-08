@@ -53,6 +53,10 @@ public class Offer implements Parcelable{
     @Expose
     private boolean delete;
 
+    @SerializedName("Image")
+    @Expose
+    String  image;
+
     protected Offer(Parcel in) {
         description = in.readString();
         headline = in.readString();
@@ -80,6 +84,14 @@ public class Offer implements Parcelable{
         dest.writeStringArray(users);
         dest.writeByte((byte) (intrestedVerify ? 1 : 0));
         dest.writeByte((byte) (delete ? 1 : 0));
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
@@ -247,11 +259,13 @@ public class Offer implements Parcelable{
         String[] profession =(String[]) json.get("Profession");
         String user = (String) json.get("User");
         String [] users = (String[]) json.get("Users");
+        String bitmap = (String) json.get("Image");
         boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
         boolean delete = (boolean) json.get("Isdelete");
         Offer offer = new Offer(description,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
         offer.setdelete(delete);
         offer.setUsers(users);
+        offer.setImage(bitmap);
 
         return offer;
     }
@@ -269,6 +283,7 @@ public class Offer implements Parcelable{
         json.put("IntrestedVerify", intrestedVerify);
         json.put("Isdelete", delete);
         json.put("Users", users);
+        json.put("Image", image);
         return json;
     }
 

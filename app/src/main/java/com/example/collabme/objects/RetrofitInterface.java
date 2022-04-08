@@ -23,12 +23,8 @@ public interface RetrofitInterface {
     @POST("/image/upload")
     Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
 
-
-
     @GET("/image/file/{filename}")
     Call<ResponseBody> getimage(@Path("filename") String namefile);
-
-
 
     @GET("/users/getUser/{username}")
     Call<User> getUser(@Path("username") String username,@Header("authorization") String token);

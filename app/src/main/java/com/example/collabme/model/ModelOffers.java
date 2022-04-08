@@ -168,8 +168,7 @@ public class ModelOffers {
                 @Override
                 public void onComplete(User profile) {
                     ModelUsers.instance3.setUserConnected(profile);
-                    String username = ModelUsers.instance3.getUser().getUsername();
-                    getUserOffersByOfferCandidates(username);
+                    getUserOffersByOfferCandidates(profile.getUsername());
                 }
             });
         }

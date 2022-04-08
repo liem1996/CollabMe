@@ -155,11 +155,50 @@ public class ModelOffers {
     }
 
     private void updateOfferLists(){
-        List<Offer> openOfferLst = updateOpenStatusOffersList(allOffersList);
-        offersListHome.postValue(openOfferLst);
-        List<Offer> myOffersLst = updateMyOfferList(allOffersList);
-        offersListMyOffer.postValue(myOffersLst);
+        updateOpenStatusOffersList(allOffersList);
+        updateMyOfferList(allOffersList);
         offersListLoadingState.postValue(OffersListLoadingState.loaded);
+    }
+
+    private void updateOpenStatusOffersList(List<Offer> stList) {
+        List<Offer> openOfferLst = new LinkedList<>();
+        for (int i = 0; i < stList.size(); i++) {
+            if (stList.get(i).getStatus().equals("Open")) {
+                openOfferLst.add(stList.get(i));
+            }
+        }
+        offersListHome.postValue(openOfferLst);
+    }
+
+    public void updateMyOfferList(List<Offer> stList) {
+        List<Offer> myOfferLst = new LinkedList<>();
+
+        updateUserConnectedAndUserCandidateList();
+        if (ModelUsers.instance3.getUser() == null) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    ModelUsers.instance3.setUserConnected(profile);
+                    getUserOffersByOfferCandidates(profile.getUsername());
+                    for (int i = 0; i < stList.size(); i++) {
+                        if (profile.getUsername().equals(stList.get(i).getUser())) {
+                            myOfferLst.add(stList.get(i));
+                        }
+                    }
+                    offersListMyOffer.postValue(myOfferLst);
+                }
+            });
+        }
+        else
+        {
+            String userConnected = ModelUsers.instance3.getUser().getUsername();
+            for (int i = 0; i < stList.size(); i++) {
+                if (userConnected.equals(stList.get(i).getUser())) {
+                    myOfferLst.add(stList.get(i));
+                }
+            }
+            offersListMyOffer.postValue(myOfferLst);
+        }
     }
 
     private void updateUserConnectedAndUserCandidateList() {
@@ -172,31 +211,6 @@ public class ModelOffers {
                 }
             });
         }
-    }
-
-    private List<Offer> updateOpenStatusOffersList(List<Offer> stList) {
-        List<Offer> openOfferLst = new LinkedList<>();
-        for (int i = 0; i < stList.size(); i++) {
-            if (stList.get(i).getStatus().equals("Open")) {
-                openOfferLst.add(stList.get(i));
-            }
-        }
-        return openOfferLst;
-    }
-
-    public List<Offer> updateMyOfferList(List<Offer> stList) {
-        List<Offer> myOfferLst = new LinkedList<>();
-
-        updateUserConnectedAndUserCandidateList();
-        User userConnected = ModelUsers.instance3.getUser();
-
-        for (int i = 0; i < stList.size(); i++) {
-            if (userConnected.getUsername().equals(stList.get(i).getUser())) {
-                myOfferLst.add(stList.get(i));
-            }
-        }
-        offersListMyOffer.postValue(myOfferLst);
-        return myOfferLst;
     }
 
     public void addOffer(Offer offer, ModelOffers.addOfferListener addOffer) {

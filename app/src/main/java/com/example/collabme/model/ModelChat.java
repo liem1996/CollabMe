@@ -1,7 +1,5 @@
 package com.example.collabme.model;
 
-import com.example.collabme.objects.tokensrefresh;
-
 import java.net.URISyntaxException;
 
 import io.socket.client.IO;
@@ -10,25 +8,31 @@ import io.socket.client.Socket;
 public class ModelChat {
 
     public static final ModelChat instance2 = new ModelChat();
-    public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
 
+    Socket socket;
 
     public interface ListentoSocke {
         void onComplete(int code);
     }
 
-    public void ChatFuctionWithSocke(String username,ListentoSocke listentoSocke){
-         Socket socket;
+    public interface returnMessege {
+        void onComplete(String messege);
+    }
+
+    public void ChatFuctionWithSocke(String username, ListentoSocke listentoSocke) {
 
         try {
-        //if you are using a phone device you should connect to same local network as your laptop and disable your pubic firewall as well
 
-            socket = IO.socket("http://10.0.2.2:4000");
+            socket = IO.socket("http://10.0.2.2:5000");
             //create connection
             socket.connect();
 
-        // emit the event join along side with the nickname
-           socket.emit("join",username);
+            // emit the event join along side with the nickname
+            socket.emit("join", username);
+
+
+
+            listentoSocke.onComplete(200);
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -37,6 +41,10 @@ public class ModelChat {
 
     }
 
+    public void textingbetwen(String username,ListentoSocke listentoSocke){
+        socket.emit("messagedetection",username);
+
+    }
 
 
 }

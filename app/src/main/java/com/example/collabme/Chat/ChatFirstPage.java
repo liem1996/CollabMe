@@ -40,6 +40,7 @@ public class ChatFirstPage extends Fragment {
 
     private void tochatActivity() {
         Intent intent = new Intent(getContext(), ChatActivity.class);
+        intent.putExtra("name",nickname.getText().toString());
         startActivity(intent);
         getActivity().finish();
     }

@@ -64,8 +64,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
         public ReceivedMessageHolder(@NonNull View itemView) {
             super(itemView);
 
-            nameTxt = itemView.findViewById(R.id.nameTxt);
-            messageTxt = itemView.findViewById(R.id.receivedTxt);
+            nameTxt = itemView.findViewById(R.id.nameTxt1);
+            messageTxt = itemView.findViewById(R.id.receivedTxt1);
         }
     }
 
@@ -77,8 +77,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
         public ReceivedImageHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.imageView);
-            nameTxt = itemView.findViewById(R.id.nameTxt);
+            imageView = itemView.findViewById(R.id.imageView2);
+            nameTxt = itemView.findViewById(R.id.nameTxt2);
 
         }
     }
@@ -148,17 +148,16 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
         try {
             if (message.getBoolean("isSent")) {
-
                 if (message.has("message")) {
 
                     SentMessageHolder messageHolder = (SentMessageHolder) holder;
+
                     messageHolder.messageTxt.setText(message.getString("message"));
 
                 } else {
 
                     SentImageHolder imageHolder = (SentImageHolder) holder;
                     Bitmap bitmap = getBitmapFromString(message.getString("image"));
-
                     imageHolder.imageView.setImageBitmap(bitmap);
 
                 }
@@ -175,7 +174,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
                     ReceivedImageHolder imageHolder = (ReceivedImageHolder) holder;
                     imageHolder.nameTxt.setText(message.getString("name"));
-
                     Bitmap bitmap = getBitmapFromString(message.getString("image"));
                     imageHolder.imageView.setImageBitmap(bitmap);
 

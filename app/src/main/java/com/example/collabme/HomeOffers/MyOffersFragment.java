@@ -30,6 +30,7 @@ import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.offersviewmodel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,8 +42,8 @@ public class MyOffersFragment extends Fragment {
     OnItemClickListeneroffers listener;
     ImageView imagePostFrame, logout;
     offersviewmodel viewModel;
-    String idoffer;
-    String stUsername;
+    String offerId;
+    Offer offer;
     ArrayList<Offer> offers = new ArrayList<>();
 
     @Override
@@ -73,7 +74,6 @@ public class MyOffersFragment extends Fragment {
 
         RecyclerView list2 = view.findViewById(R.id.myoffers_rv);
         list2.setHasFixedSize(true);
-
         list2.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter1 = new MyoffersAdapter();
@@ -82,29 +82,18 @@ public class MyOffersFragment extends Fragment {
         adapter1.setListener(new OnItemClickListeneroffers() {
             @Override
             public void onItemClickoffer(int position, View view, int idview) {
-                idoffer = viewModel.getDataMyOffer().getValue().get(position).getIdOffer();
+                offerId = viewModel.getDataMyOffer().getValue().get(position).getIdOffer();
+                offer = viewModel.getDataMyOffer().getValue().get(position);
 
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
-                    Offer offer = viewModel.getDataMyOffer().getValue().get(position);
-                    List<String> arrayList = new LinkedList<>();
-                    arrayList = offer.setusersandadd(viewModel.getDataMyOffer().getValue().get(position).getUsers(), viewModel.getDataMyOffer().getValue().get(position).getUser());
-                    offer.setUsers(ChangeToArray(arrayList));
-                    ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
-                        @Override
-                        public void onComplete(int code) {
-                            if (code == 200) {
-                                Toast.makeText(getActivity(), "yay i did it ", Toast.LENGTH_LONG).show();
-                            } else {
-                                Toast.makeText(getActivity(), "bozzz off", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
+                    offerCheckClicked(position);
+                } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
+                    List<Offer> homeOfferLst = viewModel.getDataMyOffer().getValue();
+                    homeOfferLst.remove(offer);
+                    refresh();
                 } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
-                    Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(idoffer));
+                    Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(offerId));
                 } else {
-                    Offer offer = viewModel.getDataMyOffer().getValue().get(position);
-                    String offerId = offer.getIdOffer();
                     String status = offer.getStatus();
                     switch (status) {
                         case "Open":
@@ -121,22 +110,6 @@ public class MyOffersFragment extends Fragment {
                             break;
                     }
                 }
-                /*
-                else if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview){
-                    viewModel.deletePost(viewModel.getDataMyOffer().getValue().get(position), () -> {
-                       // viewModel.getData().getValue().get(position).setImagePostUrl("0");
-                        Model.instance.refreshPostList();
-                    });
-                 */
-
-                /*
-                else if(view.findViewById(R.id.myoffers_listrow_delete).getId()==idview){
-                    viewModel.deletePost(viewModel.getDataMyOffer().getValue().get(position), () -> {
-                       // viewModel.getData().getValue().get(position).setImagePostUrl("0");
-                        Model.instance.refreshPostList();
-                    });
-                }
-                 */
             }
         });
         refresh();
@@ -154,6 +127,24 @@ public class MyOffersFragment extends Fragment {
         //adapter1.notifyDataSetChanged();
 
         return view;
+    }
+
+    private void offerCheckClicked(int position) {
+        List<String> arrayList = new LinkedList<>();
+        String userConnected = ModelUsers.instance3.getUser().getUsername();
+        arrayList = offer.setusersandadd(viewModel.getDataMyOffer().getValue().get(position).getUsers(), userConnected);
+        offer.setUsers(ChangeToArray(arrayList));
+        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+            @Override
+            public void onComplete(int code) {
+                if (code == 200) {
+                    Toast.makeText(getActivity(), "offer updated!", Toast.LENGTH_LONG).show();
+                    refresh();
+                } else {
+                    Toast.makeText(getActivity(), "error updating offer!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void toLoginActivity() {
@@ -190,7 +181,6 @@ public class MyOffersFragment extends Fragment {
                 int viewId = v.getId();
                 int pos = getAdapterPosition();
                 listener.onItemClickoffer(pos, v, viewId);
-
             });
 
             offer_edit_imb.setOnClickListener(new View.OnClickListener() {

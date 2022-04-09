@@ -42,8 +42,8 @@ public class HomeFragment extends Fragment {
     OnItemClickListener listener;
     ImageView imagePostFrame, logout;
     offersviewmodel viewModel;
-    String idoffer;
-    String stUsername;
+    String offerId;
+    Offer offer;
     ArrayList<Offer> offers = new ArrayList<>();
     FloatingActionButton addOfferBtn;
 
@@ -88,53 +88,20 @@ public class HomeFragment extends Fragment {
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, int idview) {
-                idoffer = viewModel.getDataHome().getValue().get(position).getIdOffer();
+                offerId = viewModel.getDataHome().getValue().get(position).getIdOffer();
+                offer = viewModel.getDataHome().getValue().get(position);
 
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
-                    Offer offer = viewModel.getDataHome().getValue().get(position);
-                    ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
-                        @Override
-                        public void onComplete(int code) {
-                            if (code == 200) {
-                                ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-                                    @Override
-                                    public void onComplete(User profile) {
-                                        List<String> arrayList = new LinkedList<>();
-                                        arrayList = offer.setusersandadd(viewModel.getDataHome().getValue().get(position).getUsers(), profile.getUsername());
-                                        offer.setUsers(ChangeToArray(arrayList));
-                                        Toast.makeText(getActivity(), "you are a candidate", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-                            } else {
-                                Toast.makeText(getActivity(), "bozzz off", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
+                    offerCheckClicked(position);
+                } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
+                    List<Offer> homeOfferLst = viewModel.getDataMyOffer().getValue();
+                    homeOfferLst.remove(offer);
+                    refresh();
                 } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
-                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
+                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(offerId));
                 } else {
-                    Offer offer = viewModel.getDataHome().getValue().get(position);
-                    String offerId = offer.getIdOffer();
                     Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToOfferDetailsFragment(offerId));
                 }
-                /*
-                else if(view.findViewById(R.id.myoffers_listrow_check).getId()==idview){
-                    viewModel.deletePost(viewModel.getDataHome().getValue().get(position), () -> {
-                       // viewModel.getDataHome().getValue().get(position).setImagePostUrl("0");
-                        Model.instance.refreshPostList();
-                    });
-                 */
-
-                /*
-                else if(view.findViewById(R.id.myoffers_listrow_delete).getId()==idview){
-                    viewModel.deletePost(viewModel.getDataHome().getValue().get(position), () -> {
-                       // viewModel.getDataHome().getValue().get(position).setImagePostUrl("0");
-                        Model.instance.refreshPostList();
-                    });
-                }
-                 */
             }
         });
 
@@ -152,6 +119,24 @@ public class HomeFragment extends Fragment {
         //adapter.notifyDataSetChanged();
 
         return view;
+    }
+
+    private void offerCheckClicked(int position) {
+        List<String> arrayList = new LinkedList<>();
+        String userConnected = ModelUsers.instance3.getUser().getUsername();
+        arrayList = offer.setusersandadd(viewModel.getDataHome().getValue().get(position).getUsers(), userConnected);
+        offer.setUsers(ChangeToArray(arrayList));
+        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+            @Override
+            public void onComplete(int code) {
+                if (code == 200) {
+                    Toast.makeText(getActivity(), "offer updated!", Toast.LENGTH_LONG).show();
+                    refresh();
+                } else {
+                    Toast.makeText(getActivity(), "error updating offer!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void toLoginActivity() {
@@ -232,6 +217,14 @@ public class HomeFragment extends Fragment {
                     else {
                         offer_V_imb.setVisibility(View.INVISIBLE);
                         offer_X_imb.setVisibility(View.INVISIBLE);
+                    }
+
+                    String[] offerCandidates = offer.getUsers();
+                    for (int i = 0; i < offerCandidates.length; i++) {
+                        if (offerCandidates[i].equals(profile.getUsername())) {
+                            offer_V_imb.setVisibility(View.INVISIBLE);
+                            break;
+                        }
                     }
                 }
             });

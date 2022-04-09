@@ -31,6 +31,7 @@ public class ModelOffers {
     MutableLiveData<List<User>> candidatesList = new MutableLiveData<List<User>>();
     public tokensrefresh tokensrefresh = new tokensrefresh();
     private List<Offer> allOffersList = new LinkedList<>();
+    private List<Offer> userOfferCandidates = new LinkedList<>();
 
     /**
      * interfaces
@@ -66,7 +67,7 @@ public class ModelOffers {
      * add
      * edit
      * get
-     * refreshomepage
+     * refresh
      */
 
     public LiveData<OffersListLoadingState> getoffersListLoadingState() {
@@ -93,10 +94,12 @@ public class ModelOffers {
         return allOffersList;
     }
 
+    public List<Offer> getAllOfferCandidatesList() { return userOfferCandidates; }
+
     public void refreshPostList() {
         offersListLoadingState.setValue(OffersListLoadingState.loading);
 
-        updateUserConnected();
+        updateUserConnectedAndUserCandidateList();
 
         tokensrefresh.retroServer();
         String tockenacsses = MyApplication.getContext()
@@ -152,47 +155,62 @@ public class ModelOffers {
     }
 
     private void updateOfferLists(){
-        List<Offer> openOfferLst = updateOpenStatusOffersList(allOffersList);
-        offersListHome.postValue(openOfferLst);
-        List<Offer> myOffersLst = updateMyOfferList(allOffersList);
-        offersListMyOffer.postValue(myOffersLst);
+        updateOpenStatusOffersList(allOffersList);
+        updateMyOfferList(allOffersList);
         offersListLoadingState.postValue(OffersListLoadingState.loaded);
     }
 
-    private void updateUserConnected() {
-        if (ModelUsers.instance3.getUser() == null) {
-            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-                @Override
-                public void onComplete(User profile) {
-                    ModelUsers.instance3.setUserConnected(profile);
-                }
-            });
-        }
-    }
-
-    private List<Offer> updateOpenStatusOffersList(List<Offer> stList) {
+    private void updateOpenStatusOffersList(List<Offer> stList) {
         List<Offer> openOfferLst = new LinkedList<>();
         for (int i = 0; i < stList.size(); i++) {
             if (stList.get(i).getStatus().equals("Open")) {
                 openOfferLst.add(stList.get(i));
             }
         }
-        return openOfferLst;
+        offersListHome.postValue(openOfferLst);
     }
 
-    public List<Offer> updateMyOfferList(List<Offer> stList) {
+    public void updateMyOfferList(List<Offer> stList) {
         List<Offer> myOfferLst = new LinkedList<>();
 
-        updateUserConnected();
-        User userConnected = ModelUsers.instance3.getUser();
-
-        for (int i = 0; i < stList.size(); i++) {
-            if (userConnected.getUsername().equals(stList.get(i).getUser())) {
-                myOfferLst.add(stList.get(i));
-            }
+        updateUserConnectedAndUserCandidateList();
+        if (ModelUsers.instance3.getUser() == null) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    ModelUsers.instance3.setUserConnected(profile);
+                    getUserOffersByOfferCandidates(profile.getUsername());
+                    for (int i = 0; i < stList.size(); i++) {
+                        if (profile.getUsername().equals(stList.get(i).getUser())) {
+                            myOfferLst.add(stList.get(i));
+                        }
+                    }
+                    offersListMyOffer.postValue(myOfferLst);
+                }
+            });
         }
-        offersListMyOffer.postValue(myOfferLst);
-        return myOfferLst;
+        else
+        {
+            String userConnected = ModelUsers.instance3.getUser().getUsername();
+            for (int i = 0; i < stList.size(); i++) {
+                if (userConnected.equals(stList.get(i).getUser())) {
+                    myOfferLst.add(stList.get(i));
+                }
+            }
+            offersListMyOffer.postValue(myOfferLst);
+        }
+    }
+
+    private void updateUserConnectedAndUserCandidateList() {
+        if (ModelUsers.instance3.getUser() == null) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    ModelUsers.instance3.setUserConnected(profile);
+                    getUserOffersByOfferCandidates(profile.getUsername());
+                }
+            });
+        }
     }
 
     public void addOffer(Offer offer, ModelOffers.addOfferListener addOffer) {
@@ -377,6 +395,50 @@ public class ModelOffers {
                 Log.d("TAG", "basaaaaaa  a a a " + t);
 
                 getOfferListener.onComplete(null);
+            }
+        });
+    }
+
+    public void getUserOffersByOfferCandidates(String username){
+        tokensrefresh.retroServer();
+        String tokenAccess = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses", "");
+
+        Call<List<Offer>> call = tokensrefresh.retrofitInterface.getUserOffersByOffersCandidates(username, "Bearer " + tokenAccess);
+        call.enqueue(new Callback<List<Offer>>() {
+            @Override
+            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
+                if (response.code() == 200) {
+                    userOfferCandidates = response.body();
+                } else if (response.code() == 403) {
+                    tokensrefresh.changeAcssesToken();
+                    String tockennew = tokensrefresh.gettockenAcsses();
+                    Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getUserOffersByOffersCandidates(username, "Bearer " + tockennew);
+                    call1.enqueue(new Callback<List<Offer>>() {
+                        @Override
+                        public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
+                            if (response.code() == 200) {
+                                userOfferCandidates = response.body();
+                            } else {
+                                userOfferCandidates = null;
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Offer>> call, Throwable t) {
+                            userOfferCandidates = null;
+                        }
+                    });
+                } else {
+                    userOfferCandidates = null;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Offer>> call, Throwable t) {
+                Log.d("TAG", "basaaaaaa  a a a " + t);
+                userOfferCandidates = null;
             }
         });
     }

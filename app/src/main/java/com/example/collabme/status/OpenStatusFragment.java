@@ -38,7 +38,6 @@ public class OpenStatusFragment extends Fragment {
     ImageButton editBtn, candidatesBtn;
     FloatingActionButton chatBtn;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,17 +62,17 @@ public class OpenStatusFragment extends Fragment {
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
-
-            initSpinnerFooter(offer.getProfession().length, offer.getProfession(), profession);
-            headline.setText(offer.getHeadline());
-            proposer.setText(offer.getUser());
-            description.setText(offer.getDescription());
-            finishDate.setText(setValidDate(offer.getFinishDate()));
-            status.setText(offer.getStatus());
-            price.setText(offer.getPrice());
-            interestedVerify.setChecked(offer.getIntrestedVerify());
-            offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price.getText().toString(), offerId, status.getText().toString(), offer.getProfession(), offer.getUser(), interestedVerify.isChecked());
-
+            if(offer!=null) {
+                initSpinnerFooter(offer.getProfession().length, offer.getProfession(), profession);
+                headline.setText(offer.getHeadline());
+                proposer.setText(offer.getUser());
+                description.setText(offer.getDescription());
+                finishDate.setText(setValidDate(offer.getFinishDate()));
+                status.setText(offer.getStatus());
+                price.setText(offer.getPrice());
+                interestedVerify.setChecked(offer.getIntrestedVerify());
+                offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price.getText().toString(), offerId, status.getText().toString(), offer.getProfession(), offer.getUser(), interestedVerify.isChecked());
+            }
         });
 
         choosen.setOnClickListener(new View.OnClickListener() {
@@ -152,4 +151,6 @@ public class OpenStatusFragment extends Fragment {
         startActivity(intent);
         getActivity().finish();
     }
+
+
 }

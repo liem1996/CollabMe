@@ -10,7 +10,7 @@ android {
         applicationId "com.example.collabme"
         minSdk 21
         targetSdk 31
-        versionCode 1
+        versionCode 2
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -31,6 +31,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
 
 dependencies {
 
@@ -58,6 +59,15 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-login:latest.release'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:recyclerview-v7:25.3.1'
+    implementation ('io.socket:socket.io-client:2.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
 
+
+    implementation 'com.google.android.gms:play-services-wallet:19.1.0'
+
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
 
 }

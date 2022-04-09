@@ -23,12 +23,8 @@ public interface RetrofitInterface {
     @POST("/image/upload")
     Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
 
-
-
     @GET("/image/file/{filename}")
     Call<ResponseBody> getimage(@Path("filename") String namefile);
-
-
 
     @GET("/users/getUser/{username}")
     Call<User> getUser(@Path("username") String username,@Header("authorization") String token);
@@ -84,5 +80,6 @@ public interface RetrofitInterface {
     @GET("/users/getUser/getUserByEmail/{email}")
     Call<User> getUserByEmail(@Path("email") String email,@Header("authorization") String token);
 
-
+    @GET("/candidates/getoffersofUsers/{username}")
+    Call<List<Offer>> getUserOffersByOffersCandidates(@Path("username") String username, @Header("authorization") String token);
 }

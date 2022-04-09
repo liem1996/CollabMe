@@ -1,14 +1,13 @@
-package com.example.collabme.pagesForOffers;
+package com.example.collabme.Chat;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
 
@@ -25,7 +24,7 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat_first_page, container, false);
 
         tmpPayment = view.findViewById(R.id.tmp_payment_btn);
 

@@ -82,4 +82,7 @@ public interface RetrofitInterface {
 
     @GET("/candidates/getoffersofUsers/{username}")
     Call<List<Offer>> getUserOffersByOffersCandidates(@Path("username") String username, @Header("authorization") String token);
+
+    @GET("/mediacontent/getMediaContentOfAnOffer/{id}")
+    Call<List<String>> getMediaContentOfAnOffer(@Path("id") String offerId,@Header("authorization") String token);
 }

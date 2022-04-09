@@ -38,7 +38,7 @@
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_add_offer_details_fragemnt.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_candidates.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_chat.xml" value="0.21784420289855072" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_chat_connection.xml" value="0.1171875" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_chat_connection.xml" value="0.2" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_chat_first_page.xml" value="0.1171875" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_close_statusfragment.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_done_status.xml" value="0.22826086956521738" />
@@ -57,6 +57,11 @@
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_socialmedia.xml" value="0.264" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_user_profile.xml" value="0.264" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_chat.xml" value="0.25" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_chat_recivedphoto.xml" value="0.25" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_chat_recivemessege.xml" value="0.25" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_chat_sendimage.xml" value="0.25" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_chat_sendmessege.xml" value="0.25" />
+        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_chat_sentmessege.xml" value="0.25" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/login.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_list_row.xml" value="0.264" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_search_results_list_row.xml" value="0.21784420289855072" />

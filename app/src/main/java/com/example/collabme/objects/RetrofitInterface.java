@@ -47,7 +47,6 @@ public interface RetrofitInterface {
     @POST("/offer/addNewOffer")
     Call<Offer> executenewOffer(@Body Map<String, Object> map,@Header("authorization") String token);
 
-
     @GET("/offer/getOfferById/{id}")
     Call<Offer> getOfferById(@Path("id") String offerId,@Header("authorization") String token);
 
@@ -85,4 +84,8 @@ public interface RetrofitInterface {
 
     @GET("/mediacontent/getMediaContentOfAnOffer/{id}")
     Call<List<String>> getMediaContentOfAnOffer(@Path("id") String offerId,@Header("authorization") String token);
+
+    @POST("/mediacontent/addMediaContent")
+    Call<Void> addMediaContent(@Body Map<String, Object> offer, @Header("authorization") String token);
+
 }

@@ -11,7 +11,9 @@ import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +28,11 @@ public class ModelMediaContent {
     public interface getMediaContentOfAnOfferListener {
         void onComplete(List<String> offerMediaContent);
     }
-/*
+
+    public interface addMediaContentListener {
+        void onComplete(int code);
+    }
+
     public void getMediaContentOfAnOffer(String offerid, ModelMediaContent.getMediaContentOfAnOfferListener getMediaContentOfAnOfferListener) {
 
         tokensrefresh.retroServer();
@@ -34,7 +40,7 @@ public class ModelMediaContent {
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses", "");
 
-        Call<List<String>> call = tokensrefresh.retrofitInterface.getOfferById(offerid, "Bearer " + tokenAccess);
+        Call<List<String>> call = tokensrefresh.retrofitInterface.getMediaContentOfAnOffer(offerid, "Bearer " + tokenAccess);
         call.enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
@@ -43,7 +49,7 @@ public class ModelMediaContent {
                 } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
-                    Call<List<String>> call1 = tokensrefresh.retrofitInterface.getOfferById(offerid, "Bearer " + tockennew);
+                    Call<List<String>> call1 = tokensrefresh.retrofitInterface.getMediaContentOfAnOffer(offerid, "Bearer " + tockennew);
                     call1.enqueue(new Callback<List<String>>() {
                         @Override
                         public void onResponse(Call<List<String>> call, Response<List<String>> response1) {
@@ -72,5 +78,55 @@ public class ModelMediaContent {
             }
         });
     }
-*/
+
+    public void addMediaContent(String idOffer, String[] MediaContent, ModelMediaContent.addMediaContentListener addMediaContentListener) {
+        tokensrefresh.retroServer();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("IdOffer",idOffer);
+        map.put("MediaContent",MediaContent);
+
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses", "");
+
+        Call<Void> call = tokensrefresh.retrofitInterface.addMediaContent(map, "Bearer " + tockenacsses);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    addMediaContentListener.onComplete(200);
+                } else if (response.code() == 403) {
+                    tokensrefresh.changeAcssesToken();
+                    String tockennew = tokensrefresh.gettockenAcsses();
+                    Call<Void> call1 = tokensrefresh.retrofitInterface.addMediaContent(map, "Bearer " + tockennew);
+                    call1.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response1) {
+                            if (response1.code() == 200) {
+                                addMediaContentListener.onComplete(200);
+                            } else {
+                                addMediaContentListener.onComplete(400);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            addMediaContentListener.onComplete(400);
+                        }
+                    });
+                } else {
+                    addMediaContentListener.onComplete(400);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                addMediaContentListener.onComplete(400);
+            }
+        });
+    }
+
+
 }

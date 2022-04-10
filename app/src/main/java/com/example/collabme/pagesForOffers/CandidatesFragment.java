@@ -19,13 +19,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelCandidates;
 import com.example.collabme.objects.User;
-import com.example.collabme.viewmodel.Candidatesviewmodel;
+import com.example.collabme.viewmodel.CandidatesViewmodel;
 
 public class CandidatesFragment extends Fragment {
 
     ImageView logout;
     MyAdapter adapter;
-    Candidatesviewmodel viewModel;
+    CandidatesViewmodel viewModel;
     String offerId;
     OnItemClickListener listener;
     SwipeRefreshLayout swipeRefresh;
@@ -33,7 +33,7 @@ public class CandidatesFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(Candidatesviewmodel.class);
+        viewModel = new ViewModelProvider(this).get(CandidatesViewmodel.class);
 
     }
 

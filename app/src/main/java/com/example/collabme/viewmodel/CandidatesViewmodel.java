@@ -9,11 +9,11 @@ import com.example.collabme.objects.User;
 
 import java.util.List;
 
-public class Candidatesviewmodel extends ViewModel {
+public class CandidatesViewmodel extends ViewModel {
 
     LiveData<List<User>> data;
 
-    public Candidatesviewmodel() {
+    public CandidatesViewmodel() {
         data = new MutableLiveData<>();
 
     }

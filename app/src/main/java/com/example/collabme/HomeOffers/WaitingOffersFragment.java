@@ -34,17 +34,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+public class WaitingOffersFragment extends Fragment {
 
-public class MyOffersFragment extends Fragment {
-
-    MyoffersAdapter adapter1;
+    WaitingOffersAdapter adapter1;
     SwipeRefreshLayout swipeRefresh;
-    OnItemClickListeneroffers listener;
-    ImageView imagePostFrame, logout;
+    OnItemClickListenerWaitingOffers listener;
+    ImageView logout;
     OffersViewmodel viewModel;
     String offerId;
     Offer offer;
-    Button waitingOffesFragment;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -55,13 +53,10 @@ public class MyOffersFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_offers, container, false);
+        View view = inflater.inflate(R.layout.fragment_waiting_offers, container, false);
 
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
-
-        waitingOffesFragment = view.findViewById(R.id.myoffers_waitingOfferFragmentBtn);
-        waitingOffesFragment.setOnClickListener(v -> Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment()));
 
         logout = view.findViewById(R.id.fragment_myoffers_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -79,39 +74,29 @@ public class MyOffersFragment extends Fragment {
         list2.setHasFixedSize(true);
         list2.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter1 = new MyoffersAdapter();
+        adapter1 = new WaitingOffersAdapter();
         list2.setAdapter(adapter1);
 
-        adapter1.setListener(new OnItemClickListeneroffers() {
+        adapter1.setListener(new OnItemClickListenerWaitingOffers() {
             @Override
             public void onItemClickoffer(int position, View view, int idview) {
                 offerId = viewModel.getDataMyOffer().getValue().get(position).getIdOffer();
                 offer = viewModel.getDataMyOffer().getValue().get(position);
 
-                if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
-                    offerCheckClicked(position);
-                } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
-                    List<Offer> homeOfferLst = viewModel.getDataMyOffer().getValue();
-                    homeOfferLst.remove(offer);
-                    ModelOffers.instance.refreshPostList();
-                } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
-                    Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(offerId));
-                } else {
-                    String status = offer.getStatus();
-                    switch (status) {
-                        case "Open":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToOfferDetailsFragment(offerId));
-                            break;
-                        case "InProgress":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToInprogressfragment(offerId));
-                            break;
-                        case "Close":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToCloseStatusfragment(offerId));
-                            break;
-                        case "Done":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToDoneStatusFragment(offerId));
-                            break;
-                    }
+                String status = offer.getStatus();
+                switch (status) {
+                    case "Open":
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToOfferDetailsFragment(offerId));
+                        break;
+                    case "InProgress":
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToInprogressfragment(offerId));
+                        break;
+                    case "Close":
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToCloseStatusfragment(offerId));
+                        break;
+                    case "Done":
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToDoneStatusFragment(offerId));
+                        break;
                 }
             }
         });
@@ -133,24 +118,6 @@ public class MyOffersFragment extends Fragment {
         return view;
     }
 
-    private void offerCheckClicked(int position) {
-        List<String> arrayList = new LinkedList<>();
-        String userConnected = ModelUsers.instance3.getUser().getUsername();
-        arrayList = offer.setusersandadd(viewModel.getDataMyOffer().getValue().get(position).getUsers(), userConnected);
-        offer.setUsers(ChangeToArray(arrayList));
-        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
-            @Override
-            public void onComplete(int code) {
-                if (code == 200) {
-                    Toast.makeText(getActivity(), "offer updated!", Toast.LENGTH_LONG).show();
-                    ModelOffers.instance.refreshPostList();
-                } else {
-                    Toast.makeText(getActivity(), "error updating offer!", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
     private void toLoginActivity() {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
@@ -164,13 +131,13 @@ public class MyOffersFragment extends Fragment {
 
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
-    class MyViewHolderoffers extends RecyclerView.ViewHolder {
+    class MyViewHolderWaitingOffers extends RecyclerView.ViewHolder {
         TextView offer_date, offer_status;
         TextView offer_headline, offer_username;
         ImageView offer_X_imb, offer_V_imb, offer_image;
         ImageButton offer_edit_imb;
 
-        public MyViewHolderoffers(@NonNull View itemView) {
+        public MyViewHolderWaitingOffers(@NonNull View itemView) {
             super(itemView);
             offer_username = (TextView) itemView.findViewById(R.id.myoffers_listrow_username);
             offer_headline = (TextView) itemView.findViewById(R.id.myoffers_listrow_headline_et);
@@ -220,18 +187,9 @@ public class MyOffersFragment extends Fragment {
             offer_date.setText(setValidDate(offer.getFinishDate()));
             offer_status.setText(offer.getStatus());
 
-            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-                @Override
-                public void onComplete(User profile) {
-                    if (!profile.getUsername().equals(offer.getUser())) {
-                        //adapter1.offers.remove(offer);
-                        offer_edit_imb.setVisibility(View.INVISIBLE);
-                    } else {
-                        offer_V_imb.setVisibility(View.INVISIBLE);
-                        offer_X_imb.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
+            offer_edit_imb.setVisibility(View.INVISIBLE);
+            offer_V_imb.setVisibility(View.INVISIBLE);
+            offer_X_imb.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -240,41 +198,41 @@ public class MyOffersFragment extends Fragment {
         return newDate;
     }
 
-    //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
+//////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
 
-    interface OnItemClickListeneroffers {
+    interface OnItemClickListenerWaitingOffers {
         void onItemClickoffer(int position, View view, int idview);
     }
 
-    class MyoffersAdapter extends RecyclerView.Adapter<MyViewHolderoffers> {
+    class WaitingOffersAdapter extends RecyclerView.Adapter<MyViewHolderWaitingOffers> {
         List<Offer> offers = new LinkedList<>();
         View view;
 
-        public void setListener(OnItemClickListeneroffers listener1) {
+        public void setListener(OnItemClickListenerWaitingOffers listener1) {
             listener = listener1;
         }
 
         @NonNull
         @Override
-        public MyViewHolderoffers onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public MyViewHolderWaitingOffers onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             view = getLayoutInflater().inflate(R.layout.offers_list_row, parent, false);
-            MyViewHolderoffers holder = new MyViewHolderoffers(view);
+            MyViewHolderWaitingOffers holder = new MyViewHolderWaitingOffers(view);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolderoffers holder, int position) {
-            offers = viewModel.getDataMyOffer().getValue();
+        public void onBindViewHolder(@NonNull MyViewHolderWaitingOffers holder, int position) {
+            offers = viewModel.getDataWaitingOffer().getValue();
             Offer offer = offers.get(position);
             holder.bindoffer(offer, position, view);
         }
 
         @Override
         public int getItemCount() {
-            if (viewModel.getDataMyOffer().getValue() == null) {
+            if (viewModel.getDataWaitingOffer().getValue() == null) {
                 return 0;
             }
-            return viewModel.getDataMyOffer().getValue().size();
+            return viewModel.getDataWaitingOffer().getValue().size();
         }
     }
 

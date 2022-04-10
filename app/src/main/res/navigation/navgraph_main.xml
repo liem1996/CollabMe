@@ -241,6 +241,9 @@
         <action
             android:id="@+id/action_myOffersFragment_to_offerDetailsFragment"
             app:destination="@id/offerDetailsFragment" />
+        <action
+            android:id="@+id/action_myOffersFragment_to_waitingOffersFragment"
+            app:destination="@id/waitingOffersFragment" />
     </fragment><action android:id="@+id/action_global_myOffersFragment" app:destination="@id/myOffersFragment"/>
     <fragment
         android:id="@+id/fragment_search_results"
@@ -295,5 +298,22 @@
         <argument
             android:name="username"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/waitingOffersFragment"
+        android:name="com.example.collabme.HomeOffers.WaitingOffersFragment"
+        android:label="WaitingOffersFragment" >
+        <action
+            android:id="@+id/action_waitingOffersFragment_to_closeStatusfragment"
+            app:destination="@id/closeStatusfragment" />
+        <action
+            android:id="@+id/action_waitingOffersFragment_to_inprogressfragment"
+            app:destination="@id/inprogressfragment" />
+        <action
+            android:id="@+id/action_waitingOffersFragment_to_offerDetailsFragment"
+            app:destination="@id/offerDetailsFragment" />
+        <action
+            android:id="@+id/action_waitingOffersFragment_to_doneStatusFragment"
+            app:destination="@id/doneStatusFragment" />
     </fragment>
 </navigation>

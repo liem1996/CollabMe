@@ -27,8 +27,7 @@ public class ModelOffers {
     MutableLiveData<OffersListLoadingState> offersListLoadingState = new MutableLiveData<OffersListLoadingState>();
     MutableLiveData<List<Offer>> offersListHome = new MutableLiveData<List<Offer>>();
     MutableLiveData<List<Offer>> offersListMyOffer = new MutableLiveData<List<Offer>>();
-    MutableLiveData<OffersListLoadingState> candidatesListLoadingState = new MutableLiveData<OffersListLoadingState>();
-    MutableLiveData<List<User>> candidatesList = new MutableLiveData<List<User>>();
+    MutableLiveData<List<Offer>> offerWaitingList = new MutableLiveData<List<Offer>>();
     public tokensrefresh tokensrefresh = new tokensrefresh();
     private List<Offer> allOffersList = new LinkedList<>();
     private List<Offer> userOfferCandidates = new LinkedList<>();
@@ -92,12 +91,12 @@ public class ModelOffers {
         return offersListMyOffer;
     }
 
-    public List<Offer> getAllOffersList() {
-        return allOffersList;
-    }
-
-    public List<Offer> getAllOfferCandidatesList() {
-        return userOfferCandidates;
+    public LiveData<List<Offer>> getAllOfferFromWaitingOffers(){
+        if (offerWaitingList.getValue() == null) {
+            refreshPostList();
+        }
+        ;
+        return offerWaitingList;
     }
 
     public void refreshPostList() {
@@ -206,7 +205,7 @@ public class ModelOffers {
     public void updateMyOfferList(List<Offer> stList) {
         List<Offer> myOfferLst = new LinkedList<>();
         String usernameConnected = userConnected.getUsername();
-        getUserOffersByOfferCandidates(usernameConnected);
+        //getUserOffersByOfferCandidates(usernameConnected);
         for (int i = 0; i < stList.size(); i++) {
             if (usernameConnected.equals(stList.get(i).getUser())) {
                 myOfferLst.add(stList.get(i));
@@ -413,6 +412,7 @@ public class ModelOffers {
             public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
                 if (response.code() == 200) {
                     userOfferCandidates = response.body();
+                    offerWaitingList.postValue(userOfferCandidates);
                 } else if (response.code() == 403) {
                     tokensrefresh.changeAcssesToken();
                     String tockennew = tokensrefresh.gettockenAcsses();
@@ -422,6 +422,7 @@ public class ModelOffers {
                         public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
                             if (response.code() == 200) {
                                 userOfferCandidates = response.body();
+                                offerWaitingList.postValue(userOfferCandidates);
                             } else {
                                 userOfferCandidates = null;
                             }

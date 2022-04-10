@@ -46,16 +46,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/myoffers_waitingOfferFragmentBtn"
-        android:layout_width="93dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="110dp"
-        android:text="Waiting offer"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_candidate_background" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

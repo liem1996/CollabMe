@@ -10,15 +10,16 @@ import com.example.collabme.objects.User;
 
 import java.util.List;
 
-public class offersviewmodel  extends ViewModel {
+public class OffersViewmodel extends ViewModel {
 
-    LiveData<List<Offer>> dataHome, dataMyOffer;
+    LiveData<List<Offer>> dataHome, dataMyOffer, dataWaitingOffer;
     MutableLiveData<Offer> data1;
     LiveData<List<User>> data2;
 
-    public offersviewmodel(){
+    public OffersViewmodel(){
         dataHome = ModelOffers.instance.getAllOfferFromHome();
         dataMyOffer = ModelOffers.instance.getAllOfferFromMyOffers();
+        dataWaitingOffer = ModelOffers.instance.getAllOfferFromWaitingOffers();
 
         data1 = new MutableLiveData<>();
 
@@ -31,6 +32,10 @@ public class offersviewmodel  extends ViewModel {
         return dataMyOffer;
     }
 
+    public LiveData<List<Offer>> getDataWaitingOffer() {
+        return dataWaitingOffer;
+    }
+
     public MutableLiveData<Offer> deletePost(Offer post, ModelOffers.deleteoffer listener) {
         data1.setValue(post);
         // TODO: 3/14/2022 to do a delete to offer
@@ -41,8 +46,4 @@ public class offersviewmodel  extends ViewModel {
     public void refreshOffersList(){
         ModelOffers.instance.refreshPostList();
     }
-
-
-
-
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,12 +24,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
-import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
-import com.example.collabme.viewmodel.offersviewmodel;
+import com.example.collabme.viewmodel.OffersViewmodel;
 import com.facebook.login.LoginManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -41,19 +41,17 @@ public class HomeFragment extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     OnItemClickListener listener;
-    ImageView imagePostFrame, logout;
-    offersviewmodel viewModel;
+    ImageView logout;
+    OffersViewmodel viewModel;
     String offerId;
     Offer offer;
     User userConnected;
-    ArrayList<Offer> offers = new ArrayList<>();
     FloatingActionButton addOfferBtn;
-
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(offersviewmodel.class);
+        viewModel = new ViewModelProvider(this).get(OffersViewmodel.class);
     }
 
     @Nullable

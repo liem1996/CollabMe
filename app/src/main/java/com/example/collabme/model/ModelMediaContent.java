@@ -21,7 +21,7 @@ import retrofit2.Response;
 
 public class ModelMediaContent {
 
-    public static final ModelMediaContent instance8 = new ModelMediaContent();
+    public static final ModelMediaContent instance = new ModelMediaContent();
 
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
 

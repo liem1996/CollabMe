@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.collabme.R;
+import com.example.collabme.model.ModelMediaContent;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.Offer;
@@ -38,6 +39,7 @@ public class MediaContentActivity extends AppCompatActivity {
     Intent intent;
     String action;
     String type;
+    String[] MediaContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,29 @@ public class MediaContentActivity extends AppCompatActivity {
          action = intent.getAction();
          type = intent.getType();
 
+        ModelOffers.instance.getOfferById("100", new ModelOffers.GetOfferListener() {
+            @Override
+            public void onComplete(Offer offer) {
+                MediaContent = offer.getMediaContent();
+                increaseSize();
+                if (Intent.ACTION_SEND.equals(action) && type != null) {
+                    if ("text/plain".equals(type)) {
+                            String sharedText1 = intent.getStringExtra(Intent.EXTRA_TEXT);
+                            if (sharedText1 != null) {
+                                MediaContent[MediaContent.length-1]=(sharedText1);
+                                ModelMediaContent.instance.addMediaContent("100", MediaContent, new ModelMediaContent.addMediaContentListener() {
+                                    @Override
+                                    public void onComplete(int code) {
+                                        if (code==200) {
+                                            System.out.println("add media content done successfully");
+                                        }
+                                    }
+                                });                            }
+
+                    }
+                }
+            }
+        });
 
         RecyclerView list = view.findViewById(R.id.mediacontent_rv);
         list.setHasFixedSize(true);
@@ -72,6 +97,14 @@ public class MediaContentActivity extends AppCompatActivity {
         //...
     }
 
+    public void increaseSize() {
+        String[] temp = new String[MediaContent.length + 1];
+
+        for (int i = 0; i < MediaContent.length; i++){
+            temp[i] = MediaContent[i];
+        }
+        MediaContent = temp;
+    }
 
     private void refresh() {
         adapter.notifyDataSetChanged();

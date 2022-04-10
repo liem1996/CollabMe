@@ -39,6 +39,7 @@ import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
+import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
@@ -50,7 +51,7 @@ public class EditOfferFragment extends Fragment {
     EditText headline, description, finishDate, price;
     TextView proposer, profession, status;
     CheckBox interestedVerify;
-    Button saveBtn;
+    Button saveBtn, deleteBtn;
     ImageButton candidatesBtn, cancelBtn;
     String[] professionArr, oldProfession, chosen, newProfession, dateSplitArr;
     String oldIdOffer, oldProposer, offerId, date;
@@ -87,6 +88,7 @@ public class EditOfferFragment extends Fragment {
         camra = view.findViewById(R.id.fragemnt_editoffer_camra2);
         gallery = view.findViewById(R.id.fragemnt_editofferr_gallery2);
         profilepic = view.findViewById(R.id.fragemnt_editoffer_image2);
+        deleteBtn = view.findViewById(R.id.fragment_editOffer_deleteBtn);
 
 
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
@@ -94,8 +96,44 @@ public class EditOfferFragment extends Fragment {
                 navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId)));
         saveBtn.setOnClickListener(v -> saveOfferDetails(v));
 
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Delete Offer");
+                builder.setMessage("Are you sure you want to delete this offer?");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                              ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                                  @Override
+                                  public void onComplete(Offer offer) {
+                                      ModelOffers.instance.deleteoffer(offer, new ModelOffers.deleteoffer() {
+                                          @Override
+                                          public void onComplete() {
+                                              Toast.makeText(getActivity(), "offer deleted", Toast.LENGTH_LONG).show();
+                                              Navigation.findNavController(v).navigateUp();
+                                              Navigation.findNavController(v).navigateUp();
 
+                                          }
+                                      });
+                                  }
+                              });
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+        });
         ModelOffers.instance.getOfferById(offerId, offer -> {
             if (offer != null) {
                 //initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);

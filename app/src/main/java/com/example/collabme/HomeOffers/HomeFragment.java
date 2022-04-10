@@ -84,6 +84,7 @@ public class HomeFragment extends Fragment {
 
         adapter = new MyAdapter();
         list.setAdapter(adapter);
+        viewModel.refreshOffersList();
 
         adapter.setListener(new OnItemClickListener() {
             @Override

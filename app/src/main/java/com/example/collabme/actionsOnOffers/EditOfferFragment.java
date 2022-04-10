@@ -114,8 +114,7 @@ public class EditOfferFragment extends Fragment {
                                           @Override
                                           public void onComplete() {
                                               Toast.makeText(getActivity(), "offer deleted", Toast.LENGTH_LONG).show();
-                                              Navigation.findNavController(v).navigateUp();
-                                              Navigation.findNavController(v).navigateUp();
+                                              Navigation.findNavController(v).navigate(EditOfferFragmentDirections.actionGlobalHomeFragment2(offerId));
 
                                           }
                                       });

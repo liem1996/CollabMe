@@ -38,6 +38,10 @@ public class offersviewmodel  extends ViewModel {
         return data1;
     }
 
+    public void refreshOffersList(){
+        ModelOffers.instance.refreshPostList();
+    }
+
 
 
 

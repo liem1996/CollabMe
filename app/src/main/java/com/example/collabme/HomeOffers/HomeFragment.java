@@ -23,6 +23,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
@@ -44,6 +45,7 @@ public class HomeFragment extends Fragment {
     offersviewmodel viewModel;
     String offerId;
     Offer offer;
+    User userConnected;
     ArrayList<Offer> offers = new ArrayList<>();
     FloatingActionButton addOfferBtn;
 
@@ -60,7 +62,19 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         swipeRefresh = view.findViewById(R.id.offers_swiperefresh);
-        ModelUsers.instance3.getUserConnect(profile -> swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList));
+
+        if (ModelUsers.instance3.getUser() == null) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    userConnected = profile;
+                    ModelUsers.instance3.setUserConnected(profile);
+                    swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+                }
+            });
+        } else {
+            swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+        }
 
         logout = view.findViewById(R.id.fragment_home_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +108,9 @@ public class HomeFragment extends Fragment {
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
                     offerCheckClicked(position);
                 } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
-                    List<Offer> homeOfferLst = viewModel.getDataMyOffer().getValue();
-                    homeOfferLst.remove(offer);
-                    refresh();
+//                    List<Offer> homeOfferLst = viewModel.getDataMyOffer().getValue();
+                    updateRejectedOfferArr(offerId);
+                    //homeOfferLst.remove(offer);
                 } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
                     Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(offerId));
                 } else {
@@ -105,6 +119,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        refresh();
         setHasOptionsMenu(true);
         viewModel.getDataHome().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
@@ -121,6 +136,43 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    private void updateRejectedOfferArr(String offerId) {
+        if (ModelUsers.instance3.getUser() == null) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    userConnected = profile;
+                    ModelUsers.instance3.setUserConnected(profile);
+                    HomeFragment.this.updateUserWitnRejectedList(offerId);
+                }
+            });
+        } else {
+            updateUserWitnRejectedList(offerId);
+        }
+    }
+
+    private void updateUserWitnRejectedList(String offerId) {
+        ArrayList<String> rejectedArr = userConnected.getRejectedOffers();
+        if (rejectedArr == null)
+            rejectedArr = new ArrayList<>();
+        rejectedArr.add(offerId);
+        userConnected = new User(userConnected.getSex(), userConnected.getPassword(), userConnected.getEmail(), userConnected.getUsername(), userConnected.getAge(),
+                userConnected.getFollowers(), userConnected.getNumOfPosts(), userConnected.getCompany(), userConnected.getInfluencer(), userConnected.getProfessions(),
+                userConnected.getPlatforms(), rejectedArr);
+
+        ModelUsers.instance3.EditUser(userConnected, new ModelUsers.EditUserListener() {
+            @Override
+            public void onComplete(int code) {
+                if (code == 200) {
+                    Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
+                    ModelOffers.instance.refreshPostList();
+                } else {
+                    Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
     private void offerCheckClicked(int position) {
         List<String> arrayList = new LinkedList<>();
         String userConnected = ModelUsers.instance3.getUser().getUsername();
@@ -131,7 +183,7 @@ public class HomeFragment extends Fragment {
             public void onComplete(int code) {
                 if (code == 200) {
                     Toast.makeText(getActivity(), "offer updated!", Toast.LENGTH_LONG).show();
-                    refresh();
+                    ModelOffers.instance.refreshPostList();
                 } else {
                     Toast.makeText(getActivity(), "error updating offer!", Toast.LENGTH_LONG).show();
                 }
@@ -150,7 +202,7 @@ public class HomeFragment extends Fragment {
         swipeRefresh.setRefreshing(false);
     }
 
-    //////////////////////////VIEWHOLDER////////////////////////////////////
+//////////////////////////VIEWHOLDER////////////////////////////////////
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView offer_date, offer_status;
@@ -189,7 +241,7 @@ public class HomeFragment extends Fragment {
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
-                    itemView.setVisibility(View.GONE);
+                    listener.onItemClick(position, itemView, viewid);
                 }
             });
 
@@ -223,6 +275,7 @@ public class HomeFragment extends Fragment {
                     for (int i = 0; i < offerCandidates.length; i++) {
                         if (offerCandidates[i].equals(profile.getUsername())) {
                             offer_V_imb.setVisibility(View.INVISIBLE);
+                            offer_X_imb.setVisibility(View.INVISIBLE);
                             break;
                         }
                     }
@@ -236,7 +289,7 @@ public class HomeFragment extends Fragment {
         return newDate;
     }
 
-    //////////////////////////MYYYYYYYY ADAPTERRRRRRRR///////////////////////
+//////////////////////////MYYYYYYYY ADAPTERRRRRRRR///////////////////////
 
     interface OnItemClickListener {
         void onItemClick(int position, View view, int idview);
@@ -270,6 +323,7 @@ public class HomeFragment extends Fragment {
             }
             return viewModel.getDataHome().getValue().size();
         }
+
     }
 
     public String[] ChangeToArray(List<String> array) {

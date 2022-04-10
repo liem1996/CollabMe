@@ -19,7 +19,10 @@ import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class ProfessionFragment extends Fragment implements View.OnClickListener{
@@ -29,6 +32,7 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
     String username, password, email, gender, age, followers, numOfPosts;
     boolean company, influencer;
     String[] platforms,professions;
+    ArrayList<String> rejectedOffers;
     int i = 0;
     int index=0;
     Bitmap bitmap;
@@ -97,12 +101,12 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         numOfPosts = ProfessionFragmentArgs.fromBundle(getArguments()).getPostsuploads();
         platforms = ProfessionFragmentArgs.fromBundle(getArguments()).getPlatform();
         bitmap = ProfessionFragmentArgs.fromBundle(getArguments()).getBitmap();
+        rejectedOffers = new ArrayList<>();
 
-        User user = new User(gender,password,email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
+
+        User user = new User(gender,password,email,username,age,followers,numOfPosts,company,influencer,professions,platforms, rejectedOffers);
 
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
-
-
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

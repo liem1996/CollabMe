@@ -101,6 +101,9 @@
         <argument
             android:name="postsuploads"
             app:argType="string" />
+        <argument
+            android:name="rejectedOffers"
+            app:argType="string[]" />
     </fragment>
     <action android:id="@+id/action_global_userProfile2" app:destination="@id/userProfile" />
     <action android:id="@+id/action_global_homeFragment2" app:destination="@id/homeFragment" />

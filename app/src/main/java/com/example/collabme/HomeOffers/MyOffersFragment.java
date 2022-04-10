@@ -90,7 +90,7 @@ public class MyOffersFragment extends Fragment {
                 } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
                     List<Offer> homeOfferLst = viewModel.getDataMyOffer().getValue();
                     homeOfferLst.remove(offer);
-                    refresh();
+                    ModelOffers.instance.refreshPostList();
                 } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
                     Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(offerId));
                 } else {
@@ -112,6 +112,7 @@ public class MyOffersFragment extends Fragment {
                 }
             }
         });
+
         refresh();
         setHasOptionsMenu(true);
         viewModel.getDataMyOffer().observe(getViewLifecycleOwner(), list4 -> refresh());
@@ -139,7 +140,7 @@ public class MyOffersFragment extends Fragment {
             public void onComplete(int code) {
                 if (code == 200) {
                     Toast.makeText(getActivity(), "offer updated!", Toast.LENGTH_LONG).show();
-                    refresh();
+                    ModelOffers.instance.refreshPostList();
                 } else {
                     Toast.makeText(getActivity(), "error updating offer!", Toast.LENGTH_LONG).show();
                 }
@@ -197,7 +198,7 @@ public class MyOffersFragment extends Fragment {
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
-                    itemView.setVisibility(View.GONE);
+                    listener.onItemClickoffer(position, itemView, viewid);
                 }
             });
             offer_V_imb.setOnClickListener(new View.OnClickListener() {

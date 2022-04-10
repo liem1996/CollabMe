@@ -2,6 +2,7 @@ package com.example.collabme.objects;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.hardware.lights.LightsManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -9,7 +10,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class User {
@@ -24,22 +28,22 @@ public class User {
     private String followers;
     @SerializedName("NumberOfPosts")
     @Expose
-    private String  numOfPosts;
+    private String numOfPosts;
     @SerializedName("Age")
     @Expose
     private String age;
     @SerializedName("Influencer")
     @Expose
-    private boolean influencer=false;
+    private boolean influencer = false;
     @SerializedName("Company")
     @Expose
-    private boolean company=false;
+    private boolean company = false;
     @SerializedName("Profession")
     @Expose
     private String[] professions;
     @SerializedName("Platform")
     @Expose
-    private String[]  platforms;
+    private String[] platforms;
     @SerializedName("Password")
     @Expose
     private String password;
@@ -48,95 +52,97 @@ public class User {
     String Email;
     @SerializedName("Image")
     @Expose
-    String  image;
+    String image;
+    @SerializedName("RejectedOffers")
+    @Expose
+    ArrayList<String> rejectedOffers;
 
 
     /**
-     *
-     * @return
-     * The password
+     * @return The password
      */
     public String getPassword() {
         return password;
     }
+
     /**
-     *
-     * @return
-     * The Email
+     * @return The Email
      */
     public String getEmail() {
         return Email;
     }
+
     /**
-     *
-     * @return
-     * The username
+     * @return The username
      */
     public String getUsername() {
         return username;
     }
+
     /**
-     *
-     * @return
-     * The age
+     * @return The age
      */
     public String getAge() {
         return age;
     }
+
     /**
-     *
-     * @return
-     * The followers
+     * @return The followers
      */
     public String getFollowers() {
         return followers;
     }
+
     /**
-     *
-     * @return
-     * The numOfPosts
+     * @return The numOfPosts
      */
     public String getNumOfPosts() {
         return numOfPosts;
     }
+
     /**
-     *
-     * @return
-     * The platforms
+     * @return The platforms
      */
     public String[] getPlatforms() {
         return platforms;
     }
+
     /**
-     *
-     * @return
-     * The professions
+     * @return The professions
      */
     public String[] getProfessions() {
         return professions;
     }
+
     /**
-     *
-     * @return
-     * The sex
+     * @return The sex
      */
     public String getSex() {
         return sex;
     }
-    /**
-     *
-     * @return
-     * The company
-     */
-    public boolean getCompany(){return company;}
-    /**
-     *
-     * @return
-     * The influencer
-     */
-    public boolean getInfluencer(){return influencer;}
 
-    public User(String sex,String password, String Email, String username, String age, String followers, String numOfPosts, boolean company, boolean influencer, String[] professions, String[] platforms) {
+    /**
+     * @return The company
+     */
+    public boolean getCompany() {
+        return company;
+    }
+
+    /**
+     * @return The influencer
+     */
+    public ArrayList<String> getRejectedOffers() {
+        return rejectedOffers;
+    }
+
+    /**
+     * @return The influencer
+     */
+    public boolean getInfluencer() {
+        return influencer;
+    }
+
+    public User(String sex, String password, String Email, String username, String age, String followers, String numOfPosts, boolean company, boolean influencer, String[] professions, String[] platforms, ArrayList<String> rejectedOffers) {
         this.sex = sex;
         this.username = username;
         this.age = age;
@@ -146,8 +152,9 @@ public class User {
         this.influencer = influencer;
         this.professions = professions;
         this.platforms = platforms;
-        this.password=password;
+        this.password = password;
         this.Email = Email;
+        this.rejectedOffers = rejectedOffers;
     }
 
     public static User create(Map<String, Object> json) {
@@ -158,17 +165,18 @@ public class User {
         String numOfPosts = (String) json.get("numOfPosts");
         boolean company = (boolean) json.get("company");
         boolean influencer = (boolean) json.get("influencer");
-        String professions []= (String[]) json.get("professions");
-        String platforms []= (String[]) json.get("platforms");
+        String professions[] = (String[]) json.get("professions");
+        String platforms[] = (String[]) json.get("platforms");
         String password = (String) json.get("password");
         String Email = (String) json.get("Email");
+        ArrayList<String> rejectedOffers = (ArrayList<String>)(json.get("rejectedOffers"));
 
-        User user = new User(sex,password,Email,username,age,followers,numOfPosts,company,influencer,professions,platforms);
+        User user = new User(sex, password, Email, username, age, followers, numOfPosts, company, influencer, professions, platforms, rejectedOffers);
 
         return user;
     }
 
-    public  HashMap<String,Object> tojson(){
+    public HashMap<String, Object> tojson() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("Username", username);
         map.put("Password", password);
@@ -177,18 +185,18 @@ public class User {
         map.put("Age", age);
         map.put("Followers", followers);
         map.put("NumberOfPosts", numOfPosts);
-        map.put("Company",company);
+        map.put("Company", company);
         map.put("Influencer", influencer);
-        map.put("Profession",professions);
+        map.put("Profession", professions);
         map.put("Platform", platforms);
         map.put("Image", image);
+        map.put("RejectedOffers", rejectedOffers.toArray());
 
         return map;
     }
+
     /**
-     *
-     * @return
-     * The Bitmap
+     * @return The Bitmap
      */
     public String getImage() {
         return image;

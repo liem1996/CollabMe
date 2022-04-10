@@ -327,6 +327,7 @@ public class EditOfferFragment extends Fragment {
                         ModelOffers.instance.editOffer(offer1, code -> {
                             if (code == 200) {
                                 Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                                ModelOffers.instance.refreshPostList();
                                 Navigation.findNavController(v).navigateUp();
                             } else {
                                 Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
@@ -338,12 +339,12 @@ public class EditOfferFragment extends Fragment {
                 ModelOffers.instance.editOffer(offer1, code -> {
                     if (code == 200) {
                         Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
+                        ModelOffers.instance.refreshPostList();
                         Navigation.findNavController(v).navigateUp();
                     } else {
                         Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
                     }
                     Log.d("TAG", "new Offer : " + offer);
-
                 });
 
 

@@ -26,21 +26,19 @@ import com.example.collabme.objects.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserProfile extends Fragment {
 
     TextView usernameType, username, age, followers, postuploads, email, gender;
     Spinner professions, platform;
-    ArrayList<String> platformArr;
+    ArrayList<String> platformArr, professionsArr, rejectedOffers;
     ImageButton editBtn;
-    ArrayList<String> professionsArr;
-    String[] plat;
-    String[] pref;
+    String[] plat, pref, arrRejected;
     String password;
     Boolean influencer, company;
-    ImageView logout;
-    ImageView profilepicture;
+    ImageView logout, profilepicture;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,12 +79,13 @@ public class UserProfile extends Fragment {
                             password = profile.getPassword();
                             influencer = profile.getInfluencer();
                             company = profile.getInfluencer();
+                            rejectedOffers = profile.getRejectedOffers();
                             initSpinnerFooter(platformArr.size(), platformArr, platform);
                             initSpinnerFooter(professionsArr.size(), professionsArr, professions);
                             //bitmap = StringToBitMap(responseBody);
 
                             //Uri uri = getImageUri(bitmap);
-                            if(responseBody!=null) {
+                            if (responseBody != null) {
                                 profilepicture.setImageBitmap(responseBody);
 
                                 Uri uri = profile.getImageUri(responseBody, getActivity());
@@ -98,14 +97,13 @@ public class UserProfile extends Fragment {
             }
         });
 
-
-
-
-
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToEditProfile2(username.getText().toString(), password, company, influencer, age.getText().toString(), email.getText().toString(), gender.getText().toString(), plat, pref, followers.getText().toString(), postuploads.getText().toString()));
+                changeRejectedToArray();
+                Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToEditProfile2(
+                        username.getText().toString(), password, company, influencer, age.getText().toString(), email.getText().toString(), gender.getText().toString(),
+                        plat, pref, followers.getText().toString(), postuploads.getText().toString(), arrRejected));
             }
         });
 
@@ -122,10 +120,8 @@ public class UserProfile extends Fragment {
                 });
             }
         });
-
         return view;
     }
-
 
     private void checkUsernameType(User profile) {
         if (profile.getInfluencer() && profile.getCompany()) {
@@ -181,5 +177,13 @@ public class UserProfile extends Fragment {
         }
 
         return arrayList;
+    }
+
+    public String[] changeRejectedToArray() {
+        arrRejected = new String[rejectedOffers.size()];
+        for (int i = 0; i < rejectedOffers.size(); i++) {
+            arrRejected[i] = rejectedOffers.get(i);
+        }
+        return arrRejected;
     }
 }

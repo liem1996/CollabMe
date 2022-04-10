@@ -35,6 +35,7 @@ import com.squareup.picasso.Picasso;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 public class EditProfile extends Fragment {
@@ -55,6 +56,7 @@ public class EditProfile extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap bitmap;
+    ArrayList<String> rejectedOffers;
 
 
     String[] chosen, chosen2;
@@ -97,7 +99,7 @@ public class EditProfile extends Fragment {
         posts = EditProfileArgs.fromBundle(getArguments()).getPostsuploads();
         influencer1 = EditProfileArgs.fromBundle(getArguments()).getInfluencer();
         company1 = EditProfileArgs.fromBundle(getArguments()).getCompany();
-
+        setRejectOffersArrList(EditProfileArgs.fromBundle(getArguments()).getRejectedOffers());
 
         updateUsernameType(influencer1, company1);
         username.setText(username1);
@@ -363,7 +365,7 @@ public class EditProfile extends Fragment {
             public void onClick(View v) {
                 user = new User(gender1, password, email1, username.getText().toString(),
                         age.getText().toString(), followers.getText().toString(), postuploads.getText().toString(),
-                        company1, influencer1, chosen, chosen2);
+                        company1, influencer1, chosen, chosen2, rejectedOffers);
                 if(bitmap!=null) {
                     ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
                         @Override
@@ -473,6 +475,13 @@ public class EditProfile extends Fragment {
         if (company) {
             usernameType.setText("Company profile");
             return;
+        }
+    }
+
+    public void setRejectOffersArrList(String[] arr) {
+        rejectedOffers = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            rejectedOffers.add(arr[i]);
         }
     }
 }

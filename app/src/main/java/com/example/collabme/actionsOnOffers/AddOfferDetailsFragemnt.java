@@ -7,9 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ColorSpace;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -203,6 +205,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
                                         if (code == 200) {
                                             //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
                                             Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
+                                            ModelOffers.instance.refreshPostList();
                                             Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
                                         } else {
                                             Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();

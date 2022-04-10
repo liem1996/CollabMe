@@ -12,6 +12,7 @@ import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,6 @@ import retrofit2.Response;
 
 public class ModelOffers {
 
-
     public static final ModelOffers instance = new ModelOffers();
     MutableLiveData<OffersListLoadingState> offersListLoadingState = new MutableLiveData<OffersListLoadingState>();
     MutableLiveData<List<Offer>> offersListHome = new MutableLiveData<List<Offer>>();
@@ -32,6 +32,8 @@ public class ModelOffers {
     public tokensrefresh tokensrefresh = new tokensrefresh();
     private List<Offer> allOffersList = new LinkedList<>();
     private List<Offer> userOfferCandidates = new LinkedList<>();
+    private User userConnected;
+    private boolean userRefreshed = false;
 
     /**
      * interfaces
@@ -94,12 +96,14 @@ public class ModelOffers {
         return allOffersList;
     }
 
-    public List<Offer> getAllOfferCandidatesList() { return userOfferCandidates; }
+    public List<Offer> getAllOfferCandidatesList() {
+        return userOfferCandidates;
+    }
 
     public void refreshPostList() {
         offersListLoadingState.setValue(OffersListLoadingState.loading);
 
-        updateUserConnectedAndUserCandidateList();
+        updateUserConnected();
 
         tokensrefresh.retroServer();
         String tockenacsses = MyApplication.getContext()
@@ -154,16 +158,45 @@ public class ModelOffers {
         });
     }
 
-    private void updateOfferLists(){
-        updateOpenStatusOffersList(allOffersList);
-        updateMyOfferList(allOffersList);
-        offersListLoadingState.postValue(OffersListLoadingState.loaded);
+    private void updateUserConnected() {
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+            @Override
+            public void onComplete(User profile) {
+                userConnected = profile;
+                ModelUsers.instance3.setUserConnected(profile);
+                userRefreshed = true;
+            }
+        });
+
+    }
+
+    private void updateOfferLists() {
+        if (ModelUsers.instance3.getUser() == null || userRefreshed == false) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    userConnected = profile;
+                    ModelUsers.instance3.setUserConnected(profile);
+                    userRefreshed = true;
+                    updateOpenStatusOffersList(allOffersList);
+                    updateMyOfferList(allOffersList);
+                    getUserOffersByOfferCandidates(userConnected.getUsername());
+                    offersListLoadingState.postValue(OffersListLoadingState.loaded);
+                }
+            });
+        } else {
+            updateOpenStatusOffersList(allOffersList);
+            updateMyOfferList(allOffersList);
+            getUserOffersByOfferCandidates(userConnected.getUsername());
+            offersListLoadingState.postValue(OffersListLoadingState.loaded);
+        }
     }
 
     private void updateOpenStatusOffersList(List<Offer> stList) {
         List<Offer> openOfferLst = new LinkedList<>();
+        ArrayList<String> rejectedOffers = userConnected.getRejectedOffers();
         for (int i = 0; i < stList.size(); i++) {
-            if (stList.get(i).getStatus().equals("Open")) {
+            if (stList.get(i).getStatus().equals("Open") && (!rejectedOffers.contains(stList.get(i).getIdOffer()))) {
                 openOfferLst.add(stList.get(i));
             }
         }
@@ -172,45 +205,14 @@ public class ModelOffers {
 
     public void updateMyOfferList(List<Offer> stList) {
         List<Offer> myOfferLst = new LinkedList<>();
-
-        updateUserConnectedAndUserCandidateList();
-        if (ModelUsers.instance3.getUser() == null) {
-            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-                @Override
-                public void onComplete(User profile) {
-                    ModelUsers.instance3.setUserConnected(profile);
-                    getUserOffersByOfferCandidates(profile.getUsername());
-                    for (int i = 0; i < stList.size(); i++) {
-                        if (profile.getUsername().equals(stList.get(i).getUser())) {
-                            myOfferLst.add(stList.get(i));
-                        }
-                    }
-                    offersListMyOffer.postValue(myOfferLst);
-                }
-            });
-        }
-        else
-        {
-            String userConnected = ModelUsers.instance3.getUser().getUsername();
-            for (int i = 0; i < stList.size(); i++) {
-                if (userConnected.equals(stList.get(i).getUser())) {
-                    myOfferLst.add(stList.get(i));
-                }
+        String usernameConnected = userConnected.getUsername();
+        getUserOffersByOfferCandidates(usernameConnected);
+        for (int i = 0; i < stList.size(); i++) {
+            if (usernameConnected.equals(stList.get(i).getUser())) {
+                myOfferLst.add(stList.get(i));
             }
-            offersListMyOffer.postValue(myOfferLst);
         }
-    }
-
-    private void updateUserConnectedAndUserCandidateList() {
-        if (ModelUsers.instance3.getUser() == null) {
-            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-                @Override
-                public void onComplete(User profile) {
-                    ModelUsers.instance3.setUserConnected(profile);
-                    getUserOffersByOfferCandidates(profile.getUsername());
-                }
-            });
-        }
+        offersListMyOffer.postValue(myOfferLst);
     }
 
     public void addOffer(Offer offer, ModelOffers.addOfferListener addOffer) {
@@ -399,7 +401,7 @@ public class ModelOffers {
         });
     }
 
-    public void getUserOffersByOfferCandidates(String username){
+    public void getUserOffersByOfferCandidates(String username) {
         tokensrefresh.retroServer();
         String tokenAccess = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)

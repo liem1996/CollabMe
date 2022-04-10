@@ -13,6 +13,8 @@ public class MyApplication extends Application {
         context =getApplicationContext();
     }
 
+
+
     public static Context getContext(){
         return context;
     }

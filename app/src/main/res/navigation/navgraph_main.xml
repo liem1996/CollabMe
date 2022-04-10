@@ -253,7 +253,7 @@
             app:nullable="true" />
     </fragment>
     <fragment
-        android:id="@+id/chatFragment"
+        android:id="@+id/chatFragmentopen"
         android:name="com.example.collabme.Chat.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" >

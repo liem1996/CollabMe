@@ -57,6 +57,18 @@ public class Offer implements Parcelable{
     @Expose
     String  image;
 
+    public String[] getMediaContent() {
+        return MediaContent;
+    }
+
+    public void setMediaContent(String[] mediaContent) {
+        MediaContent = mediaContent;
+    }
+
+    @SerializedName("MediaContent")
+    @Expose
+    String[]  MediaContent;
+
     protected Offer(Parcel in) {
         description = in.readString();
         headline = in.readString();
@@ -262,10 +274,12 @@ public class Offer implements Parcelable{
         String bitmap = (String) json.get("Image");
         boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
         boolean delete = (boolean) json.get("Isdelete");
+        String[] MediaContent =(String[]) json.get("MediaContent");
         Offer offer = new Offer(description,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
         offer.setdelete(delete);
         offer.setUsers(users);
         offer.setImage(bitmap);
+        offer.setMediaContent(MediaContent);
 
         return offer;
     }
@@ -284,6 +298,7 @@ public class Offer implements Parcelable{
         json.put("Isdelete", delete);
         json.put("Users", users);
         json.put("Image", image);
+        json.put("MediaContent", MediaContent);
         return json;
     }
 

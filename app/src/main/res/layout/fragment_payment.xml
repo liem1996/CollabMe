@@ -187,4 +187,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/payment_PayPal_btn"
+        android:layout_width="239dp"
+        android:layout_height="77dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/pay_pal_btn"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_payment_card_number_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,6 +43,11 @@ import com.google.android.gms.wallet.PaymentDataRequest;
 import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.gms.wallet.Wallet;
 import com.google.android.gms.wallet.WalletConstants;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +65,13 @@ public class PaymentFragment extends Fragment {
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
     private static final long SHIPPING_COST_CENTS = 90 * PaymentsUtil.CENTS_IN_A_UNIT.longValue();
 
+    public static final String clientKey = "AUCAIbvyRUFuhNZi_Zqt4GOLb1X6jixH47Z1ln7ym_SbzghlfUyQjofK_vBL4MR3DPXADPswqvS8q63b";
+    public static final int PAYPAL_REQUEST_CODE = 123; // 7171
+    // Paypal Configuration Object
+    private static PayPalConfiguration config = new PayPalConfiguration()
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .clientId(clientKey);
+
     // A client for interacting with the Google Pay API.
     private PaymentsClient paymentsClient;
     //private View googlePayButton;
@@ -67,10 +79,9 @@ public class PaymentFragment extends Fragment {
     private JSONArray garmentList;
     private JSONObject selectedGarment;
 
-
     TextView cardNumber, expDate, cvv, id, name, offer, bankAccount;
     Button backBtn, submit;
-    ImageView logout, googlePayButton;
+    ImageView logout, googlePayButton,payPal;
 
     ActivityResultLauncher<IntentSenderRequest> resolvePaymentForResult = registerForActivityResult(
             new ActivityResultContracts.StartIntentSenderForResult(),
@@ -92,6 +103,19 @@ public class PaymentFragment extends Fragment {
                 }
             });
 
+    @Override
+    public void onDestroyView() {
+        getActivity().stopService(new Intent(this.getContext(),PayPalService.class));
+        super.onDestroyView();
+    }
+
+//    @Override
+//    public void onDestroy() {
+//        getActivity().stopService(new Intent(this.getContext(),PayPalService.class));
+//        super.onDestroy();
+//
+//    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,12 +133,13 @@ public class PaymentFragment extends Fragment {
         logout = view.findViewById(R.id.fragment_payment_logoutBtn);
 
         googlePayButton = view.findViewById(R.id.googlePayButton);
+        payPal = view.findViewById(R.id.payment_PayPal_btn);
         backBtn = view.findViewById(R.id.fragment_payment_back_btn);
         submit = view.findViewById(R.id.fragment_payment_submit_btn);
 
         model = new ViewModelProvider(this).get(CheckoutViewModel.class);
         model.canUseGooglePay.observe(this.getActivity(), this::setGooglePayAvailable);
-        // creating Payment Client (different from google code, not by methos)
+        // creating Payment Client (different from google code, not by methods)
 
         Wallet.WalletOptions walletOptions = new Wallet.WalletOptions.Builder()
                 .setEnvironment(WalletConstants.ENVIRONMENT_TEST).setTheme(WalletConstants.THEME_DARK)
@@ -130,6 +155,17 @@ public class PaymentFragment extends Fragment {
                 requestPayment(view);
             }
         });
+
+        payPal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getPayment();
+            }
+        });
+
+        Intent intent = new Intent (this.getContext(),PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+        getActivity().startService(intent);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +198,75 @@ public class PaymentFragment extends Fragment {
         });
         return view;
     }
+
+    private void getPayment() {
+        String amount = "1";// TODO:: take the real amount
+
+        // Creating a paypal payment on below line
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(amount)), "USD", "Payment",
+                PayPalPayment.PAYMENT_INTENT_SALE);
+
+        Intent intent = new Intent(this.getContext(), PaymentActivity.class);
+
+        //putting the paypal configuration to the intent
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+
+        // Putting paypal payment to the intent
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+
+        // Starting the intent activity for result
+        // the request code will be used on the method onActivityResult
+        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // If the result is from paypal
+        if (requestCode == PAYPAL_REQUEST_CODE) {
+
+            // If the result is OK i.e. user has not canceled the payment
+            if (resultCode == Activity.RESULT_OK) {
+
+                // Getting the payment confirmation
+                PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+                // if confirmation is not null
+                if (confirm != null) {
+                    try {
+                        // Getting the payment details
+                        String paymentDetails = confirm.toJSONObject().toString(4);
+                        // on below line we are extracting json response and displaying it in a text view.
+
+//                        startActivity(new Intent(this,PaymentDetails.class)
+//                                .putExtra("Payment Details",paymentDetails)
+//                                .putExtra("Amount","1"));
+
+                        JSONObject payObj = new JSONObject(paymentDetails);
+                        String payID = payObj.getJSONObject("response").getString("id");
+                        String state = payObj.getJSONObject("response").getString("state");
+                     //   paymentTV.setText("Payment " + state + "\n with payment id is " + payID);
+
+
+                    } catch (JSONException e) {
+                        // handling json exception on below line
+                        Log.e("Error", "an extremely unlikely failure occurred: ", e);
+                    }
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                // on below line we are checking the payment status.
+                Log.i("paymentExample", "The user canceled.");
+            } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+                // on below line when the invalid paypal config is submitted.
+                Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+            }
+        }
+    }
+
+
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)

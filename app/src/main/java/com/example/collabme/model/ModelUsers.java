@@ -40,6 +40,10 @@ public class ModelUsers {
         void onComplete(int code);
 
     }
+    public interface DeleteUserListener {
+        void onComplete(int code);
+
+    }
 
     public interface GetUserByUserEmail {
         void onComplete(User profile);
@@ -142,6 +146,38 @@ public class ModelUsers {
                 Log.d("TAG", "not " + t);
 
                 editUserListener.onComplete(400);
+            }
+        });
+
+    }
+
+    public void deleteUser(String username, DeleteUserListener deleteUserListener) {
+        tokensrefresh.retroServer();
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses", "");
+
+
+        Call<User> call = tokensrefresh.retrofitInterface.deleteUser(username, "Bearer " + tockenacsses);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d("TAG", "" + response);
+
+                if (response.code() == 200) {
+                    deleteUserListener.onComplete(200);
+
+                } else {
+                    deleteUserListener.onComplete(400);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("TAG", "not " + t);
+
+                deleteUserListener.onComplete(400);
             }
         });
 

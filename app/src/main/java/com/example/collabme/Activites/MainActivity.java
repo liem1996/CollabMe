@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     navCtl.navigate(R.id.fragment_Search);
                     break;
                 case R.id.nav_chat:
-                    navCtl.navigate(R.id.chatFragment);
+                    navCtl.navigate(R.id.chatFragmentopen);
                     break;
                 case R.id.nav_offer:
                     navCtl.navigate(R.id.myOffersFragment);

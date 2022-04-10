@@ -221,7 +221,6 @@ public class Fragment_Search extends Fragment {
 
         return view;
     }
-// TODO to add description field to the view------------------!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public void searchAcordingtoParamters() {
          proposer1 = proposer.getText().toString();

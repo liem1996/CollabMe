@@ -30,6 +30,7 @@ import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
+import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
@@ -146,6 +147,43 @@ public class EditProfile extends Fragment {
         });
 
         //deleteBtn
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Delete Account");
+                builder.setMessage("Are you sure you want to delete your account?");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Modelauth.instance2.logout(code -> {
+                                    if (code == 200) {
+                                        LoginManager.getInstance().logOut();
+                                        ModelUsers.instance3.deleteUser(username1, new ModelUsers.DeleteUserListener() {
+                                            @Override
+                                            public void onComplete(int code) {
+                                                Toast.makeText(getActivity(), "user deleted", Toast.LENGTH_LONG).show();
+                                                toLoginActivity();
+
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+        });
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         //TODO:: add functionality for camera and gallery image button
         //edit

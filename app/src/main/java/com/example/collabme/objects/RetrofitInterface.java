@@ -88,4 +88,9 @@ public interface RetrofitInterface {
     @POST("/mediacontent/addMediaContent")
     Call<Void> addMediaContent(@Body Map<String, Object> offer, @Header("authorization") String token);
 
+
+    @POST("/users/deleteuser/{username}")
+    Call<User> deleteUser(@Path("username") String username,@Header("authorization") String token);
+
+
 }

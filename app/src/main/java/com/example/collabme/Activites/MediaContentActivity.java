@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,11 +59,28 @@ public class MediaContentActivity extends AppCompatActivity {
         ViewGroup view = (ViewGroup) ((ViewGroup) this
                 .findViewById(android.R.id.content)).getChildAt(0);
 
+        //////////////////////////////////////////
+
+        AlertDialog.Builder myAlert = new AlertDialog.Builder(this);
+        myAlert.setMessage("hey")
+                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setTitle("Please pick an offer:")
+                .create();
+        myAlert.show();
+
+        //////////////////////////////////////////
+
         // Get intent, action and MIME type
          intent = getIntent();
          action = intent.getAction();
          type = intent.getType();
 
+         // TODO: !!!!!!!!!!  The offerID in the below function should be changed from "100" to general offer !!!!!!!!!!!!!!!
         ModelOffers.instance.getOfferById("100", new ModelOffers.GetOfferListener() {
             @Override
             public void onComplete(Offer offer) {

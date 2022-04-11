@@ -1,6 +1,7 @@
 package com.example.collabme.TheSighUPProcess;
 
 import static android.app.Activity.RESULT_OK;
+import static android.graphics.Color.rgb;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +52,7 @@ public class SignupFragment extends Fragment {
     boolean company1,influencer1;
 
     String facebookUsername, facebookEmail, facebookPassword;
+    ProgressBar progressBar;
 
 
     @Override
@@ -67,6 +70,10 @@ public class SignupFragment extends Fragment {
         genderStrings = new ArrayList<>();
         genderStrings = getAllGenders();
         initSpinnerFooter();
+
+        progressBar = view.findViewById(R.id.signup_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         username = view.findViewById(R.id.fragemnt_signup_username);
         password = view.findViewById(R.id.fragemnt_signup_password);
@@ -106,6 +113,7 @@ public class SignupFragment extends Fragment {
                     }
                     authforuser();
                     if(goodsign) {
+                        progressBar.setVisibility(View.VISIBLE);
                         Navigation.findNavController(v).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username1, password1, influencer1,
                                 company1, email1, age1, selectedGender1, null, null, null,imageBitmap));
                     }
@@ -116,6 +124,7 @@ public class SignupFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 LoginManager.getInstance().logOut();
 
                 Navigation.findNavController(view).navigate(R.id.action_signupFragment2_to_fragment_login);
@@ -170,6 +179,7 @@ public class SignupFragment extends Fragment {
 
 
     private void saveDetails() {
+
         username1 = username.getText().toString();
         password1 = password.getText().toString();
         influencer1 = influencer.isChecked();

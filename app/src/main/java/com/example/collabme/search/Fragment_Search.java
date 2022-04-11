@@ -1,5 +1,7 @@
 package com.example.collabme.search;
 
+import static android.graphics.Color.rgb;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +47,7 @@ public class Fragment_Search extends Fragment {
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
     String[] professionArr, chosen;
     boolean goodsign=true;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +68,9 @@ public class Fragment_Search extends Fragment {
         logout =view.findViewById(R.id.fragment_search_logoutBtn);
 
         description = view.findViewById(R.id.fragment_Search_description);
+        progressBar = view.findViewById(R.id.search_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         professions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +179,7 @@ public class Fragment_Search extends Fragment {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
 
                 searchAcordingtoParamters();
                 checks();
@@ -255,6 +263,7 @@ public class Fragment_Search extends Fragment {
     }
 
     private void toLoginActivity() {
+        progressBar.setVisibility(View.VISIBLE);
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();

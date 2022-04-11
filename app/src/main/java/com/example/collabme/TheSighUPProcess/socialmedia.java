@@ -1,5 +1,7 @@
 package com.example.collabme.TheSighUPProcess;
 
+import static android.graphics.Color.rgb;
+
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -27,12 +30,17 @@ public class socialmedia extends Fragment {
     Boolean influencer1, company1;
     String followersCheck, postsCheck;
     Bitmap bitmap;
+    ProgressBar progressBar;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_socialmedia, container, false);
+        progressBar =view.findViewById(R.id.socialMedia_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         instegram = view.findViewById(R.id.fragment_socialmedia_instagram);
         twitter = view.findViewById(R.id.fragment_socialmedia_twitter);
@@ -109,6 +117,8 @@ public class socialmedia extends Fragment {
             return;
         }
         else {
+            progressBar.setVisibility(View.VISIBLE);
+
             Navigation.findNavController(view).navigate(socialmediaDirections.actionSocialmediaToProfessionFragment(username1, password1, influencer1,
                     company1, email1, age1, selectedGender, platform, followers.getText().toString(), posts.getText().toString(),bitmap));
 

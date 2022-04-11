@@ -30,6 +30,8 @@ import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.search.fragment_search_results;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MediaContentActivity extends AppCompatActivity {
@@ -42,6 +44,10 @@ public class MediaContentActivity extends AppCompatActivity {
     String action;
     String type;
     String[] MediaContent;
+    String[] offersToSelect;
+    boolean[] checkedItems;
+    ArrayList<Integer> langList = new ArrayList<>();
+    String[] chosenOffers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +65,74 @@ public class MediaContentActivity extends AppCompatActivity {
         ViewGroup view = (ViewGroup) ((ViewGroup) this
                 .findViewById(android.R.id.content)).getChildAt(0);
 
-        //////////////////////////////////////////
-
-        AlertDialog.Builder myAlert = new AlertDialog.Builder(this);
-        myAlert.setMessage("hey")
-                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+            @Override
+            public void onComplete(User profile) {
+                ModelOffers.instance.getoffersfromuserinCandidates(profile.getUsername(), new ModelOffers.getoffersfromuserinCandidates() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    public void onComplete(List<Offer> offer) {
+                      //  offersToSelect1 = offer.toArray(new String[0]);
+                        offersToSelect = new String[offer.size()];
+                        for (int i=0;i<offersToSelect.length; i++)
+                        {
+                            offersToSelect[i] = offer.get(i).getIdOffer();
+                        }
+                        // should be the offer size
+                        checkedItems = new boolean[offersToSelect.length];
+
+                        // Initialize alert dialog
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MediaContentActivity.this);
+
+                        // set title
+                        builder.setTitle("Select an offer:");
+
+                        // set dialog non cancelable
+                        builder.setCancelable(false);
+
+                        builder.setMultiChoiceItems(offersToSelect, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+
+                            int count =0; // counter to limit number of selection (only one can be chosen)
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                                // check condition
+                                if (b) {
+                                    // when checkbox selected
+                                    // Add position in lang list
+                                    langList.add(i);
+                                    // Sort array list
+                                    Collections.sort(langList);
+                                } else {
+                                    // when checkbox unselected
+                                    // Remove position from langList
+                                    langList.remove(Integer.valueOf(i));
+                                }
+                            }
+                        });
+
+                        builder.setPositiveButton("Choose", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Initialize string builder
+                                StringBuilder stringBuilder = new StringBuilder();
+                                chosenOffers = new String[langList.size()];
+
+                            }
+                        });
+
+                        // show dialog
+                        builder.show();
                     }
-                })
-                .setTitle("Please pick an offer:")
-                .create();
-        myAlert.show();
+                });
+            }
+        });
+
+///////////////////Dialog Alert Pop up////////////////////////////
+
+
+
+
+
 
         //////////////////////////////////////////
 
@@ -167,18 +228,6 @@ public class MediaContentActivity extends AppCompatActivity {
                     handleSendText(intent); // Handle text being sent
                 }
         }
-
-            // TODO: USE -> "getoffersfromuserinCandidates"
-
-  /*          ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-                @Override
-                public void onComplete(User profile) {
-                    if (profile!=null){
-
-                    }
-                }
-            });*/
-
 
         }
     }

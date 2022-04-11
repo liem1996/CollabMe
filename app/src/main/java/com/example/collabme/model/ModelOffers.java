@@ -59,6 +59,10 @@ public class ModelOffers {
         void onComplete();
     }
 
+    public interface getoffersfromuserinCandidates{
+        void onComplete(List<Offer> offer);
+    }
+
     public ModelOffers() {
         offersListLoadingState.setValue(OffersListLoadingState.loaded);
     }
@@ -442,6 +446,52 @@ public class ModelOffers {
             public void onFailure(Call<List<Offer>> call, Throwable t) {
                 Log.d("TAG", "basaaaaaa  a a a " + t);
                 userOfferCandidates = null;
+            }
+        });
+    }
+
+    public void getoffersfromuserinCandidates(String username, getoffersfromuserinCandidates getoffersfromuserinCandidatesListener) {
+        tokensrefresh.retroServer();
+        String tokenAccess = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses", "");
+
+        Call<List<Offer>> call = tokensrefresh.retrofitInterface.getoffersfromuserinCandidates(username, "Bearer " + tokenAccess);
+        call.enqueue(new Callback<List<Offer>>() {
+            @Override
+            public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response) {
+                if (response.code() == 200) {
+                    getoffersfromuserinCandidatesListener.onComplete(response.body());
+                } else if (response.code() == 403) {
+                    tokensrefresh.changeAcssesToken();
+                    String tockennew = tokensrefresh.gettockenAcsses();
+                    Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getoffersfromuserinCandidates(username, "Bearer " + tockennew);
+                    call1.enqueue(new Callback<List<Offer>>() {
+                        @Override
+                        public void onResponse(Call<List<Offer>> call, Response<List<Offer>
+                                > response1) {
+                            if (response1.code() == 200) {
+                                getoffersfromuserinCandidatesListener.onComplete(response.body());
+                            } else {
+                                getoffersfromuserinCandidatesListener.onComplete(null);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Offer>> call, Throwable t) {
+                            getoffersfromuserinCandidatesListener.onComplete(null);
+                        }
+                    });
+                } else {
+                    getoffersfromuserinCandidatesListener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Offer>> call, Throwable t) {
+                Log.d("TAG", "getting the offers of user in candidates failed" + t);
+
+                getoffersfromuserinCandidatesListener.onComplete(null);
             }
         });
     }

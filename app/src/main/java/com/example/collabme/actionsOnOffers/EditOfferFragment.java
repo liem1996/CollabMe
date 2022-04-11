@@ -372,7 +372,7 @@ public class EditOfferFragment extends Fragment {
                         });
                     }
                 });
-            } else {
+            }else {
                 ModelOffers.instance.editOffer(offer1, code -> {
                     if (code == 200) {
                         Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
@@ -391,15 +391,34 @@ public class EditOfferFragment extends Fragment {
 
     public boolean checkValidDate() {
         if (!isValidFormat("dd/MM/yyyy", finishDate.getText().toString()) || (finishDate.getText().toString().equals(""))) {
-            Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
+            finishDate.setError("date is not a date format");
             return false;
-        } else {
+        }
+        else if (headline.getText().toString().isEmpty()){
+            headline.setError("Headline is required");
+            return false;
+        }
+        else if (profession.getText().toString().isEmpty()){
+            profession.setError("Profession is required");
+            return false;
+        }
+        else if (description.getText().toString().isEmpty()){
+            description.setError("Description is required");
+            return false;
+        }
+        else if (price.getText().toString().isEmpty() || !(price.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))) {
+            price.setError("Price is required");
+            return false;
+        }
+        else {
             dateSplitArr = finishDate.getText().toString().split("/" /*<- Regex */);
             if (dateSplitArr[0].length() == 2 && dateSplitArr[1].length() == 2 && dateSplitArr[2].length() == 4) {
                 date = dateSplitArr[0] + dateSplitArr[1] + dateSplitArr[2];
                 return true;
             } else {
-                Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
+                finishDate.setError("date is not a date format");
+                //Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }

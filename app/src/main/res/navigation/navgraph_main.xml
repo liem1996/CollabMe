@@ -172,6 +172,9 @@
         <action
             android:id="@+id/action_inprogressfragment_to_fragment_mediaContent"
             app:destination="@id/fragment_mediaContent" />
+        <action
+            android:id="@+id/action_inprogressfragment_to_chatFragmentopen"
+            app:destination="@id/chatFragmentopen" />
     </fragment><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
     <fragment
         android:id="@+id/fragment_Search"
@@ -217,6 +220,13 @@
         <action
             android:id="@+id/action_offerDetailsFragment_to_candidatesFragment"
             app:destination="@id/candidatesFragment" />
+        <action
+            android:id="@+id/action_offerDetailsFragment_to_chatFragmentopen"
+            app:destination="@id/chatFragmentopen" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/myOffersFragment"
@@ -260,9 +270,10 @@
         android:name="com.example.collabme.Chat.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" >
-        <action
-            android:id="@+id/action_chatFragment_to_paymentFragment"
-            app:destination="@id/paymentFragment" />
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
         tools:layout="@layout/fragment_chat" />

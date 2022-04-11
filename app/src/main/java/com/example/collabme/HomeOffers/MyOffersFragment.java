@@ -30,7 +30,6 @@ import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.OffersViewmodel;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -100,7 +99,7 @@ public class MyOffersFragment extends Fragment {
                     String status = offer.getStatus();
                     switch (status) {
                         case "Open":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToOfferDetailsFragment(offerId));
+                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToOfferDetailsFragment(offerId,null));
                             break;
                         case "InProgress":
                             Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToInprogressfragment(offerId));

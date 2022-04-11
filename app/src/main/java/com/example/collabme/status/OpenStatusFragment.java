@@ -112,6 +112,14 @@ public class OpenStatusFragment extends Fragment {
             }
         });
 
+        chatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToChatFragmentopen(offer2.getUser()));
+
+            }
+        });
+
         return view;
     }
 

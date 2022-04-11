@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,13 +22,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
-import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
-import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.OffersViewmodel;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -86,7 +81,7 @@ public class WaitingOffersFragment extends Fragment {
                 String status = offer.getStatus();
                 switch (status) {
                     case "Open":
-                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToOfferDetailsFragment(offerId));
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToOfferDetailsFragment(offerId,null));
                         break;
                     case "InProgress":
                         Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToInprogressfragment(offerId));

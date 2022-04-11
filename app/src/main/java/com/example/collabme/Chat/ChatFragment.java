@@ -39,6 +39,7 @@ public class ChatFragment extends Fragment {
             @Override
             public void onComplete(User profile) {
                 username = profile.getUsername();
+                tochatActivity();
             }
         });
 

@@ -468,8 +468,7 @@ public class ModelOffers {
                     Call<List<Offer>> call1 = tokensrefresh.retrofitInterface.getoffersfromuserinCandidates(username, "Bearer " + tockennew);
                     call1.enqueue(new Callback<List<Offer>>() {
                         @Override
-                        public void onResponse(Call<List<Offer>> call, Response<List<Offer>
-                                > response1) {
+                        public void onResponse(Call<List<Offer>> call, Response<List<Offer>> response1) {
                             if (response1.code() == 200) {
                                 getoffersfromuserinCandidatesListener.onComplete(response.body());
                             } else {

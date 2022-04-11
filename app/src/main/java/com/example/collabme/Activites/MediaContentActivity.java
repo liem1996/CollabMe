@@ -21,6 +21,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.collabme.R;
 import com.example.collabme.model.ModelMediaContent;
@@ -38,7 +39,6 @@ public class MediaContentActivity extends AppCompatActivity {
 
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    OnItemClickListener listener;
 
     Intent intent;
     String action;
@@ -64,6 +64,11 @@ public class MediaContentActivity extends AppCompatActivity {
 
         ViewGroup view = (ViewGroup) ((ViewGroup) this
                 .findViewById(android.R.id.content)).getChildAt(0);
+
+        // Get intent, action and MIME type
+        intent = getIntent();
+        action = intent.getAction();
+        type = intent.getType();
 
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
@@ -97,11 +102,35 @@ public class MediaContentActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
                                 // check condition
                                 if (b) {
+                                    count++;
                                     // when checkbox selected
                                     // Add position in lang list
                                     langList.add(i);
                                     // Sort array list
                                     Collections.sort(langList);
+                                    if (count>1){
+                                        Toast.makeText(MediaContentActivity.this, "You selected too many.", Toast.LENGTH_SHORT).show();
+                                    count--;
+                                    }
+                                        /*
+                                        final boolean[] selected = new boolean[25];
+
+builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMultiChoiceClickListener() {
+    int count = 0;
+    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+        count += isChecked ? 1 : -1;
+        selected[which] = isChecked;
+
+        if (count > 5) {
+            Toast.makeText(getActivity(), "You selected too many.", Toast.LENGTH_SHORT).show();
+            selected[which] = false;
+            count--;
+            ((AlertDialog) dialog).getListView().setItemChecked(which, false);
+        }
+    }
+
+});
+                                         */
                                 } else {
                                     // when checkbox unselected
                                     // Remove position from langList
@@ -117,6 +146,45 @@ public class MediaContentActivity extends AppCompatActivity {
                                 StringBuilder stringBuilder = new StringBuilder();
                                 chosenOffers = new String[langList.size()];
 
+                                // use for loop
+                                for (int j = 0; j < langList.size(); j++) {
+                                    // concat array value
+                                    stringBuilder.append(offersToSelect[langList.get(j)]);
+
+                                    chosenOffers[j] = (offersToSelect[langList.get(j)]); //to check again
+
+                                }
+
+                                ModelOffers.instance.getOfferById(chosenOffers[0], new ModelOffers.GetOfferListener() {
+                                    @Override
+                                    public void onComplete(Offer offer) {
+                                        MediaContent = offer.getMediaContent();
+                                        increaseSize();
+                                        if (Intent.ACTION_SEND.equals(action) && type != null) {
+                                            if ("text/plain".equals(type)) {
+                                                String sharedText1 = intent.getStringExtra(Intent.EXTRA_TEXT);
+                                                if (sharedText1 != null) {
+                                                    MediaContent[MediaContent.length-1]=(sharedText1);
+                                                    ModelMediaContent.instance.addMediaContent(chosenOffers[0], MediaContent, new ModelMediaContent.addMediaContentListener() {
+                                                        @Override
+                                                        public void onComplete(int code) {
+                                                            if (code==200) {
+                                                                System.out.println("add media content done successfully");
+                                                            }
+                                                        }
+                                                    });                            }
+                                                RecyclerView list = view.findViewById(R.id.mediacontent_rv);
+                                                list.setHasFixedSize(true);
+
+                                                list.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                                                adapter = new MyAdapter();
+                                                list.setAdapter(adapter);
+                                            }
+                                        }
+                                    }
+                                });
+
                             }
                         });
 
@@ -124,56 +192,11 @@ public class MediaContentActivity extends AppCompatActivity {
                         builder.show();
                     }
                 });
+
             }
+
+
         });
-
-///////////////////Dialog Alert Pop up////////////////////////////
-
-
-
-
-
-
-        //////////////////////////////////////////
-
-        // Get intent, action and MIME type
-         intent = getIntent();
-         action = intent.getAction();
-         type = intent.getType();
-
-         // TODO: !!!!!!!!!!  The offerID in the below function should be changed from "100" to general offer !!!!!!!!!!!!!!!
-        ModelOffers.instance.getOfferById("100", new ModelOffers.GetOfferListener() {
-            @Override
-            public void onComplete(Offer offer) {
-                MediaContent = offer.getMediaContent();
-                increaseSize();
-                if (Intent.ACTION_SEND.equals(action) && type != null) {
-                    if ("text/plain".equals(type)) {
-                            String sharedText1 = intent.getStringExtra(Intent.EXTRA_TEXT);
-                            if (sharedText1 != null) {
-                                MediaContent[MediaContent.length-1]=(sharedText1);
-                                ModelMediaContent.instance.addMediaContent("100", MediaContent, new ModelMediaContent.addMediaContentListener() {
-                                    @Override
-                                    public void onComplete(int code) {
-                                        if (code==200) {
-                                            System.out.println("add media content done successfully");
-                                        }
-                                    }
-                                });                            }
-
-                    }
-                }
-            }
-        });
-
-        RecyclerView list = view.findViewById(R.id.mediacontent_rv);
-        list.setHasFixedSize(true);
-
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        adapter = new MyAdapter();
-        list.setAdapter(adapter);
-
         //...
     }
 
@@ -203,44 +226,19 @@ public class MediaContentActivity extends AppCompatActivity {
             mediaContentURL=(TextView)itemView.findViewById(R.id.mediacontent_listrow_url);
             URLtypeImage = (ImageView)itemView.findViewById(R.id.mediacontent_listrow_socialmedia);
 
-            itemView.setOnClickListener(v -> {
-                int viewId = v.getId();
-
-                int pos = getAdapterPosition();
-                listener.onItemClick(pos,v,viewId);
-
-            });
-
 
         }
 
-        void handleSendText(Intent intent) {
-            String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-            if (sharedText != null) {
-                // Update UI to reflect text being shared
-                mediaContentURL.setText(sharedText);
-            }
-        }
 
-        public void bind(){
-            if (Intent.ACTION_SEND.equals(action) && type != null) {
-                if ("text/plain".equals(type)) {
-                    handleSendText(intent); // Handle text being sent
-                }
-        }
+        public void bind(String mediaURL){
+            mediaContentURL.setText(mediaURL);
 
         }
     }
 
     //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
-    interface OnItemClickListener{
-        void onItemClick(int position,View view,int idview);
-    }
-    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
-        public void setListener(OnItemClickListener listener1) {
-            listener = listener1;
-        }
+    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
         @NonNull
         @Override
@@ -252,27 +250,18 @@ public class MediaContentActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            holder.bind();
+            String str = MediaContent[position];
+            holder.bind(str);
+
         }
 
         @Override
         public int getItemCount() {
-       //     if(offersFromSearch == null){
-            //    return 0;
-         //   }
-        //    return offersFromSearch.length;
-            return 1;
+            if(MediaContent == null){
+                return 0;
+            }
+            return MediaContent.length;
         }
     }
-
-    public String [] ChangeToArray(List<String> array){
-        String [] arrayList = new String [array.size()];
-        for(int i=0;i<array.size();i++){
-            arrayList[i]=array.get(i);
-        }
-
-        return arrayList;
-    }
-
 
 }

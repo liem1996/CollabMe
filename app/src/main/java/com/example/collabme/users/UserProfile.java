@@ -1,5 +1,7 @@
 package com.example.collabme.users;
 
+import static android.graphics.Color.rgb;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -39,11 +42,16 @@ public class UserProfile extends Fragment {
     String password;
     Boolean influencer, company;
     ImageView logout, profilepicture;
+    ProgressBar progressBar;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        progressBar = view.findViewById(R.id.userProfile_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         usernameType = view.findViewById(R.id.fragment_userprofile_usernameType);
         username = view.findViewById(R.id.fragment_userprofile_username);
@@ -65,6 +73,7 @@ public class UserProfile extends Fragment {
                     ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
                         @Override
                         public void onComplete(Bitmap responseBody) {
+
                             checkUsernameType(profile);
                             username.setText(profile.getUsername());
                             age.setText(profile.getAge());
@@ -100,6 +109,7 @@ public class UserProfile extends Fragment {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 changeRejectedToArray();
                 Navigation.findNavController(v).navigate(UserProfileDirections.actionUserProfileToEditProfile2(
                         username.getText().toString(), password, company, influencer, age.getText().toString(), email.getText().toString(), gender.getText().toString(),
@@ -139,6 +149,7 @@ public class UserProfile extends Fragment {
     }
 
     private void toLoginActivity() {
+
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();

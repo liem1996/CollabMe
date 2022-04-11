@@ -1,5 +1,7 @@
 package com.example.collabme.TheSighUPProcess;
 
+import static android.graphics.Color.rgb;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -36,12 +39,14 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
     int i = 0;
     int index=0;
     Bitmap bitmap;
+    ProgressBar progressBar;
 
 
     Button sport, cooking,fashion, music, dance, cosmetic, travel, gaming, tech, food, art, animals, movies, photograph, other, lifestyle;
 
 
     private void toFeedActivity() {
+        progressBar.setVisibility(View.VISIBLE);
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
@@ -53,6 +58,9 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
 
         View view = inflater.inflate(R.layout.fragment_profession, container, false);
 
+        progressBar = view.findViewById(R.id.profession_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         sport = view.findViewById(R.id.fragemnt_profession_sport);
         sport.setOnClickListener(this);
@@ -163,6 +171,7 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 Navigation.findNavController(view).navigate(R.id.action_professionFragment_to_socialmedia);
             }
         });

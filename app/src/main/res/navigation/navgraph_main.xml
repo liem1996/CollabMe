@@ -274,6 +274,9 @@
         <argument
             android:name="offerId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_fragment_mediaContent_to_doneStatusFragment"
+            app:destination="@id/doneStatusFragment" />
     </fragment>
     <fragment
         android:id="@+id/waitingOffersFragment"

@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -16,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +34,7 @@ public class fragment_mediaContent extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     String offerId;
     String[] MediaContent;
+    Button AgreeBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +46,8 @@ public class fragment_mediaContent extends Fragment {
 
         offerId = fragment_mediaContentArgs.fromBundle(getArguments()).getOfferId();
 
+        AgreeBtn = view.findViewById(R.id.fragment_mediacontent_agree);
+
         ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
             @Override
             public void onComplete(Offer offer) {
@@ -53,6 +58,14 @@ public class fragment_mediaContent extends Fragment {
 
                 adapter = new MyAdapter();
                 list.setAdapter(adapter);
+
+            }
+        });
+
+        AgreeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(fragment_mediaContentDirections.actionFragmentMediaContentToDoneStatusFragment(offerId));
 
             }
         });

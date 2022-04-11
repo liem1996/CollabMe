@@ -21,6 +21,7 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Modelauth;
+import com.example.collabme.pagesForOffers.fragment_mediaContentArgs;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -34,7 +35,6 @@ public class DoneStatusFragment extends Fragment {
     CheckBox interestedVerify;
     Spinner profession;
     ImageView logout;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -1,22 +1,37 @@
-/*
+
 package com.example.collabme.pagesForOffers;
+
+import static com.example.collabme.objects.MyApplication.getContext;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.collabme.Activites.MediaContentActivity;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
+import com.example.collabme.objects.Offer;
+import com.example.collabme.status.OpenStatusFragmentArgs;
+import com.example.collabme.status.inprogressfragmentDirections;
 
 public class fragment_mediaContent extends Fragment {
 
-    TextView tv;
+    MyAdapter adapter;
+    SwipeRefreshLayout swipeRefresh;
+    String offerId;
+    String[] MediaContent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,39 +39,83 @@ public class fragment_mediaContent extends Fragment {
 
         View view =inflater.inflate(R.layout.fragment_media_content, container, false);
 
-        tv = view.findViewById(R.id.media_content_textview);
+        RecyclerView list = view.findViewById(R.id.mediacontent_rv);
 
-        // Get intent, action and MIME type
-        Intent intent = getActivity().getIntent();
-        String action = intent.getAction();
-        String type = intent.getType();
+        offerId = fragment_mediaContentArgs.fromBundle(getArguments()).getOfferId();
 
-        if (Intent.ACTION_SEND.equals(action) && type != null) {
-            if ("text/plain".equals(type)) {
-                handleSendText(intent); // Handle text being sent
-            } else if (type.startsWith("image/")) {
-                handleSendImage(intent); // Handle single image being sent
+        ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+            @Override
+            public void onComplete(Offer offer) {
+                MediaContent = offer.getMediaContent();
+                list.setHasFixedSize(true);
+
+                list.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                adapter = new MyAdapter();
+                list.setAdapter(adapter);
+
             }
-        } else {
-            // Handle other intents, such as being started from the home screen
-        }
-        //...
+        });
+
         return view;
     }
 
-    void handleSendText(Intent intent) {
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (sharedText != null) {
-            // Update UI to reflect text being shared
-            tv.setText("hello there");
+    private void refresh() {
+        adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+    }
+
+    //////////////////////////VIEWHOLDER////////////////////////////////////
+
+    class MyViewHolder extends RecyclerView.ViewHolder{
+        TextView mediaContentURL;
+        ImageView URLtypeImage;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mediaContentURL=(TextView)itemView.findViewById(R.id.mediacontent_listrow_url);
+            URLtypeImage = (ImageView)itemView.findViewById(R.id.mediacontent_listrow_socialmedia);
+
+
+        }
+
+
+        public void bind(String mediaURL){
+            mediaContentURL.setText(mediaURL);
+
         }
     }
 
-    void handleSendImage(Intent intent) {
-        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        if (imageUri != null) {
-            // Update UI to reflect image being shared
+    //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
+
+    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = getLayoutInflater().inflate(R.layout.fragment_mediacontent_list_row,parent,false);
+            MyViewHolder holder = new MyViewHolder(view);
+
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+            String str = MediaContent[position];
+            holder.bind(str);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            if(MediaContent == null){
+                return 0;
+            }
+            return MediaContent.length;
         }
     }
+
 }
- */

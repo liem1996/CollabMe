@@ -39,7 +39,7 @@ public class inprogressfragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
-        offerId = OpenStatusFragmentArgs.fromBundle(getArguments()).getOfferId();
+        offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
         proposer = view.findViewById(R.id.fragemnt_inprogress_proposer);
         headline = view.findViewById(R.id.fragemnt_inprogress_headline);
         description = view.findViewById(R.id.fragemnt_inprogress_description);

@@ -1,8 +1,12 @@
 package com.example.collabme.Activites;
 
+import static android.graphics.Color.rgb;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +20,8 @@ import com.example.collabme.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     NavController navCtl;
     ActivityMainBinding binding;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navCtl);
         // this is the main activity
+        progressBar =findViewById(R.id.mainActivity_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         binding.bottomNavigation.setOnItemSelectedListener(item->{
 

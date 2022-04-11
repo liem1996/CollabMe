@@ -1,5 +1,7 @@
 package com.example.collabme.TheSighUPProcess;
 
+import static android.graphics.Color.rgb;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,12 +70,13 @@ public class LoginFragment extends Fragment {
     String facebookToken;
     ProfileTracker profileTracker;
 
+    ProgressBar progressBar;
 
 
     AccessToken accessToken ;
     private void toFeedActivity() {
         if(getContext() !=null) {
-
+            progressBar.setVisibility(View.VISIBLE);
             Intent intent = new Intent(getContext(), MainActivity.class);
             startActivity(intent);
             getActivity().finish();
@@ -92,6 +96,10 @@ public class LoginFragment extends Fragment {
         facebook = view.findViewById(R.id.fragment_login_facebook);
         //facebook.setReadPermissions(Arrays.asList(EMAIL));
         facebook.setFragment(this);
+
+        progressBar = view.findViewById(R.id.login_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
 
         login = view.findViewById(R.id.fragment_login_loginbtn);
@@ -242,6 +250,7 @@ public class LoginFragment extends Fragment {
 
 
     private void handleSighUp() {
+        progressBar.setVisibility(View.VISIBLE);
 
        // Navigation.findNavController(view).navigate(R.id.action_fragment_login_to_signupFragment2);
        Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalSignupFragment2(null,null,null));

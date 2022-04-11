@@ -25,35 +25,39 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".Activites.WhatUpActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activites.ChatActivity"
             android:exported="false" />
-
         <activity
             android:name=".Activites.MediaContentActivity"
-            android:exported="true"
-           >
-
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="image/*" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="image/*" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".Activites.FacebookActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -77,7 +81,6 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
-
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />

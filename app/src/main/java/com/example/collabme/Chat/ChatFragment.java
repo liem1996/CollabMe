@@ -1,22 +1,25 @@
 package com.example.collabme.Chat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.ChatActivity;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelUsers;
+import com.example.collabme.objects.User;
 
 public class ChatFragment extends Fragment {
 
-    Button tmpPayment,chatfragment;
+   String username;
+
 
     public ChatFragment() {
         // Required empty public constructor
@@ -30,31 +33,22 @@ public class ChatFragment extends Fragment {
         if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},10);
         }
+
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
-        tmpPayment = view.findViewById(R.id.tmp_payment_btn);
-        chatfragment = view.findViewById(R.id.chatfragmentbutton);
-
-
-        tmpPayment.setOnClickListener(new View.OnClickListener() {
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
-            public void onClick(View v) {
-               Navigation.findNavController(view).navigate(ChatFragmentDirections.actionChatFragmentToPaymentFragment());
+            public void onComplete(User profile) {
+                username = profile.getUsername();
             }
         });
-
-
-
-
-        chatfragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(ChatFragmentDirections.actionChatFragmentToChatFirstPage("1"));
-            }
-        });
-
-
-
 
         return view;
+    }
+
+    private void tochatActivity() {
+        Intent intent = new Intent(getContext(), ChatActivity.class);
+        intent.putExtra("name",username);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

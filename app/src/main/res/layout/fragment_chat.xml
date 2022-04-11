@@ -3,27 +3,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Chat.ChatFragment">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Chat fragment"
-        android:textSize="20dp" />
-
-    <Button
-        android:id="@+id/chatfragmentbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="chat" />
-
-    <Button
-        android:id="@+id/tmp_payment_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="248dp"
-        android:layout_weight="1"
-        android:text="Button" />
-
-</LinearLayout>
+    tools:context=".Chat.ChatFragment"/>

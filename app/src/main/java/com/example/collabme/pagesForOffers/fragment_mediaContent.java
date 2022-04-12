@@ -95,6 +95,22 @@ public class fragment_mediaContent extends Fragment {
 
 
         public void bind(String mediaURL){
+            // adding the image of the shared application of the link
+            if (mediaURL.contains("youtu")){
+                URLtypeImage.setImageResource(R.drawable.youtub);
+            }
+            else if (mediaURL.contains("facebook")){
+                URLtypeImage.setImageResource(R.drawable.facebook);
+            }
+            else if (mediaURL.contains("twitter")){
+                URLtypeImage.setImageResource(R.drawable.twitter);
+            }
+            else if (mediaURL.contains("tiktok")){
+                URLtypeImage.setImageResource(R.drawable.tiktok);
+            }
+            else if (mediaURL.contains("instagram")){
+                URLtypeImage.setImageResource(R.drawable.instegram);
+            }
             mediaContentURL.setText(mediaURL);
 
         }

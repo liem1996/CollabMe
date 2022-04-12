@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     navCtl.navigate(R.id.fragment_Search);
                     break;
                 case R.id.nav_chat:
-                    navCtl.navigate(R.id.chatFragmentopen);
+                    toWhatup();
                     break;
                 case R.id.nav_offer:
                     navCtl.navigate(R.id.myOffersFragment);
@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void toLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
+    private void toWhatup() {
+        Intent intent = new Intent(this, WhatUpActivity.class);
         startActivity(intent);
         finish();
     }

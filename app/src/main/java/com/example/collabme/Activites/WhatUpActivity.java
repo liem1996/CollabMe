@@ -1,7 +1,6 @@
 package com.example.collabme.Activites;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -63,23 +62,4 @@ public class WhatUpActivity extends AppCompatActivity {
 
     }
 
-    private boolean isWhatappInstalled(){
-
-        PackageManager packageManager = getPackageManager();
-        boolean whatsappInstalled;
-
-        try {
-
-            packageManager.getPackageInfo("com.whatsapp",PackageManager.GET_ACTIVITIES);
-            whatsappInstalled = true;
-
-
-        }catch (PackageManager.NameNotFoundException e){
-
-            whatsappInstalled = false;
-
-        }
-
-        return whatsappInstalled;
-    }
 }

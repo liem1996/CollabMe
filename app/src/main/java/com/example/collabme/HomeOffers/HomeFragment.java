@@ -2,6 +2,8 @@ package com.example.collabme.HomeOffers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
@@ -30,6 +33,7 @@ import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.OffersViewmodel;
 import com.facebook.login.LoginManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -258,27 +262,39 @@ public class HomeFragment extends Fragment {
             offer_headline.setText(offer.getHeadline());
             offer_date.setText(setValidDate(offer.getFinishDate()));
             offer_status.setText(offer.getStatus());
-
-            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+            ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                 @Override
-                public void onComplete(User profile) {
-                    if (!profile.getUsername().equals(offer.getUser()))
-                        offer_edit_imb.setVisibility(View.INVISIBLE);
-                    else {
-                        offer_V_imb.setVisibility(View.INVISIBLE);
-                        offer_X_imb.setVisibility(View.INVISIBLE);
-                    }
+                public void onComplete(Bitmap responseBody) {
+                    if(responseBody!=null) {
+                        offer_image.setImageBitmap(responseBody);
+                        Uri uri = offer.getImageUri(responseBody, getActivity());
+                        Picasso.get().load(uri).resize(600, 200).into(offer_image);
 
-                    String[] offerCandidates = offer.getUsers();
-                    for (int i = 0; i < offerCandidates.length; i++) {
-                        if (offerCandidates[i].equals(profile.getUsername())) {
-                            offer_V_imb.setVisibility(View.INVISIBLE);
-                            offer_X_imb.setVisibility(View.INVISIBLE);
-                            break;
-                        }
                     }
+                    ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                        @Override
+                        public void onComplete(User profile) {
+                            if (!profile.getUsername().equals(offer.getUser()))
+                                offer_edit_imb.setVisibility(View.INVISIBLE);
+                            else {
+                                offer_V_imb.setVisibility(View.INVISIBLE);
+                                offer_X_imb.setVisibility(View.INVISIBLE);
+                            }
+
+                            String[] offerCandidates = offer.getUsers();
+                            for (int i = 0; i < offerCandidates.length; i++) {
+                                if (offerCandidates[i].equals(profile.getUsername())) {
+                                    offer_V_imb.setVisibility(View.INVISIBLE);
+                                    offer_X_imb.setVisibility(View.INVISIBLE);
+                                    break;
+                                }
+                            }
+                        }
+                    });
                 }
             });
+
+
         }
     }
 

@@ -7,11 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.ColorSpace;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -198,6 +196,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
                         ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
                             @Override
                             public void onComplete(String uri) {
+                                offer.setImage(uri);
                                 ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
                                     @Override
                                     public void onComplete(int code) {

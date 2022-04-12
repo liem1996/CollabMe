@@ -1,6 +1,7 @@
 package com.example.collabme.pagesForOffers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +21,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelCandidates;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.CandidatesViewmodel;
+import com.facebook.login.LoginManager;
 
 public class CandidatesFragment extends Fragment {
 
@@ -74,6 +78,20 @@ public class CandidatesFragment extends Fragment {
             }
 
         });
+
+        logout = view.findViewById(R.id.fragment_home_logoutBtn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(code -> {
+                    if (code == 200) {
+                        LoginManager.getInstance().logOut();
+                        toLoginActivity();
+                    }
+                });
+            }
+        });
+
 
 
         adapter.setListener(new OnItemClickListener() {
@@ -153,6 +171,11 @@ public class CandidatesFragment extends Fragment {
         }
     }
 
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
 
     //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
     interface OnItemClickListener{

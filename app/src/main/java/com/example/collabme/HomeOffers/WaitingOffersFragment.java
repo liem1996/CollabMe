@@ -2,6 +2,8 @@ package com.example.collabme.HomeOffers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +24,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.viewmodel.OffersViewmodel;
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -181,10 +185,20 @@ public class WaitingOffersFragment extends Fragment {
             offer_headline.setText(offer.getHeadline());
             offer_date.setText(setValidDate(offer.getFinishDate()));
             offer_status.setText(offer.getStatus());
-
             offer_edit_imb.setVisibility(View.INVISIBLE);
             offer_V_imb.setVisibility(View.INVISIBLE);
             offer_X_imb.setVisibility(View.INVISIBLE);
+            ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
+                @Override
+                public void onComplete(Bitmap responseBody) {
+                    if(responseBody!=null) {
+                        offer_image.setImageBitmap(responseBody);
+                        Uri uri = offer.getImageUri(responseBody, getActivity());
+                        Picasso.get().load(uri).resize(600, 200).into(offer_image);
+
+                    }
+                }
+            });
         }
     }
 

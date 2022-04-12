@@ -51,7 +51,6 @@ public class inprogressfragment extends Fragment {
         editBtn = view.findViewById(R.id.fragemnt_inprogress_edit);
         chatBtn  = view.findViewById(R.id.fragemnt_inprogress_chat);
         upload  = view.findViewById(R.id.fragemnt_inprogress_upload);
-        candidatesBtn = view.findViewById(R.id.fragemnt_inprogress_candidate);
         logout = view.findViewById(R.id.fragment_inprogress_logoutBtn);
 
 
@@ -77,13 +76,7 @@ public class inprogressfragment extends Fragment {
             }
         });
 
-        candidatesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToCandidatesFragment(offerId));
 
-            }
-        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

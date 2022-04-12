@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.collabme.objects.MyApplication;
+import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
@@ -32,6 +33,11 @@ public class ModelCandidates {
         loaded
 
     }
+
+    public interface deletingothercandidates {
+        void onComplete(Offer offer);
+    }
+
 
 
     /**
@@ -113,5 +119,6 @@ public class ModelCandidates {
 
 
     }
+
 
 }

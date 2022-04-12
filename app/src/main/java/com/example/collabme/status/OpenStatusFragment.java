@@ -67,6 +67,7 @@ public class OpenStatusFragment extends Fragment {
                     public void onComplete(User profile) {
                         if(!profile.getUsername().equals(offer.getUser())){
                             candidatesBtn.setVisibility(View.GONE);
+                            editBtn.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -74,9 +75,8 @@ public class OpenStatusFragment extends Fragment {
             }
         });
 
-
-
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
+
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
             if(offer!=null) {

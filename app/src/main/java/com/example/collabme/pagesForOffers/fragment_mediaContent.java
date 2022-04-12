@@ -24,7 +24,9 @@ import android.widget.TextView;
 import com.example.collabme.Activites.MediaContentActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 import com.example.collabme.status.OpenStatusFragmentArgs;
 import com.example.collabme.status.inprogressfragmentDirections;
 
@@ -35,6 +37,7 @@ public class fragment_mediaContent extends Fragment {
     String offerId;
     String[] MediaContent;
     Button AgreeBtn;
+    String offerOwner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +48,7 @@ public class fragment_mediaContent extends Fragment {
         RecyclerView list = view.findViewById(R.id.mediacontent_rv);
 
         offerId = fragment_mediaContentArgs.fromBundle(getArguments()).getOfferId();
+
 
         AgreeBtn = view.findViewById(R.id.fragment_mediacontent_agree);
 
@@ -59,9 +63,21 @@ public class fragment_mediaContent extends Fragment {
                 adapter = new MyAdapter();
                 list.setAdapter(adapter);
 
+                offerOwner = offer.getUser();
             }
         });
 
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+            @Override
+            public void onComplete(User profile) {
+                if (profile.getUsername().equals(offerOwner)){
+                    AgreeBtn.setVisibility(View.VISIBLE);
+                }
+                else{
+                    AgreeBtn.setVisibility(View.GONE);
+                }
+            }
+        });
         AgreeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

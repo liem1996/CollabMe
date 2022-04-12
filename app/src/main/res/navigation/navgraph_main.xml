@@ -167,9 +167,6 @@
             android:name="offerId"
             app:argType="string" />
         <action
-            android:id="@+id/action_inprogressfragment_to_candidatesFragment"
-            app:destination="@id/candidatesFragment" />
-        <action
             android:id="@+id/action_inprogressfragment_to_fragment_mediaContent"
             app:destination="@id/fragment_mediaContent" />
         <action
@@ -197,6 +194,9 @@
         <argument
             android:name="offerId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_candidatesFragment_to_inprogressfragment"
+            app:destination="@id/inprogressfragment" />
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"
@@ -214,9 +214,6 @@
         <argument
             android:name="offerId"
             app:argType="string" />
-        <action
-            android:id="@+id/action_offerDetailsFragment_to_inprogressfragment"
-            app:destination="@id/inprogressfragment" />
         <action
             android:id="@+id/action_offerDetailsFragment_to_candidatesFragment"
             app:destination="@id/candidatesFragment" />

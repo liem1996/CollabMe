@@ -5,19 +5,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.collabme.R;
 import com.example.collabme.model.ModelCandidates;
+import com.example.collabme.model.ModelOffers;
+import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.CandidatesViewmodel;
 
@@ -29,7 +35,9 @@ public class CandidatesFragment extends Fragment {
     String offerId;
     OnItemClickListener listener;
     SwipeRefreshLayout swipeRefresh;
-
+    Button choosen;
+    CheckBox choosenCandidate;
+    TextView username;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -49,7 +57,7 @@ public class CandidatesFragment extends Fragment {
 
         RecyclerView list = view.findViewById(R.id.candidates_rv);
         list.setHasFixedSize(true);
-
+        choosen = view.findViewById(R.id.fragemnt_candidates_choosen);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new MyAdapter();
@@ -71,10 +79,37 @@ public class CandidatesFragment extends Fragment {
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view,int idview) {
-                String url = viewModel.getCandidates(offerId).getValue().get(position).getUsername();
 
 
+            }
+        });
 
+
+        choosen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (choosenCandidate.isChecked()) {
+                    ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                        @Override
+                        public void onComplete(Offer offer) {
+                            offer.setStatus("InProgress");
+                            String []  user = new String[1];
+                            user[0]=username.getText().toString();
+                            offer.setUsers(user);
+                            ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                                @Override
+                                public void onComplete(int code) {
+                                    if (code == 200) {
+                                        Navigation.findNavController(v).navigate(CandidatesFragmentDirections.actionCandidatesFragmentToInprogressfragment(offerId));
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                }else{
+                    Toast.makeText(getActivity(), "you didnt choose candidate", Toast.LENGTH_LONG).show();
+                }
             }
         });
         refresh();
@@ -89,18 +124,31 @@ public class CandidatesFragment extends Fragment {
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView username;
-
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
             username = itemView.findViewById(R.id.candidates_listrow_username);
+            choosenCandidate= itemView.findViewById(R.id.candidates_listrow_checkBox);
+            itemView.setOnClickListener(v -> {
+                int viewId = v.getId();
+                int pos = getAdapterPosition();
+                listener.onItemClick(pos, v, viewId);
+            });
+            choosenCandidate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int viewid = v.getId();
+                    int position = getAdapterPosition();
 
+                    listener.onItemClick(position, itemView, viewid);
+                }
+            });
 
         }
         public void bind(User user){
             username.setText(user.getUsername());
+            choosenCandidate.setChecked(false);
 
         }
     }

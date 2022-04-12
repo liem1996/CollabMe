@@ -83,7 +83,7 @@ public class ModelOffers {
         if (offersListHome.getValue() == null) {
             refreshPostList();
         }
-        ;
+
         return offersListHome;
     }
 
@@ -91,7 +91,7 @@ public class ModelOffers {
         if (offersListMyOffer.getValue() == null) {
             refreshPostList();
         }
-        ;
+
         return offersListMyOffer;
     }
 
@@ -99,7 +99,7 @@ public class ModelOffers {
         if (offerWaitingList.getValue() == null) {
             refreshPostList();
         }
-        ;
+
         return offerWaitingList;
     }
 

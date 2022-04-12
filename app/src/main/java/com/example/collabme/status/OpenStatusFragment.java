@@ -21,8 +21,10 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.actionsOnOffers.EditOfferFragmentArgs;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -37,6 +39,7 @@ public class OpenStatusFragment extends Fragment {
     ImageView logout;
     ImageButton editBtn, candidatesBtn;
     FloatingActionButton chatBtn;
+    String writer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,9 +61,6 @@ public class OpenStatusFragment extends Fragment {
         candidatesBtn = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn);
         logout = view.findViewById(R.id.fragment_offerdetails_logoutBtn);
 
-
-        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
-
         ModelOffers.instance.getOfferById(offerId, offer -> {
             if(offer!=null) {
                 initSpinnerFooter(offer.getProfession().length, offer.getProfession(), profession);
@@ -71,9 +71,25 @@ public class OpenStatusFragment extends Fragment {
                 status.setText(offer.getStatus());
                 price.setText(offer.getPrice());
                 interestedVerify.setChecked(offer.getIntrestedVerify());
+                writer = offer.getUser();
                 offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price.getText().toString(), offerId, status.getText().toString(), offer.getProfession(), offer.getUser(), interestedVerify.isChecked());
             }
         });
+
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+            @Override
+            public void onComplete(User profile) {
+                if (profile.getUsername().equals(writer)){
+                    editBtn.setVisibility(View.VISIBLE);
+                }
+                else{
+                    editBtn.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
+
 
         choosen.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -39,8 +39,10 @@ public class DoneStatusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
-        offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
+        View view = inflater.inflate(R.layout.fragment_done_status, container, false);
+
+        offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
+
         proposer = view.findViewById(R.id.fragemnt_done_proposer);
         headline = view.findViewById(R.id.fragemnt_done_headline);
         description = view.findViewById(R.id.fragemnt_done_description);
@@ -55,6 +57,7 @@ public class DoneStatusFragment extends Fragment {
         candidatesBtn = view.findViewById(R.id.fragemnt_done_candidatesBtn);
         logout = view.findViewById(R.id.fragment_done_logoutBtn);
 
+
         // Inflate the layout for this fragment
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
@@ -63,10 +66,19 @@ public class DoneStatusFragment extends Fragment {
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
             finishDate.setText(setValidDate(offer.getFinishDate()));
-            status.setText(offer.getStatus());
+            status.setText("Done");
+            offer.setStatus("Done");
             price.setText(offer.getPrice());
             interestedVerify.setChecked(offer.getIntrestedVerify());
+            // In order to change the status in db to done
+            ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                @Override
+                public void onComplete(int code) {
+                }
+            });
+
         });
+
 
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToEditOfferFragment(offerId)));
 

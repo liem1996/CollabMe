@@ -3,6 +3,7 @@ package com.example.collabme.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.format.DateUtils;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,18 @@ import com.example.collabme.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import tech.gusavila92.websocketclient.common.Utils;
 
 public class MessageAdapter extends RecyclerView.Adapter {
 
@@ -35,14 +45,20 @@ public class MessageAdapter extends RecyclerView.Adapter {
         this.inflater = inflater;
     }
 
+
+
     private class SentMessageHolder extends RecyclerView.ViewHolder {
 
         TextView messageTxt;
+        TextView timeText;
+        TextView date;
+
 
         public SentMessageHolder(@NonNull View itemView) {
             super(itemView);
-
-            messageTxt = itemView.findViewById(R.id.sentTxt);
+            timeText = (TextView) itemView.findViewById(R.id.text_gchat_timestamp_me);
+            messageTxt = itemView.findViewById(R.id.text_gchat_message_me);
+            date = itemView.findViewById(R.id.text_gchat_date_me);
         }
     }
 
@@ -59,20 +75,22 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
 
-        TextView nameTxt, messageTxt;
+        TextView nameTxt, messageTxt, timeText;
 
         public ReceivedMessageHolder(@NonNull View itemView) {
             super(itemView);
 
-            nameTxt = itemView.findViewById(R.id.nameTxt1);
-            messageTxt = itemView.findViewById(R.id.receivedTxt1);
+            nameTxt = itemView.findViewById(R.id.text_gchat_user_other);
+            messageTxt = itemView.findViewById(R.id.text_gchat_message_other);
+            timeText = (TextView) itemView.findViewById(R.id.text_gchat_timestamp_me);
+
         }
     }
 
     private class ReceivedImageHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
-        TextView nameTxt;
+        TextView nameTxt, timeText;
 
         public ReceivedImageHolder(@NonNull View itemView) {
             super(itemView);
@@ -145,6 +163,18 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         JSONObject message = messages.get(position);
+        Date c = Calendar.getInstance().getTime();
+        Date currentTime = Calendar.getInstance().getTime();
+
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+
+        DateFormat date = new SimpleDateFormat("HH:mm a");
+        date.setTimeZone(TimeZone.getTimeZone("GMT+3:00"));
+
+        String localTime = date.format(c);
 
         try {
             if (message.getBoolean("isSent")) {
@@ -153,12 +183,16 @@ public class MessageAdapter extends RecyclerView.Adapter {
                     SentMessageHolder messageHolder = (SentMessageHolder) holder;
 
                     messageHolder.messageTxt.setText(message.getString("message"));
+                    messageHolder.date.setText(formattedDate);
+                    messageHolder.timeText.setText(localTime );
+
 
                 } else {
 
                     SentImageHolder imageHolder = (SentImageHolder) holder;
                     Bitmap bitmap = getBitmapFromString(message.getString("image"));
                     imageHolder.imageView.setImageBitmap(bitmap);
+
 
                 }
 
@@ -169,6 +203,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
                     ReceivedMessageHolder messageHolder = (ReceivedMessageHolder) holder;
                     messageHolder.nameTxt.setText(message.getString("name"));
                     messageHolder.messageTxt.setText(message.getString("message"));
+                    //messageHolder.timeText.setText(DateUtils.formatDateTime(message.getCreatedAt()));
+
 
                 } else {
 

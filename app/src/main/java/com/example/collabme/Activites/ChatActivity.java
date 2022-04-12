@@ -7,12 +7,20 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,14 +55,15 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.hide();
         name = getIntent().getStringExtra("name");
         initiateSocketConnection();
-        messageEdit = findViewById(R.id.message);
-        sendBtn = findViewById(R.id.send2);
-        pickImgBtn = findViewById(R.id.sendPictre);
+        messageEdit = findViewById(R.id.edit_gchat_message);
+        sendBtn = findViewById(R.id.button_gchat_send);
+        //pickImgBtn = findViewById(R.id.sendPictre);
 
-        recyclerView = findViewById(R.id.messagelist);
+        recyclerView = findViewById(R.id.recycler_gchat);
 
         messageAdapter = new MessageAdapter(getLayoutInflater());
         recyclerView.setAdapter(messageAdapter);
@@ -94,7 +103,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         } else {
 
             sendBtn.setVisibility(View.VISIBLE);
-            pickImgBtn.setVisibility(View.INVISIBLE);
+//            pickImgBtn.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -105,7 +114,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
         messageEdit.setText("");
         sendBtn.setVisibility(View.INVISIBLE);
-        pickImgBtn.setVisibility(View.VISIBLE);
+        //pickImgBtn.setVisibility(View.VISIBLE);
 
         messageEdit.addTextChangedListener(this);
 
@@ -173,14 +182,14 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
         });
 
-        pickImgBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("image/*");
-
-            startActivityForResult(Intent.createChooser(intent, "Pick image"),
-                    IMAGE_REQUEST_ID);
-
-        });
+//        pickImgBtn.setOnClickListener(v -> {
+//            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//            intent.setType("image/*");
+//
+//            startActivityForResult(Intent.createChooser(intent, "Pick image"),
+//                    IMAGE_REQUEST_ID);
+//
+//        });
 
     }
 
@@ -230,5 +239,25 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.cancel_chat) {
+            Intent intent = new Intent(ChatActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.chat_menu,menu);
+        return true;
     }
 }

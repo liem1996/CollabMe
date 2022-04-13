@@ -15,6 +15,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <RadioGroup
+        android:layout_width="89dp"
+        android:layout_height="69dp"
+        android:weightSum="1"
+        android:id="@+id/radioGroup"
+        tools:ignore="MissingConstraints">
+
+        <RadioButton
+            android:text="Enable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton7"
+            android:checked="false"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Disable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton6"
+            android:layout_weight="1"
+            android:checked="false" />
+    </RadioGroup>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/myoffers_swiperefresh"
@@ -45,17 +68,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/myoffers_waitingOfferFragmentBtn"
-        android:layout_width="93dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="110dp"
-        android:text="Waiting offer"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_candidate_background" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

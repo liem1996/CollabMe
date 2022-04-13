@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +50,7 @@ public class MyOffersFragment extends Fragment {
     String offerId;
     Offer offer;
     Button waitingOffesFragment;
+    RadioButton radioButton;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -60,11 +63,32 @@ public class MyOffersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_offers, container, false);
 
+        RadioGroup radioGroup = (RadioGroup) view .findViewById(R.id.radioGroup);
+        radioButton = view.findViewById(R.id.radioButton6);
+        radioButton.setChecked(true);
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
+
+                switch(checkedId) {
+                    case R.id.radioButton7:
+
+                        Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment());
+                        break;
+                    case R.id.radioButton6:
+                        Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionGlobalMyOffersFragment(offerId));
+                        break;
+                }
+            }
+        });
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
 
-        waitingOffesFragment = view.findViewById(R.id.myoffers_waitingOfferFragmentBtn);
-        waitingOffesFragment.setOnClickListener(v -> Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment()));
+       // waitingOffesFragment = view.findViewById(R.id.myoffers_waitingOfferFragmentBtn);
+       // waitingOffesFragment.setOnClickListener(v -> Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment()));
 
         logout = view.findViewById(R.id.fragment_myoffers_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {

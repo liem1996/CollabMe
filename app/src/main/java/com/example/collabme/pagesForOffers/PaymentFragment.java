@@ -29,7 +29,7 @@ import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
-import com.example.collabme.status.inprogressfragmentArgs;
+import com.example.collabme.status.DoneStatusFragmentArgs;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -127,7 +127,7 @@ public class PaymentFragment extends Fragment {
         offer = view.findViewById(R.id.fragment_payment_offer_et);
         bankAccount = view.findViewById(R.id.fragment_payment_bank_account_et);
         logout = view.findViewById(R.id.fragment_payment_logoutBtn);
-        offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
+        offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
         googlePayButton = view.findViewById(R.id.googlePayButton);
         payPal = view.findViewById(R.id.payment_PayPal_btn);
         backBtn = view.findViewById(R.id.fragment_payment_back_btn);

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
     EditText headline, description, finishdate, price;
     TextView status, candidates, profession, proposer;
     Button save;
+    ImageButton backBtn;
     CheckBox intrestedVerify;
     Offer offer;
     User userConnected;
@@ -76,12 +78,13 @@ public class AddOfferDetailsFragemnt extends Fragment {
         profession = view.findViewById(R.id.fragment_addoffer_profession);
         candidates = view.findViewById(R.id.fragment_newoffer_candidates);
         price = view.findViewById(R.id.fragemnt_newoffer_price);
-        camra = view.findViewById(R.id.fragemnt_newoffer_camra);
+        camra = view.findViewById(R.id.fragemnt_newoffer_camera);
         gallery = view.findViewById(R.id.fragemnt_newoffer_gallery);
         intrestedVerify = view.findViewById(R.id.fragemnt_newoffer_checkbox);
         profilepic = view.findViewById(R.id.fragemnt_newoffer_image);
         save = view.findViewById(R.id.fragemnt_newoffer_saveBtn);
         logout = view.findViewById(R.id.fragment_newoffer_logoutBtn);
+        backBtn = view.findViewById(R.id.fragment_newoffer_backBtn);
 
         status.setText("Open");
 
@@ -245,19 +248,11 @@ public class AddOfferDetailsFragemnt extends Fragment {
                 });
             }
         });
-        camra.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCam();
-            }
-        });
 
-        gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        camra.setOnClickListener(v -> openCam());
+        gallery.setOnClickListener(v -> openGallery());
+
         return view;
     }
 

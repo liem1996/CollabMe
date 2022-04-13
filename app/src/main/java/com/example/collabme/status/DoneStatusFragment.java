@@ -31,7 +31,7 @@ public class DoneStatusFragment extends Fragment {
     TextView proposer, status, headline, description, finishDate, price;
     Button paymentBtn;
     FloatingActionButton chatBtn;
-    ImageButton editBtn, candidatesBtn;
+    ImageButton editBtn, candidatesBtn, backBtn;
     CheckBox interestedVerify;
     Spinner profession;
     ImageView logout;
@@ -56,7 +56,7 @@ public class DoneStatusFragment extends Fragment {
         paymentBtn = view.findViewById(R.id.fragemnt_done_payment);
         candidatesBtn = view.findViewById(R.id.fragemnt_done_candidatesBtn);
         logout = view.findViewById(R.id.fragment_done_logoutBtn);
-
+        backBtn = view.findViewById(R.id.fragment_done_backBtn);
 
         // Inflate the layout for this fragment
 
@@ -79,8 +79,8 @@ public class DoneStatusFragment extends Fragment {
 
         });
 
-
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToEditOfferFragment(offerId)));
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,8 +114,8 @@ public class DoneStatusFragment extends Fragment {
         return view;
     }
 
-    private String setValidDate(String date){
-        String newDate = date.substring(0,2)+"/"+date.substring(2,4)+"/"+date.substring(4);
+    private String setValidDate(String date) {
+        String newDate = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);
         return newDate;
     }
 

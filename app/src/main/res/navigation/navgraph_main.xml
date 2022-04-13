@@ -302,8 +302,5 @@
         <action
             android:id="@+id/action_waitingOffersFragment_to_doneStatusFragment"
             app:destination="@id/doneStatusFragment" />
-        <argument
-            android:name="offerId"
-            app:argType="string" />
     </fragment>
 </navigation>

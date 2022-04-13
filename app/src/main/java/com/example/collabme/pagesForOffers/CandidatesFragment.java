@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,11 +26,15 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelCandidates;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.CandidatesViewmodel;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.common.util.ArrayUtils;
+
+import java.util.Arrays;
 
 public class CandidatesFragment extends Fragment {
 
@@ -42,6 +47,11 @@ public class CandidatesFragment extends Fragment {
     Button choosen;
     CheckBox choosenCandidate;
     TextView username;
+    EditText candidatesearch;
+    ImageView searchimg;
+    boolean contains = false, clicked = false;
+    User user1;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -56,8 +66,48 @@ public class CandidatesFragment extends Fragment {
 
         offerId = CandidatesFragmentArgs.fromBundle(getArguments()).getOfferId();
 
+        candidatesearch = view.findViewById(R.id.fragment_candidates_freesearch);
+        searchimg = view.findViewById(R.id.fragment_candidates_searchbtn);
+
         swipeRefresh = view.findViewById(R.id.candidates_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> ModelCandidates.instance2.refreshPostList(offerId));
+
+        //////////////////////////////
+
+        searchimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clicked = true;
+                String n =candidatesearch.getText().toString();
+                ModelCandidates.instance2.getCandidateFromSearch(n, new ModelCandidates.getCandidateFromSearchListener() {
+                    @Override
+                    public void onComplete(User user) {
+                        user1 = user;
+                        ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                            @Override
+                            public void onComplete(Offer offer) {
+                                if (user1!=null) {
+                                    if (!user1.getUsername().equals("")) {
+                                        contains = ArrayUtils.contains(offer.getUsers(), user1.getUsername());
+                                    }
+                                }
+                                else{
+                                    contains=false;
+                                }
+
+                                RecyclerView list = view.findViewById(R.id.candidates_rv);
+                                list.setHasFixedSize(true);
+                                adapter = new MyAdapter();
+                                list.setAdapter(adapter);
+                                setHasOptionsMenu(true);
+                            }
+                        });
+                    }
+                });
+            }
+
+        });
+        ////////////////////////////
 
         RecyclerView list = view.findViewById(R.id.candidates_rv);
         list.setHasFixedSize(true);
@@ -110,6 +160,7 @@ public class CandidatesFragment extends Fragment {
                     ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
                         @Override
                         public void onComplete(Offer offer) {
+
                             offer.setStatus("InProgress");
                             String []  user = new String[1];
                             user[0]=username.getText().toString();
@@ -165,7 +216,12 @@ public class CandidatesFragment extends Fragment {
 
         }
         public void bind(User user){
-            username.setText(user.getUsername());
+            if (contains && clicked){
+                username.setText(candidatesearch.getText().toString());
+            }
+            if (!clicked) {
+                username.setText(user.getUsername());
+            }
             choosenCandidate.setChecked(false);
 
         }
@@ -197,17 +253,32 @@ public class CandidatesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            User post = viewModel.getCandidates(offerId).getValue().get(position);
-            holder.bind(post);
-
+            if (contains&&clicked){
+                User user = user1;
+                holder.bind(user);
+            }
+            if (!clicked) {
+                User post = viewModel.getCandidates(offerId).getValue().get(position);
+                holder.bind(post);
+            }
         }
 
         @Override
         public int getItemCount() {
-            if(viewModel.getCandidates(offerId).getValue() == null){
-                return 0;
+            if (!clicked) {
+                if (viewModel.getCandidates(offerId).getValue() == null) {
+                    return 0;
+                }
+                return viewModel.getCandidates(offerId).getValue().size();
             }
-            return viewModel.getCandidates(offerId).getValue().size();
+            else{
+                if (contains){
+                    return 1;
+                }
+                else{
+                    return 0;
+                }
+            }
         }
     }
 

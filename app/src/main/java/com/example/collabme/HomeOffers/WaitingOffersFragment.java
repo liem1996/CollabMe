@@ -79,8 +79,8 @@ public class WaitingOffersFragment extends Fragment {
         adapter1.setListener(new OnItemClickListenerWaitingOffers() {
             @Override
             public void onItemClickoffer(int position, View view, int idview) {
-                offerId = viewModel.getDataMyOffer().getValue().get(position).getIdOffer();
-                offer = viewModel.getDataMyOffer().getValue().get(position);
+                offerId = viewModel.getDataWaitingOffer().getValue().get(position).getIdOffer();
+                offer = viewModel.getDataWaitingOffer().getValue().get(position);
 
                 String status = offer.getStatus();
                 switch (status) {
@@ -102,7 +102,7 @@ public class WaitingOffersFragment extends Fragment {
 
         refresh();
         setHasOptionsMenu(true);
-        viewModel.getDataMyOffer().observe(getViewLifecycleOwner(), list4 -> refresh());
+        viewModel.getDataWaitingOffer().observe(getViewLifecycleOwner(), list4 -> refresh());
         swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
         ModelOffers.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
             if (PostsListLoadingState == ModelOffers.OffersListLoadingState.loading) {

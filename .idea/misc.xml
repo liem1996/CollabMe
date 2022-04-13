@@ -22,8 +22,6 @@
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_inprogressfragment.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_login.xml" value="0.264" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_my_offers.xml" value="0.25" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_my_offers_and_candidate_offers.xml" value="0.25" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_details.xml" value="0.23278985507246377" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_openstatus.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_payment.xml" value="0.25" />
@@ -31,7 +29,6 @@
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_signup.xml" value="0.2" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_socialmedia.xml" value="0.2" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_user_profile.xml" value="0.264" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_waiting_offers.xml" value="0.25" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/login.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_list_row.xml" value="0.264" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
@@ -74,7 +71,7 @@
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_media_content.xml" value="0.22592592592592592" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_mediacontent_list_row.xml" value="0.264" />
-        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_my_offers.xml" value="0.12702702702702703" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_my_offers.xml" value="0.2" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_openstatus.xml" value="0.15324074074074073" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_payment.xml" value="0.23731884057971014" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_popup_window.xml" value="0.2" />
@@ -84,6 +81,9 @@
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_signup.xml" value="0.2" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_socialmedia.xml" value="0.21510416666666668" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_user_profile.xml" value="0.2" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_waiting_offers.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_chat_recivedphoto.xml" value="0.18287037037037038" />
+        <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_chat_recivemessege.xml" value="0.18287037037037038" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/login.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_list_row.xml" value="0.15677083333333333" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_search_results_list_row.xml" value="0.22592592592592592" />

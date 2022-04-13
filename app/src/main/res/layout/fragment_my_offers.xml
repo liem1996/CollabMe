@@ -15,29 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <RadioGroup
-        android:layout_width="89dp"
-        android:layout_height="69dp"
-        android:weightSum="1"
-        android:id="@+id/radioGroup"
-        tools:ignore="MissingConstraints">
-
-        <RadioButton
-            android:text="Enable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButton7"
-            android:checked="false"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:text="Disable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButton6"
-            android:layout_weight="1"
-            android:checked="false" />
-    </RadioGroup>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/myoffers_swiperefresh"
@@ -48,7 +25,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75">
+        app:layout_constraintVertical_bias="0.891">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/myoffers_rv"
@@ -68,6 +45,34 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="372dp"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.733"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image_candidate_background"
+        app:layout_constraintVertical_bias="0.235">
+
+        <RadioButton
+            android:id="@+id/radioButton6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="My Offers" />
+
+        <RadioButton
+            android:id="@+id/radioButton7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Waiting Offers" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

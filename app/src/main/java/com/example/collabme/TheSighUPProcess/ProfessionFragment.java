@@ -156,12 +156,10 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
                         }
                     });
                 }
-
-
             }
         });
 
-        backBtn = view.findViewById(R.id.fragment_profession_backBtn);
+        backBtn = view.findViewById(R.id.fragemnt_profession_backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

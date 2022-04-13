@@ -242,7 +242,8 @@
             app:destination="@id/editOfferFragment" />
         <argument
             android:name="offerid"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_myOffersFragment_to_doneStatusFragment"
             app:destination="@id/doneStatusFragment" />
@@ -309,5 +310,9 @@
         <action
             android:id="@+id/action_waitingOffersFragment_to_doneStatusFragment"
             app:destination="@id/doneStatusFragment" />
+        <action
+            android:id="@+id/action_waitingOffersFragment_to_myOffersFragment"
+            app:destination="@id/myOffersFragment" />
     </fragment>
+    <action android:id="@+id/action_global_waitingOffersFragment" app:destination="@id/waitingOffersFragment" />
 </navigation>

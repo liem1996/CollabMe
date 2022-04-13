@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +44,8 @@ public class WaitingOffersFragment extends Fragment {
     OffersViewmodel viewModel;
     String offerId;
     Offer offer;
+    RadioButton radioButton;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -53,7 +57,25 @@ public class WaitingOffersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_waiting_offers, container, false);
+        RadioGroup radioGroup = (RadioGroup) view .findViewById(R.id.radioGroup);
+        radioButton = view.findViewById(R.id.radioButton7);
+        radioButton.setChecked(true);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
 
+
+                switch(checkedId) {
+                    case R.id.radioButton7:
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionGlobalWaitingOffersFragment());
+                        break;
+                    case R.id.radioButton6:
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionGlobalMyOffersFragment(offerId));
+                        break;
+                }
+            }
+        });
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
 

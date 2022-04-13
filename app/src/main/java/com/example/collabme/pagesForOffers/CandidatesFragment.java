@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class CandidatesFragment extends Fragment {
     ImageView searchimg;
     boolean contains = false, clicked = false;
     User user1;
+    ImageButton backBtn;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -129,7 +131,7 @@ public class CandidatesFragment extends Fragment {
 
         });
 
-        logout = view.findViewById(R.id.fragment_home_logoutBtn);
+        logout = view.findViewById(R.id.fragment_candidates_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +154,8 @@ public class CandidatesFragment extends Fragment {
             }
         });
 
+        backBtn = view.findViewById(R.id.fragment_candidates_backBtn);
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         choosen.setOnClickListener(new View.OnClickListener() {
             @Override

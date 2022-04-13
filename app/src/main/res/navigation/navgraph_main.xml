@@ -315,4 +315,9 @@
             app:destination="@id/myOffersFragment" />
     </fragment>
     <action android:id="@+id/action_global_waitingOffersFragment" app:destination="@id/waitingOffersFragment" />
+    <fragment
+        android:id="@+id/whatupPage"
+        android:name="com.example.collabme.Chat.whatupPage"
+        android:label="fragment_whatup_page"
+        tools:layout="@layout/fragment_whatup_page" />
 </navigation>

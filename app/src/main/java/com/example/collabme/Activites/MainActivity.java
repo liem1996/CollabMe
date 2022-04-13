@@ -2,7 +2,6 @@ package com.example.collabme.Activites;
 
 import static android.graphics.Color.rgb;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     navCtl.navigate(R.id.fragment_Search);
                     break;
                 case R.id.nav_chat:
-                    toWhatup();
+                    navCtl.navigate(R.id.whatupPage);
                     break;
                 case R.id.nav_offer:
                     navCtl.navigate(R.id.myOffersFragment);
@@ -70,11 +69,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void toWhatup() {
-        Intent intent = new Intent(this, WhatUpActivity.class);
-        startActivity(intent);
-        finish();
-    }
+
 
 //    @Override
 //    public boolean onOptionsItemSelected(@NonNull MenuItem item) {

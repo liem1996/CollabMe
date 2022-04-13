@@ -1,32 +1,36 @@
-package com.example.collabme.Activites;
+package com.example.collabme.Chat;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.collabme.R;
 import com.hbb20.CountryCodePicker;
 
-public class WhatUpActivity extends AppCompatActivity {
+
+public class whatupPage extends Fragment {
+
     CountryCodePicker countryCodePicker;
     EditText phone, message;
     Button sendbtn;
     String messagestr, phonestr = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_what_up);
-        countryCodePicker = findViewById(R.id.countryCode);
-        phone = findViewById(R.id.phoneNo);
-        message = findViewById(R.id.message);
-        sendbtn = findViewById(R.id.sendbtn);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_whatup_page, container, false);
+        countryCodePicker = view.findViewById(R.id.countryCode);
+        phone = view.findViewById(R.id.phoneNo);
+        message = view.findViewById(R.id.message);
+        sendbtn = view.findViewById(R.id.sendbtn);
 
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,13 +50,9 @@ public class WhatUpActivity extends AppCompatActivity {
                     message.setText("");
                     phone.setText("");
 
-
-
-
-
                 } else {
 
-                    Toast.makeText(WhatUpActivity.this, "Please fill in the Phone no. and message it can't be empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Please fill in the Phone no. and message it can't be empty", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -60,6 +60,7 @@ public class WhatUpActivity extends AppCompatActivity {
         });
 
 
+        // Inflate the layout for this fragment
+        return view;
     }
-
 }

@@ -64,7 +64,7 @@ public class MyOffersFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
 
         waitingOffesFragment = view.findViewById(R.id.myoffers_waitingOfferFragmentBtn);
-   //     waitingOffesFragment.setOnClickListener(v -> Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment()));
+        waitingOffesFragment.setOnClickListener(v -> Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment()));
 
         logout = view.findViewById(R.id.fragment_myoffers_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {

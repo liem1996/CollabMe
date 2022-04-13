@@ -57,15 +57,10 @@ public class CloseStatusfragment extends Fragment {
             description.setText(offer.getDescription());
             finishDate.setText(setValidDate(offer.getFinishDate()));
             status.setText("Close");
-            offer.setStatus("Close");
             price.setText(offer.getPrice());
             interestedVerify.setChecked(offer.getIntrestedVerify());
             // In order to change the status in db to close
-            ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
-                @Override
-                public void onComplete(int code) {
-                }
-            });
+
         });
 
         delete.setOnClickListener(new View.OnClickListener() {

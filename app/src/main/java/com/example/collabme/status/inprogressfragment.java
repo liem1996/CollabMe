@@ -20,7 +20,9 @@ import androidx.navigation.Navigation;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
+import com.example.collabme.objects.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -29,7 +31,7 @@ public class inprogressfragment extends Fragment {
     TextView proposer,status, headline, description, finishDate, price;
     Button upload;
     FloatingActionButton chatBtn;
-    ImageButton editBtn, candidatesBtn;
+    ImageButton editBtn;
     CheckBox interestedVerify;
     Spinner profession;
     ImageView logout;
@@ -57,14 +59,23 @@ public class inprogressfragment extends Fragment {
         // Inflate the layout for this fragment
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
-            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
-            headline.setText(offer.getHeadline());
-            proposer.setText(offer.getUser());
-            description.setText(offer.getDescription());
-            finishDate.setText(setValidDate(offer.getFinishDate()));
-            status.setText(offer.getStatus());
-            price.setText(offer.getPrice());
-            interestedVerify.setChecked(offer.getIntrestedVerify());
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    if(!profile.getUsername().equals(offer.getUser())){
+                        editBtn.setVisibility(View.GONE);
+                    }
+                    initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+                    headline.setText(offer.getHeadline());
+                    proposer.setText(offer.getUser());
+                    description.setText(offer.getDescription());
+                    finishDate.setText(setValidDate(offer.getFinishDate()));
+                    status.setText(offer.getStatus());
+                    price.setText(offer.getPrice());
+                    interestedVerify.setChecked(offer.getIntrestedVerify());
+                }
+            });
+
         });
 
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToEditOfferFragment(offerId)));

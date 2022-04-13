@@ -14,11 +14,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
+import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 
 
 public class CloseStatusfragment extends Fragment {
@@ -29,7 +33,7 @@ public class CloseStatusfragment extends Fragment {
     CheckBox interestedVerify;
     Spinner profession;
     ImageView logout;
-
+    Offer offer1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,30 +49,50 @@ public class CloseStatusfragment extends Fragment {
         price = view.findViewById(R.id.fragemnt_close_price);
         interestedVerify = view.findViewById(R.id.fragemnt_close_checkbox);
         logout = view.findViewById(R.id.fragment_close_logoutBtn);
-
         delete  = view.findViewById(R.id.fragemnt_close_delete);
 
         // Inflate the layout for this fragment
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
+            offer1 = offer;
             initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
             headline.setText(offer.getHeadline());
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
             finishDate.setText(setValidDate(offer.getFinishDate()));
             status.setText("Close");
+            offer.setStatus("Close");
             price.setText(offer.getPrice());
             interestedVerify.setChecked(offer.getIntrestedVerify());
             // In order to change the status in db to close
-
+            ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                @Override
+                public void onComplete(int code) {
+                }
+            });
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    if (!profile.getUsername().equals(offer.getUser())){
+                        delete.setVisibility(View.GONE);
+                    }
+                }
+            });
         });
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ModelOffers.instance.deleteoffer(offer1, new ModelOffers.deleteoffer() {
+                    @Override
+                    public void onComplete() {
+                        Navigation.findNavController(v).navigate(R.id.action_global_myOffersFragment);
+                    }
+                });
             }
         });
+
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -28,9 +28,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".Activites.WhatUpActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activites.ChatActivity"
             android:exported="false" />
         <activity

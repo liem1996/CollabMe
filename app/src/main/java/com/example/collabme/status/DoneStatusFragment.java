@@ -20,8 +20,9 @@ import androidx.navigation.Navigation;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
-import com.example.collabme.pagesForOffers.fragment_mediaContentArgs;
+import com.example.collabme.objects.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -54,7 +55,6 @@ public class DoneStatusFragment extends Fragment {
         editBtn = view.findViewById(R.id.fragemnt_done_editBtn);
         chatBtn = view.findViewById(R.id.fragemnt_done_chatBtn);
         paymentBtn = view.findViewById(R.id.fragemnt_done_payment);
-        candidatesBtn = view.findViewById(R.id.fragemnt_done_candidatesBtn);
         logout = view.findViewById(R.id.fragment_done_logoutBtn);
         backBtn = view.findViewById(R.id.fragment_done_backBtn);
 
@@ -74,9 +74,17 @@ public class DoneStatusFragment extends Fragment {
             ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
                 @Override
                 public void onComplete(int code) {
+                    ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                        @Override
+                        public void onComplete(User profile) {
+                            if(!profile.getUsername().equals(offer.getUser())) {
+                                editBtn.setVisibility(View.GONE);
+                                paymentBtn.setVisibility(View.GONE);
+                            }
+                        }
+                    });
                 }
             });
-
         });
 
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToEditOfferFragment(offerId)));
@@ -85,17 +93,10 @@ public class DoneStatusFragment extends Fragment {
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment());
+                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment(offerId));
             }
         });
 
-        candidatesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToCandidatesFragment(offerId));
-
-            }
-        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

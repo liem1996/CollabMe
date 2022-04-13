@@ -2,22 +2,9 @@ package com.example.collabme.pagesForOffers;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.IntentSenderRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,19 +14,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.Modelauth;
+import com.example.collabme.objects.Offer;
+import com.example.collabme.status.inprogressfragmentArgs;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.wallet.AutoResolveHelper;
 import com.google.android.gms.wallet.IsReadyToPayRequest;
 import com.google.android.gms.wallet.PaymentData;
-import com.google.android.gms.wallet.PaymentDataRequest;
 import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.gms.wallet.Wallet;
 import com.google.android.gms.wallet.WalletConstants;
@@ -54,14 +51,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.concurrent.Executor;
 
 public class PaymentFragment extends Fragment {
 
     private CheckoutViewModel model;
+    String offerId;
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
     private static final long SHIPPING_COST_CENTS = 90 * PaymentsUtil.CENTS_IN_A_UNIT.longValue();
 
@@ -131,7 +127,7 @@ public class PaymentFragment extends Fragment {
         offer = view.findViewById(R.id.fragment_payment_offer_et);
         bankAccount = view.findViewById(R.id.fragment_payment_bank_account_et);
         logout = view.findViewById(R.id.fragment_payment_logoutBtn);
-
+        offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
         googlePayButton = view.findViewById(R.id.googlePayButton);
         payPal = view.findViewById(R.id.payment_PayPal_btn);
         backBtn = view.findViewById(R.id.fragment_payment_back_btn);
@@ -139,6 +135,8 @@ public class PaymentFragment extends Fragment {
 
         model = new ViewModelProvider(this).get(CheckoutViewModel.class);
         model.canUseGooglePay.observe(this.getActivity(), this::setGooglePayAvailable);
+
+
         // creating Payment Client (different from google code, not by methods)
 
         Wallet.WalletOptions walletOptions = new Wallet.WalletOptions.Builder()
@@ -177,7 +175,19 @@ public class PaymentFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to "MyOfferFragment" - change status to close
+                ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                    @Override
+                    public void onComplete(Offer offer) {
+                        offer.setStatus("Close");
+                        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                            @Override
+                            public void onComplete(int code) {
+                                Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
+                            }
+                        });
+                    }
+                });
+
             }
         });
 

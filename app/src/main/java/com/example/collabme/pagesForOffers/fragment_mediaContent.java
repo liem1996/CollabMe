@@ -18,13 +18,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.Activites.MediaContentActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.status.OpenStatusFragmentArgs;
@@ -38,18 +41,21 @@ public class fragment_mediaContent extends Fragment {
     String[] MediaContent;
     Button AgreeBtn;
     String offerOwner;
+    ImageView logout;
+    ImageButton backBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =inflater.inflate(R.layout.fragment_media_content, container, false);
+        View view = inflater.inflate(R.layout.fragment_media_content, container, false);
 
         RecyclerView list = view.findViewById(R.id.mediacontent_rv);
 
         offerId = fragment_mediaContentArgs.fromBundle(getArguments()).getOfferId();
 
-
+        logout = view.findViewById(R.id.fragment_mediacontent_logoutBtn);
+        backBtn = view.findViewById(R.id.fragment_mediacontent_backBtn);
         AgreeBtn = view.findViewById(R.id.fragment_mediacontent_agree);
 
         ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
@@ -70,19 +76,28 @@ public class fragment_mediaContent extends Fragment {
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {
-                if (profile.getUsername().equals(offerOwner)){
+                if (profile.getUsername().equals(offerOwner)) {
                     AgreeBtn.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     AgreeBtn.setVisibility(View.GONE);
                 }
             }
         });
-        AgreeBtn.setOnClickListener(new View.OnClickListener() {
+
+        AgreeBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(fragment_mediaContentDirections.actionFragmentMediaContentToDoneStatusFragment(offerId)));
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(fragment_mediaContentDirections.actionFragmentMediaContentToDoneStatusFragment(offerId));
-
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if (code == 200) {
+                            toLoginActivity();
+                        }
+                    }
+                });
             }
         });
 
@@ -96,51 +111,44 @@ public class fragment_mediaContent extends Fragment {
 
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView mediaContentURL;
         ImageView URLtypeImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mediaContentURL=(TextView)itemView.findViewById(R.id.mediacontent_listrow_url);
-            URLtypeImage = (ImageView)itemView.findViewById(R.id.mediacontent_listrow_socialmedia);
-
-
+            mediaContentURL = (TextView) itemView.findViewById(R.id.mediacontent_listrow_url);
+            URLtypeImage = (ImageView) itemView.findViewById(R.id.mediacontent_listrow_socialmedia);
         }
 
 
-        public void bind(String mediaURL){
+        public void bind(String mediaURL) {
             // adding the image of the shared application of the link
-            if (mediaURL.contains("youtu")){
+            if (mediaURL.contains("youtu")) {
                 URLtypeImage.setImageResource(R.drawable.youtub);
-            }
-            else if (mediaURL.contains("facebook")){
+            } else if (mediaURL.contains("facebook")) {
                 URLtypeImage.setImageResource(R.drawable.facebook);
-            }
-            else if (mediaURL.contains("twitter")){
+            } else if (mediaURL.contains("twitter")) {
                 URLtypeImage.setImageResource(R.drawable.twitter);
-            }
-            else if (mediaURL.contains("tiktok")){
+            } else if (mediaURL.contains("tiktok")) {
                 URLtypeImage.setImageResource(R.drawable.tiktok);
-            }
-            else if (mediaURL.contains("instagram")){
+            } else if (mediaURL.contains("instagram")) {
                 URLtypeImage.setImageResource(R.drawable.instegram);
             }
             mediaContentURL.setText(mediaURL);
-
         }
     }
 
     //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
 
-    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+    class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
 
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.fragment_mediacontent_list_row,parent,false);
+            View view = getLayoutInflater().inflate(R.layout.fragment_mediacontent_list_row, parent, false);
             MyViewHolder holder = new MyViewHolder(view);
 
             return holder;
@@ -156,11 +164,17 @@ public class fragment_mediaContent extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(MediaContent == null){
+            if (MediaContent == null) {
                 return 0;
             }
             return MediaContent.length;
         }
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
 }

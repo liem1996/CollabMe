@@ -52,8 +52,8 @@ public class EditProfile extends Fragment {
     boolean[] selectedPlatforms = new boolean[5];
     ArrayList<Integer> langList = new ArrayList<>();
     ArrayList<Integer> langList2 = new ArrayList<>();
-    ImageView logout,profilepicture,galleryBtn;
-    ImageButton  cameraBtn, cancelBtn;
+    ImageView logout, profilepicture, galleryBtn;
+    ImageButton cameraBtn, cancelBtn;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap bitmap;
@@ -117,7 +117,7 @@ public class EditProfile extends Fragment {
             @Override
             public void onComplete(User profile) {
                 if (profile != null) {
-                    if(profile.getImage()!=null) {
+                    if (profile.getImage() != null) {
                         ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
                             @Override
                             public void onComplete(Bitmap responseBody) {
@@ -404,7 +404,7 @@ public class EditProfile extends Fragment {
                 user = new User(gender1, password, email1, username.getText().toString(),
                         age.getText().toString(), followers.getText().toString(), postuploads.getText().toString(),
                         company1, influencer1, chosen, chosen2, rejectedOffers);
-                if(bitmap!=null) {
+                if (bitmap != null) {
                     ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
                         @Override
                         public void onComplete(String uri) {
@@ -423,7 +423,7 @@ public class EditProfile extends Fragment {
                             });
                         }
                     });
-                }else{
+                } else {
                     ModelUsers.instance3.EditUser(user, new ModelUsers.EditUserListener() {
                         @Override
                         public void onComplete(int code) {
@@ -461,26 +461,26 @@ public class EditProfile extends Fragment {
     public void openGallery() {
         Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
         photoPicerIntent.setType("image/jpeg");
-        startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
+        startActivityForResult(photoPicerIntent, REQUEST_IMAGE_PIC);
     }
 
     public void openCam() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_IMAGE_CAPTURE){
-            if(resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 bitmap = (Bitmap) extras.get("data");
                 profilepicture.setImageBitmap(bitmap);
             }
-        }else if(requestCode==REQUEST_IMAGE_PIC){
-            if(resultCode==RESULT_OK){
+        } else if (requestCode == REQUEST_IMAGE_PIC) {
+            if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);

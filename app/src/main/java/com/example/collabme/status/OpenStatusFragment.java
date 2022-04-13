@@ -31,12 +31,11 @@ public class OpenStatusFragment extends Fragment {
 
     String offerId;
     TextView proposer, status, headline, description, finishDate, price;
-
     CheckBox interestedVerify;
     Spinner profession;
     Offer offer2;
     ImageView logout;
-    ImageButton editBtn, candidatesBtn;
+    ImageButton editBtn, candidatesBtn, backBtn;
     FloatingActionButton chatBtn;
 
     @Override
@@ -55,9 +54,9 @@ public class OpenStatusFragment extends Fragment {
         interestedVerify = view.findViewById(R.id.fragemnt_offerdetails_checkbox);
         editBtn = view.findViewById(R.id.fragemnt_offerdetails_editBtn);
         chatBtn = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
-
         candidatesBtn = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn);
         logout = view.findViewById(R.id.fragment_offerdetails_logoutBtn);
+        backBtn = view.findViewById(R.id.fragment_offerdetails_backBtn);
 
         ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
             @Override
@@ -65,7 +64,7 @@ public class OpenStatusFragment extends Fragment {
                 ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                     @Override
                     public void onComplete(User profile) {
-                        if(!profile.getUsername().equals(offer.getUser())){
+                        if (!profile.getUsername().equals(offer.getUser())) {
                             candidatesBtn.setVisibility(View.GONE);
                             editBtn.setVisibility(View.GONE);
                         }
@@ -76,10 +75,10 @@ public class OpenStatusFragment extends Fragment {
         });
 
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
-
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
-            if(offer!=null) {
+            if (offer != null) {
                 initSpinnerFooter(offer.getProfession().length, offer.getProfession(), profession);
                 headline.setText(offer.getHeadline());
                 proposer.setText(offer.getUser());
@@ -91,7 +90,6 @@ public class OpenStatusFragment extends Fragment {
                 offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price.getText().toString(), offerId, status.getText().toString(), offer.getProfession(), offer.getUser(), interestedVerify.isChecked());
             }
         });
-
 
         candidatesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,8 +124,8 @@ public class OpenStatusFragment extends Fragment {
         return view;
     }
 
-    private String setValidDate(String date){
-        String newDate = date.substring(0,2)+"/"+date.substring(2,4)+"/"+date.substring(4);
+    private String setValidDate(String date) {
+        String newDate = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);
         return newDate;
     }
 

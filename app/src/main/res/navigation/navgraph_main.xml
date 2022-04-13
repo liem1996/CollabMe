@@ -202,7 +202,14 @@
         android:id="@+id/paymentFragment"
         android:name="com.example.collabme.pagesForOffers.PaymentFragment"
         android:label="fragment_payment"
-        tools:layout="@layout/fragment_payment" />
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_closeStatusfragment"
+            app:destination="@id/closeStatusfragment" />
+        <argument
+            android:name="offerid"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/offerDetailsFragment"
         android:name="com.example.collabme.status.OpenStatusFragment"

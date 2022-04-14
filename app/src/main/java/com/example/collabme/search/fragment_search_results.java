@@ -143,7 +143,6 @@ public class fragment_search_results extends Fragment {
 
     private void refresh() {
         adapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
     }
 
     //////////////////////////VIEWHOLDER////////////////////////////////////

@@ -27,8 +27,10 @@ import androidx.navigation.Navigation;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPayment;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.Payment;
 import com.example.collabme.status.DoneStatusFragmentArgs;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -58,6 +60,7 @@ public class PaymentFragment extends Fragment {
 
     private CheckoutViewModel model;
     String offerId;
+    Payment payment;
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
     private static final long SHIPPING_COST_CENTS = 90 * PaymentsUtil.CENTS_IN_A_UNIT.longValue();
 
@@ -175,18 +178,46 @@ public class PaymentFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                //add payment
+                payment = new Payment(cardNumber.getText().toString(),expDate.getText().toString(),cvv.getText().toString(),
+                        id.getText().toString(),name.getText().toString(),offerId,bankAccount.getText().toString());
+
+                ModelPayment.instance2.addPayment(payment, new ModelPayment.AddingPayemnt() {
                     @Override
-                    public void onComplete(Offer offer) {
-                        offer.setStatus("Close");
-                        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
-                            @Override
-                            public void onComplete(int code) {
-                                Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
-                            }
-                        });
+                    public void onComplete(int code) {
+                        if (code == 200) {
+                            //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
+                            Toast.makeText(getActivity(), "Payment Was Added", Toast.LENGTH_LONG).show();
+                            ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                                @Override
+                                public void onComplete(Offer offer) {
+                                    offer.setStatus("Close");
+                                    ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                                        @Override
+                                        public void onComplete(int code) {
+                                            Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getActivity(), "not added", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
+                //close offer
+//                ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+//                    @Override
+//                    public void onComplete(Offer offer) {
+//                        offer.setStatus("Close");
+//                        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+//                            @Override
+//                            public void onComplete(int code) {
+//                                Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
+//                            }
+//                        });
+//                    }
+//                });
 
             }
         });

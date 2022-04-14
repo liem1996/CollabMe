@@ -29,6 +29,16 @@ public class Payment {
     @Expose
     private String BankAcount;
 
+    public Payment(String cardNo, String expDay, String cvv, String idPerson, String name, String offerId, String bankAcount) {
+        this.CardNo = cardNo;
+        this.ExpDay = expDay;
+        this.Cvv = cvv;
+        this.IdPerson = idPerson;
+        this.Name = name;
+        this.OfferId = offerId;
+        this.BankAcount = bankAcount;
+    }
+
     /**
      *
      * @return
@@ -132,6 +142,18 @@ public class Payment {
         json.put("OfferId", OfferId);
         json.put("BankAcount", BankAcount);
         return json;
+    }
+    public static Payment create(Map<String, Object> json) {
+        String CardNo = (String) json.get("CardNo");
+        String ExpDay = (String) json.get("ExpDay");
+        String Cvv = (String) json.get("Cvv");
+        String IdPerson = (String) json.get("IdPerson");
+        String Name = (String) json.get("Name");
+        String OfferId = (String) json.get("OfferId");
+        String BankAcount = (String) json.get("BankAcount");
+
+        Payment payment = new Payment(CardNo,ExpDay,Cvv,IdPerson,Name,OfferId,BankAcount);
+        return payment;
     }
 
 

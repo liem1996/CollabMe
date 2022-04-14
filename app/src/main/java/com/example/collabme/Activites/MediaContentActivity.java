@@ -48,6 +48,7 @@ public class MediaContentActivity extends AppCompatActivity {
     boolean[] checkedItems;
     ArrayList<Integer> langList = new ArrayList<>();
     String[] chosenOffers;
+    String[] showingOffers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +79,13 @@ public class MediaContentActivity extends AppCompatActivity {
                     public void onComplete(List<Offer> offer) {
                       //  offersToSelect1 = offer.toArray(new String[0]);
                         offersToSelect = new String[offer.size()];
+                        showingOffers = new String[offer.size()];
+
+
                         for (int i=0;i<offersToSelect.length; i++)
                         {
                             offersToSelect[i] = offer.get(i).getIdOffer();
+                            showingOffers[i] = offer.get(i).getHeadline();
                         }
                         // should be the offer size
                         checkedItems = new boolean[offersToSelect.length];
@@ -94,7 +99,7 @@ public class MediaContentActivity extends AppCompatActivity {
                         // set dialog non cancelable
                         builder.setCancelable(false);
 
-                        builder.setMultiChoiceItems(offersToSelect, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                        builder.setMultiChoiceItems(showingOffers, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
 
                             int count =0; // counter to limit number of selection (only one can be chosen)
 
@@ -110,7 +115,7 @@ public class MediaContentActivity extends AppCompatActivity {
                                     Collections.sort(langList);
                                     if (count>1){
                                         Toast.makeText(MediaContentActivity.this, "You selected too many.", Toast.LENGTH_SHORT).show();
-                                    count--;
+                                        count--;
                                     }
                                         /*
                                         final boolean[] selected = new boolean[25];
@@ -139,55 +144,61 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
                             }
                         });
 
-                        builder.setPositiveButton("Choose", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // Initialize string builder
-                                StringBuilder stringBuilder = new StringBuilder();
-                                chosenOffers = new String[langList.size()];
+                        if (showingOffers.length!=0) {
+                            builder.setPositiveButton("Choose", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // Initialize string builder
+                                    StringBuilder stringBuilder = new StringBuilder();
+                                    chosenOffers = new String[langList.size()];
 
-                                // use for loop
-                                for (int j = 0; j < langList.size(); j++) {
-                                    // concat array value
-                                    stringBuilder.append(offersToSelect[langList.get(j)]);
+                                    // use for loop
+                                    for (int j = 0; j < langList.size(); j++) {
+                                        // concat array value
+                                        stringBuilder.append(offersToSelect[langList.get(j)]);
 
-                                    chosenOffers[j] = (offersToSelect[langList.get(j)]); //to check again
+                                        chosenOffers[j] = (offersToSelect[langList.get(j)]); //to check again
 
-                                }
-
-                                ModelOffers.instance.getOfferById(chosenOffers[0], new ModelOffers.GetOfferListener() {
-                                    @Override
-                                    public void onComplete(Offer offer) {
-                                        MediaContent = offer.getMediaContent();
-                                        increaseSize();
-                                        if (Intent.ACTION_SEND.equals(action) && type != null) {
-                                            if ("text/plain".equals(type)) {
-                                                String sharedText1 = intent.getStringExtra(Intent.EXTRA_TEXT);
-                                                if (sharedText1 != null) {
-                                                    MediaContent[MediaContent.length-1]=(sharedText1);
-                                                    ModelMediaContent.instance.addMediaContent(chosenOffers[0], MediaContent, new ModelMediaContent.addMediaContentListener() {
-                                                        @Override
-                                                        public void onComplete(int code) {
-                                                            if (code==200) {
-                                                                System.out.println("add media content done successfully");
-                                                            }
-                                                        }
-                                                    });                            }
-                                                RecyclerView list = view.findViewById(R.id.mediacontent_rv);
-                                                list.setHasFixedSize(true);
-
-                                                list.setLayoutManager(new LinearLayoutManager(getContext()));
-
-                                                adapter = new MyAdapter();
-                                                list.setAdapter(adapter);
-                                            }
-                                        }
                                     }
-                                });
+                                    if (chosenOffers.length==1) {
+                                        ModelOffers.instance.getOfferById(chosenOffers[0], new ModelOffers.GetOfferListener() {
+                                            @Override
+                                            public void onComplete(Offer offer) {
+                                                MediaContent = offer.getMediaContent();
+                                                increaseSize();
+                                                if (Intent.ACTION_SEND.equals(action) && type != null) {
+                                                    if ("text/plain".equals(type)) {
+                                                        String sharedText1 = intent.getStringExtra(Intent.EXTRA_TEXT);
+                                                        if (sharedText1 != null) {
+                                                            MediaContent[MediaContent.length - 1] = (sharedText1);
+                                                            ModelMediaContent.instance.addMediaContent(chosenOffers[0], MediaContent, new ModelMediaContent.addMediaContentListener() {
+                                                                @Override
+                                                                public void onComplete(int code) {
+                                                                    if (code == 200) {
+                                                                        System.out.println("add media content done successfully");
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                        RecyclerView list = view.findViewById(R.id.mediacontent_rv);
+                                                        list.setHasFixedSize(true);
 
-                            }
-                        });
+                                                        list.setLayoutManager(new LinearLayoutManager(getContext()));
 
+                                                        adapter = new MyAdapter();
+                                                        list.setAdapter(adapter);
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else{
+                                   //     ((AlertDialog) dialogInterface).getListView().setItemChecked(i, false);
+                                        return;
+                                    }
+                                }
+                            });
+                        }
                         // show dialog
                         builder.show();
                     }

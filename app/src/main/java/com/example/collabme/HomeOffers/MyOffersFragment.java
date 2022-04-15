@@ -47,7 +47,7 @@ public class MyOffersFragment extends Fragment {
     OnItemClickListeneroffers listener;
     ImageView imagePostFrame, logout;
     OffersViewmodel viewModel;
-    String offerId;
+    String offerId, headline, price;
     Offer offer;
     Button waitingOffesFragment;
     RadioButton radioButton;
@@ -114,7 +114,8 @@ public class MyOffersFragment extends Fragment {
             public void onItemClickoffer(int position, View view, int idview) {
                 offerId = viewModel.getDataMyOffer().getValue().get(position).getIdOffer();
                 offer = viewModel.getDataMyOffer().getValue().get(position);
-
+                headline = viewModel.getDataMyOffer().getValue().get(position).getHeadline();
+                price = offer.getPrice();
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
                     offerCheckClicked(position);
                 } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
@@ -136,7 +137,7 @@ public class MyOffersFragment extends Fragment {
                             Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToCloseStatusfragment(offerId));
                             break;
                         case "Done":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToDoneStatusFragment(offerId));
+                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToDoneStatusFragment(offerId,headline,price));
                             break;
                     }
                 }

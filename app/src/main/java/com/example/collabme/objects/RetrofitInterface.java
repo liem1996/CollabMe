@@ -100,4 +100,8 @@ public interface RetrofitInterface {
     @GET("/candidates/getCandidateFromSearch/{candidatesearch}")
     Call<User> getCandidateFromSearch(@Path("candidatesearch") String candidatesearch,@Header("authorization") String token);
 
+    @POST("/users/editUserWithoutAuth/{username}")
+    Call<User> editUserWithoutAuth(@Path("username") String username, @Body Map<String, Object> newUser);
+
+
 }

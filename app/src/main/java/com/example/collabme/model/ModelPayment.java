@@ -25,6 +25,7 @@ public class ModelPayment {
 
     public void addPayment(Payment payment, AddingPayemnt addingPayemnt) {
         tokensrefresh.retroServer();
+
         Map<String, Object> map = payment.toJson();
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)

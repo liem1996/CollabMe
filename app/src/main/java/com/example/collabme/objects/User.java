@@ -142,6 +142,10 @@ public class User {
         return influencer;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public User(String sex, String password, String Email, String username, String age, String followers, String numOfPosts, boolean company, boolean influencer, String[] professions, String[] platforms, ArrayList<String> rejectedOffers) {
         this.sex = sex;
         this.username = username;

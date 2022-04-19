@@ -42,11 +42,5 @@
         android:layout_gravity="center"
         android:text="Send"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar_whatup"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="190dp" />
-
 
 </LinearLayout>

@@ -3,7 +3,6 @@ package com.example.collabme.HomeOffers;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +33,6 @@ import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.OffersViewmodel;
-import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -251,8 +249,6 @@ public class MyOffersFragment extends Fragment {
                         public void onComplete(Bitmap responseBody) {
                             if(responseBody!=null) {
                                 offer_image.setImageBitmap(responseBody);
-                                Uri uri = offer.getImageUri(responseBody, getActivity());
-                                Picasso.get().load(uri).resize(600, 200).into(offer_image);
 
                             }
                             ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {

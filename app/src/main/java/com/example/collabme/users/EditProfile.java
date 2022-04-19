@@ -31,12 +31,10 @@ import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 import com.facebook.login.LoginManager;
-import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 
 public class EditProfile extends Fragment {
@@ -124,8 +122,6 @@ public class EditProfile extends Fragment {
                                 //Uri uri = getImageUri(bitmap);
                                 if (responseBody != null) {
                                     profilepicture.setImageBitmap(responseBody);
-                                    Uri uri = profile.getImageUri(responseBody, getActivity());
-                                    Picasso.get().load(uri).into(profilepicture);
                                 }
                             }
                         });

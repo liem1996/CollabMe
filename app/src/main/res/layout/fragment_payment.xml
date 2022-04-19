@@ -119,7 +119,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.618" />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_payment_offer_et"
         android:layout_width="175dp"
         android:layout_height="25dp"

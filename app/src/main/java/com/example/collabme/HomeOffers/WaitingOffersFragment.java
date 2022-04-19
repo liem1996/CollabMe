@@ -40,7 +40,7 @@ public class WaitingOffersFragment extends Fragment {
     OnItemClickListenerWaitingOffers listener;
     ImageView logout;
     OffersViewmodel viewModel;
-    String offerId;
+    String offerId,headline, price;
     Offer offer;
     RadioButton radioButton;
 
@@ -101,7 +101,8 @@ public class WaitingOffersFragment extends Fragment {
             public void onItemClickoffer(int position, View view, int idview) {
                 offerId = viewModel.getDataWaitingOffer().getValue().get(position).getIdOffer();
                 offer = viewModel.getDataWaitingOffer().getValue().get(position);
-
+                headline = viewModel.getDataWaitingOffer().getValue().get(position).getHeadline();
+                price = offer.getPrice();
                 String status = offer.getStatus();
                 switch (status) {
                     case "Open":
@@ -114,7 +115,7 @@ public class WaitingOffersFragment extends Fragment {
                         Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToCloseStatusfragment(offerId));
                         break;
                     case "Done":
-                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToDoneStatusFragment(offerId));
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToDoneStatusFragment(offerId,headline,price));
                         break;
                 }
             }

@@ -37,7 +37,7 @@ public class fragment_mediaContent extends Fragment {
 
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    String offerId;
+    String offerId, description, price;
     String[] MediaContent;
     Button AgreeBtn;
     String offerOwner;
@@ -53,7 +53,8 @@ public class fragment_mediaContent extends Fragment {
         RecyclerView list = view.findViewById(R.id.mediacontent_rv);
 
         offerId = fragment_mediaContentArgs.fromBundle(getArguments()).getOfferId();
-
+        description = fragment_mediaContentArgs.fromBundle(getArguments()).getHeadline();
+        price = fragment_mediaContentArgs.fromBundle(getArguments()).getPrice();
         logout = view.findViewById(R.id.fragment_mediacontent_logoutBtn);
         backBtn = view.findViewById(R.id.fragment_mediacontent_backBtn);
         AgreeBtn = view.findViewById(R.id.fragment_mediacontent_agree);
@@ -84,7 +85,7 @@ public class fragment_mediaContent extends Fragment {
             }
         });
 
-        AgreeBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(fragment_mediaContentDirections.actionFragmentMediaContentToDoneStatusFragment(offerId)));
+        AgreeBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(fragment_mediaContentDirections.actionFragmentMediaContentToDoneStatusFragment(offerId,description,price)));
         backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         logout.setOnClickListener(new View.OnClickListener() {

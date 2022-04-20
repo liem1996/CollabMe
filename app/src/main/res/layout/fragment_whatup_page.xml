@@ -23,7 +23,9 @@
         android:layout_marginVertical="20dp"
         android:ems="10"
         android:inputType="phone"
-        android:hint="Mobile No"/>
+        android:hint="Mobile No"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/message"
@@ -32,7 +34,9 @@
         android:layout_marginHorizontal="16dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:hint="Message"/>
+        android:hint="Message"
+        android:textCursorDrawable="@null"
+        />
 
     <Button
         android:id="@+id/sendbtn"

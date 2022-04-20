@@ -66,7 +66,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.456" />
+        app:layout_constraintVertical_bias="0.456"
+        android:textCursorDrawable="@null"
+        />
 
     <TextView
         android:id="@+id/fragment_edituser_profession"
@@ -100,7 +102,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.577" />
+        app:layout_constraintVertical_bias="0.577"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/fragment_edituser_postsuploads"
@@ -113,7 +117,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.637"  />
+        app:layout_constraintVertical_bias="0.637"
+        android:textCursorDrawable="@null"
+        />
 
     <TextView
         android:id="@+id/fragment_edituser_platform"
@@ -144,7 +150,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintVertical_bias="0.76"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/fragemnt_edituser_gender"
@@ -157,7 +165,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.821" />
+        app:layout_constraintVertical_bias="0.821"
+        android:textCursorDrawable="@null"
+        />
 
     <Button
         android:id="@+id/fragemnt_edituser_deleteBtn"

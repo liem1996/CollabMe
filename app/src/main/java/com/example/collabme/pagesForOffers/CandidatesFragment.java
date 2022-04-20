@@ -1,25 +1,41 @@
 package com.example.collabme.pagesForOffers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelCandidates;
+import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
+import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.CandidatesViewmodel;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.common.util.ArrayUtils;
+
+import java.util.Arrays;
 
 public class CandidatesFragment extends Fragment {
 
@@ -29,6 +45,14 @@ public class CandidatesFragment extends Fragment {
     String offerId;
     OnItemClickListener listener;
     SwipeRefreshLayout swipeRefresh;
+    Button choosen;
+    CheckBox choosenCandidate;
+    TextView username;
+    EditText candidatesearch;
+    ImageView searchimg;
+    boolean contains = false, clicked = false;
+    User user1;
+    ImageButton backBtn;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -44,12 +68,52 @@ public class CandidatesFragment extends Fragment {
 
         offerId = CandidatesFragmentArgs.fromBundle(getArguments()).getOfferId();
 
+        candidatesearch = view.findViewById(R.id.fragment_candidates_freesearch);
+        searchimg = view.findViewById(R.id.fragment_candidates_searchbtn);
+
         swipeRefresh = view.findViewById(R.id.candidates_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> ModelCandidates.instance2.refreshPostList(offerId));
 
+        //////////////////////////////
+
+        searchimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clicked = true;
+                String n =candidatesearch.getText().toString();
+                ModelCandidates.instance2.getCandidateFromSearch(n, new ModelCandidates.getCandidateFromSearchListener() {
+                    @Override
+                    public void onComplete(User user) {
+                        user1 = user;
+                        ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                            @Override
+                            public void onComplete(Offer offer) {
+                                if (user1!=null) {
+                                    if (!user1.getUsername().equals("")) {
+                                        contains = ArrayUtils.contains(offer.getUsers(), user1.getUsername());
+                                    }
+                                }
+                                else{
+                                    contains=false;
+                                }
+
+                                RecyclerView list = view.findViewById(R.id.candidates_rv);
+                                list.setHasFixedSize(true);
+                                adapter = new MyAdapter();
+                                list.setAdapter(adapter);
+                                setHasOptionsMenu(true);
+                            }
+                        });
+                    }
+                });
+            }
+
+        });
+        ////////////////////////////
+
         RecyclerView list = view.findViewById(R.id.candidates_rv);
         list.setHasFixedSize(true);
-
+        choosen = view.findViewById(R.id.fragemnt_candidates_choosen);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new MyAdapter();
@@ -67,14 +131,58 @@ public class CandidatesFragment extends Fragment {
 
         });
 
+        logout = view.findViewById(R.id.fragment_candidates_logoutBtn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(code -> {
+                    if (code == 200) {
+                        LoginManager.getInstance().logOut();
+                        toLoginActivity();
+                    }
+                });
+            }
+        });
+
+
 
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view,int idview) {
-                String url = viewModel.getCandidates(offerId).getValue().get(position).getUsername();
 
 
+            }
+        });
 
+        backBtn = view.findViewById(R.id.fragment_candidates_backBtn);
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+
+        choosen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (choosenCandidate.isChecked()) {
+                    ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                        @Override
+                        public void onComplete(Offer offer) {
+
+                            offer.setStatus("InProgress");
+                            String []  user = new String[1];
+                            user[0]=username.getText().toString();
+                            offer.setUsers(user);
+                            ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                                @Override
+                                public void onComplete(int code) {
+                                    if (code == 200) {
+                                        Navigation.findNavController(v).navigate(CandidatesFragmentDirections.actionCandidatesFragmentToInprogressfragment(offerId));
+                                    }
+                                }
+                            });
+                        }
+                    });
+
+                }else{
+                    Toast.makeText(getActivity(), "you didnt choose candidate", Toast.LENGTH_LONG).show();
+                }
             }
         });
         refresh();
@@ -89,22 +197,45 @@ public class CandidatesFragment extends Fragment {
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView username;
-
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
             username = itemView.findViewById(R.id.candidates_listrow_username);
+            choosenCandidate= itemView.findViewById(R.id.candidates_listrow_checkBox);
+            itemView.setOnClickListener(v -> {
+                int viewId = v.getId();
+                int pos = getAdapterPosition();
+                listener.onItemClick(pos, v, viewId);
+            });
+            choosenCandidate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int viewid = v.getId();
+                    int position = getAdapterPosition();
 
+                    listener.onItemClick(position, itemView, viewid);
+                }
+            });
 
         }
         public void bind(User user){
-            username.setText(user.getUsername());
+            if (contains && clicked){
+                username.setText(candidatesearch.getText().toString());
+            }
+            if (!clicked) {
+                username.setText(user.getUsername());
+            }
+            choosenCandidate.setChecked(false);
 
         }
     }
 
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
 
     //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
     interface OnItemClickListener{
@@ -126,17 +257,32 @@ public class CandidatesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            User post = viewModel.getCandidates(offerId).getValue().get(position);
-            holder.bind(post);
-
+            if (contains&&clicked){
+                User user = user1;
+                holder.bind(user);
+            }
+            if (!clicked) {
+                User post = viewModel.getCandidates(offerId).getValue().get(position);
+                holder.bind(post);
+            }
         }
 
         @Override
         public int getItemCount() {
-            if(viewModel.getCandidates(offerId).getValue() == null){
-                return 0;
+            if (!clicked) {
+                if (viewModel.getCandidates(offerId).getValue() == null) {
+                    return 0;
+                }
+                return viewModel.getCandidates(offerId).getValue().size();
             }
-            return viewModel.getCandidates(offerId).getValue().size();
+            else{
+                if (contains){
+                    return 1;
+                }
+                else{
+                    return 0;
+                }
+            }
         }
     }
 

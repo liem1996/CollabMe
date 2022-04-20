@@ -20,18 +20,19 @@ import androidx.navigation.Navigation;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
-import com.example.collabme.pagesForOffers.fragment_mediaContentArgs;
+import com.example.collabme.objects.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class DoneStatusFragment extends Fragment {
 
-    String offerId;
+    String offerId, headlineString, priceString;
     TextView proposer, status, headline, description, finishDate, price;
     Button paymentBtn;
     FloatingActionButton chatBtn;
-    ImageButton editBtn, candidatesBtn;
+    ImageButton editBtn, candidatesBtn, backBtn;
     CheckBox interestedVerify;
     Spinner profession;
     ImageView logout;
@@ -39,8 +40,10 @@ public class DoneStatusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
-        offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
+        View view = inflater.inflate(R.layout.fragment_done_status, container, false);
+
+        offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
+        headlineString = DoneStatusFragmentArgs.fromBundle(getArguments()).getHeadline();
         proposer = view.findViewById(R.id.fragemnt_done_proposer);
         headline = view.findViewById(R.id.fragemnt_done_headline);
         description = view.findViewById(R.id.fragemnt_done_description);
@@ -52,8 +55,8 @@ public class DoneStatusFragment extends Fragment {
         editBtn = view.findViewById(R.id.fragemnt_done_editBtn);
         chatBtn = view.findViewById(R.id.fragemnt_done_chatBtn);
         paymentBtn = view.findViewById(R.id.fragemnt_done_payment);
-        candidatesBtn = view.findViewById(R.id.fragemnt_done_candidatesBtn);
         logout = view.findViewById(R.id.fragment_done_logoutBtn);
+        backBtn = view.findViewById(R.id.fragment_done_backBtn);
 
         // Inflate the layout for this fragment
 
@@ -63,27 +66,38 @@ public class DoneStatusFragment extends Fragment {
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
             finishDate.setText(setValidDate(offer.getFinishDate()));
-            status.setText(offer.getStatus());
+            status.setText("Done");
+            offer.setStatus("Done");
             price.setText(offer.getPrice());
+            priceString = offer.getPrice();
             interestedVerify.setChecked(offer.getIntrestedVerify());
+            // In order to change the status in db to done
+            ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                @Override
+                public void onComplete(int code) {
+                    ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                        @Override
+                        public void onComplete(User profile) {
+                            if(!profile.getUsername().equals(offer.getUser())) {
+                                editBtn.setVisibility(View.GONE);
+                                paymentBtn.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
+            });
         });
 
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToEditOfferFragment(offerId)));
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment());
+                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment(offerId,headlineString,priceString));
             }
         });
 
-        candidatesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToCandidatesFragment(offerId));
-
-            }
-        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,8 +116,8 @@ public class DoneStatusFragment extends Fragment {
         return view;
     }
 
-    private String setValidDate(String date){
-        String newDate = date.substring(0,2)+"/"+date.substring(2,4)+"/"+date.substring(4);
+    private String setValidDate(String date) {
+        String newDate = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);
         return newDate;
     }
 

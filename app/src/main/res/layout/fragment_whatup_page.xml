@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activites.WhatUpActivity">
+    tools:context=".Chat.whatupPage">
 
     <com.hbb20.CountryCodePicker
         android:id="@+id/countryCode"
@@ -41,7 +41,6 @@
         android:layout_marginTop="32dp"
         android:layout_gravity="center"
         android:text="Send"/>
-
 
 
 </LinearLayout>

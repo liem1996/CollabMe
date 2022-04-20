@@ -24,7 +24,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_listrow_edit"
@@ -130,20 +130,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.73" />
 
-    <ImageButton
-        android:id="@+id/fragemnt_done_candidatesBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#00FFFFFF"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_offer_candidates"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/image_offer_background"
-        app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_offer_background"
-        app:layout_constraintVertical_bias="0.802" />
-
     <CheckBox
         android:id="@+id/fragemnt_done_checkbox"
         android:layout_width="wrap_content"
@@ -164,10 +150,10 @@
         android:text="payment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintHorizontal_bias="0.445"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.926" />
+        app:layout_constraintVertical_bias="0.919" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fragemnt_done_chatBtn"
@@ -184,9 +170,9 @@
 
     <ImageView
         android:id="@+id/fragment_done_logoutBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="85dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_logout"
@@ -194,5 +180,17 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/fragment_done_backBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="65dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_arrow_back_"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image_offer_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

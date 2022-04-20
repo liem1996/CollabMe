@@ -47,6 +47,9 @@ public interface RetrofitInterface {
     @POST("/offer/addNewOffer")
     Call<Offer> executenewOffer(@Body Map<String, Object> map,@Header("authorization") String token);
 
+    @POST("/payment/addpayment")
+    Call<Payment> executenewPayment(@Body Map<String, Object> map,@Header("authorization") String token);
+
     @GET("/offer/getOfferById/{id}")
     Call<Offer> getOfferById(@Path("id") String offerId,@Header("authorization") String token);
 
@@ -93,5 +96,12 @@ public interface RetrofitInterface {
 
     @GET("/candidates/getoffersofUsers/{username}")
     Call<List<Offer>> getoffersfromuserinCandidates(@Path("username") String username,@Header("authorization") String token);
+
+    @GET("/candidates/getCandidateFromSearch/{candidatesearch}")
+    Call<User> getCandidateFromSearch(@Path("candidatesearch") String candidatesearch,@Header("authorization") String token);
+
+    @POST("/users/editUserWithoutAuth/{username}")
+    Call<User> editUserWithoutAuth(@Path("username") String username, @Body Map<String, Object> newUser);
+
 
 }

@@ -1,11 +1,13 @@
 package com.example.collabme.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.collabme.objects.MyApplication;
+import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
@@ -31,6 +33,14 @@ public class ModelCandidates {
         loading,
         loaded
 
+    }
+
+    public interface deletingothercandidates {
+        void onComplete(Offer offer);
+    }
+
+    public interface getCandidateFromSearchListener {
+        void onComplete(User user);
     }
 
 
@@ -110,8 +120,56 @@ public class ModelCandidates {
                 candidatesList.postValue(null);
             }
         });
-
-
     }
+
+    public void getCandidateFromSearch(String candidatesearch, getCandidateFromSearchListener getCandidateFromSearchListener) {
+
+        tokensrefresh.retroServer();
+
+        String tokenAccess = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+        Call<User> call = tokensrefresh.retrofitInterface.getCandidateFromSearch(candidatesearch,"Bearer "+tokenAccess);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.code()==200) {
+                    getCandidateFromSearchListener.onComplete(response.body());
+                }
+                else if (response.code() == 403) {
+                    tokensrefresh.changeAcssesToken();
+                    String tockennew = tokensrefresh.gettockenAcsses();
+                    Call<User> call1 = tokensrefresh.retrofitInterface.getCandidateFromSearch(candidatesearch,"Bearer "+tockennew);
+                    call1.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response1) {
+                            if(response1.code()==200){
+                                getCandidateFromSearchListener.onComplete(response.body());
+                            }else{
+                                getCandidateFromSearchListener.onComplete(null);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            getCandidateFromSearchListener.onComplete(null);
+                        }
+                    });
+                } else {
+                    getCandidateFromSearchListener.onComplete(null);
+                }
+            }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("TAG","failed in free search"+t);
+
+                getCandidateFromSearchListener.onComplete(null);
+
+            }
+        });
+    }
+
+
 
 }

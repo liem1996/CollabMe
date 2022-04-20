@@ -2,6 +2,7 @@ package com.example.collabme.HomeOffers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
@@ -41,9 +45,10 @@ public class MyOffersFragment extends Fragment {
     OnItemClickListeneroffers listener;
     ImageView imagePostFrame, logout;
     OffersViewmodel viewModel;
-    String offerId;
+    String offerId, headline, price;
     Offer offer;
     Button waitingOffesFragment;
+    RadioButton radioButton;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -56,11 +61,32 @@ public class MyOffersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_offers, container, false);
 
+        RadioGroup radioGroup = (RadioGroup) view .findViewById(R.id.radioGroup);
+        radioButton = view.findViewById(R.id.radioButton6);
+        radioButton.setChecked(true);
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
+
+                switch(checkedId) {
+                    case R.id.radioButton7:
+
+                        Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment());
+                        break;
+                    case R.id.radioButton6:
+                        Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionGlobalMyOffersFragment(offerId));
+                        break;
+                }
+            }
+        });
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
 
-        waitingOffesFragment = view.findViewById(R.id.myoffers_waitingOfferFragmentBtn);
-        waitingOffesFragment.setOnClickListener(v -> Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment()));
+       // waitingOffesFragment = view.findViewById(R.id.myoffers_waitingOfferFragmentBtn);
+       // waitingOffesFragment.setOnClickListener(v -> Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment()));
 
         logout = view.findViewById(R.id.fragment_myoffers_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +112,8 @@ public class MyOffersFragment extends Fragment {
             public void onItemClickoffer(int position, View view, int idview) {
                 offerId = viewModel.getDataMyOffer().getValue().get(position).getIdOffer();
                 offer = viewModel.getDataMyOffer().getValue().get(position);
-
+                headline = viewModel.getDataMyOffer().getValue().get(position).getHeadline();
+                price = offer.getPrice();
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
                     offerCheckClicked(position);
                 } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
@@ -108,7 +135,7 @@ public class MyOffersFragment extends Fragment {
                             Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToCloseStatusfragment(offerId));
                             break;
                         case "Done":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToDoneStatusFragment(offerId));
+                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToDoneStatusFragment(offerId,headline,price));
                             break;
                     }
                 }
@@ -218,19 +245,28 @@ public class MyOffersFragment extends Fragment {
             offer_headline.setText(offer.getHeadline());
             offer_date.setText(setValidDate(offer.getFinishDate()));
             offer_status.setText(offer.getStatus());
+            ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
+                        @Override
+                        public void onComplete(Bitmap responseBody) {
+                            if(responseBody!=null) {
+                                offer_image.setImageBitmap(responseBody);
 
-            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-                @Override
-                public void onComplete(User profile) {
-                    if (!profile.getUsername().equals(offer.getUser())) {
-                        //adapter1.offers.remove(offer);
-                        offer_edit_imb.setVisibility(View.INVISIBLE);
-                    } else {
-                        offer_V_imb.setVisibility(View.INVISIBLE);
-                        offer_X_imb.setVisibility(View.INVISIBLE);
+                            }
+                            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                                @Override
+                                public void onComplete(User profile) {
+                                    if (!profile.getUsername().equals(offer.getUser())) {
+                                        //adapter1.offers.remove(offer);
+                                        offer_edit_imb.setVisibility(View.INVISIBLE);
+                                    } else {
+                                        offer_V_imb.setVisibility(View.INVISIBLE);
+                                        offer_X_imb.setVisibility(View.INVISIBLE);
+                                    }
+                                }
+                            });
                     }
-                }
-            });
+             });
+
         }
     }
 

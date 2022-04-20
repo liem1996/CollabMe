@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,20 +37,21 @@ import java.util.List;
 
 public class SignupFragment extends Fragment {
 
-    EditText username, password,email,age;
-    Button signup, back,uploads;
+    EditText username, password, email, age;
+    Button signup, uploads;
+    ImageButton backBtn;
     CheckBox company, influencer;
     Spinner gender;
     String selectedGender;
     List<String> genderStrings;
-    String emailPattern ="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     boolean goodsign;
     private String mImageUrl = "";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap imageBitmap;
-    String username1,password1,email1,age1, selectedGender1;
-    boolean company1,influencer1;
+    String username1, password1, email1, age1, selectedGender1;
+    boolean company1, influencer1;
 
     String facebookUsername, facebookEmail, facebookPassword;
     ProgressBar progressBar;
@@ -81,21 +83,18 @@ public class SignupFragment extends Fragment {
         age = view.findViewById(R.id.fragemnt_signup_age);
         company = view.findViewById(R.id.fragment_signup_company);
         influencer = view.findViewById(R.id.fragment_signup_influencer);
-        back = view.findViewById(R.id.fragemnt_signup_backbtn);
-        uploads = view.findViewById(R.id.fragemnt_signup_uploadbtn);
 
         facebookEmail = SignupFragmentArgs.fromBundle(getArguments()).getEmail();
         facebookPassword = SignupFragmentArgs.fromBundle(getArguments()).getPassword();
         facebookUsername = SignupFragmentArgs.fromBundle(getArguments()).getUsername();
 
-        if(facebookUsername!=null && facebookEmail!=null && facebookPassword!=null){
+        if (facebookUsername != null && facebookEmail != null && facebookPassword != null) {
             username.setText(facebookUsername);
             password.setText(facebookPassword);
             email.setText(facebookEmail);
             username.setEnabled(false);
             password.setEnabled(false);
             email.setEnabled(false);
-
         }
 
         signup = view.findViewById(R.id.fragemnt_signup_continuebtn);
@@ -106,22 +105,23 @@ public class SignupFragment extends Fragment {
                 public void onComplete(User profile) {
                     if (profile != null) {
                         Toast.makeText(getContext(), "Your username is taken", Toast.LENGTH_SHORT).show();
-                        goodsign=false;
+                        goodsign = false;
 
 
                         return;
                     }
                     authforuser();
-                    if(goodsign) {
+                    if (goodsign) {
                         progressBar.setVisibility(View.VISIBLE);
                         Navigation.findNavController(v).navigate(SignupFragmentDirections.actionSignupFragment2ToSocialmedia(username1, password1, influencer1,
-                                company1, email1, age1, selectedGender1, null, null, null,imageBitmap));
+                                company1, email1, age1, selectedGender1, null, null, null, imageBitmap));
                     }
                 }
             });
         });
 
-        back.setOnClickListener(new View.OnClickListener() {
+        backBtn = view.findViewById(R.id.fragment_signup_backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
@@ -131,8 +131,7 @@ public class SignupFragment extends Fragment {
             }
         });
 
-
-
+        uploads = view.findViewById(R.id.fragemnt_signup_uploadbtn);
         uploads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,29 +139,26 @@ public class SignupFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
     public void openGallery() {
         Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
         photoPicerIntent.setType("image/jpeg");
-        startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
+        startActivityForResult(photoPicerIntent, REQUEST_IMAGE_PIC);
     }
-
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_IMAGE_CAPTURE){
-            if(resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
             }
-        }else if(requestCode==REQUEST_IMAGE_PIC){
-            if(resultCode==RESULT_OK){
+        } else if (requestCode == REQUEST_IMAGE_PIC) {
+            if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -176,10 +172,7 @@ public class SignupFragment extends Fragment {
         }
     }
 
-
-
     private void saveDetails() {
-
         username1 = username.getText().toString();
         password1 = password.getText().toString();
         influencer1 = influencer.isChecked();
@@ -189,7 +182,7 @@ public class SignupFragment extends Fragment {
         selectedGender1 = selectedGender;
     }
 
-    private List<String> getAllGenders(){
+    private List<String> getAllGenders() {
         List<String> tmp = new ArrayList<>();
         tmp.add("Female");
         tmp.add("Male");
@@ -201,7 +194,7 @@ public class SignupFragment extends Fragment {
     private void initSpinnerFooter() {
         String[] items = new String[genderStrings.size()];
 
-        for(int i = 0 ; i<genderStrings.size();i++){
+        for (int i = 0; i < genderStrings.size(); i++) {
             items[i] = genderStrings.get(i);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
@@ -221,35 +214,34 @@ public class SignupFragment extends Fragment {
         });
     }
 
-    public void authforuser(){
+    public void authforuser() {
         if (!email1.matches(emailPattern)) {
             Toast.makeText(getContext(), "Your email was written wrong", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+            goodsign = false;
             return;
         }
 
-        if(password1.isEmpty() || username1.isEmpty() || email1.isEmpty()) {
+        if (password1.isEmpty() || username1.isEmpty() || email1.isEmpty()) {
             Toast.makeText(getContext(), "You have to fill username,password and email fields", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+            goodsign = false;
             return;
         }
 
-        if((!age1.equals(""))&& !isInteger(age1))
-        {
+        if ((!age1.equals("")) && !isInteger(age1)) {
             Toast.makeText(getContext(), "Your age field is not an integer", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+            goodsign = false;
             return;
         }
 
-        goodsign=true;
+        goodsign = true;
     }
 
     public static boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             return false;
         }
         // only got here if we didn't return false

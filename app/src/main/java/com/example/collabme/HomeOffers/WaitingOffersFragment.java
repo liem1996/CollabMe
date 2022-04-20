@@ -2,12 +2,15 @@ package com.example.collabme.HomeOffers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.viewmodel.OffersViewmodel;
@@ -36,8 +40,10 @@ public class WaitingOffersFragment extends Fragment {
     OnItemClickListenerWaitingOffers listener;
     ImageView logout;
     OffersViewmodel viewModel;
-    String offerId;
+    String offerId,headline, price;
     Offer offer;
+    RadioButton radioButton;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -49,7 +55,25 @@ public class WaitingOffersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_waiting_offers, container, false);
+        RadioGroup radioGroup = (RadioGroup) view .findViewById(R.id.radioGroup);
+        radioButton = view.findViewById(R.id.radioButton7);
+        radioButton.setChecked(true);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
 
+
+                switch(checkedId) {
+                    case R.id.radioButton7:
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionGlobalWaitingOffersFragment());
+                        break;
+                    case R.id.radioButton6:
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionGlobalMyOffersFragment(offerId));
+                        break;
+                }
+            }
+        });
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
 
@@ -75,9 +99,10 @@ public class WaitingOffersFragment extends Fragment {
         adapter1.setListener(new OnItemClickListenerWaitingOffers() {
             @Override
             public void onItemClickoffer(int position, View view, int idview) {
-                offerId = viewModel.getDataMyOffer().getValue().get(position).getIdOffer();
-                offer = viewModel.getDataMyOffer().getValue().get(position);
-
+                offerId = viewModel.getDataWaitingOffer().getValue().get(position).getIdOffer();
+                offer = viewModel.getDataWaitingOffer().getValue().get(position);
+                headline = viewModel.getDataWaitingOffer().getValue().get(position).getHeadline();
+                price = offer.getPrice();
                 String status = offer.getStatus();
                 switch (status) {
                     case "Open":
@@ -90,7 +115,7 @@ public class WaitingOffersFragment extends Fragment {
                         Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToCloseStatusfragment(offerId));
                         break;
                     case "Done":
-                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToDoneStatusFragment(offerId));
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToDoneStatusFragment(offerId,headline,price));
                         break;
                 }
             }
@@ -98,7 +123,7 @@ public class WaitingOffersFragment extends Fragment {
 
         refresh();
         setHasOptionsMenu(true);
-        viewModel.getDataMyOffer().observe(getViewLifecycleOwner(), list4 -> refresh());
+        viewModel.getDataWaitingOffer().observe(getViewLifecycleOwner(), list4 -> refresh());
         swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
         ModelOffers.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
             if (PostsListLoadingState == ModelOffers.OffersListLoadingState.loading) {
@@ -181,10 +206,19 @@ public class WaitingOffersFragment extends Fragment {
             offer_headline.setText(offer.getHeadline());
             offer_date.setText(setValidDate(offer.getFinishDate()));
             offer_status.setText(offer.getStatus());
-
             offer_edit_imb.setVisibility(View.INVISIBLE);
             offer_V_imb.setVisibility(View.INVISIBLE);
             offer_X_imb.setVisibility(View.INVISIBLE);
+            ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
+                @Override
+                public void onComplete(Bitmap responseBody) {
+                    if(responseBody!=null) {
+                        offer_image.setImageBitmap(responseBody);
+
+
+                    }
+                }
+            });
         }
     }
 

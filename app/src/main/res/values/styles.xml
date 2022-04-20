@@ -9,4 +9,6 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
+    <style name="roundedImageViewRounded">roundedImageViewRounded</style>
+
 </resources>

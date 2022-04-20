@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75">
+        app:layout_constraintVertical_bias="0.891">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/myoffers_rv"
@@ -35,9 +35,9 @@
 
     <ImageView
         android:id="@+id/fragment_myoffers_logoutBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="85dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_logout"
@@ -46,16 +46,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/myoffers_waitingOfferFragmentBtn"
-        android:layout_width="93dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="110dp"
-        android:text="Waiting offer"
-        android:textSize="12sp"
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="372dp"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_candidate_background" />
+        app:layout_constraintTop_toTopOf="@+id/image_candidate_background"
+        app:layout_constraintVertical_bias="0.235">
+
+        <RadioButton
+            android:id="@+id/radioButton6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="My Offers" />
+
+        <RadioButton
+            android:id="@+id/radioButton7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Waiting Offers" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

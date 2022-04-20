@@ -145,6 +145,10 @@
         <action
             android:id="@+id/action_doneStatusFragment_to_candidatesFragment"
             app:destination="@id/candidatesFragment" />
+        <argument
+            android:name="headline"
+            app:argType="string" />
+        <argument android:name="price" />
     </fragment>
     <fragment
         android:id="@+id/closeStatusfragment"
@@ -166,9 +170,6 @@
         <argument
             android:name="offerId"
             app:argType="string" />
-        <action
-            android:id="@+id/action_inprogressfragment_to_candidatesFragment"
-            app:destination="@id/candidatesFragment" />
         <action
             android:id="@+id/action_inprogressfragment_to_fragment_mediaContent"
             app:destination="@id/fragment_mediaContent" />
@@ -197,12 +198,28 @@
         <argument
             android:name="offerId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_candidatesFragment_to_inprogressfragment"
+            app:destination="@id/inprogressfragment" />
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"
         android:name="com.example.collabme.pagesForOffers.PaymentFragment"
         android:label="fragment_payment"
-        tools:layout="@layout/fragment_payment" />
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_closeStatusfragment"
+            app:destination="@id/closeStatusfragment" />
+        <argument
+            android:name="offerid"
+            app:argType="string" />
+        <argument
+            android:name="headline"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/offerDetailsFragment"
         android:name="com.example.collabme.status.OpenStatusFragment"
@@ -214,9 +231,6 @@
         <argument
             android:name="offerId"
             app:argType="string" />
-        <action
-            android:id="@+id/action_offerDetailsFragment_to_inprogressfragment"
-            app:destination="@id/inprogressfragment" />
         <action
             android:id="@+id/action_offerDetailsFragment_to_candidatesFragment"
             app:destination="@id/candidatesFragment" />
@@ -238,7 +252,8 @@
             app:destination="@id/editOfferFragment" />
         <argument
             android:name="offerid"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_myOffersFragment_to_doneStatusFragment"
             app:destination="@id/doneStatusFragment" />
@@ -288,6 +303,12 @@
         <action
             android:id="@+id/action_fragment_mediaContent_to_doneStatusFragment"
             app:destination="@id/doneStatusFragment" />
+        <argument
+            android:name="headline"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/waitingOffersFragment"
@@ -305,5 +326,14 @@
         <action
             android:id="@+id/action_waitingOffersFragment_to_doneStatusFragment"
             app:destination="@id/doneStatusFragment" />
-    </fragment><action android:id="@+id/action_global_chatFragmentopen" app:destination="@id/chatFragmentopen"/>
+        <action
+            android:id="@+id/action_waitingOffersFragment_to_myOffersFragment"
+            app:destination="@id/myOffersFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_waitingOffersFragment" app:destination="@id/waitingOffersFragment" />
+    <fragment
+        android:id="@+id/whatupPage"
+        android:name="com.example.collabme.Chat.whatupPage"
+        android:label="fragment_whatup_page"
+        tools:layout="@layout/fragment_whatup_page" />
 </navigation>

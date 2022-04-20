@@ -31,6 +31,10 @@ public class ModelUsers {
 
     }
 
+    public interface editUserWithoutAuthListener{
+        void onComplete(int code);
+    }
+
     public interface GetUserByIdListener {
         void onComplete(User profile);
 
@@ -146,6 +150,34 @@ public class ModelUsers {
                 Log.d("TAG", "not " + t);
 
                 editUserListener.onComplete(400);
+            }
+        });
+
+    }
+
+    public void editUserWithoutAuth(User profile, editUserWithoutAuthListener editUserWithoutAuthListener) {
+        tokensrefresh.retroServer();
+
+        HashMap<String, Object> map = profile.tojson();
+
+        Call<User> call = tokensrefresh.retrofitInterface.editUserWithoutAuth(profile.getUsername() , map);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d("TAG", "" + response);
+                if (response.code() == 200) {
+                    editUserWithoutAuthListener.onComplete(200);
+                } else  {
+                    editUserWithoutAuthListener.onComplete(400);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("TAG", "not " + t);
+
+                editUserWithoutAuthListener.onComplete(400);
             }
         });
 

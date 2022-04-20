@@ -16,7 +16,55 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:src="@drawable/noe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.757" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:src="@drawable/noe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.397"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.604" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:src="@drawable/noe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.397"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.757" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:src="@drawable/noe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.604" />
 
     <EditText
         android:id="@+id/fragment_Search_freesearch_et"
@@ -85,17 +133,17 @@
     <EditText
         android:id="@+id/fragment_Search_from_price_et"
         android:layout_width="90dp"
-        android:layout_height="30dp"
-        android:background="@drawable/border"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="text"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintVertical_bias="0.609" />
 
     <TextView
         android:id="@+id/fragment_Search_from_price_tv"
@@ -105,23 +153,23 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.566" />
+        app:layout_constraintVertical_bias="0.57" />
 
     <EditText
         android:id="@+id/fragment_Search_toprice_et"
         android:layout_width="90dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/border"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="text"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/fragment_Search_from_price_et"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.853"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -152,17 +200,17 @@
     <EditText
         android:id="@+id/fragment_Search_fromdates"
         android:layout_width="90dp"
-        android:layout_height="30dp"
-        android:background="@drawable/border"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="text"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.771" />
+        app:layout_constraintVertical_bias="0.757" />
 
     <TextView
         android:id="@+id/textView9"
@@ -172,23 +220,23 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.732" />
+        app:layout_constraintVertical_bias="0.714" />
 
     <EditText
         android:id="@+id/fragment_Search_todates_et"
         android:layout_width="90dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/border"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:inputType="text"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/fragment_Search_fromdates"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.853"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -232,9 +280,9 @@
 
     <ImageView
         android:id="@+id/fragment_search_logoutBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="85dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_logout"

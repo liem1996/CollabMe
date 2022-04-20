@@ -9,32 +9,38 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
+import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 
 
 public class CloseStatusfragment extends Fragment {
 
     String offerId;
-    TextView proposer,status, headline, description, finishDate, price;
+    TextView proposer, status, headline, description, finishDate, price;
     Button delete;
     CheckBox interestedVerify;
     Spinner profession;
     ImageView logout;
-
+    Offer offer1;
+    ImageButton backBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_close_statusfragment, container, false);
         offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
         proposer = view.findViewById(R.id.fragemnt_close_proposer);
         headline = view.findViewById(R.id.fragemnt_close_headline);
@@ -45,26 +51,48 @@ public class CloseStatusfragment extends Fragment {
         price = view.findViewById(R.id.fragemnt_close_price);
         interestedVerify = view.findViewById(R.id.fragemnt_close_checkbox);
         logout = view.findViewById(R.id.fragment_close_logoutBtn);
-
-        delete  = view.findViewById(R.id.fragemnt_close_delete);
+        delete = view.findViewById(R.id.fragemnt_close_delete);
+        backBtn = view.findViewById(R.id.fragment_close_backBtn);
 
         // Inflate the layout for this fragment
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
-            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+            offer1 = offer;
+            initSpinnerFooter(offer.getProfession().length, offer.getProfession(), profession);
             headline.setText(offer.getHeadline());
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
             finishDate.setText(setValidDate(offer.getFinishDate()));
-            status.setText(offer.getStatus());
+            status.setText("Close");
+            offer.setStatus("Close");
             price.setText(offer.getPrice());
             interestedVerify.setChecked(offer.getIntrestedVerify());
+            // In order to change the status in db to close
+            ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                @Override
+                public void onComplete(int code) {
+                }
+            });
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    if (!profile.getUsername().equals(offer.getUser())) {
+                        delete.setVisibility(View.GONE);
+                    }
+                }
+            });
         });
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ModelOffers.instance.deleteoffer(offer1, new ModelOffers.deleteoffer() {
+                    @Override
+                    public void onComplete() {
+                        Navigation.findNavController(v).navigate(R.id.action_global_myOffersFragment);
+                        //TODO:: need to refresh the offer list maybe??
+                    }
+                });
             }
         });
 
@@ -74,7 +102,7 @@ public class CloseStatusfragment extends Fragment {
                 Modelauth.instance2.logout(new Modelauth.logout() {
                     @Override
                     public void onComplete(int code) {
-                        if(code==200) {
+                        if (code == 200) {
                             toLoginActivity();
                         }
                     }
@@ -82,24 +110,26 @@ public class CloseStatusfragment extends Fragment {
             }
         });
 
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+
         return view;
     }
 
-    private String setValidDate(String date){
-        String newDate = date.substring(0,2)+"/"+date.substring(2,4)+"/"+date.substring(4);
+    private String setValidDate(String date) {
+        String newDate = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);
         return newDate;
     }
 
     private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
         int tmp = 0;
-        for(int j = 0 ; j<size;j++){
-            if(array[j] != null){
+        for (int j = 0; j < size; j++) {
+            if (array[j] != null) {
                 tmp++;
             }
         }
         String[] items = new String[tmp];
 
-        for(int i = 0 ; i<tmp;i++){
+        for (int i = 0; i < tmp; i++) {
             items[i] = array[i];
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
@@ -111,7 +141,8 @@ public class CloseStatusfragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 

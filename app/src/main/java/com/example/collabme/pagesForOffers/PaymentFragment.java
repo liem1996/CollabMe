@@ -2,22 +2,9 @@ package com.example.collabme.pagesForOffers;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.IntentSenderRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,19 +14,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
+import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPayment;
 import com.example.collabme.model.Modelauth;
+import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.Payment;
+import com.example.collabme.status.DoneStatusFragmentArgs;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.wallet.AutoResolveHelper;
 import com.google.android.gms.wallet.IsReadyToPayRequest;
 import com.google.android.gms.wallet.PaymentData;
-import com.google.android.gms.wallet.PaymentDataRequest;
 import com.google.android.gms.wallet.PaymentsClient;
 import com.google.android.gms.wallet.Wallet;
 import com.google.android.gms.wallet.WalletConstants;
@@ -54,14 +53,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.concurrent.Executor;
 
 public class PaymentFragment extends Fragment {
 
     private CheckoutViewModel model;
+    String offerId;
+    String headline;
+    String price;
+    Payment payment;
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
     private static final long SHIPPING_COST_CENTS = 90 * PaymentsUtil.CENTS_IN_A_UNIT.longValue();
 
@@ -131,14 +132,20 @@ public class PaymentFragment extends Fragment {
         offer = view.findViewById(R.id.fragment_payment_offer_et);
         bankAccount = view.findViewById(R.id.fragment_payment_bank_account_et);
         logout = view.findViewById(R.id.fragment_payment_logoutBtn);
-
+        offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
+        headline = DoneStatusFragmentArgs.fromBundle(getArguments()).getHeadline();
+        price = DoneStatusFragmentArgs.fromBundle(getArguments()).getPrice();
         googlePayButton = view.findViewById(R.id.googlePayButton);
         payPal = view.findViewById(R.id.payment_PayPal_btn);
         backBtn = view.findViewById(R.id.fragment_payment_back_btn);
         submit = view.findViewById(R.id.fragment_payment_submit_btn);
 
+        offer.setText(headline);
+
         model = new ViewModelProvider(this).get(CheckoutViewModel.class);
         model.canUseGooglePay.observe(this.getActivity(), this::setGooglePayAvailable);
+
+
         // creating Payment Client (different from google code, not by methods)
 
         Wallet.WalletOptions walletOptions = new Wallet.WalletOptions.Builder()
@@ -177,7 +184,47 @@ public class PaymentFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to "MyOfferFragment" - change status to close
+                //add payment
+                payment = new Payment(cardNumber.getText().toString(),expDate.getText().toString(),cvv.getText().toString(),
+                        id.getText().toString(),name.getText().toString(),offerId,bankAccount.getText().toString());
+
+                ModelPayment.instance2.addPayment(payment, new ModelPayment.AddingPayemnt() {
+                    @Override
+                    public void onComplete(int code) {
+                        if (code == 200) {
+                            //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
+                            Toast.makeText(getActivity(), "Payment Was Added", Toast.LENGTH_LONG).show();
+                            ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                                @Override
+                                public void onComplete(Offer offer) {
+                                    offer.setStatus("Close");
+                                    ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                                        @Override
+                                        public void onComplete(int code) {
+                                            Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getActivity(), "not added", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                //close offer
+//                ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+//                    @Override
+//                    public void onComplete(Offer offer) {
+//                        offer.setStatus("Close");
+//                        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+//                            @Override
+//                            public void onComplete(int code) {
+//                                Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
+//                            }
+//                        });
+//                    }
+//                });
+
             }
         });
 
@@ -200,7 +247,7 @@ public class PaymentFragment extends Fragment {
     }
 
     private void getPayment() {
-        String amount = "1";// TODO:: take the real amount
+        String amount = price;// TODO:: take the real amount
 
         // Creating a paypal payment on below line
         PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(amount)), "USD", "Payment",
@@ -325,16 +372,24 @@ public class PaymentFragment extends Fragment {
             final String token = tokenizationData.getString("token");
             final JSONObject info = paymentMethodData.getJSONObject("info");
             final String billingName = info.getJSONObject("billingAddress").getString("name");
+            final String MSG = "Payment succeeded, amount : "+price;
             Toast.makeText(
-                    this.getContext(), "getString(billingName)",
+                    this.getContext(), MSG,
                     Toast.LENGTH_LONG).show();
 
             // Logging token string.
             Log.d("Google Pay token: ", token);
 
+            Navigation.findNavController(getView()).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
+
+
         } catch (JSONException e) {
             throw new RuntimeException("The selected garment cannot be parsed from the list of elements");
         }
+    }
+
+    private void navigateClose() {
+
     }
 
     public void requestPayment(View view) {
@@ -344,8 +399,8 @@ public class PaymentFragment extends Fragment {
 
         // The price provided to the API should include taxes and shipping.
         // This price is not displayed to the user.
-        long priceInCents = 100;  //TODO:: get the real amount of the offer
-        long shippingCostCents = 100;
+        long priceInCents = Long.parseLong(price);  //TODO:: get the real amount of the offer
+        long shippingCostCents = 0;
         long totalPriceCents = priceInCents + shippingCostCents;
         final Task<PaymentData> task = model.getLoadPaymentDataTask(totalPriceCents);
 

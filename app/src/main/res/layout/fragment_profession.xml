@@ -20,8 +20,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_sport"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="200dp"
             android:backgroundTint="#8450A0"
             android:clickable="true"
@@ -34,8 +34,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_cooking"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:backgroundTint="#8450A0"
             android:text="cooking"
             app:layout_constraintBaseline_toBaselineOf="@+id/fragemnt_profession_sport"
@@ -45,8 +45,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_fashion"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="fashion"
@@ -57,8 +57,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_music"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="music"
@@ -69,8 +69,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_dance"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="dance"
@@ -81,8 +81,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_cosmetic"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="cosmetic"
@@ -94,8 +94,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_travel"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="travel"
@@ -107,8 +107,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_gaming"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:backgroundTint="#8450A0"
             android:text="gaming"
             app:layout_constraintBaseline_toBaselineOf="@+id/fragemnt_profession_travel"
@@ -118,8 +118,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_tech"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="Tech"
@@ -131,8 +131,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_food"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:backgroundTint="#8450A0"
             android:text="food"
             app:layout_constraintBaseline_toBaselineOf="@+id/fragemnt_profession_tech"
@@ -142,8 +142,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_art"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="art"
@@ -155,8 +155,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_animals"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="animals"
@@ -167,8 +167,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_movies"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="movies"
@@ -180,8 +180,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_photograph"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="photograph"
@@ -192,8 +192,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_other"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="other"
@@ -205,8 +205,8 @@
 
         <Button
             android:id="@+id/fragemnt_profession_lifestyle"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="#8450A0"
             android:text="lifestyle"
@@ -219,24 +219,24 @@
             android:id="@+id/fragemnt_profession_continuebtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="25dp"
             android:backgroundTint="#4c266a"
             android:text="continue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.207"
-            app:layout_constraintStart_toEndOf="@+id/fragemnt_profession_backbtn"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragemnt_profession_lifestyle" />
 
-        <Button
-            android:id="@+id/fragemnt_profession_backbtn"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
-            android:backgroundTint="#4c266a"
-            android:text="back"
-            app:layout_constraintBaseline_toBaselineOf="@+id/fragemnt_profession_continuebtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.237"
-            app:layout_constraintStart_toStartOf="parent" />
+        <ImageButton
+            android:id="@+id/fragemnt_profession_backBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="65dp"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_arrow_back_"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_proffesions_background" />
 
         <ProgressBar
             android:id="@+id/profession_progressbar"

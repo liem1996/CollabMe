@@ -180,7 +180,7 @@ public class LoginFragment extends Fragment {
                                                         else {
 //                                                            Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalSocialmedia(username2, "facebook", false,
 //                                                                    true, email, "age", gender, null, null, null,null));
-                                                           // handleSighUp();
+                                                            // handleSighUp();
                                                             Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalSignupFragment2(username2,"facebook",email));
                                                         }
                                                     }
@@ -222,25 +222,25 @@ public class LoginFragment extends Fragment {
             String facebookUserId = profile.getId();
             String facebookName = profile.getName();
             //String facebookEmail = profile.getEma
-                            GraphRequest request = GraphRequest.newMeRequest(
-                        accessToken,
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(@Nullable JSONObject jsonObject, @Nullable GraphResponse graphResponse) {
-                                try {
-                                    String email = jsonObject.getString("email");
-                                    String name = jsonObject.getString("name");
-                                    Long id = jsonObject.getLong("id");
+            GraphRequest request = GraphRequest.newMeRequest(
+                    accessToken,
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(@Nullable JSONObject jsonObject, @Nullable GraphResponse graphResponse) {
+                            try {
+                                String email = jsonObject.getString("email");
+                                String name = jsonObject.getString("name");
+                                Long id = jsonObject.getLong("id");
 
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email");
-                request.setParameters(parameters);
-                request.executeAsync();
+                        }
+                    });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,email");
+            request.setParameters(parameters);
+            request.executeAsync();
 
 
         }
@@ -252,8 +252,8 @@ public class LoginFragment extends Fragment {
     private void handleSighUp() {
         progressBar.setVisibility(View.VISIBLE);
 
-       // Navigation.findNavController(view).navigate(R.id.action_fragment_login_to_signupFragment2);
-       Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalSignupFragment2(null,null,null));
+        // Navigation.findNavController(view).navigate(R.id.action_fragment_login_to_signupFragment2);
+        Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalSignupFragment2(null,null,null));
 
     }
     @Override

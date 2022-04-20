@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,8 +20,10 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.actionsOnOffers.EditOfferFragmentArgs;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
+import com.example.collabme.objects.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -30,12 +31,11 @@ public class OpenStatusFragment extends Fragment {
 
     String offerId;
     TextView proposer, status, headline, description, finishDate, price;
-    Button choosen;
     CheckBox interestedVerify;
     Spinner profession;
     Offer offer2;
     ImageView logout;
-    ImageButton editBtn, candidatesBtn;
+    ImageButton editBtn, candidatesBtn, backBtn;
     FloatingActionButton chatBtn;
 
     @Override
@@ -54,15 +54,31 @@ public class OpenStatusFragment extends Fragment {
         interestedVerify = view.findViewById(R.id.fragemnt_offerdetails_checkbox);
         editBtn = view.findViewById(R.id.fragemnt_offerdetails_editBtn);
         chatBtn = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
-        choosen = view.findViewById(R.id.fragemnt_offerdetails_choosenBtn);
         candidatesBtn = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn);
         logout = view.findViewById(R.id.fragment_offerdetails_logoutBtn);
+        backBtn = view.findViewById(R.id.fragment_offerdetails_backBtn);
 
+        ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+            @Override
+            public void onComplete(Offer offer) {
+                ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                    @Override
+                    public void onComplete(User profile) {
+                        if (!profile.getUsername().equals(offer.getUser())) {
+                            candidatesBtn.setVisibility(View.GONE);
+                            editBtn.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+            }
+        });
 
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
-            if(offer!=null) {
+            if (offer != null) {
                 initSpinnerFooter(offer.getProfession().length, offer.getProfession(), profession);
                 headline.setText(offer.getHeadline());
                 proposer.setText(offer.getUser());
@@ -72,21 +88,6 @@ public class OpenStatusFragment extends Fragment {
                 price.setText(offer.getPrice());
                 interestedVerify.setChecked(offer.getIntrestedVerify());
                 offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price.getText().toString(), offerId, status.getText().toString(), offer.getProfession(), offer.getUser(), interestedVerify.isChecked());
-            }
-        });
-
-        choosen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                offer2.setStatus("InProgress");
-                ModelOffers.instance.editOffer(offer2, new ModelOffers.EditOfferListener() {
-                    @Override
-                    public void onComplete(int code) {
-                        if (code == 200) {
-                            Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToInprogressfragment(offerId));
-                        }
-                    }
-                });
             }
         });
 
@@ -123,8 +124,8 @@ public class OpenStatusFragment extends Fragment {
         return view;
     }
 
-    private String setValidDate(String date){
-        String newDate = date.substring(0,2)+"/"+date.substring(2,4)+"/"+date.substring(4);
+    private String setValidDate(String date) {
+        String newDate = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);
         return newDate;
     }
 

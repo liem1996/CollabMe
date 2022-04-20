@@ -139,10 +139,14 @@
         <entry key="app/src/main/res/layout/activity_chat_box.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/activity_chat_page.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/activity_friend.xml" value="0.3421875" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.3507692307692308" />
+        <entry key="app/src/main/res/layout/candidtaes_list_row.xml" value="0.3507692307692308" />
         <entry key="app/src/main/res/layout/chat_activity_main.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_edit_offer.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_inprogressfragment.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.36942049139323563" />
+        <entry key="app/src/main/res/layout/fragment_offer_openstatus.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_profession.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.35625" />

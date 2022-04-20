@@ -305,5 +305,5 @@
         <action
             android:id="@+id/action_waitingOffersFragment_to_doneStatusFragment"
             app:destination="@id/doneStatusFragment" />
-    </fragment>
+    </fragment><action android:id="@+id/action_global_chatFragmentopen" app:destination="@id/chatFragmentopen"/>
 </navigation>

@@ -2,25 +2,35 @@ package com.example.collabme.objects;
 
 public class Messege {
 
-    private String nickname;
-    private String message ;
-    long createdAt;
+    private String from;
+    private String message;
+    private String to;
+    private String createdAt;
 
     public  Messege(){
 
     }
-    public Messege(String nickname, String message, long createdAt) {
-        this.nickname = nickname;
+    public Messege(String from,String to, String message, String createdAt) {
+        this.from = from;
+        this.to = to;
         this.message = message;
         this.createdAt = createdAt;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getFrom() {
+        return from;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public String getTo() {
+        return to;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
     }
 
     public String getMessage() {
@@ -31,11 +41,11 @@ public class Messege {
         this.message = message;
     }
 
-    public long getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 }

@@ -336,4 +336,5 @@
         android:name="com.example.collabme.Chat.whatupPage"
         android:label="fragment_whatup_page"
         tools:layout="@layout/fragment_whatup_page" />
+    <action android:id="@+id/action_global_chatFragmentopen" app:destination="@id/chatFragmentopen"/>
 </navigation>

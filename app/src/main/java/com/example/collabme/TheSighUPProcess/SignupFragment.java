@@ -248,4 +248,20 @@ public class SignupFragment extends Fragment {
         return true;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            saveDetails();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        saveDetails();
+        //Save the fragment's state here
+    }
+
 }

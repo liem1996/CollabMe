@@ -19,11 +19,8 @@ import com.example.collabme.objects.User;
 public class ChatFragment extends Fragment {
 
    String username;
+   String toUser;
 
-
-    public ChatFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,7 +30,7 @@ public class ChatFragment extends Fragment {
         if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},10);
         }
-
+        toUser = ChatFragmentArgs.fromBundle(getArguments()).getUsername();
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
@@ -49,6 +46,8 @@ public class ChatFragment extends Fragment {
     private void tochatActivity() {
         Intent intent = new Intent(getContext(), ChatActivity.class);
         intent.putExtra("name",username);
+        intent.putExtra("toUser",toUser);
+
         startActivity(intent);
         getActivity().finish();
     }

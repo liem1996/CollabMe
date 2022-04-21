@@ -35,7 +35,7 @@ public class inprogressfragment extends Fragment {
     CheckBox interestedVerify;
     Spinner profession;
     ImageView logout;
-
+    String offerUsername;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,6 +72,7 @@ public class inprogressfragment extends Fragment {
                     status.setText(offer.getStatus());
                     price.setText(offer.getPrice());
                     interestedVerify.setChecked(offer.getIntrestedVerify());
+                    offerUsername = offer.getUser();
                 }
             });
 
@@ -98,6 +99,13 @@ public class inprogressfragment extends Fragment {
                         }
                     }
                 });
+            }
+        });
+        chatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionGlobalChatFragmentopen(offerUsername));
+
             }
         });
 

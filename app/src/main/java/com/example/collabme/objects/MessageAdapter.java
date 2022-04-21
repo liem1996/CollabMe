@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collabme.R;
+import com.example.collabme.model.ModelUsers;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +41,12 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     private LayoutInflater inflater;
     private List<JSONObject> messages = new ArrayList<>();
+    private List<Messege> ourMessages = new ArrayList<>();
+
+    String currentUser;
+    String currentTime;
+    String toUser;
+    String currentMessage;
 
     public MessageAdapter (LayoutInflater inflater) {
         this.inflater = inflater;
@@ -163,28 +170,38 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         JSONObject message = messages.get(position);
+
+
+        try {
+            currentUser = message.getString("name");
+            currentTime = message.getString("currentTime");
+            toUser = message.getString("toUser");
+            currentMessage = message.getString("message");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Messege ourMessage = new Messege(currentUser,toUser,currentMessage,currentTime);
+        ourMessages.add(ourMessage);
+
         Date c = Calendar.getInstance().getTime();
-        Date currentTime = Calendar.getInstance().getTime();
-
-        System.out.println("Current time => " + c);
-
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
         DateFormat date = new SimpleDateFormat("HH:mm a");
         date.setTimeZone(TimeZone.getTimeZone("GMT+3:00"));
-
         String localTime = date.format(c);
 
         try {
             if (message.getBoolean("isSent")) {
                 if (message.has("message")) {
 
+
                     SentMessageHolder messageHolder = (SentMessageHolder) holder;
 
                     messageHolder.messageTxt.setText(message.getString("message"));
                     messageHolder.date.setText(formattedDate);
-                    messageHolder.timeText.setText(localTime );
+                    messageHolder.timeText.setText(message.getString("currentTime"));
 
 
                 } else {

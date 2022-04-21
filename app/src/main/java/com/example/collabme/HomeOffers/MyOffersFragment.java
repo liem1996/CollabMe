@@ -120,6 +120,8 @@ public class MyOffersFragment extends Fragment {
                     List<Offer> homeOfferLst = viewModel.getDataMyOffer().getValue();
                     homeOfferLst.remove(offer);
                     ModelOffers.instance.refreshPostList();
+
+
                 } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
                     Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(offerId));
                 } else {

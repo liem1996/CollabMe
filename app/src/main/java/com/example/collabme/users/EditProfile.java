@@ -1,6 +1,7 @@
 package com.example.collabme.users;
 
 import static android.app.Activity.RESULT_OK;
+import static android.graphics.Color.rgb;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +40,10 @@ import java.util.Collections;
 
 
 public class EditProfile extends Fragment {
-    TextView platform, professions, usernameType;
-    EditText username, age, followers, postuploads, email, gender;
+    TextView platform, professions, usernameType, username;
+    EditText  age, followers, postuploads, email, gender;
     Button saveBtn, deleteBtn;
-    String[] platformArr;
+    String[] platformArr, newProfession;
     String[] professionArr;
     String password;
     Boolean influencer1, company1;
@@ -56,6 +58,7 @@ public class EditProfile extends Fragment {
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap bitmap;
     ArrayList<String> rejectedOffers;
+    ProgressBar progressBar;
 
 
     String[] chosen, chosen2;
@@ -69,6 +72,7 @@ public class EditProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        newProfession = new String[16];
 
         usernameType = view.findViewById(R.id.fragment_edituser_usernameType);
         username = view.findViewById(R.id.fragment_edituser_username);
@@ -99,6 +103,9 @@ public class EditProfile extends Fragment {
         influencer1 = EditProfileArgs.fromBundle(getArguments()).getInfluencer();
         company1 = EditProfileArgs.fromBundle(getArguments()).getCompany();
         setRejectOffersArrList(EditProfileArgs.fromBundle(getArguments()).getRejectedOffers());
+        progressBar = view.findViewById(R.id.fragment_edituser_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         updateUsernameType(influencer1, company1);
         username.setText(username1);
@@ -116,6 +123,8 @@ public class EditProfile extends Fragment {
             @Override
             public void onComplete(User profile) {
                 if (profile != null) {
+                    professionArr = profile.getProfessions();
+                    platformArr = profile.getPlatforms();
                     if (profile.getImage() != null) {
                         ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
                             @Override
@@ -134,6 +143,8 @@ public class EditProfile extends Fragment {
         galleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+
                 openGallery();
             }
         });
@@ -141,6 +152,8 @@ public class EditProfile extends Fragment {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+
                 openCam();
             }
         });
@@ -187,6 +200,8 @@ public class EditProfile extends Fragment {
         //TODO:: add functionality for camera and gallery image button
         //edit
         //cancel
+
+
 
         professions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,7 +260,8 @@ public class EditProfile extends Fragment {
                         // Initialize string builder
                         stringBuilder = new StringBuilder();
                         chosen = new String[langList.size()];
-
+                        professions.clearComposingText();
+                        professionArr = chosen;
                         // use for loop
                         for (int j = 0; j < langList.size(); j++) {
                             // concat array value
@@ -342,28 +358,20 @@ public class EditProfile extends Fragment {
                 builder2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        StringBuilder stringBuilder2;
-                        // Initialize string builder
-                        stringBuilder2 = new StringBuilder();
+                        StringBuilder stringBuilder2 = new StringBuilder();
                         chosen2 = new String[langList2.size()];
-
-                        // use for loop
+                        platform.clearComposingText();
+                        platformArr = chosen2;
                         for (int j = 0; j < langList2.size(); j++) {
                             // concat array value
 
                             stringBuilder2.append(langArray2[langList2.get(j)]);
                             chosen2[j] = (langArray2[langList2.get(j)]); //to check again
 
-                            System.out.println("ko");
-                            // check condition
                             if (j != langList2.size() - 1) {
-                                // When j value not equal
-                                // to lang list size - 1
-                                // add comma
                                 stringBuilder2.append(", ");
                             }
                         }
-                        // set text on textView
                         platform.setText(stringBuilder2.toString());
                     }
                 });
@@ -395,15 +403,24 @@ public class EditProfile extends Fragment {
 
         });
 
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(checkValidDate()) {
 
+                    if(chosen != null ){
+                        professionArr = chosen;
+                    }
 
+                    if(chosen2!=null){
+                        platformArr = chosen2;
+                    }
+
+                    progressBar.setVisibility(View.VISIBLE);
                     user = new User(gender1, password, email1, username.getText().toString(),
                             age.getText().toString(), followers.getText().toString(), postuploads.getText().toString(),
-                            company1, influencer1, chosen, chosen2, rejectedOffers);
+                            company1, influencer1, professionArr, platformArr, rejectedOffers);
                     if (bitmap != null) {
                         ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
                             @Override
@@ -415,6 +432,8 @@ public class EditProfile extends Fragment {
                                         if (code == 200) {
                                             Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
                                             Navigation.findNavController(v).navigateUp();
+                                            progressBar.setVisibility(View.GONE);
+
                                         } else {
                                             Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
                                         }
@@ -439,7 +458,7 @@ public class EditProfile extends Fragment {
                         });
                     }
                 }
-                }
+            }
 
         });
 
@@ -463,15 +482,19 @@ public class EditProfile extends Fragment {
     }
 
     public void openGallery() {
+        progressBar.setVisibility(View.GONE);
         Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
         photoPicerIntent.setType("image/jpeg");
         startActivityForResult(photoPicerIntent, REQUEST_IMAGE_PIC);
     }
 
     public void openCam() {
+        progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
+
+
 
     public boolean checkValidDate() {
         if(age.getText().toString().isEmpty()){
@@ -552,3 +575,6 @@ public class EditProfile extends Fragment {
         }
     }
 }
+
+
+

@@ -62,7 +62,7 @@ public class socialmedia extends Fragment {
         selectedGender = socialmediaArgs.fromBundle(getArguments()).getGender();
 
         backBtn = view.findViewById(R.id.fragment_socialmedia_backBtn);
-        backBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_socialmedia_to_signupFragment2));
+        backBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(socialmediaDirections.actionGlobalSignupFragment2(null,null,null)));
         countinue.setOnClickListener(v -> toProfession());
 
         return view;
@@ -74,7 +74,7 @@ public class socialmedia extends Fragment {
 
 
         if (instegram.isChecked()) {
-            platform[i] = "instegram";
+            platform[i] = "instagram";
             i++;
         }
         if (twitter.isChecked()) {

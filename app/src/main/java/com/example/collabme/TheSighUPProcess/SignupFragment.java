@@ -173,13 +173,15 @@ public class SignupFragment extends Fragment {
     }
 
     private void saveDetails() {
-        username1 = username.getText().toString();
-        password1 = password.getText().toString();
-        influencer1 = influencer.isChecked();
-        company1 = company.isChecked();
-        email1 = email.getText().toString();
-        age1 = age.getText().toString();
-        selectedGender1 = selectedGender;
+
+            username1 = username.getText().toString();
+            password1 = password.getText().toString();
+            influencer1 = influencer.isChecked();
+            company1 = company.isChecked();
+            email1 = email.getText().toString();
+            age1 = age.getText().toString();
+            selectedGender1 = selectedGender;
+
     }
 
     private List<String> getAllGenders() {
@@ -215,23 +217,53 @@ public class SignupFragment extends Fragment {
     }
 
     public void authforuser() {
-        if (!email1.matches(emailPattern)) {
-            Toast.makeText(getContext(), "Your email was written wrong", Toast.LENGTH_SHORT).show();
+        if(username1.isEmpty()){
+            username.setError("User Name is required");
             goodsign = false;
             return;
+        }
+        else if(age1.isEmpty() || age1.length()>2 || age1.length()<1 ){
+            age.setError("Age is required");
+            goodsign = false;
+            return;
+        }
+        else if(email1.isEmpty() || !email1.matches(emailPattern)){
+            email.setError("Email is required");
+            goodsign = false;
+            return;
+        }
+        else if(password1.isEmpty()){
+            password.setError("Password is required");
+            goodsign = false;
+            return;
+        }
+       else{
+           if(influencer.isChecked() && (company.isChecked())) {
+               Toast.makeText(getContext(), "Choose one", Toast.LENGTH_SHORT).show();
+               goodsign = false;
+               return;
+           }
+           else if(!influencer.isChecked() && (!company.isChecked())) {
+               Toast.makeText(getContext(), "Choose one", Toast.LENGTH_SHORT).show();
+               goodsign = false;
+               return;
+           }
         }
 
-        if (password1.isEmpty() || username1.isEmpty() || email1.isEmpty()) {
-            Toast.makeText(getContext(), "You have to fill username,password and email fields", Toast.LENGTH_SHORT).show();
-            goodsign = false;
-            return;
-        }
 
-        if ((!age1.equals("")) && !isInteger(age1)) {
-            Toast.makeText(getContext(), "Your age field is not an integer", Toast.LENGTH_SHORT).show();
-            goodsign = false;
-            return;
-        }
+
+
+//        if (password1.isEmpty() || username1.isEmpty() || email1.isEmpty()) {
+//            Toast.makeText(getContext(), "You have to fill username,password and email fields", Toast.LENGTH_SHORT).show();
+//            goodsign = false;
+//            return;
+//        }
+
+//        if ((!age1.equals("")) && !isInteger(age1)) {
+//            Toast.makeText(getContext(), "Your age field is not an integer", Toast.LENGTH_SHORT).show();
+//            goodsign = false;
+//            return;
+//        }
 
         goodsign = true;
     }

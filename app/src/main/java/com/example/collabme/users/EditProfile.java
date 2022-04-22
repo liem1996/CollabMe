@@ -102,6 +102,7 @@ public class EditProfile extends Fragment {
 
         updateUsernameType(influencer1, company1);
         username.setText(username1);
+        username.setEnabled(false);
         age.setText(age1);
         //professions
         followers.setText(Followers);
@@ -397,44 +398,51 @@ public class EditProfile extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user = new User(gender1, password, email1, username.getText().toString(),
-                        age.getText().toString(), followers.getText().toString(), postuploads.getText().toString(),
-                        company1, influencer1, chosen, chosen2, rejectedOffers);
-                if (bitmap != null) {
-                    ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
-                        @Override
-                        public void onComplete(String uri) {
-                            user.setImage(uri);
-                            ModelUsers.instance3.EditUser(user, new ModelUsers.EditUserListener() {
-                                @Override
-                                public void onComplete(int code) {
-                                    if (code == 200) {
-                                        Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
-                                        Navigation.findNavController(v).navigateUp();
-                                    } else {
-                                        Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
+                if(checkValidDate()) {
+
+
+                    user = new User(gender1, password, email1, username.getText().toString(),
+                            age.getText().toString(), followers.getText().toString(), postuploads.getText().toString(),
+                            company1, influencer1, chosen, chosen2, rejectedOffers);
+                    if (bitmap != null) {
+                        ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
+                            @Override
+                            public void onComplete(String uri) {
+                                user.setImage(uri);
+                                ModelUsers.instance3.EditUser(user, new ModelUsers.EditUserListener() {
+                                    @Override
+                                    public void onComplete(int code) {
+                                        if (code == 200) {
+                                            Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
+                                            Navigation.findNavController(v).navigateUp();
+                                        } else {
+                                            Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
+                                        }
+
                                     }
-
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    ModelUsers.instance3.EditUser(user, new ModelUsers.EditUserListener() {
-                        @Override
-                        public void onComplete(int code) {
-                            if (code == 200) {
-                                Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
-                                Navigation.findNavController(v).navigateUp();
-                            } else {
-                                Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
+                                });
                             }
+                        });
 
-                        }
-                    });
+                    } else {
+                        ModelUsers.instance3.EditUser(user, new ModelUsers.EditUserListener() {
+                            @Override
+                            public void onComplete(int code) {
+                                if (code == 200) {
+                                    Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
+                                    Navigation.findNavController(v).navigateUp();
+                                } else {
+                                    Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
+                                }
+
+                            }
+                        });
+                    }
                 }
-            }
+                }
+
         });
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -463,6 +471,31 @@ public class EditProfile extends Fragment {
     public void openCam() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    public boolean checkValidDate() {
+        if(age.getText().toString().isEmpty()){
+            age.setError("Age is required");
+            return false;
+        }
+        else if(followers.getText().toString().isEmpty()){
+            followers.setError("Followers is required");
+            return false;
+        }
+        else if(postuploads.getText().toString().isEmpty()){
+            postuploads.setError("Post/Uploads is required");
+            return false;
+        }
+        else if(platform.getText().toString().isEmpty()){
+            platform.setError("Platform is required");
+            return false;
+        }
+        else if(professions.getText().toString().isEmpty()){
+            professions.setError("Professions is required");
+            return false;
+        }
+        else
+            return true;
     }
 
 

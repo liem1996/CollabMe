@@ -240,7 +240,6 @@ public class EditOfferFragment extends Fragment {
                             stringBuilder.append(langArray[langList.get(j)]);
                             chosen[j] = (langArray[langList.get(j)]); //to check again
 
-                            System.out.println("ko");
                             // check condition
                             if (j != langList.size() - 1) {
                                 // When j value not equal

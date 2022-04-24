@@ -41,9 +41,6 @@ public class Offer implements Parcelable{
     @SerializedName("Users")
     @Expose
     private String [] users;
-    @SerializedName("IntrestedVerify")
-    @Expose
-    private boolean intrestedVerify;
     @SerializedName("Isdelete")
     @Expose
     private boolean delete;
@@ -74,7 +71,6 @@ public class Offer implements Parcelable{
         profession = in.createStringArray();
         user = in.readString();
         users = in.createStringArray();
-        intrestedVerify = in.readByte() != 0;
         delete = in.readByte() != 0;
     }
 
@@ -89,7 +85,6 @@ public class Offer implements Parcelable{
         dest.writeStringArray(profession);
         dest.writeString(user);
         dest.writeStringArray(users);
-        dest.writeByte((byte) (intrestedVerify ? 1 : 0));
         dest.writeByte((byte) (delete ? 1 : 0));
     }
 
@@ -182,14 +177,7 @@ public class Offer implements Parcelable{
     public String getUser() {
         return user;
     }
-     /**
-     *
-     * @return
-     * The intrestedVerify
-     */
-    public boolean getIntrestedVerify() {
-        return intrestedVerify;
-    }
+
 
     /**
      *
@@ -239,7 +227,7 @@ public class Offer implements Parcelable{
         this.users = users;
     }
 
-    public Offer(String description, String headline, String finishDate, String price, String idOffer, String status, String[] profession, String user, boolean intrestedVerify) {
+    public Offer(String description, String headline, String finishDate, String price, String idOffer, String status, String[] profession, String user) {
         this.description = description;
         this.idOffer = idOffer;
         this.headline = headline;
@@ -248,7 +236,7 @@ public class Offer implements Parcelable{
         this.status = status;
         this.profession = profession;
         this.user = user;
-        this.intrestedVerify = intrestedVerify;
+
 
 
     }
@@ -267,10 +255,9 @@ public class Offer implements Parcelable{
         String user = (String) json.get("User");
         String [] users = (String[]) json.get("Users");
         String bitmap = (String) json.get("Image");
-        boolean intrestedVerify = (boolean) json.get("IntrestedVerify");
         boolean delete = (boolean) json.get("Isdelete");
         String[] MediaContent =(String[]) json.get("MediaContent");
-        Offer offer = new Offer(description,headline,finishDate,price,idOffer,status,profession,user,intrestedVerify);
+        Offer offer = new Offer(description,headline,finishDate,price,idOffer,status,profession,user);
         offer.setdelete(delete);
         offer.setUsers(users);
         offer.setImage(bitmap);
@@ -289,7 +276,6 @@ public class Offer implements Parcelable{
         json.put("Status", status);
         json.put("Profession", profession);
         json.put("User",user);
-        json.put("IntrestedVerify", intrestedVerify);
         json.put("Isdelete", delete);
         json.put("Users", users);
         json.put("Image", image);

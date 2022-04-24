@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -31,7 +30,7 @@ public class CloseStatusfragment extends Fragment {
     String offerId;
     TextView proposer, status, headline, description, finishDate, price;
     Button delete;
-    CheckBox interestedVerify;
+
     Spinner profession;
     ImageView logout;
     Offer offer1;
@@ -49,7 +48,7 @@ public class CloseStatusfragment extends Fragment {
         status = view.findViewById(R.id.fragemnt_close_status);
         profession = view.findViewById(R.id.fragemnt_close_profession);
         price = view.findViewById(R.id.fragemnt_close_price);
-        interestedVerify = view.findViewById(R.id.fragemnt_close_checkbox);
+
         logout = view.findViewById(R.id.fragment_close_logoutBtn);
         delete = view.findViewById(R.id.fragemnt_close_delete);
         backBtn = view.findViewById(R.id.fragment_close_backBtn);
@@ -66,7 +65,7 @@ public class CloseStatusfragment extends Fragment {
             status.setText("Close");
             offer.setStatus("Close");
             price.setText(offer.getPrice());
-            interestedVerify.setChecked(offer.getIntrestedVerify());
+
             // In order to change the status in db to close
             ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
                 @Override

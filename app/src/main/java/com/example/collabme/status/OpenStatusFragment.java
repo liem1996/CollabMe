@@ -1,13 +1,13 @@
 package com.example.collabme.status;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -20,6 +20,7 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.actionsOnOffers.EditOfferFragmentArgs;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
@@ -31,9 +32,9 @@ public class OpenStatusFragment extends Fragment {
 
     String offerId;
     TextView proposer, status, headline, description, finishDate, price;
-    CheckBox interestedVerify;
     Spinner profession;
     Offer offer2;
+    ImageView offerpic;
     ImageView logout;
     ImageButton editBtn, candidatesBtn, backBtn;
     FloatingActionButton chatBtn;
@@ -51,25 +52,34 @@ public class OpenStatusFragment extends Fragment {
         status = view.findViewById(R.id.fragemnt_offerdetails_status);
         profession = view.findViewById(R.id.fragemnt_offerdetails_profession);
         price = view.findViewById(R.id.fragemnt_offerdetails_price);
-        interestedVerify = view.findViewById(R.id.fragemnt_offerdetails_checkbox);
         editBtn = view.findViewById(R.id.fragemnt_offerdetails_editBtn);
         chatBtn = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
         candidatesBtn = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn);
         logout = view.findViewById(R.id.fragment_offerdetails_logoutBtn);
         backBtn = view.findViewById(R.id.fragment_offerdetails_backBtn);
+        offerpic = view.findViewById(R.id.offer_opwn_pic);
 
         ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
             @Override
             public void onComplete(Offer offer) {
-                ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                     @Override
-                    public void onComplete(User profile) {
-                        if (!profile.getUsername().equals(offer.getUser())) {
-                            candidatesBtn.setVisibility(View.GONE);
-                            editBtn.setVisibility(View.GONE);
-                        }
+                    public void onComplete(Bitmap responseBody) {
+                            if (responseBody != null) {
+                                offerpic.setImageBitmap(responseBody);
+                            }
+                        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                            @Override
+                            public void onComplete(User profile) {
+                                if (!profile.getUsername().equals(offer.getUser())) {
+                                    candidatesBtn.setVisibility(View.GONE);
+                                    editBtn.setVisibility(View.GONE);
+                                }
+                            }
+                        });
                     }
                 });
+
 
             }
         });
@@ -86,8 +96,7 @@ public class OpenStatusFragment extends Fragment {
                 finishDate.setText(setValidDate(offer.getFinishDate()));
                 status.setText(offer.getStatus());
                 price.setText(offer.getPrice());
-                interestedVerify.setChecked(offer.getIntrestedVerify());
-                offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price.getText().toString(), offerId, status.getText().toString(), offer.getProfession(), offer.getUser(), interestedVerify.isChecked());
+                offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price.getText().toString(), offerId, status.getText().toString(), offer.getProfession(), offer.getUser());
             }
         });
 

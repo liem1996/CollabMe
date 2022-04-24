@@ -36,7 +36,6 @@ import com.example.collabme.status.inprogressfragmentDirections;
 public class fragment_mediaContent extends Fragment {
 
     MyAdapter adapter;
-    SwipeRefreshLayout swipeRefresh;
     String offerId, description, price;
     String[] MediaContent;
     Button AgreeBtn;
@@ -107,7 +106,6 @@ public class fragment_mediaContent extends Fragment {
 
     private void refresh() {
         adapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
     }
 
     //////////////////////////VIEWHOLDER////////////////////////////////////

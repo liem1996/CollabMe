@@ -38,8 +38,6 @@ import java.util.List;
 public class MediaContentActivity extends AppCompatActivity {
 
     MyAdapter adapter;
-    SwipeRefreshLayout swipeRefresh;
-
     Intent intent;
     String action;
     String type;
@@ -222,7 +220,6 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
 
     private void refresh() {
         adapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
     }
 
     //////////////////////////VIEWHOLDER////////////////////////////////////

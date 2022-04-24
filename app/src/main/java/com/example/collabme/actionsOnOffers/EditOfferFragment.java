@@ -152,7 +152,7 @@ public class EditOfferFragment extends Fragment {
                 finishDate.setText(setValidDate(offer.getFinishDate()));
                 status.setText(offer.getStatus());
                 price.setText(offer.getPrice());
-                interestedVerify.setChecked(offer.getIntrestedVerify());
+
                 ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                     @Override
                     public void onComplete(User profile) {
@@ -335,7 +335,7 @@ public class EditOfferFragment extends Fragment {
         //String candidates1 = candidates.getText().toString();
         //String coupon1 = coupon.getText().toString();
         boolean interestedVerify1 = interestedVerify.isChecked();
-        Offer offer1 = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null, interestedVerify1);
+        Offer offer1 = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null);
         if (checkValidDate()) {
             newProfession = chosen;
             String headline2 = headline.getText().toString();
@@ -347,7 +347,7 @@ public class EditOfferFragment extends Fragment {
             //String candidates1 = candidates.getText().toString();
             //String coupon1 = coupon.getText().toString();
             boolean interestedVerify2 = interestedVerify.isChecked();
-            Offer offer = new Offer(description2, headline2, finishDate2, price2, oldIdOffer, status2, newProfession, null, interestedVerify2);
+            Offer offer = new Offer(description2, headline2, finishDate2, price2, oldIdOffer, status2, newProfession, null);
 
             Log.d("TAG", "new Offer : " + offer1);
 

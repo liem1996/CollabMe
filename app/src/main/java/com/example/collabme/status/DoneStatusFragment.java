@@ -33,7 +33,7 @@ public class DoneStatusFragment extends Fragment {
     Button paymentBtn;
     FloatingActionButton chatBtn;
     ImageButton editBtn, candidatesBtn, backBtn;
-    CheckBox interestedVerify;
+
     Spinner profession;
     ImageView logout;
 
@@ -51,7 +51,7 @@ public class DoneStatusFragment extends Fragment {
         status = view.findViewById(R.id.fragemnt_done_status);
         profession = view.findViewById(R.id.fragemnt_done_profession);
         price = view.findViewById(R.id.fragemnt_done_price);
-        interestedVerify = view.findViewById(R.id.fragemnt_done_checkbox);
+
         editBtn = view.findViewById(R.id.fragemnt_done_editBtn);
         chatBtn = view.findViewById(R.id.fragemnt_done_chatBtn);
         paymentBtn = view.findViewById(R.id.fragemnt_done_payment);
@@ -70,7 +70,7 @@ public class DoneStatusFragment extends Fragment {
             offer.setStatus("Done");
             price.setText(offer.getPrice());
             priceString = offer.getPrice();
-            interestedVerify.setChecked(offer.getIntrestedVerify());
+
             // In order to change the status in db to done
             ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
                 @Override

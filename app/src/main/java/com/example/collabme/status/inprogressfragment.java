@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -32,7 +31,7 @@ public class inprogressfragment extends Fragment {
     Button upload;
     FloatingActionButton chatBtn;
     ImageButton editBtn, candidatesBtn, backBtn;
-    CheckBox interestedVerify;
+
     Spinner profession;
     ImageView logout;
     String offerUsername;
@@ -48,7 +47,7 @@ public class inprogressfragment extends Fragment {
         status = view.findViewById(R.id.fragment_inprogress_status);
         profession = view.findViewById(R.id.fragment_inprogress_profession);
         price = view.findViewById(R.id.fragemnt_inprogress_price);
-        interestedVerify = view.findViewById(R.id.fragemnt_inprogress_checkbox);
+
         editBtn = view.findViewById(R.id.fragemnt_inprogress_edit);
         chatBtn = view.findViewById(R.id.fragemnt_inprogress_chat);
         upload = view.findViewById(R.id.fragemnt_inprogress_upload);
@@ -71,7 +70,7 @@ public class inprogressfragment extends Fragment {
                     finishDate.setText(setValidDate(offer.getFinishDate()));
                     status.setText(offer.getStatus());
                     price.setText(offer.getPrice());
-                    interestedVerify.setChecked(offer.getIntrestedVerify());
+
                     offerUsername = offer.getUser();
                 }
             });

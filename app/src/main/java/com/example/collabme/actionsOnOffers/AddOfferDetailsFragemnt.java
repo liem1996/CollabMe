@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -49,7 +48,6 @@ public class AddOfferDetailsFragemnt extends Fragment {
     TextView status, candidates, profession, proposer;
     Button save;
     ImageButton backBtn;
-    CheckBox intrestedVerify;
     Offer offer;
     User userConnected;
     boolean[] selectedLanguage;
@@ -80,7 +78,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
         price = view.findViewById(R.id.fragemnt_newoffer_price);
         camra = view.findViewById(R.id.fragemnt_newoffer_camera);
         gallery = view.findViewById(R.id.fragemnt_newoffer_gallery);
-        intrestedVerify = view.findViewById(R.id.fragemnt_newoffer_checkbox);
+
         profilepic = view.findViewById(R.id.fragemnt_newoffer_image);
         save = view.findViewById(R.id.fragemnt_newoffer_saveBtn);
         logout = view.findViewById(R.id.fragment_newoffer_logoutBtn);
@@ -192,8 +190,8 @@ public class AddOfferDetailsFragemnt extends Fragment {
             public void onClick(View v) {
                 if (checkValidDate()) {
                     offer = new Offer(description.getText().toString(), headline.getText().toString(), date,
-                            price.getText().toString(), uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername(),
-                            intrestedVerify.isChecked());
+                            price.getText().toString(), uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername()
+                            );
 
                     if(imageBitmap!=null) {
                         ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {

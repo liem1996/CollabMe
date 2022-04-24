@@ -1,6 +1,7 @@
 package com.example.collabme.status;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.navigation.Navigation;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
@@ -31,7 +33,7 @@ public class inprogressfragment extends Fragment {
     Button upload;
     FloatingActionButton chatBtn;
     ImageButton editBtn, candidatesBtn, backBtn;
-
+    ImageView offerpic;
     Spinner profession;
     ImageView logout;
     String offerUsername;
@@ -47,12 +49,13 @@ public class inprogressfragment extends Fragment {
         status = view.findViewById(R.id.fragment_inprogress_status);
         profession = view.findViewById(R.id.fragment_inprogress_profession);
         price = view.findViewById(R.id.fragemnt_inprogress_price);
-
+        offerpic = view.findViewById(R.id.offer_inprogress_pic2);
         editBtn = view.findViewById(R.id.fragemnt_inprogress_edit);
         chatBtn = view.findViewById(R.id.fragemnt_inprogress_chat);
         upload = view.findViewById(R.id.fragemnt_inprogress_upload);
         logout = view.findViewById(R.id.fragment_inprogress_logoutBtn);
         backBtn = view.findViewById(R.id.fragment_inprogress_backBtn);
+
 
         // Inflate the layout for this fragment
 
@@ -63,15 +66,24 @@ public class inprogressfragment extends Fragment {
                     if(!profile.getUsername().equals(offer.getUser())){
                         editBtn.setVisibility(View.GONE);
                     }
-                    initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
-                    headline.setText(offer.getHeadline());
-                    proposer.setText(offer.getUser());
-                    description.setText(offer.getDescription());
-                    finishDate.setText(setValidDate(offer.getFinishDate()));
-                    status.setText(offer.getStatus());
-                    price.setText(offer.getPrice());
+                    ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
+                        @Override
+                        public void onComplete(Bitmap responseBody) {
+                            if (responseBody != null) {
+                                offerpic.setImageBitmap(responseBody);
+                            }
+                            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+                            headline.setText(offer.getHeadline());
+                            proposer.setText(offer.getUser());
+                            description.setText(offer.getDescription());
+                            finishDate.setText(setValidDate(offer.getFinishDate()));
+                            status.setText(offer.getStatus());
+                            price.setText(offer.getPrice());
 
-                    offerUsername = offer.getUser();
+                            offerUsername = offer.getUser();
+                        }
+                    });
+
                 }
             });
 

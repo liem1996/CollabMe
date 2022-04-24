@@ -57,7 +57,7 @@ public class OpenStatusFragment extends Fragment {
         candidatesBtn = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn);
         logout = view.findViewById(R.id.fragment_offerdetails_logoutBtn);
         backBtn = view.findViewById(R.id.fragment_offerdetails_backBtn);
-        offerpic = view.findViewById(R.id.offer_opwn_pic);
+        offerpic = view.findViewById(R.id.offer_open_pic);
 
         ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
             @Override

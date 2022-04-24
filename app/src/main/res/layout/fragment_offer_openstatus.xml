@@ -14,8 +14,10 @@
         android:src="@drawable/ic_offer_details_new"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/fragemnt_offerdetails_editBtn"
@@ -133,7 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="52dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_offer_candidates"
@@ -148,8 +150,12 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_offer_chat"
         app:backgroundTint="#93C0EF"
-        tools:layout_editor_absoluteX="310dp"
-        tools:layout_editor_absoluteY="646dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.96" />
 
     <ImageView
         android:id="@+id/fragment_offerdetails_logoutBtn"
@@ -176,15 +182,24 @@
         tools:layout_editor_absoluteY="40dp" />
 
     <ImageView
-        android:id="@+id/offer_opwn_pic"
-        android:layout_width="212dp"
-        android:layout_height="116dp"
-        android:src="@drawable/ic_gray"
+        android:id="@+id/imageView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/border"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/offer_open_pic"
+        android:layout_width="250dp"
+        android:layout_height="140dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.261" />
+        app:layout_constraintVertical_bias="0.266" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

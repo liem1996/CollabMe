@@ -1,6 +1,7 @@
 package com.example.collabme.status;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
@@ -33,7 +34,7 @@ public class DoneStatusFragment extends Fragment {
     Button paymentBtn;
     FloatingActionButton chatBtn;
     ImageButton editBtn, candidatesBtn, backBtn;
-
+    ImageView offerpic;
     Spinner profession;
     ImageView logout;
 
@@ -51,7 +52,7 @@ public class DoneStatusFragment extends Fragment {
         status = view.findViewById(R.id.fragemnt_done_status);
         profession = view.findViewById(R.id.fragemnt_done_profession);
         price = view.findViewById(R.id.fragemnt_done_price);
-
+        offerpic = view.findViewById(R.id.offer_done_pic2);
         editBtn = view.findViewById(R.id.fragemnt_done_editBtn);
         chatBtn = view.findViewById(R.id.fragemnt_done_chatBtn);
         paymentBtn = view.findViewById(R.id.fragemnt_done_payment);
@@ -75,15 +76,24 @@ public class DoneStatusFragment extends Fragment {
             ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
                 @Override
                 public void onComplete(int code) {
-                    ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                    ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                         @Override
-                        public void onComplete(User profile) {
-                            if(!profile.getUsername().equals(offer.getUser())) {
-                                editBtn.setVisibility(View.GONE);
-                                paymentBtn.setVisibility(View.GONE);
+                        public void onComplete(Bitmap responseBody) {
+                            if (responseBody != null) {
+                                offerpic.setImageBitmap(responseBody);
                             }
+                            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                                @Override
+                                public void onComplete(User profile) {
+                                    if(!profile.getUsername().equals(offer.getUser())) {
+                                        editBtn.setVisibility(View.GONE);
+                                        paymentBtn.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
                         }
                     });
+
                 }
             });
         });

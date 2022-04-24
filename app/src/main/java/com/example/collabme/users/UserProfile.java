@@ -4,7 +4,6 @@ import static android.graphics.Color.rgb;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +25,8 @@ import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class UserProfile extends Fragment {
@@ -91,14 +88,9 @@ public class UserProfile extends Fragment {
                             rejectedOffers = profile.getRejectedOffers();
                             initSpinnerFooter(platformArr.size(), platformArr, platform);
                             initSpinnerFooter(professionsArr.size(), professionsArr, professions);
-                            //bitmap = StringToBitMap(responseBody);
 
-                            //Uri uri = getImageUri(bitmap);
                             if (responseBody != null) {
                                 profilepicture.setImageBitmap(responseBody);
-
-                                Uri uri = profile.getImageUri(responseBody, getActivity());
-                                Picasso.get().load(uri).into(profilepicture);
                             }
                         }
                     });

@@ -28,7 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DoneStatusFragment extends Fragment {
 
-    String offerId;
+    String offerId, headlineString, priceString;
     TextView proposer, status, headline, description, finishDate, price;
     Button paymentBtn;
     FloatingActionButton chatBtn;
@@ -43,7 +43,7 @@ public class DoneStatusFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_done_status, container, false);
 
         offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
-
+        headlineString = DoneStatusFragmentArgs.fromBundle(getArguments()).getHeadline();
         proposer = view.findViewById(R.id.fragemnt_done_proposer);
         headline = view.findViewById(R.id.fragemnt_done_headline);
         description = view.findViewById(R.id.fragemnt_done_description);
@@ -69,6 +69,7 @@ public class DoneStatusFragment extends Fragment {
             status.setText("Done");
             offer.setStatus("Done");
             price.setText(offer.getPrice());
+            priceString = offer.getPrice();
             interestedVerify.setChecked(offer.getIntrestedVerify());
             // In order to change the status in db to done
             ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
@@ -93,7 +94,7 @@ public class DoneStatusFragment extends Fragment {
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment(offerId));
+                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment(offerId,headlineString,priceString));
             }
         });
 

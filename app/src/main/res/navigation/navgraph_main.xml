@@ -145,6 +145,10 @@
         <action
             android:id="@+id/action_doneStatusFragment_to_candidatesFragment"
             app:destination="@id/candidatesFragment" />
+        <argument
+            android:name="headline"
+            app:argType="string" />
+        <argument android:name="price" />
     </fragment>
     <fragment
         android:id="@+id/closeStatusfragment"
@@ -208,6 +212,12 @@
             app:destination="@id/closeStatusfragment" />
         <argument
             android:name="offerid"
+            app:argType="string" />
+        <argument
+            android:name="headline"
+            app:argType="string" />
+        <argument
+            android:name="price"
             app:argType="string" />
     </fragment>
     <fragment
@@ -293,6 +303,12 @@
         <action
             android:id="@+id/action_fragment_mediaContent_to_doneStatusFragment"
             app:destination="@id/doneStatusFragment" />
+        <argument
+            android:name="headline"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/waitingOffersFragment"
@@ -320,4 +336,5 @@
         android:name="com.example.collabme.Chat.whatupPage"
         android:label="fragment_whatup_page"
         tools:layout="@layout/fragment_whatup_page" />
+    <action android:id="@+id/action_global_chatFragmentopen" app:destination="@id/chatFragmentopen"/>
 </navigation>

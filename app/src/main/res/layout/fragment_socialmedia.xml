@@ -85,7 +85,9 @@
         app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.788" />
+        app:layout_constraintVertical_bias="0.788"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/fragment_socialmedia_postsuploads"
@@ -99,7 +101,9 @@
         app:layout_constraintHorizontal_bias="0.788"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.848" />
+        app:layout_constraintVertical_bias="0.848"
+        android:textCursorDrawable="@null"
+        />
 
     <Button
         android:id="@+id/fragment_socialmedia_continue"

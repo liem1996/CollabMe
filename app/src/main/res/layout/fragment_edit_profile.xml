@@ -18,19 +18,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/fragment_edituser_pic"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:scaleType="fitCenter"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:src="@drawable/profile"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.257" />
-
+        app:layout_constraintVertical_bias="0.242"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:id="@+id/fragment_edituser_usernameType"
         android:layout_width="175dp"
@@ -41,7 +42,7 @@
         app:layout_constraintStart_toEndOf="@+id/fragment_edituser_pic"
         app:layout_constraintTop_toTopOf="@+id/fragment_edituser_pic" />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_edituser_username"
         android:layout_width="175dp"
         android:layout_height="25dp"
@@ -65,7 +66,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.456" />
+        app:layout_constraintVertical_bias="0.456"
+        android:textCursorDrawable="@null"
+        />
 
     <TextView
         android:id="@+id/fragment_edituser_profession"
@@ -99,7 +102,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.577" />
+        app:layout_constraintVertical_bias="0.577"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/fragment_edituser_postsuploads"
@@ -112,7 +117,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.637"  />
+        app:layout_constraintVertical_bias="0.637"
+        android:textCursorDrawable="@null"
+        />
 
     <TextView
         android:id="@+id/fragment_edituser_platform"
@@ -143,7 +150,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintVertical_bias="0.76"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/fragemnt_edituser_gender"
@@ -156,7 +165,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.821" />
+        app:layout_constraintVertical_bias="0.821"
+        android:textCursorDrawable="@null"
+        />
 
     <Button
         android:id="@+id/fragemnt_edituser_deleteBtn"
@@ -225,5 +236,19 @@
         android:src="@drawable/ic_gallery_album"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_edituser_pic"
         app:layout_constraintStart_toStartOf="@+id/fragment_edituser_pic" />
+
+    <ProgressBar
+        android:id="@+id/fragment_edituser_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="158dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="220dp"
+        android:backgroundTint="#8450A0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

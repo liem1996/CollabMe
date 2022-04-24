@@ -30,7 +30,7 @@ public class whatupPage extends Fragment {
         countryCodePicker = view.findViewById(R.id.countryCode);
         phone = view.findViewById(R.id.phoneNo);
         message = view.findViewById(R.id.message);
-        sendbtn = view.findViewById(R.id.sendbtn);
+        sendbtn = view.findViewById(R.id.fragemnt_whatup_change2);
 
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override

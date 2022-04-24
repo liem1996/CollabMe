@@ -3,7 +3,6 @@ package com.example.collabme.HomeOffers;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,6 @@ import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.OffersViewmodel;
 import com.facebook.login.LoginManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -267,8 +265,6 @@ public class HomeFragment extends Fragment {
                 public void onComplete(Bitmap responseBody) {
                     if(responseBody!=null) {
                         offer_image.setImageBitmap(responseBody);
-                        Uri uri = offer.getImageUri(responseBody, getActivity());
-                        Picasso.get().load(uri).resize(600, 200).into(offer_image);
 
                     }
                     ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {

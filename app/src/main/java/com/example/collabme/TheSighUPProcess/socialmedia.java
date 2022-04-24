@@ -62,7 +62,7 @@ public class socialmedia extends Fragment {
         selectedGender = socialmediaArgs.fromBundle(getArguments()).getGender();
 
         backBtn = view.findViewById(R.id.fragment_socialmedia_backBtn);
-        backBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_socialmedia_to_signupFragment2));
+        backBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(socialmediaDirections.actionGlobalSignupFragment2(null,null,null)));
         countinue.setOnClickListener(v -> toProfession());
 
         return view;
@@ -74,7 +74,7 @@ public class socialmedia extends Fragment {
 
 
         if (instegram.isChecked()) {
-            platform[i] = "instegram";
+            platform[i] = "instagram";
             i++;
         }
         if (twitter.isChecked()) {
@@ -96,12 +96,16 @@ public class socialmedia extends Fragment {
 
         followersCheck = followers.getText().toString();
         postsCheck = posts.getText().toString();
-
-        if ((!followersCheck.equals("")) && !isInteger(followersCheck)) {
-            Toast.makeText(getContext(), "Your followers field is not an integer", Toast.LENGTH_SHORT).show();
+        if(followersCheck.isEmpty() || !(followers.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))){
+            followers.setError("Your followers is required");
             return;
-        } else if ((!postsCheck.equals("")) && !isInteger(postsCheck)) {
-            Toast.makeText(getContext(), "Your posts/uploads field is not an integer", Toast.LENGTH_SHORT).show();
+
+        }else if(platform.length ==0 || platform == null){
+            Toast.makeText(getContext(), "Your platform is required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(postsCheck.isEmpty() && !isInteger(postsCheck)){
+            posts.setError("Your posts/uploads is required");
             return;
         } else {
             progressBar.setVisibility(View.VISIBLE);

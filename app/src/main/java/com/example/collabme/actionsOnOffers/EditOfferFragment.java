@@ -1,7 +1,6 @@
 package com.example.collabme.actionsOnOffers;
 
 import static android.app.Activity.RESULT_OK;
-
 import static com.example.collabme.actionsOnOffers.AddOfferDetailsFragemnt.isValidFormat;
 
 import android.app.AlertDialog;
@@ -39,8 +38,6 @@ import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
-import com.facebook.login.LoginManager;
-import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -178,8 +175,7 @@ public class EditOfferFragment extends Fragment {
                             //Uri uri = getImageUri(bitmap);
                             if (responseBody != null) {
                                 profilepic.setImageBitmap(responseBody);
-                                Uri uri = offer.getImageUri(responseBody, getActivity());
-                                Picasso.get().load(uri).into(profilepic);
+
                             }
                         }
                     });
@@ -244,7 +240,6 @@ public class EditOfferFragment extends Fragment {
                             stringBuilder.append(langArray[langList.get(j)]);
                             chosen[j] = (langArray[langList.get(j)]); //to check again
 
-                            System.out.println("ko");
                             // check condition
                             if (j != langList.size() - 1) {
                                 // When j value not equal

@@ -62,7 +62,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        app:layout_constraintVertical_bias="0.38"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/fragment_payment_exp_et"
@@ -76,7 +78,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintVertical_bias="0.44"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/fragment_payment_cvv_et"
@@ -89,7 +93,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/fragment_payment_id_et"
@@ -103,7 +109,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.559" />
+        app:layout_constraintVertical_bias="0.559"
+        android:textCursorDrawable="@null"
+        />
 
     <EditText
         android:id="@+id/fragment_payment_name_et"
@@ -117,9 +125,11 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.618" />
+        app:layout_constraintVertical_bias="0.618"
+        android:textCursorDrawable="@null"
+        />
 
-    <EditText
+    <TextView
         android:id="@+id/fragment_payment_offer_et"
         android:layout_width="175dp"
         android:layout_height="25dp"
@@ -145,7 +155,9 @@
         app:layout_constraintHorizontal_bias="0.762"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.737" />
+        app:layout_constraintVertical_bias="0.737"
+        android:textCursorDrawable="@null"
+        />
 
     <Button
         android:id="@+id/fragment_payment_back_btn"

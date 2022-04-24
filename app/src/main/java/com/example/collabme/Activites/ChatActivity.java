@@ -25,7 +25,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collabme.R;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.MessageAdapter;
+import com.example.collabme.objects.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +35,11 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -43,6 +50,8 @@ import okhttp3.WebSocketListener;
 public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
     private String name;
+    private String toUser;
+
     private WebSocket webSocket;
     private String SERVER_PATH = "ws://10.0.2.2:3000";
     private EditText messageEdit;
@@ -55,9 +64,9 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.hide();
+
         name = getIntent().getStringExtra("name");
+        toUser = getIntent().getStringExtra("toUser");
         initiateSocketConnection();
         messageEdit = findViewById(R.id.edit_gchat_message);
         sendBtn = findViewById(R.id.button_gchat_send);
@@ -71,6 +80,12 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
 
         messageEdit.addTextChangedListener(this);
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+            @Override
+            public void onComplete(User profile) {
+                if(profile.getUsername().equals(toUser) || profile.getUsername().equals(name)){}
+            }
+        });
 
 
     }
@@ -160,16 +175,25 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
     private void initializeView() {
 
-        sendBtn.setOnClickListener(v -> {
 
+        sendBtn.setOnClickListener(v -> {
+            Date currentTime = Calendar.getInstance().getTime();
+            DateFormat date = new SimpleDateFormat("HH:mm a");
+            date.setTimeZone(TimeZone.getTimeZone("GMT+3:00"));
+
+            String localTime = date.format(currentTime);
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("name", name);
+                jsonObject.put("toUser", toUser);
                 jsonObject.put("message", messageEdit.getText().toString());
+                jsonObject.put("currentTime", localTime);
 
                 webSocket.send(jsonObject.toString());
 
                 jsonObject.put("isSent", true);
+                jsonObject.put("isTheRightUser", true);
+
                 messageAdapter.addItem(jsonObject);
 
                 recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);

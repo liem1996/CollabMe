@@ -60,6 +60,8 @@ public class PaymentFragment extends Fragment {
 
     private CheckoutViewModel model;
     String offerId;
+    String headline;
+    String price;
     Payment payment;
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
     private static final long SHIPPING_COST_CENTS = 90 * PaymentsUtil.CENTS_IN_A_UNIT.longValue();
@@ -131,10 +133,14 @@ public class PaymentFragment extends Fragment {
         bankAccount = view.findViewById(R.id.fragment_payment_bank_account_et);
         logout = view.findViewById(R.id.fragment_payment_logoutBtn);
         offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
+        headline = DoneStatusFragmentArgs.fromBundle(getArguments()).getHeadline();
+        price = DoneStatusFragmentArgs.fromBundle(getArguments()).getPrice();
         googlePayButton = view.findViewById(R.id.googlePayButton);
         payPal = view.findViewById(R.id.payment_PayPal_btn);
         backBtn = view.findViewById(R.id.fragment_payment_back_btn);
         submit = view.findViewById(R.id.fragment_payment_submit_btn);
+
+        offer.setText(headline);
 
         model = new ViewModelProvider(this).get(CheckoutViewModel.class);
         model.canUseGooglePay.observe(this.getActivity(), this::setGooglePayAvailable);
@@ -241,7 +247,7 @@ public class PaymentFragment extends Fragment {
     }
 
     private void getPayment() {
-        String amount = "1";// TODO:: take the real amount
+        String amount = price;// TODO:: take the real amount
 
         // Creating a paypal payment on below line
         PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(amount)), "USD", "Payment",
@@ -366,16 +372,24 @@ public class PaymentFragment extends Fragment {
             final String token = tokenizationData.getString("token");
             final JSONObject info = paymentMethodData.getJSONObject("info");
             final String billingName = info.getJSONObject("billingAddress").getString("name");
+            final String MSG = "Payment succeeded, amount : "+price;
             Toast.makeText(
-                    this.getContext(), "getString(billingName)",
+                    this.getContext(), MSG,
                     Toast.LENGTH_LONG).show();
 
             // Logging token string.
             Log.d("Google Pay token: ", token);
 
+            Navigation.findNavController(getView()).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
+
+
         } catch (JSONException e) {
             throw new RuntimeException("The selected garment cannot be parsed from the list of elements");
         }
+    }
+
+    private void navigateClose() {
+
     }
 
     public void requestPayment(View view) {
@@ -385,8 +399,8 @@ public class PaymentFragment extends Fragment {
 
         // The price provided to the API should include taxes and shipping.
         // This price is not displayed to the user.
-        long priceInCents = 100;  //TODO:: get the real amount of the offer
-        long shippingCostCents = 100;
+        long priceInCents = Long.parseLong(price);  //TODO:: get the real amount of the offer
+        long shippingCostCents = 0;
         long totalPriceCents = priceInCents + shippingCostCents;
         final Task<PaymentData> task = model.getLoadPaymentDataTask(totalPriceCents);
 

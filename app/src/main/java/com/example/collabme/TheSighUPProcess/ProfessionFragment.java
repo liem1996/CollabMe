@@ -164,7 +164,7 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                Navigation.findNavController(view).navigate(R.id.action_professionFragment_to_socialmedia);
+                Navigation.findNavController(view).navigate(ProfessionFragmentDirections.actionProfessionFragmentToSocialmedia(username,password,influencer,company,email,age,gender,null,null,null,bitmap));
             }
         });
 

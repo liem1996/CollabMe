@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -47,7 +46,7 @@ public class EditOfferFragment extends Fragment {
 
     EditText headline, description, finishDate, price;
     TextView proposer, profession, status;
-    CheckBox interestedVerify;
+
     Button saveBtn, deleteBtn;
     ImageButton candidatesBtn, cancelBtn;
     String[] professionArr, oldProfession, chosen, newProfession, dateSplitArr;
@@ -76,7 +75,7 @@ public class EditOfferFragment extends Fragment {
         profession = view.findViewById(R.id.fragment_editOffer_profession);
         candidatesBtn = view.findViewById(R.id.fragment_editOffer_candidatesBtn);
         price = view.findViewById(R.id.fragment_editOffer_price);
-        interestedVerify = view.findViewById(R.id.fragment_editOffer_checkbox);
+
         cancelBtn = view.findViewById(R.id.fragment_editOffer_cancelBtn);
         saveBtn = view.findViewById(R.id.fragment_editOffer_saveBtn);
         newProfession = new String[16];
@@ -84,7 +83,7 @@ public class EditOfferFragment extends Fragment {
         logout = view.findViewById(R.id.fragment_editOffer_logoutBtn);
         camra = view.findViewById(R.id.fragemnt_editoffer_camra2);
         gallery = view.findViewById(R.id.fragemnt_editofferr_gallery2);
-        profilepic = view.findViewById(R.id.fragemnt_editoffer_image2);
+        profilepic = view.findViewById(R.id.offer_edit_pic2);
         deleteBtn = view.findViewById(R.id.fragment_editOffer_deleteBtn);
 
 
@@ -334,7 +333,7 @@ public class EditOfferFragment extends Fragment {
         String price1 = price.getText().toString();
         //String candidates1 = candidates.getText().toString();
         //String coupon1 = coupon.getText().toString();
-        boolean interestedVerify1 = interestedVerify.isChecked();
+
         Offer offer1 = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null);
         if (checkValidDate()) {
             newProfession = chosen;
@@ -346,7 +345,7 @@ public class EditOfferFragment extends Fragment {
             String price2 = price.getText().toString();
             //String candidates1 = candidates.getText().toString();
             //String coupon1 = coupon.getText().toString();
-            boolean interestedVerify2 = interestedVerify.isChecked();
+
             Offer offer = new Offer(description2, headline2, finishDate2, price2, oldIdOffer, status2, newProfession, null);
 
             Log.d("TAG", "new Offer : " + offer1);

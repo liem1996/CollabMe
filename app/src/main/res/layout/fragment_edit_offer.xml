@@ -7,10 +7,10 @@
     tools:context=".actionsOnOffers.EditOfferFragment">
 
     <ImageView
-        android:id="@+id/image_editoffer_background"
+        android:id="@+id/imageView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_edit_offer"
+        android:src="@drawable/ic_edit_offer_new"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -26,62 +26,59 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.745"
+        app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.311" />
+        app:layout_constraintVertical_bias="0.426" />
 
     <EditText
         android:id="@+id/fragment_editOffer_headline"
         android:layout_width="195dp"
         android:layout_height="25dp"
-        android:ems="10"
-        android:textSize="18dp"
         android:background="@android:color/transparent"
+        android:ems="10"
         android:inputType="textPersonName"
+        android:textCursorDrawable="@null"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.745"
+        app:layout_constraintHorizontal_bias="0.657"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.362"
-        android:textCursorDrawable="@null"
-        />
+        app:layout_constraintVertical_bias="0.481" />
 
     <EditText
         android:id="@+id/fragment_editOffer_description"
         android:layout_width="300dp"
         android:layout_height="70dp"
-        android:ems="10"
-        android:textSize="18dp"
-        android:gravity="start|top"
         android:background="@android:color/transparent"
+        android:ems="10"
+        android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:textCursorDrawable="@null"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.482"
-        android:textCursorDrawable="@null"
-        />
+        app:layout_constraintVertical_bias="0.605" />
 
     <EditText
         android:id="@+id/fragment_editOffer_finishdate"
         android:layout_width="195dp"
         android:layout_height="25dp"
-        android:ems="10"
-        android:textSize="18dp"
         android:background="@android:color/transparent"
+        android:ems="10"
         android:inputType="textPersonName"
+        android:textCursorDrawable="@null"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.745"
+        app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576"
-        android:textCursorDrawable="@null"
-        />
+        app:layout_constraintVertical_bias="0.694" />
 
     <TextView
         android:id="@+id/fragment_editOffer_status"
@@ -89,46 +86,45 @@
         android:layout_height="25dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textStyle="bold"
         android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.657"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.628" />
+        app:layout_constraintVertical_bias="0.74" />
 
     <TextView
         android:id="@+id/fragment_editOffer_profession"
         android:layout_width="200dp"
         android:layout_height="30dp"
         android:ems="10"
-        android:text="TextView"
         android:padding="4dp"
+        android:text="TextView"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.649"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.679" />
+        app:layout_constraintVertical_bias="0.805" />
 
     <EditText
         android:id="@+id/fragment_editOffer_price"
         android:layout_width="195dp"
         android:layout_height="25dp"
-        android:ems="10"
         android:background="@android:color/transparent"
+        android:ems="10"
         android:inputType="textPersonName"
+        android:textCursorDrawable="@null"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.699"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73"
-        android:textCursorDrawable="@null"
-        />
+        app:layout_constraintVertical_bias="0.842" />
 
     <ImageButton
         android:id="@+id/fragment_editOffer_candidatesBtn"
@@ -138,22 +134,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_offer_candidates"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/image_editoffer_background"
-        app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_editoffer_background"
-        app:layout_constraintVertical_bias="0.802" />
-
-    <CheckBox
-        android:id="@+id/fragment_editOffer_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87"  />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/fragment_editOffer_saveBtn"
@@ -172,12 +153,11 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_back_"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_editoffer_background" />
+        tools:layout_editor_absoluteY="60dp" />
 
     <ImageView
         android:id="@+id/fragment_editOffer_logoutBtn"
@@ -192,34 +172,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/fragemnt_editoffer_image2"
-        android:layout_width="100dp"
-        android:layout_height="96dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.168"
-        tools:src="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/fragemnt_editofferr_gallery2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_gallery_album"
-        app:layout_constraintBottom_toBottomOf="@+id/fragemnt_editoffer_image2"
-        app:layout_constraintEnd_toEndOf="@+id/fragemnt_editoffer_image2" />
-
-    <ImageView
-        android:id="@+id/fragemnt_editoffer_camra2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintBottom_toBottomOf="@+id/fragemnt_editoffer_image2"
-        app:layout_constraintStart_toStartOf="@+id/fragemnt_editoffer_image2" />
-
     <Button
         android:id="@+id/fragment_editOffer_deleteBtn"
         android:layout_width="wrap_content"
@@ -232,5 +184,42 @@
         app:layout_constraintStart_toEndOf="@+id/fragment_editOffer_saveBtn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.92" />
+
+    <ImageView
+        android:id="@+id/offer_edit_pic2"
+        android:layout_width="250dp"
+        android:layout_height="140dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.266" />
+
+    <ImageView
+        android:id="@+id/fragemnt_editoffer_camra2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_user_pic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.206"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.386" />
+
+    <ImageView
+        android:id="@+id/fragemnt_editofferr_gallery2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_gallery_album"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.386" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

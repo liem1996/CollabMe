@@ -70,21 +70,21 @@ public class fragment_mediaContent extends Fragment {
                 list.setAdapter(adapter);
 
                 offerOwner = offer.getUser();
+
+                ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                    @Override
+                    public void onComplete(User profile) {
+                        if (profile.getUsername().equals(offerOwner)) {
+                            AgreeBtn.setVisibility(View.VISIBLE);
+                            AgreeBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(fragment_mediaContentDirections.actionFragmentMediaContentToDoneStatusFragment(offerId,description,price)));
+                        } else {
+                            AgreeBtn.setVisibility(View.GONE);
+                        }
+                    }
+                });
             }
         });
 
-        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-            @Override
-            public void onComplete(User profile) {
-                if (profile.getUsername().equals(offerOwner)) {
-                    AgreeBtn.setVisibility(View.VISIBLE);
-                } else {
-                    AgreeBtn.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        AgreeBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(fragment_mediaContentDirections.actionFragmentMediaContentToDoneStatusFragment(offerId,description,price)));
         backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         logout.setOnClickListener(new View.OnClickListener() {

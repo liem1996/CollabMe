@@ -1,5 +1,7 @@
 package com.example.collabme.status;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,12 +14,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
+import com.example.collabme.actionsOnOffers.EditOfferFragmentDirections;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
@@ -95,15 +99,41 @@ public class CloseStatusfragment extends Fragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ModelOffers.instance.deleteoffer(offer1, new ModelOffers.deleteoffer() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Delete Offer");
+                builder.setMessage("Are you sure you want to delete this offer?");
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                                    @Override
+                                    public void onComplete(Offer offer) {
+                                        ModelOffers.instance.deleteoffer(offer, new ModelOffers.deleteoffer() {
+                                            @Override
+                                            public void onComplete() {
+                                                Toast.makeText(getActivity(), "offer deleted", Toast.LENGTH_LONG).show();
+                                                Navigation.findNavController(v).navigate(EditOfferFragmentDirections.actionGlobalHomeFragment2(offerId));
+
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onComplete() {
-                        Navigation.findNavController(v).navigate(R.id.action_global_myOffersFragment);
-                        //TODO:: need to refresh the offer list maybe??
+                    public void onClick(DialogInterface dialog, int which) {
                     }
                 });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         });
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

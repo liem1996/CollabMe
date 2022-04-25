@@ -24,7 +24,6 @@ import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class DoneStatusFragment extends Fragment {
@@ -32,7 +31,7 @@ public class DoneStatusFragment extends Fragment {
     String offerId, headlineString, priceString;
     TextView proposer, status, headline, description, finishDate, price;
     Button paymentBtn;
-    FloatingActionButton chatBtn;
+
     ImageButton editBtn, candidatesBtn, backBtn;
     ImageView offerpic;
     Spinner profession;
@@ -54,7 +53,7 @@ public class DoneStatusFragment extends Fragment {
         price = view.findViewById(R.id.fragemnt_done_price);
         offerpic = view.findViewById(R.id.offer_done_pic2);
         editBtn = view.findViewById(R.id.fragemnt_done_editBtn);
-        chatBtn = view.findViewById(R.id.fragemnt_done_chatBtn);
+
         paymentBtn = view.findViewById(R.id.fragemnt_done_payment);
         logout = view.findViewById(R.id.fragment_done_logoutBtn);
         backBtn = view.findViewById(R.id.fragment_done_backBtn);

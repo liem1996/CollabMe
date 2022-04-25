@@ -82,7 +82,7 @@ public class PaymentFragment extends Fragment {
 
     TextView cardNumber, expDate, cvv, id, name, offer, bankAccount;
     Button backBtn, submit;
-    ImageView logout, googlePayButton,payPal;
+    ImageView logout, googlePayButton, payPal;
 
     ActivityResultLauncher<IntentSenderRequest> resolvePaymentForResult = registerForActivityResult(
             new ActivityResultContracts.StartIntentSenderForResult(),
@@ -106,7 +106,7 @@ public class PaymentFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        getActivity().stopService(new Intent(this.getContext(),PayPalService.class));
+        getActivity().stopService(new Intent(this.getContext(), PayPalService.class));
         super.onDestroyView();
     }
 
@@ -133,14 +133,23 @@ public class PaymentFragment extends Fragment {
         bankAccount = view.findViewById(R.id.fragment_payment_bank_account_et);
         logout = view.findViewById(R.id.fragment_payment_logoutBtn);
         offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
-        headline = DoneStatusFragmentArgs.fromBundle(getArguments()).getHeadline();
-        price = DoneStatusFragmentArgs.fromBundle(getArguments()).getPrice();
+//        headline = DoneStatusFragmentArgs.fromBundle(getArguments()).getHeadline();
+//        price = DoneStatusFragmentArgs.fromBundle(getArguments()).getPrice();
         googlePayButton = view.findViewById(R.id.googlePayButton);
         payPal = view.findViewById(R.id.payment_PayPal_btn);
         backBtn = view.findViewById(R.id.fragment_payment_back_btn);
         submit = view.findViewById(R.id.fragment_payment_submit_btn);
 
-        offer.setText(headline);
+
+        ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+            @Override
+            public void onComplete(Offer offer1) {
+                headline = offer1.getHeadline();
+                price = offer1.getPrice();
+                offer.setText(headline);
+            }
+        });
+
 
         model = new ViewModelProvider(this).get(CheckoutViewModel.class);
         model.canUseGooglePay.observe(this.getActivity(), this::setGooglePayAvailable);
@@ -170,8 +179,8 @@ public class PaymentFragment extends Fragment {
             }
         });
 
-        Intent intent = new Intent (this.getContext(),PayPalService.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+        Intent intent = new Intent(this.getContext(), PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         getActivity().startService(intent);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -185,8 +194,8 @@ public class PaymentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //add payment
-                payment = new Payment(cardNumber.getText().toString(),expDate.getText().toString(),cvv.getText().toString(),
-                        id.getText().toString(),name.getText().toString(),offerId,bankAccount.getText().toString());
+                payment = new Payment(cardNumber.getText().toString(), expDate.getText().toString(), cvv.getText().toString(),
+                        id.getText().toString(), name.getText().toString(), offerId, bankAccount.getText().toString());
 
                 ModelPayment.instance2.addPayment(payment, new ModelPayment.AddingPayemnt() {
                     @Override
@@ -211,20 +220,6 @@ public class PaymentFragment extends Fragment {
                         }
                     }
                 });
-                //close offer
-//                ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
-//                    @Override
-//                    public void onComplete(Offer offer) {
-//                        offer.setStatus("Close");
-//                        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
-//                            @Override
-//                            public void onComplete(int code) {
-//                                Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
-//                            }
-//                        });
-//                    }
-//                });
-
             }
         });
 
@@ -264,6 +259,7 @@ public class PaymentFragment extends Fragment {
         // Starting the intent activity for result
         // the request code will be used on the method onActivityResult
         startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+        Navigation.findNavController(getView()).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
     }
 
     @Override
@@ -293,12 +289,12 @@ public class PaymentFragment extends Fragment {
                         JSONObject payObj = new JSONObject(paymentDetails);
                         String payID = payObj.getJSONObject("response").getString("id");
                         String state = payObj.getJSONObject("response").getString("state");
-                     //   paymentTV.setText("Payment " + state + "\n with payment id is " + payID);
+                        //   paymentTV.setText("Payment " + state + "\n with payment id is " + payID);
 
 
                     } catch (JSONException e) {
                         // handling json exception on below line
-                        Log.e("Error", "an extremely unlikely failure occurred: ", e);
+                        Log.e("Error", "a failure occurred: ", e);
                     }
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
@@ -310,11 +306,6 @@ public class PaymentFragment extends Fragment {
             }
         }
     }
-
-
-
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void possiblyShowGooglePayButton() {
@@ -372,11 +363,8 @@ public class PaymentFragment extends Fragment {
             final String token = tokenizationData.getString("token");
             final JSONObject info = paymentMethodData.getJSONObject("info");
             final String billingName = info.getJSONObject("billingAddress").getString("name");
-            final String MSG = "Payment succeeded, amount : "+price;
-            Toast.makeText(
-                    this.getContext(), MSG,
-                    Toast.LENGTH_LONG).show();
-
+            final String MSG = "Payment succeeded, amount : " + price;
+            Toast.makeText(this.getContext(), MSG, Toast.LENGTH_LONG).show();
             // Logging token string.
             Log.d("Google Pay token: ", token);
 
@@ -386,10 +374,6 @@ public class PaymentFragment extends Fragment {
         } catch (JSONException e) {
             throw new RuntimeException("The selected garment cannot be parsed from the list of elements");
         }
-    }
-
-    private void navigateClose() {
-
     }
 
     public void requestPayment(View view) {

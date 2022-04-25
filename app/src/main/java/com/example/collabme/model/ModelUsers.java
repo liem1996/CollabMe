@@ -3,13 +3,15 @@ package com.example.collabme.model;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.collabme.objects.MyApplication;
-import com.example.collabme.objects.RetrofitInterface;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
-import com.facebook.login.LoginManager;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -262,4 +264,94 @@ public class ModelUsers {
             }
         });
     }
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    MutableLiveData<UserLoadingState> userloadingstate = new MutableLiveData<UserLoadingState>();
+    MutableLiveData<List<User>> userlist = new MutableLiveData<List<User>>();
+
+    public enum UserLoadingState{
+        loading,
+        loaded
+    }
+
+    public ModelUsers() {
+        userloadingstate.setValue(UserLoadingState.loaded);;
+    }
+    public LiveData<UserLoadingState> getusersListLoadingState() {
+        return userloadingstate;
+    }
+
+    public LiveData<List<User>> getAllusers(){
+        if (userlist.getValue() == null) { refreshPostList(); };
+        return  userlist;
+    }
+
+    public void refreshPostList(){
+        userloadingstate.setValue(UserLoadingState.loading);
+
+        tokensrefresh.retroServer();
+
+        String tockenacsses = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getString("tokenAcsses","");
+
+
+        Call<List<User>> call = tokensrefresh.retrofitInterface.getusers("Bearer " + tockenacsses);
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.code() == 200) {
+                    List<User> stList = response.body();
+                    userlist.postValue(stList);
+                    userloadingstate.postValue(UserLoadingState.loaded);
+
+                }else if(response.code()==403){
+                    tokensrefresh.changeAcssesToken();
+                    String tockennew = tokensrefresh.gettockenAcsses();
+                    Call<List<User>> call1 = tokensrefresh.retrofitInterface.getusers("Bearer "+tockennew);
+                    call1.enqueue(new Callback<List<User>>() {
+                        @Override
+                        public void onResponse(Call<List<User>> call, Response<List<User>> response1) {
+                            List<User> stList = response1.body();
+                            if(response1.code()==200){
+                                userlist.postValue(stList);
+                                userloadingstate.postValue(UserLoadingState.loaded);
+                            }else{
+                                userlist.postValue(null);
+                                userloadingstate.postValue(UserLoadingState.loaded);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<User>> call, Throwable t) {
+                            userlist.postValue(null);
+                            userloadingstate.postValue(UserLoadingState.loaded);
+                        }
+                    });
+
+                }else{
+                    userlist.postValue(null);
+                    userloadingstate.postValue(UserLoadingState.loaded);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                userlist.postValue(null);
+            }
+        });
+
+
+    }
+
+
 }
+
+
+
+
+
+

@@ -173,9 +173,6 @@
         <action
             android:id="@+id/action_inprogressfragment_to_fragment_mediaContent"
             app:destination="@id/fragment_mediaContent" />
-        <action
-            android:id="@+id/action_inprogressfragment_to_chatFragmentopen"
-            app:destination="@id/chatFragmentopen" />
     </fragment><action android:id="@+id/action_global_editOfferFragment" app:destination="@id/editOfferFragment"/>
     <fragment
         android:id="@+id/fragment_Search"
@@ -234,9 +231,6 @@
         <action
             android:id="@+id/action_offerDetailsFragment_to_candidatesFragment"
             app:destination="@id/candidatesFragment" />
-        <action
-            android:id="@+id/action_offerDetailsFragment_to_chatFragmentopen"
-            app:destination="@id/chatFragmentopen" />
         <argument
             android:name="username"
             app:argType="string"
@@ -279,19 +273,10 @@
             android:name="searchoffers"
             app:argType="com.example.collabme.objects.Offer[]"
             app:nullable="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/chatFragmentopen"
-        android:name="com.example.collabme.Chat.ChatFragment"
-        android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" >
-        <argument
-            android:name="username"
-            app:argType="string"
-            app:nullable="true" />
-    </fragment>
+    </fragment><![CDATA[
 
         tools:layout="@layout/fragment_chat" />
+    ]]>
     <fragment
         android:id="@+id/fragment_mediaContent"
         android:name="com.example.collabme.pagesForOffers.fragment_mediaContent"
@@ -333,8 +318,7 @@
     <action android:id="@+id/action_global_waitingOffersFragment" app:destination="@id/waitingOffersFragment" />
     <fragment
         android:id="@+id/whatupPage"
-        android:name="com.example.collabme.Chat.whatupPage"
+        android:name="com.example.collabme.Chat.chatUserPage"
         android:label="fragment_whatup_page"
-        tools:layout="@layout/fragment_whatup_page" />
-    <action android:id="@+id/action_global_chatFragmentopen" app:destination="@id/chatFragmentopen"/>
+        tools:layout="@layout/fragment_chatuser_page" />
 </navigation>

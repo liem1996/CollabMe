@@ -261,7 +261,6 @@ public class HomeFragment extends Fragment {
             offer_headline.setText(offer.getHeadline());
             offer_date.setText(setValidDate(offer.getFinishDate()));
             offer_status.setText(offer.getStatus());
-
             ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                 @Override
                 public void onComplete(Bitmap responseBody) {
@@ -289,19 +288,23 @@ public class HomeFragment extends Fragment {
                             }
                         }
                     });
+
                     ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
                         @Override
                         public void onComplete(User profile) {
-                            ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
-                                @Override
-                                public void onComplete(Bitmap responseBody) {
+                            if (profile != null) {
+                                if (profile.getImage() != null) {
+                                    ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
+                                        @Override
+                                        public void onComplete(Bitmap responseBody) {
+                                            if (responseBody != null) {
+                                                offer_image_profile.setImageBitmap(responseBody);
 
-                                    if(responseBody!=null) {
-                                        offer_image_profile.setImageBitmap(responseBody);
-
-                                    }
+                                            }
+                                        }
+                                    });
                                 }
-                            });
+                            }
                         }
                     });
 

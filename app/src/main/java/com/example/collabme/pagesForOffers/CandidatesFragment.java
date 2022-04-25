@@ -27,15 +27,12 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelCandidates;
 import com.example.collabme.model.ModelOffers;
-import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.CandidatesViewmodel;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.util.ArrayUtils;
-
-import java.util.Arrays;
 
 public class CandidatesFragment extends Fragment {
 
@@ -162,11 +159,13 @@ public class CandidatesFragment extends Fragment {
         choosen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (choosenCandidate.isChecked()) {
+                if(choosenCandidate==null){
+                    Toast.makeText(getActivity(), "you didnt choose candidate", Toast.LENGTH_LONG).show();
+                }
+                else if (choosenCandidate.isChecked()) {
                     ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
                         @Override
                         public void onComplete(Offer offer) {
-
                             offer.setStatus("InProgress");
                             String []  user = new String[1];
                             user[0]=username.getText().toString();
@@ -205,6 +204,7 @@ public class CandidatesFragment extends Fragment {
             super(itemView);
             username = itemView.findViewById(R.id.candidates_listrow_username);
             choosenCandidate= itemView.findViewById(R.id.candidates_listrow_checkBox);
+            choosenCandidate.setChecked(false);
             itemView.setOnClickListener(v -> {
                 int viewId = v.getId();
                 int pos = getAdapterPosition();

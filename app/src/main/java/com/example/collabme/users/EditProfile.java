@@ -509,11 +509,11 @@ public class EditProfile extends Fragment {
             postuploads.setError("Post/Uploads is required");
             return false;
         }
-        else if(platform.getText().toString().isEmpty()){
+        else if(platformArr.length == 0){
             platform.setError("Platform is required");
             return false;
         }
-        else if(professions.getText().toString().isEmpty()){
+        else if(professionArr.length == 0){
             professions.setError("Professions is required");
             return false;
         }

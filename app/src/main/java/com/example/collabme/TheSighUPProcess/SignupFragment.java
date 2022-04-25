@@ -249,12 +249,12 @@ public class SignupFragment extends Fragment {
         }
        else{
            if(influencer.isChecked() && (company.isChecked())) {
-               Toast.makeText(getContext(), "Choose one", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getContext(), "Choose company or influencer", Toast.LENGTH_SHORT).show();
                goodsign = false;
                return;
            }
            else if(!influencer.isChecked() && (!company.isChecked())) {
-               Toast.makeText(getContext(), "Choose one", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getContext(), "Choose company or influencer", Toast.LENGTH_SHORT).show();
                goodsign = false;
                return;
            }

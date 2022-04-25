@@ -207,7 +207,7 @@ public class HomeFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView offer_date, offer_status;
         TextView offer_headline, offer_username;
-        ImageView offer_X_imb, offer_V_imb, offer_image;
+        ImageView offer_X_imb, offer_V_imb, offer_image,offer_image_profile;
         ImageButton offer_edit_imb;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -220,6 +220,7 @@ public class HomeFragment extends Fragment {
             offer_V_imb = (ImageView) itemView.findViewById(R.id.myoffers_listrow_check);
             offer_X_imb = (ImageView) itemView.findViewById(R.id.myoffers_listrow_delete);
             offer_edit_imb = itemView.findViewById(R.id.fragemnt_item_edit);
+            offer_image_profile = itemView.findViewById(R.id.row_feed_profile);
 
             itemView.setOnClickListener(v -> {
                 int viewId = v.getId();
@@ -260,6 +261,7 @@ public class HomeFragment extends Fragment {
             offer_headline.setText(offer.getHeadline());
             offer_date.setText(setValidDate(offer.getFinishDate()));
             offer_status.setText(offer.getStatus());
+
             ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                 @Override
                 public void onComplete(Bitmap responseBody) {
@@ -287,6 +289,22 @@ public class HomeFragment extends Fragment {
                             }
                         }
                     });
+                    ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
+                        @Override
+                        public void onComplete(User profile) {
+                            ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
+                                @Override
+                                public void onComplete(Bitmap responseBody) {
+
+                                    if(responseBody!=null) {
+                                        offer_image_profile.setImageBitmap(responseBody);
+
+                                    }
+                                }
+                            });
+                        }
+                    });
+
                 }
             });
 

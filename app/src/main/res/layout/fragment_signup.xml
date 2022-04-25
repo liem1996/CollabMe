@@ -7,14 +7,51 @@
     tools:context=".TheSighUPProcess.SignupFragment">
 
     <ImageView
-        android:id="@+id/image_signup_background"
+        android:id="@+id/imageView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_sign_up"
+        android:src="@drawable/ic_sign_up_new"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/signup_pic"
+        android:layout_width="118dp"
+        android:layout_height="93dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.786" />
+
+    <ImageView
+        android:id="@+id/fragemnt_signup_camera2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_user_pic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.403"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.807" />
+
+    <ImageView
+        android:id="@+id/fragemnt_signup_gallery2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_gallery_album"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.645"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.807" />
 
     <CheckBox
         android:id="@+id/fragment_signup_influencer"
@@ -107,40 +144,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.646" />
 
-    <Button
-        android:id="@+id/fragemnt_signup_uploadbtn"
-        android:layout_width="108dp"
-        android:layout_height="46dp"
-        android:backgroundTint="#4c266a"
-        android:text="Upload"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.748" />
-
     <ImageButton
         android:id="@+id/fragment_signup_backBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="65dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_back_"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_signup_background" />
+        tools:layout_editor_absoluteY="65dp" />
 
     <Button
         android:id="@+id/fragemnt_signup_continuebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:backgroundTint="#4c266a"
         android:text="continue"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragemnt_signup_uploadbtn" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.938" />
 
     <CheckBox
         android:id="@+id/fragment_signup_company"

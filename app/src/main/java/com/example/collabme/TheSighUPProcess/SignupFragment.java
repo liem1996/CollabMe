@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -52,7 +54,7 @@ public class SignupFragment extends Fragment {
     Bitmap imageBitmap;
     String username1, password1, email1, age1, selectedGender1;
     boolean company1, influencer1;
-
+    ImageView camra,gallery,profilepic;
     String facebookUsername, facebookEmail, facebookPassword;
     ProgressBar progressBar;
 
@@ -76,6 +78,8 @@ public class SignupFragment extends Fragment {
         progressBar = view.findViewById(R.id.signup_progressbar);
         progressBar.setVisibility(View.GONE);
         progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
+        camra = view.findViewById(R.id.fragemnt_signup_camera2);
+        gallery = view.findViewById(R.id.fragemnt_signup_gallery2);
 
         username = view.findViewById(R.id.fragemnt_signup_username);
         password = view.findViewById(R.id.fragemnt_signup_password);
@@ -83,7 +87,7 @@ public class SignupFragment extends Fragment {
         age = view.findViewById(R.id.fragemnt_signup_age);
         company = view.findViewById(R.id.fragment_signup_company);
         influencer = view.findViewById(R.id.fragment_signup_influencer);
-
+        profilepic = view.findViewById(R.id.signup_pic);
         facebookEmail = SignupFragmentArgs.fromBundle(getArguments()).getEmail();
         facebookPassword = SignupFragmentArgs.fromBundle(getArguments()).getPassword();
         facebookUsername = SignupFragmentArgs.fromBundle(getArguments()).getUsername();
@@ -131,22 +135,14 @@ public class SignupFragment extends Fragment {
             }
         });
 
-        uploads = view.findViewById(R.id.fragemnt_signup_uploadbtn);
-        uploads.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+
+        camra.setOnClickListener(v -> openCam());
+        gallery.setOnClickListener(v -> openGallery());
 
         return view;
     }
 
-    public void openGallery() {
-        Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
-        photoPicerIntent.setType("image/jpeg");
-        startActivityForResult(photoPicerIntent, REQUEST_IMAGE_PIC);
-    }
+
 
 
     @Override
@@ -156,6 +152,8 @@ public class SignupFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
+                profilepic.setImageBitmap(imageBitmap);
+
             }
         } else if (requestCode == REQUEST_IMAGE_PIC) {
             if (resultCode == RESULT_OK) {
@@ -163,6 +161,7 @@ public class SignupFragment extends Fragment {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imageStream);
+                    profilepic.setImageBitmap(imageBitmap);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -170,6 +169,17 @@ public class SignupFragment extends Fragment {
                 }
             }
         }
+    }
+
+
+    public void openCam() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
+    }
+    public void openGallery() {
+        Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
+        photoPicerIntent.setType("image/jpeg");
+        startActivityForResult(photoPicerIntent, REQUEST_IMAGE_PIC);
     }
 
     private void saveDetails() {

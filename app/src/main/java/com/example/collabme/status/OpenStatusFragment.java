@@ -25,7 +25,6 @@ import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class OpenStatusFragment extends Fragment {
@@ -37,7 +36,7 @@ public class OpenStatusFragment extends Fragment {
     ImageView offerpic;
     ImageView logout;
     ImageButton editBtn, candidatesBtn, backBtn;
-    FloatingActionButton chatBtn;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +52,7 @@ public class OpenStatusFragment extends Fragment {
         profession = view.findViewById(R.id.fragemnt_offerdetails_profession);
         price = view.findViewById(R.id.fragemnt_offerdetails_price);
         editBtn = view.findViewById(R.id.fragemnt_offerdetails_editBtn);
-        chatBtn = view.findViewById(R.id.fragemnt_offerdetails_chatBtn);
+
         candidatesBtn = view.findViewById(R.id.fragemnt_offerdetails_candidatesBtn);
         logout = view.findViewById(R.id.fragment_offerdetails_logoutBtn);
         backBtn = view.findViewById(R.id.fragment_offerdetails_backBtn);
@@ -122,13 +121,7 @@ public class OpenStatusFragment extends Fragment {
             }
         });
 
-        chatBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToChatFragmentopen(offer2.getUser()));
 
-            }
-        });
 
         return view;
     }

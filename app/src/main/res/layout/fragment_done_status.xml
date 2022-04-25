@@ -140,21 +140,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.876" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fragemnt_done_chatBtn"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:clickable="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_offer_chat"
-        app:backgroundTint="#93C0EF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.91"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
-
     <ImageView
         android:id="@+id/fragment_done_logoutBtn"
         android:layout_width="50dp"

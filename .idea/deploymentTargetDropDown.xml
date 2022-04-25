@@ -7,12 +7,13 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\liemm\.android\avd\Pixel_3a_XL_API_30.avd" />
+            <value value="C:\Users\amitb\.android\avd\Pixel_4_API_30.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-04-24T18:28:56.711149500Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-04-25T15:53:35.570538900Z" />
+    <multipleDevicesSelectedInDropDown value="true" />
     <runningDeviceTargetsSelectedWithDialog>
       <Target>
         <type value="RUNNING_DEVICE_TARGET" />
@@ -28,7 +29,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\amitb\.android\avd\Pixel_3a_XL_API_30.avd" />
+            <value value="C:\Users\amitb\.android\avd\Pixel_4_API_30.avd" />
           </Key>
         </deviceKey>
       </Target>

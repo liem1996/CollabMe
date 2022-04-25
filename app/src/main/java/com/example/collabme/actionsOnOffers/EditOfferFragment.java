@@ -324,17 +324,17 @@ public class EditOfferFragment extends Fragment {
     }
 
     private void saveOfferDetails(View v) {
-        newProfession = chosen;
-        String headline1 = headline.getText().toString();
-        String description1 = description.getText().toString();
-        String finishDate1 = finishDate.getText().toString();
-        String status1 = status.getText().toString();
-        //String[] profession1 = profession.getText().toString();
-        String price1 = price.getText().toString();
+//        newProfession = chosen;
+//        String headline1 = headline.getText().toString();
+//        String description1 = description.getText().toString();
+//        String finishDate1 = finishDate.getText().toString();
+//        String status1 = status.getText().toString();
+//        //String[] profession1 = profession.getText().toString();
+//        String price1 = price.getText().toString();
         //String candidates1 = candidates.getText().toString();
         //String coupon1 = coupon.getText().toString();
 
-        Offer offer1 = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null);
+       // Offer offer1 = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null);
         if (checkValidDate()) {
             newProfession = chosen;
             String headline2 = headline.getText().toString();
@@ -348,14 +348,13 @@ public class EditOfferFragment extends Fragment {
 
             Offer offer = new Offer(description2, headline2, finishDate2, price2, oldIdOffer, status2, newProfession, null);
 
-            Log.d("TAG", "new Offer : " + offer1);
 
             if (imageBitmap != null) {
                 ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
                     @Override
                     public void onComplete(String uri) {
-                        offer1.setImage(uri);
-                        ModelOffers.instance.editOffer(offer1, code -> {
+                        offer.setImage(uri);
+                        ModelOffers.instance.editOffer(offer, code -> {
                             if (code == 200) {
                                 Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
                                 ModelOffers.instance.refreshPostList();
@@ -367,7 +366,7 @@ public class EditOfferFragment extends Fragment {
                     }
                 });
             }else {
-                ModelOffers.instance.editOffer(offer1, code -> {
+                ModelOffers.instance.editOffer(offer, code -> {
                     if (code == 200) {
                         Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
                         ModelOffers.instance.refreshPostList();

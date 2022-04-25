@@ -32,6 +32,7 @@
             android:layout_height="17dp"
             android:layout_marginTop="18dp"
             android:text="TextView"
+            android:fontFamily="@font/abeezee"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imageView6"
             app:layout_constraintHorizontal_bias="0.351"

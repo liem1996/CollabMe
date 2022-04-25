@@ -2,6 +2,7 @@ package com.example.collabme.status;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -129,6 +130,9 @@ public class OpenStatusFragment extends Fragment {
 
             }
         });
+//
+//        Typeface font = Typeface.createFromAsset(getContext().getAssets(),
+//                "/Users/barelimelech/CollabMe/app/src/main/res/font/cambay.xml");
 
         return view;
     }

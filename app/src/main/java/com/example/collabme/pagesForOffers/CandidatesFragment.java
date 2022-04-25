@@ -67,12 +67,14 @@ public class CandidatesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_candidates,container,false);
 
         offerId = CandidatesFragmentArgs.fromBundle(getArguments()).getOfferId();
+        ModelCandidates.instance2.refreshPostList(offerId);
 
         candidatesearch = view.findViewById(R.id.fragment_candidates_freesearch);
         searchimg = view.findViewById(R.id.fragment_candidates_searchbtn);
 
         swipeRefresh = view.findViewById(R.id.candidates_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> ModelCandidates.instance2.refreshPostList(offerId));
+
 
         //////////////////////////////
 

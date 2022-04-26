@@ -160,18 +160,17 @@
             app:layout_constraintStart_toEndOf="@+id/myoffers_listrow_status_tv"
             app:layout_constraintTop_toBottomOf="@+id/myoffers_listrow_date_et" />
 
+
         <ImageView
             android:id="@+id/myoffers_listrow_image"
-            android:layout_width="200dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="119dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="10dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/myoffers_listrow_username"
+            app:srcCompat="@drawable/imagejob" />
 
         <ImageButton
             android:id="@+id/fragemnt_item_edit"

@@ -558,11 +558,11 @@ public class EditProfile extends Fragment {
             usernameType.setText("Influencer & Company profile");
             return;
         }
-        if (influencer) {
+        else if (influencer) {
             usernameType.setText("Influencer profile");
             return;
         }
-        if (company) {
+        else if (company) {
             usernameType.setText("Company profile");
             return;
         }

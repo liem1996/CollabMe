@@ -7,11 +7,11 @@
     tools:context=".TheSighUPProcess.ProfessionFragment">
 
 
-
         <ImageView
             android:id="@+id/image_proffesions_background"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_professions"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

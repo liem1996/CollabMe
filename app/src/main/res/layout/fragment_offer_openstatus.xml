@@ -11,7 +11,7 @@
         android:id="@+id/imageView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_offer_details_new"
+        android:src="@drawable/ic___offerdetails_new1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,13 +23,14 @@
         android:id="@+id/fragemnt_offerdetails_editBtn"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="48dp"
-        android:fontFamily="@font/abeezee"
+        android:layout_marginTop="72dp"
         android:backgroundTint="#00FFFFFF"
+        android:fontFamily="@font/abeezee"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_listrow_edit"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_offerdetails_logoutBtn"
-        tools:layout_editor_absoluteX="343dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/offer_open_pic"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_offerdetails_logoutBtn" />
 
     <TextView
         android:id="@+id/fragemnt_offerdetails_proposer"
@@ -59,12 +60,12 @@
         app:layout_constraintHorizontal_bias="0.662"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.478" />
+        app:layout_constraintVertical_bias="0.381" />
 
     <TextView
         android:id="@+id/fragemnt_offerdetails_description"
-        android:layout_width="320dp"
-        android:layout_height="70dp"
+        android:layout_width="335dp"
+        android:layout_height="83dp"
         android:ems="10"
         android:fontFamily="@font/abeezee"
         android:gravity="start|top"
@@ -72,41 +73,41 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.395"
+        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.606" />
+        app:layout_constraintVertical_bias="0.55" />
 
     <TextView
         android:id="@+id/fragemnt_offerdetails_finishdate"
-        android:layout_width="195dp"
-        android:layout_height="25dp"
+        android:layout_width="209dp"
+        android:layout_height="24dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
+        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.698" />
+        app:layout_constraintVertical_bias="0.643" />
 
     <TextView
         android:id="@+id/fragemnt_offerdetails_status"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.699"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.743" />
+        app:layout_constraintVertical_bias="0.696" />
 
     <Spinner
         android:id="@+id/fragemnt_offerdetails_profession"
@@ -117,34 +118,34 @@
         android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.677"
+        app:layout_constraintHorizontal_bias="0.701"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.796" />
+        app:layout_constraintVertical_bias="0.746" />
 
     <TextView
         android:id="@+id/fragemnt_offerdetails_price"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.699"
+        app:layout_constraintHorizontal_bias="0.708"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.842" />
+        app:layout_constraintVertical_bias="0.798" />
 
     <ImageButton
         android:id="@+id/fragemnt_offerdetails_candidatesBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
-        android:fontFamily="@font/abeezee"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="92dp"
         android:backgroundTint="#00FFFFFF"
+        android:fontFamily="@font/abeezee"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_offer_candidates"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -165,15 +166,18 @@
 
     <ImageButton
         android:id="@+id/fragment_offerdetails_backBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="28dp"
-        android:fontFamily="@font/abeezee"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="36dp"
         android:background="#00FFFFFF"
+        android:fontFamily="@font/abeezee"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_back_"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="40dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView20"
@@ -185,15 +189,15 @@
 
     <ImageView
         android:id="@+id/offer_open_pic"
-        android:layout_width="250dp"
-        android:layout_height="140dp"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:scaleType="fitXY"
         android:src="@drawable/imagejob"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintVertical_bias="0.244" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

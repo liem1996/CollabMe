@@ -20,12 +20,15 @@ import androidx.navigation.Navigation;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.actionsOnOffers.EditOfferFragmentArgs;
+import com.example.collabme.actionsOnOffers.SpinnerAdapter;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
+
+import java.util.Arrays;
 
 
 public class OpenStatusFragment extends Fragment {
@@ -37,6 +40,7 @@ public class OpenStatusFragment extends Fragment {
     ImageView offerpic;
     ImageView logout;
     ImageButton editBtn, candidatesBtn, backBtn;
+    SpinnerAdapter spinnerAdapter;
 
 
     @Override
@@ -133,29 +137,31 @@ public class OpenStatusFragment extends Fragment {
     }
 
     private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
-        int tmp = 0;
-        for (int j = 0; j < size; j++) {
-            if (array[j] != null) {
-                tmp++;
-            }
-        }
-        String[] items = new String[tmp];
-
-        for (int i = 0; i < tmp; i++) {
-            items[i] = array[i];
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(18);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        spinnerAdapter = new SpinnerAdapter(getContext(), Arrays.asList(array));
+        spinner.setAdapter(spinnerAdapter);
+//        int tmp = 0;
+//        for (int j = 0; j < size; j++) {
+//            if (array[j] != null) {
+//                tmp++;
+//            }
+//        }
+//        String[] items = new String[tmp];
+//
+//        for (int i = 0; i < tmp; i++) {
+//            items[i] = array[i];
+//        }
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
+//        spinner.setAdapter(adapter);
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                ((TextView) parent.getChildAt(0)).setTextSize(18);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
     }
 
     private void toLoginActivity() {

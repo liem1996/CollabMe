@@ -21,12 +21,14 @@ import androidx.navigation.Navigation;
 
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
+import com.example.collabme.actionsOnOffers.SpinnerAdapter;
 import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class UserProfile extends Fragment {
@@ -35,11 +37,12 @@ public class UserProfile extends Fragment {
     Spinner professions, platform;
     ArrayList<String> platformArr, professionsArr, rejectedOffers;
     ImageButton editBtn;
-    String[] plat, pref, arrRejected;
+    String[] plat, pref, arrRejected, tmpArr;
     String password;
     Boolean influencer, company;
     ImageView logout, profilepicture;
     ProgressBar progressBar;
+    SpinnerAdapter spinnerAdapter;
 
 
     @Override
@@ -63,6 +66,8 @@ public class UserProfile extends Fragment {
         logout = view.findViewById(R.id.fragment_userprofile_logoutBtn);
         profilepicture = view.findViewById(R.id.fragment_userprofile_pic);
 
+
+
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {
@@ -84,7 +89,7 @@ public class UserProfile extends Fragment {
                             professionsArr = ChangeToArray(profile.getProfessions());
                             password = profile.getPassword();
                             influencer = profile.getInfluencer();
-                            company = profile.getInfluencer();
+                            company = profile.getCompany();
                             rejectedOffers = profile.getRejectedOffers();
                             initSpinnerFooter(platformArr.size(), platformArr, platform);
                             initSpinnerFooter(professionsArr.size(), professionsArr, professions);
@@ -122,6 +127,8 @@ public class UserProfile extends Fragment {
                 });
             }
         });
+
+
         return view;
     }
 
@@ -130,11 +137,11 @@ public class UserProfile extends Fragment {
             usernameType.setText("Influencer & Company profile");
             return;
         }
-        if (profile.getInfluencer()) {
+       else if (profile.getInfluencer()) {
             usernameType.setText("Influencer profile");
             return;
         }
-        if (profile.getCompany()) {
+       else if (profile.getCompany()) {
             usernameType.setText("Company profile");
             return;
         }
@@ -148,29 +155,36 @@ public class UserProfile extends Fragment {
     }
 
     private void initSpinnerFooter(int size, ArrayList<String> array, Spinner spinner) {
-        int tmp = 0;
-        for (int j = 0; j < size; j++) {
-            if (array.get(j) != null) {
-                tmp++;
-            }
+        tmpArr = new String[size];
+        for(int i = 0; i<size; i++){
+            if(array.get(i)!=null)
+                tmpArr[i] = array.get(i);
         }
-        String[] items = new String[tmp];
-
-        for (int i = 0; i < tmp; i++) {
-            items[i] = array.get(i);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(18);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        spinnerAdapter = new SpinnerAdapter(getContext(), Arrays.asList(tmpArr));
+        spinner.setAdapter(spinnerAdapter);
+//        int tmp = 0;
+//        for (int j = 0; j < size; j++) {
+//            if (array.get(j) != null) {
+//                tmp++;
+//            }
+//        }
+//        String[] items = new String[tmp];
+//
+//        for (int i = 0; i < tmp; i++) {
+//            items[i] = array.get(i);
+//        }
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
+//        spinner.setAdapter(adapter);
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                ((TextView) parent.getChildAt(0)).setTextSize(18);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
     }
 
     public ArrayList<String> ChangeToArray(String[] array) {

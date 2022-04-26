@@ -297,6 +297,7 @@ public class Fragment_Search extends Fragment {
     public void checks(){
         goodsign=true;
         if (!isValidFormat("dd/MM/yyyy", fromdates1)&&(!fromdates1.equals("null"))){
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "from date is not a date format", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
@@ -306,6 +307,7 @@ public class Fragment_Search extends Fragment {
         }
 
         if (!isValidFormat("dd/MM/yyyy", todates1)&&(!todates1.equals("null"))){
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "to date is not a date format", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
@@ -314,6 +316,7 @@ public class Fragment_Search extends Fragment {
             goodsign=true;
         }
         if ((!fromdates1.equals("null")&&todates1.equals("null")) || (!todates1.equals("null")&&fromdates1.equals("null"))){
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "you have to fill both from and to date", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
@@ -323,16 +326,19 @@ public class Fragment_Search extends Fragment {
         }
 
         if ((!fromprice1.equals("null")&&toprice1.equals("null")) || (!toprice1.equals("null")&&fromprice1.equals("null"))){
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "you have to fill both from and to price", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
         }
         if (!isInteger(fromprice1)&&(!fromprice1.equals("null"))){
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;
         }
         if (!isInteger(toprice1)&&(!toprice1.equals("null"))){
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
             goodsign=false;
             return;

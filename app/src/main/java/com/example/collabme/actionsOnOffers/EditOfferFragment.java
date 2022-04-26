@@ -49,7 +49,7 @@ public class EditOfferFragment extends Fragment {
     EditText headline, description, finishDate, price;
     TextView proposer, profession, status;
 
-    Button saveBtn, deleteBtn;
+    ImageView saveBtn, deleteBtn;
     ImageButton candidatesBtn, cancelBtn;
     String[] professionArr, oldProfession, chosen, newProfession, dateSplitArr;
     String oldIdOffer, oldProposer, offerId, date;

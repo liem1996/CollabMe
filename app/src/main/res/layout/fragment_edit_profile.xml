@@ -13,7 +13,7 @@
         android:src="@drawable/ic_edit_profile1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -214,25 +214,33 @@
 
     <ImageButton
         android:id="@+id/fragment_edituser_cameraBtn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="23dp"
+        android:layout_height="20dp"
         android:background="#00FFFFFF"
-        android:scaleType="fitCenter"
         android:fontFamily="@font/abeezee"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_add_user_pic"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_edituser_pic"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_edituser_pic" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.265"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.323" />
 
     <ImageButton
         android:id="@+id/fragment_edituser_galleryBtn"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
+        android:layout_width="23dp"
+        android:layout_height="20dp"
         android:backgroundTint="#00FFFFFF"
-        android:scaleType="center"
         android:fontFamily="@font/abeezee"
+        android:scaleType="center"
         android:src="@drawable/ic_gallery_album"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_edituser_pic"
-        app:layout_constraintStart_toStartOf="@+id/fragment_edituser_pic" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.321" />
 
     <ProgressBar
         android:id="@+id/fragment_edituser_progressbar"

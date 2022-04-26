@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +50,8 @@ public class HomeFragment extends Fragment {
     Offer offer;
     User userConnected;
     FloatingActionButton addOfferBtn;
+    Button checkBtn , deleteBtn;
+    String usernameConnected = "";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -62,7 +66,7 @@ public class HomeFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.offers_swiperefresh);
 
-        if (ModelUsers.instance3.getUser() == null) {
+        if (ModelUsers.instance3.getUser() == null || userConnected == null) {
             ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                 @Override
                 public void onComplete(User profile) {
@@ -94,7 +98,8 @@ public class HomeFragment extends Fragment {
         RecyclerView list = view.findViewById(R.id.offers_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        checkBtn = view.findViewById(R.id.myoffers_listrow_check);
+        deleteBtn = view.findViewById(R.id.myoffers_listrow_delete);
         adapter = new MyAdapter();
         list.setAdapter(adapter);
         viewModel.refreshOffersList();
@@ -107,6 +112,7 @@ public class HomeFragment extends Fragment {
 
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
                     offerCheckClicked(position);
+                    //view.findViewById(R.id.myoffers_listrow_check).setVisibility(View.GONE);
                 } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
 //                    List<Offer> homeOfferLst = viewModel.getDataMyOffer().getValue();
                     updateRejectedOfferArr(offerId);
@@ -149,6 +155,7 @@ public class HomeFragment extends Fragment {
         } else {
             updateUserWitnRejectedList(offerId);
         }
+
     }
 
     private void updateUserWitnRejectedList(String offerId) {
@@ -156,9 +163,10 @@ public class HomeFragment extends Fragment {
         if (rejectedArr == null)
             rejectedArr = new ArrayList<>();
         rejectedArr.add(offerId);
-        userConnected = new User(userConnected.getSex(), userConnected.getPassword(), userConnected.getEmail(), userConnected.getUsername(), userConnected.getAge(),
-                userConnected.getFollowers(), userConnected.getNumOfPosts(), userConnected.getCompany(), userConnected.getInfluencer(), userConnected.getProfessions(),
-                userConnected.getPlatforms(), rejectedArr);
+//        userConnected = new User(userConnected.getSex(), userConnected.getPassword(), userConnected.getEmail(), userConnected.getUsername(), userConnected.getAge(),
+//                userConnected.getFollowers(), userConnected.getNumOfPosts(), userConnected.getCompany(), userConnected.getInfluencer(), userConnected.getProfessions(),
+//                userConnected.getPlatforms(), rejectedArr);
+        userConnected.setRejectedOffers(rejectedArr);
 
         ModelUsers.instance3.EditUser(userConnected, new ModelUsers.EditUserListener() {
             @Override
@@ -175,9 +183,17 @@ public class HomeFragment extends Fragment {
 
     private void offerCheckClicked(int position) {
         List<String> arrayList = new LinkedList<>();
-        String userConnected = ModelUsers.instance3.getUser().getUsername();
-        arrayList = offer.setusersandadd(viewModel.getDataHome().getValue().get(position).getUsers(), userConnected);
+      //  String userConnected = ModelUsers.instance3.getUser().getUsername();
+        if(userConnected!= null) {
+            usernameConnected = userConnected.getUsername();
+        }else{
+            getUsernameConnected();
+        }
+
+        arrayList = offer.setusersandadd(viewModel.getDataHome().getValue().get(position).getUsers(), usernameConnected);
+
         offer.setUsers(ChangeToArray(arrayList));
+        Log.d("TAG", "user connecteddddddddd " + usernameConnected);
         ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
             @Override
             public void onComplete(int code) {
@@ -364,5 +380,17 @@ public class HomeFragment extends Fragment {
         }
 
         return arrayList;
+    }
+
+    public void getUsernameConnected(){
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+            @Override
+            public void onComplete(User profile) {
+                userConnected = profile;
+                usernameConnected = profile.getUsername();
+
+            }
+        });
+
     }
 }

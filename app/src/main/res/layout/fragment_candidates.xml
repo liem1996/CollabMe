@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#4c266a"
         android:text="choosen"
+        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +81,7 @@
         android:layout_marginTop="65dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
+        android:fontFamily="@font/abeezee"
         android:src="@drawable/ic_arrow_back_"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView4" />
@@ -97,6 +99,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.299"
         android:textCursorDrawable="@null"
+        android:fontFamily="@font/abeezee"
         />
 
 

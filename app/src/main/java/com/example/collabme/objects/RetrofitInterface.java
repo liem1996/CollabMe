@@ -57,6 +57,9 @@ public interface RetrofitInterface {
     Call<List<Offer>> getoffers(@Header("authorization") String token);
 
 
+    @GET("/users/getusers")
+    Call<List<User>> getusers(@Header("authorization") String token);
+
     @POST("/offer/editOffer/{id}")
     Call<Offer> editOffer(@Path("id") String offerId,@Header("authorization") String token, @Body Map<String, Object> newOffer);
 

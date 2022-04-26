@@ -24,14 +24,13 @@ import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class inprogressfragment extends Fragment {
     String offerId;
     TextView proposer, status, headline, description, finishDate, price;
     Button upload;
-    FloatingActionButton chatBtn;
+
     ImageButton editBtn, candidatesBtn, backBtn;
     ImageView offerpic;
     Spinner profession;
@@ -51,7 +50,7 @@ public class inprogressfragment extends Fragment {
         price = view.findViewById(R.id.fragemnt_inprogress_price);
         offerpic = view.findViewById(R.id.offer_inprogress_pic2);
         editBtn = view.findViewById(R.id.fragemnt_inprogress_edit);
-        chatBtn = view.findViewById(R.id.fragemnt_inprogress_chat);
+
         upload = view.findViewById(R.id.fragemnt_inprogress_upload);
         logout = view.findViewById(R.id.fragment_inprogress_logoutBtn);
         backBtn = view.findViewById(R.id.fragment_inprogress_backBtn);
@@ -112,13 +111,7 @@ public class inprogressfragment extends Fragment {
                 });
             }
         });
-        chatBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionGlobalChatFragmentopen(offerUsername));
 
-            }
-        });
 
         return view;
     }

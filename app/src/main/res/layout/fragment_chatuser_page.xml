@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeOffers.HomeFragment">
+    tools:context=".Chat.chatUserPage">
 
     <ImageView
-        android:id="@+id/image_candidate_background"
+        android:id="@+id/imageView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_home"
+        android:src="@drawable/ic_screen_d"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/offers_swiperefresh"
+        android:id="@+id/users_swiperefresh"
         android:layout_width="428dp"
         android:layout_height="560dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,14 +28,14 @@
         app:layout_constraintVertical_bias="0.891">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/offers_rv"
+            android:id="@+id/users_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ImageView
-        android:id="@+id/fragment_home_logoutBtn"
+        android:id="@+id/fragment_users_logoutBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="80dp"
@@ -47,19 +47,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fragment_home_addOffer_fab"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="75dp"
-        android:clickable="true"
-        android:fontFamily="@font/abeezee"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_add_ofer_btn"
-        app:backgroundTint="#93C0EF"
-        app:layout_constraintBottom_toBottomOf="@+id/image_candidate_background"
-        app:layout_constraintEnd_toEndOf="@+id/image_candidate_background" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

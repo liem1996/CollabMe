@@ -20,7 +20,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/row_candidates_profile"
+            android:id="@+id/row_users_profile"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:adjustViewBounds="true"
@@ -34,29 +34,16 @@
             app:srcCompat="@drawable/profile" />
 
         <TextView
-            android:id="@+id/candidates_listrow_username"
+            android:id="@+id/users__listrow_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:fontFamily="@font/abeezee"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.212"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.448" />
-
-        <CheckBox
-            android:id="@+id/candidates_listrow_checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@id/candidates_listrow_username"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

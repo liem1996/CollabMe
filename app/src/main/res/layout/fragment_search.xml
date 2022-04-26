@@ -10,7 +10,7 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_search2"
+        android:src="@drawable/ic_search1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -25,10 +25,10 @@
         android:src="@drawable/noe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.897"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.757" />
+        app:layout_constraintVertical_bias="0.713" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -40,7 +40,7 @@
         app:layout_constraintHorizontal_bias="0.397"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintVertical_bias="0.553" />
 
     <ImageView
         android:id="@+id/imageView11"
@@ -52,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.397"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.757" />
+        app:layout_constraintVertical_bias="0.714" />
 
     <ImageView
         android:id="@+id/imageView10"
@@ -61,10 +61,10 @@
         android:src="@drawable/noe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.897"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintVertical_bias="0.554" />
 
     <EditText
         android:id="@+id/fragment_Search_freesearch_et"
@@ -72,17 +72,16 @@
         android:layout_height="30dp"
         android:background="@android:color/transparent"
         android:ems="10"
-        android:hint="Search..."
         android:fontFamily="@font/abeezee"
+        android:hint="Search..."
         android:inputType="textPersonName"
+        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintHorizontal_bias="0.385"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.345"
-        android:textCursorDrawable="@null"
-        />
+        app:layout_constraintVertical_bias="0.298" />
 
     <ImageView
         android:id="@+id/fragment_search_freesearc_btn"
@@ -92,15 +91,16 @@
         android:src="@drawable/ic_nav_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintHorizontal_bias="0.815"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.344" />
+        app:layout_constraintVertical_bias="0.295" />
+
 
     <TextView
         android:id="@+id/fragment_Search_profession"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_width="163dp"
+        android:layout_height="39dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="16dp"
@@ -108,16 +108,16 @@
         android:clickable="true"
         android:drawableRight="@android:drawable/arrow_down_float"
         android:drawablePadding="16dp"
+        android:fontFamily="@font/abeezee"
         android:hint="Profession:"
         android:padding="10dp"
         android:textSize="16sp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.802"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428" />
+        app:layout_constraintVertical_bias="0.372" />
 
     <EditText
         android:id="@+id/fragment_Search_proposer"
@@ -127,15 +127,13 @@
         android:ems="10"
         android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
+        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.734"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513"
-        android:textCursorDrawable="@null"
-        />
-
+        app:layout_constraintVertical_bias="0.465" />
 
     <EditText
         android:id="@+id/fragment_Search_from_price_et"
@@ -145,29 +143,28 @@
         android:ems="10"
         android:fontFamily="@font/abeezee"
         android:inputType="text"
+        android:textCursorDrawable="@null"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.609"
-        android:textCursorDrawable="@null"
-        />
+        app:layout_constraintVertical_bias="0.555" />
 
     <TextView
         android:id="@+id/fragment_Search_from_price_tv"
         android:layout_width="53dp"
         android:layout_height="22dp"
+        android:fontFamily="@font/abeezee"
         android:text="From:"
         android:textSize="16sp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.57" />
+        app:layout_constraintVertical_bias="0.516" />
 
     <EditText
         android:id="@+id/fragment_Search_toprice_et"
@@ -190,12 +187,12 @@
         android:id="@+id/fragment_Search_toprice_tv"
         android:layout_width="43dp"
         android:layout_height="27dp"
+        android:fontFamily="@font/abeezee"
         android:text="To:"
         android:textSize="16sp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBaseline_toBaselineOf="@+id/fragment_Search_from_price_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.809"
+        app:layout_constraintHorizontal_bias="0.807"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -206,14 +203,13 @@
         android:ems="10"
         android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
+        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.734"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68"
-        android:textCursorDrawable="@null"
-        />
+        app:layout_constraintVertical_bias="0.625" />
 
     <EditText
         android:id="@+id/fragment_Search_fromdates"
@@ -223,29 +219,28 @@
         android:ems="10"
         android:fontFamily="@font/abeezee"
         android:inputType="text"
+        android:textCursorDrawable="@null"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.757"
-        android:textCursorDrawable="@null"
-        />
+        app:layout_constraintVertical_bias="0.714" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="53dp"
         android:layout_height="22dp"
+        android:fontFamily="@font/abeezee"
         android:text="From:"
         android:textSize="16sp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.714" />
+        app:layout_constraintVertical_bias="0.667" />
 
     <EditText
         android:id="@+id/fragment_Search_todates_et"
@@ -282,16 +277,15 @@
         android:layout_height="30dp"
         android:background="@android:color/transparent"
         android:ems="10"
-        android:inputType="textPersonName"
         android:fontFamily="@font/abeezee"
+        android:inputType="textPersonName"
+        android:textCursorDrawable="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.734"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.837"
-        android:textCursorDrawable="@null"
-        />
+        app:layout_constraintVertical_bias="0.782" />
 
     <Button
         android:id="@+id/fragment_Search_button_search"
@@ -299,14 +293,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:backgroundTint="#4c266a"
-        android:text="search"
         android:fontFamily="@font/abeezee"
+        android:text="search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.905" />
+        app:layout_constraintVertical_bias="0.843" />
 
     <ImageView
         android:id="@+id/fragment_search_logoutBtn"
@@ -330,9 +323,9 @@
         android:backgroundTint="#8450A0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.62"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintVertical_bias="0.257" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

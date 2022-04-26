@@ -23,12 +23,13 @@
         android:id="@+id/fragemnt_offerdetails_editBtn"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="#00FFFFFF"
         android:fontFamily="@font/abeezee"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_listrow_edit"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toEndOf="@+id/offer_open_pic"
         app:layout_constraintTop_toBottomOf="@+id/fragment_offerdetails_logoutBtn" />
 
@@ -155,29 +156,31 @@
         android:id="@+id/fragment_offerdetails_logoutBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="44dp"
         android:layout_marginEnd="16dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_logout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.979"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.066" />
 
     <ImageButton
         android:id="@+id/fragment_offerdetails_backBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="36dp"
         android:background="#00FFFFFF"
         android:fontFamily="@font/abeezee"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_back_"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintHorizontal_bias="0.067"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.045" />
 
     <ImageView
         android:id="@+id/imageView20"

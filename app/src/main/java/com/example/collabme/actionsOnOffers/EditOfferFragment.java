@@ -1,6 +1,7 @@
 package com.example.collabme.actionsOnOffers;
 
 import static android.app.Activity.RESULT_OK;
+import static android.graphics.Color.rgb;
 import static com.example.collabme.actionsOnOffers.AddOfferDetailsFragemnt.isValidFormat;
 
 import android.app.AlertDialog;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +62,7 @@ public class EditOfferFragment extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap imageBitmap;
+    ProgressBar progressBar;
 
 
     @Override
@@ -85,6 +88,10 @@ public class EditOfferFragment extends Fragment {
         gallery = view.findViewById(R.id.fragemnt_editofferr_gallery2);
         profilepic = view.findViewById(R.id.offer_edit_pic2);
         deleteBtn = view.findViewById(R.id.fragment_editOffer_deleteBtn);
+
+        progressBar = view.findViewById(R.id.fragment_editOffer_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
 
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
@@ -281,6 +288,7 @@ public class EditOfferFragment extends Fragment {
         camra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 openCam();
             }
         });
@@ -288,6 +296,7 @@ public class EditOfferFragment extends Fragment {
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 openGallery();
             }
         });
@@ -345,7 +354,7 @@ public class EditOfferFragment extends Fragment {
             String price2 = price.getText().toString();
             //String candidates1 = candidates.getText().toString();
             //String coupon1 = coupon.getText().toString();
-
+            progressBar.setVisibility(View.VISIBLE);
             Offer offer = new Offer(description2, headline2, finishDate2, price2, oldIdOffer, status2, newProfession, null);
 
 
@@ -359,6 +368,7 @@ public class EditOfferFragment extends Fragment {
                                 Toast.makeText(getActivity(), "offer details saved", Toast.LENGTH_LONG).show();
                                 ModelOffers.instance.refreshPostList();
                                 Navigation.findNavController(v).navigateUp();
+                                progressBar.setVisibility(View.GONE);
                             } else {
                                 Toast.makeText(getActivity(), "offer details not saved", Toast.LENGTH_LONG).show();
                             }
@@ -475,12 +485,14 @@ public class EditOfferFragment extends Fragment {
     }
 
     public void openGallery() {
+        progressBar.setVisibility(View.GONE);
         Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
         photoPicerIntent.setType("image/jpeg");
         startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
     }
 
     public void openCam() {
+        progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
     }

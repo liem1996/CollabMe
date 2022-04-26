@@ -11,7 +11,7 @@
         android:id="@+id/imageView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_offer_details_new"
+        android:src="@drawable/ic___offerdetails_new1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,77 +24,77 @@
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.429" />
+        app:layout_constraintVertical_bias="0.376" />
 
     <TextView
         android:id="@+id/fragemnt_close_headline"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintVertical_bias="0.433" />
 
     <TextView
         android:id="@+id/fragemnt_close_description"
         android:layout_width="300dp"
         android:layout_height="70dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.606" />
+        app:layout_constraintVertical_bias="0.549" />
 
     <TextView
         android:id="@+id/fragemnt_close_finishdate"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.688" />
+        app:layout_constraintVertical_bias="0.63" />
 
     <TextView
         android:id="@+id/fragemnt_close_status"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
+        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.746" />
+        app:layout_constraintVertical_bias="0.695" />
 
     <Spinner
         android:id="@+id/fragemnt_close_profession"
@@ -108,36 +108,36 @@
         app:layout_constraintHorizontal_bias="0.677"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.798" />
+        app:layout_constraintVertical_bias="0.751" />
 
     <TextView
         android:id="@+id/fragemnt_close_price"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.852" />
+        app:layout_constraintVertical_bias="0.803" />
 
     <TextView
         android:id="@+id/fragment_close_candidates3"
         android:layout_width="177dp"
         android:layout_height="34dp"
+        android:fontFamily="@font/abeezee"
         android:text="done"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.611"
+        app:layout_constraintHorizontal_bias="0.632"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.908" />
+        app:layout_constraintVertical_bias="0.859" />
 
     <Button
         android:id="@+id/fragemnt_close_delete"
@@ -157,7 +157,7 @@
         android:id="@+id/fragment_close_logoutBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="16dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_logout"
@@ -168,15 +168,15 @@
 
     <ImageView
         android:id="@+id/offer_close_pic2"
-        android:layout_width="250dp"
-        android:layout_height="140dp"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:scaleType="fitXY"
         android:src="@drawable/imagejob"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintVertical_bias="0.244" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

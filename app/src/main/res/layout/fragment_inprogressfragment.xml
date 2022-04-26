@@ -11,7 +11,7 @@
         android:id="@+id/imageView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_offer_details_new"
+        android:src="@drawable/ic___offerdetails_new1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,104 +23,105 @@
         android:id="@+id/fragment_inprogress_candidates"
         android:layout_width="177dp"
         android:layout_height="34dp"
+        android:fontFamily="@font/abeezee"
         android:text="done"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintHorizontal_bias="0.581"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.908" />
+        app:layout_constraintVertical_bias="0.86" />
 
     <ImageButton
         android:id="@+id/fragemnt_inprogress_edit"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="72dp"
         android:backgroundTint="#00FFFFFF"
-        android:scaleType="fitCenter"
         android:fontFamily="@font/abeezee"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_listrow_edit"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_inprogress_logoutBtn"
-        tools:layout_editor_absoluteX="343dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/offer_inprogress_pic2"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_inprogress_logoutBtn" />
 
     <TextView
         android:id="@+id/fragemnt_inprogress_proposer"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.426" />
+        app:layout_constraintVertical_bias="0.383" />
 
     <TextView
         android:id="@+id/fragemnt_inprogress_headline"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintVertical_bias="0.432" />
 
     <TextView
         android:id="@+id/fragemnt_inprogress_description"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
+        android:layout_width="335dp"
+        android:layout_height="83dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.342"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.609" />
+        app:layout_constraintVertical_bias="0.549" />
 
     <TextView
         android:id="@+id/fragemnt_inprogress_finishdate"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
+        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.689" />
+        app:layout_constraintVertical_bias="0.641" />
 
     <TextView
         android:id="@+id/fragment_inprogress_status"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
+        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.74" />
+        app:layout_constraintVertical_bias="0.696" />
 
     <Spinner
         android:id="@+id/fragment_inprogress_profession"
@@ -131,25 +132,25 @@
         android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.677"
+        app:layout_constraintHorizontal_bias="0.701"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.794" />
+        app:layout_constraintVertical_bias="0.75" />
 
     <TextView
         android:id="@+id/fragemnt_inprogress_price"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
+        android:fontFamily="@font/abeezee"
         android:inputType="textPersonName"
         android:textSize="18dp"
-        android:fontFamily="@font/abeezee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
+        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.851" />
+        app:layout_constraintVertical_bias="0.797" />
 
     <Button
         android:id="@+id/fragemnt_inprogress_upload"
@@ -180,27 +181,28 @@
 
     <ImageButton
         android:id="@+id/fragment_inprogress_backBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
         android:background="#00FFFFFF"
-        android:scaleType="fitCenter"
         android:fontFamily="@font/abeezee"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_back_"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="36dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/offer_inprogress_pic2"
-        android:layout_width="250dp"
-        android:layout_height="140dp"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:scaleType="fitXY"
         android:src="@drawable/imagejob"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintVertical_bias="0.24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

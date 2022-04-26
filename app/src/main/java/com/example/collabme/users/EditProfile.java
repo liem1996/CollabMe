@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,7 +41,7 @@ import java.util.Collections;
 public class EditProfile extends Fragment {
     TextView platform, professions, usernameType, username;
     EditText  age, followers, postuploads, email, gender;
-    Button saveBtn, deleteBtn;
+    ImageView saveBtn, deleteBtn;
     String[] platformArr, newProfession;
     String[] professionArr;
     String password;

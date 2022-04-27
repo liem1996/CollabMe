@@ -13,6 +13,7 @@ import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -199,7 +200,7 @@ public class ModelOffers {
         List<Offer> openOfferLst = new LinkedList<>();
         ArrayList<String> rejectedOffers = userConnected.getRejectedOffers();
         for (int i = 0; i < stList.size(); i++) {
-            if (stList.get(i).getStatus().equals("Open") && (!rejectedOffers.contains(stList.get(i).getIdOffer()))) {
+            if (stList.get(i).getStatus().equals("Open") && (!rejectedOffers.contains(stList.get(i).getIdOffer()))  && !Arrays.asList(stList.get(i).getUsers()).contains(userConnected.getUsername()) ) {
                 openOfferLst.add(stList.get(i));
             }
         }

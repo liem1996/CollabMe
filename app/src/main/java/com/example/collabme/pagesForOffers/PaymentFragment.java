@@ -183,12 +183,8 @@ public class PaymentFragment extends Fragment {
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         getActivity().startService(intent);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
-            }
-        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

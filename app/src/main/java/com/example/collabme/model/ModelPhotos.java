@@ -19,23 +19,38 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+
+/**
+ * this model is for images the function in this model are :
+ * 1.get the image which is been used for profile and offers
+ * 2.post the image which is been upload to an profile or an offer
+ */
+
+
 public class ModelPhotos {
 
     public static final ModelPhotos instance3 = new ModelPhotos();
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
 
+    /**
+     *
+     *
+     * interfaces
+     */
     public interface PostProfilePhoto{
         void onComplete(String uri);
 
     }
-
     public interface getimagesfile{
         void onComplete(Bitmap responseBody);
 
     }
 
-
-
+    /**
+     *
+     *
+     * functions
+     */
 
     public void uploadImage(Bitmap imageBytes, Context context, PostProfilePhoto postProfilePhoto) {
         tokensrefresh.retroServer();

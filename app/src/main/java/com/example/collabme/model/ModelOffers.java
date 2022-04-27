@@ -2,7 +2,6 @@ package com.example.collabme.model;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.Display;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -22,6 +21,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+/**
+ * this model is for offers the function in this model are :
+ * 1.add an offer to the application
+ * 2.edit an offer that excisiting
+ * 3.delete an offer that excisiting
+ * 4.get offer by an offer id
+ * 5.get your user by email
+ * 6.takes all the offers that a user is candidate and filter it for waiting offers
+ * 7.takes all the offers that a user is candidate in for media content
+ * 8.refreshPostList()-function that gets all the offers that existing and refreshing the home page,myoffers page
+ *   and waiting offers
+ *
+ */
+
 public class ModelOffers {
 
     public static final ModelOffers instance = new ModelOffers();
@@ -37,6 +51,8 @@ public class ModelOffers {
 
     /**
      * interfaces
+     *
+     *
      */
 
     public interface addOfferListener {
@@ -69,7 +85,7 @@ public class ModelOffers {
     }
 
     /**
-     * the section of the offers
+     * the section of the offers and its functions
      * add
      * edit
      * get

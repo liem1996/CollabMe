@@ -32,7 +32,15 @@ import com.example.collabme.viewmodel.OffersViewmodel;
 
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ *
+ * the Waiting offers fragment - included :
+ * viewholder for the recyclerview in the Waiting offers
+ * viewmodel for the offers that the user is been part of the candidates and is in its process
+ * refreshpost call from the model for refreshing the offers
+ * Adapter for the recyclerview items -offers items
+ * radio button for changing between mt offers and waiting offers
+ */
 public class WaitingOffersFragment extends Fragment {
 
     WaitingOffersAdapter adapter1;

@@ -17,6 +17,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+/**
+ * this model is for candidates the function in this model are :
+ * 1.get list of offers by free search
+ * 2.get list of offers by parameters from the user that is connect
+ * 3.search of a spesific candidates in the page of the candidates
+ *
+ */
+
 public class ModelCandidates {
 
     public static final ModelCandidates instance2 = new ModelCandidates();
@@ -24,11 +33,18 @@ public class ModelCandidates {
     MutableLiveData<List<User>> candidatesList = new MutableLiveData<List<User>>();
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
 
+
+
     public ModelCandidates() {
         candidatesListLoadingState.setValue(candidatelistloding.loaded);
         ;
     }
 
+    /**
+     * interfaces
+     *
+     *
+     */
     public enum candidatelistloding {
         loading,
         loaded
@@ -46,11 +62,10 @@ public class ModelCandidates {
 
     /**
      *
-     * the section of the offers
-     * add
-     * edit
+     * the section of the candidates and its functions
      * get
      * refreshomepage
+     * search
      */
 
     public LiveData<candidatelistloding> getcandidateslistloding() {

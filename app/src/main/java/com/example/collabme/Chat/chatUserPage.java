@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.userViewModel;
+import com.google.android.material.card.MaterialCardView;
 
 //
 
@@ -57,7 +59,6 @@ public class chatUserPage extends Fragment {
 
         adapter = new MyAdapter();
         list.setAdapter(adapter);
-
 
         adapter.setListener(new OnItemClickListener() {
             @Override
@@ -112,12 +113,10 @@ public class chatUserPage extends Fragment {
         TextView username;
         ImageView user_pic;
 
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             username=(TextView)itemView.findViewById(R.id.users__listrow_username);
             user_pic =(ImageView)itemView.findViewById(R.id.row_users_profile);
-
 
             itemView.setOnClickListener(v -> {
                 int viewId = v.getId();
@@ -174,7 +173,6 @@ public class chatUserPage extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             User user = viewModel.getData().getValue().get(position);
             holder.bind(user);
-
         }
 
         @Override

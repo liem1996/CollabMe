@@ -31,6 +31,8 @@ public class socialmedia extends Fragment {
     View view;
     Bitmap bitmap;
     ProgressBar progressBar;
+    boolean goodsign = true;
+    String[] platform = new String[5];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +71,6 @@ public class socialmedia extends Fragment {
     }
 
     private void toProfession() {
-        String[] platform = new String[5];
         int i = 0;
 
 
@@ -96,34 +97,29 @@ public class socialmedia extends Fragment {
 
         followersCheck = followers.getText().toString();
         postsCheck = posts.getText().toString();
-        if(followersCheck.isEmpty() || !(followers.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))){
-            followers.setError("Your followers is required");
-            return;
 
-        }else if(platform.length ==0 || platform == null){
-            Toast.makeText(getContext(), "Your platform is required", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        else if(postsCheck.isEmpty() && !isInteger(postsCheck)){
-            posts.setError("Your posts/uploads is required");
-            return;
-        } else {
+        if (checkValidDate()) {
             progressBar.setVisibility(View.VISIBLE);
-
             Navigation.findNavController(view).navigate(socialmediaDirections.actionSocialmediaToProfessionFragment(username1, password1, influencer1,
                     company1, email1, age1, selectedGender, platform, followers.getText().toString(), posts.getText().toString(), bitmap));
         }
     }
-
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch (NumberFormatException e) {
+    public boolean checkValidDate() {
+        if (followersCheck.isEmpty() || !(followers.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))) {
+            followers.setError("Your followers is required");
             return false;
-        } catch (NullPointerException e) {
+
+        } else if (platform[0]== null && platform[1] == null &&
+                platform[2]== null && platform[3] == null && platform[4] == null) {
+            Toast.makeText(getContext(), "Your platform is required", Toast.LENGTH_SHORT).show();
             return false;
         }
-        // only got here if we didn't return false
-        return true;
+        else if (postsCheck.isEmpty() || !(posts.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))) {
+            posts.setError("Your posts/uploads is required");
+            goodsign = false;
+            return false;
+        }
+        return  true;
+
     }
 }

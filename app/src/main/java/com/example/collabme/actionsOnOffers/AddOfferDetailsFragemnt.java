@@ -305,7 +305,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
             return false;
         }
         else if (profession.getText().toString().isEmpty()){
-            profession.setError("Profession is required");
+            Toast.makeText(getActivity(), "Professions is required", Toast.LENGTH_LONG).show();
             return false;
         }
         else if (description.getText().toString().isEmpty()){

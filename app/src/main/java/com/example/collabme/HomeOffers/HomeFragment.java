@@ -183,7 +183,7 @@ public class HomeFragment extends Fragment {
 
     private void offerCheckClicked(int position) {
         List<String> arrayList = new LinkedList<>();
-      //  String userConnected = ModelUsers.instance3.getUser().getUsername();
+        //  String userConnected = ModelUsers.instance3.getUser().getUsername();
         if(userConnected!= null) {
             usernameConnected = userConnected.getUsername();
         }else{

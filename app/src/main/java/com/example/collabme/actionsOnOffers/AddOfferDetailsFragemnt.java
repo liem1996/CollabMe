@@ -46,7 +46,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
 
     EditText headline, description, finishdate, price;
     TextView status, candidates, profession, proposer;
-    Button save;
+    ImageView save;
     ImageButton backBtn;
     Offer offer;
     User userConnected;

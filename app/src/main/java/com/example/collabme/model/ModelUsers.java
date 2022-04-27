@@ -1,9 +1,7 @@
 package com.example.collabme.model;
 
 import android.content.Context;
-import android.graphics.ColorSpace;
 import android.util.Log;
-import android.view.Display;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,6 +10,7 @@ import com.example.collabme.objects.MyApplication;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -287,15 +286,13 @@ public class ModelUsers {
     }
 
     public LiveData<List<User>> getAllusers(){
-        if (userlist.getValue() == null) { refreshPostList(); };
+        if (userlist.getValue() == null) { refreshUserstList(); };
         return  userlist;
     }
 
-    public void refreshPostList(){
+    public void refreshUserstList(){
         userloadingstate.setValue(UserLoadingState.loading);
-
         tokensrefresh.retroServer();
-
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
@@ -307,19 +304,22 @@ public class ModelUsers {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.code() == 200) {
                     List<User> stList = response.body();
+                    List<User> stlistemp=new ArrayList<>();
                     getUserConnect(new getuserconnect() {
                         @Override
                         public void onComplete(User profile) {
                             for (int i = 0; i < stList.size(); i++)
                             {
-                                if (stList.get(i).getUsername().equals(profile.getUsername())) {
-                                    stList.remove(i);
+                                if (!stList.get(i).getUsername().equals(profile.getUsername())) {
+                                    stlistemp.add(stList.get(i));
+
                                 }
-                        }
+                            }
+                            userlist.postValue(stlistemp);
+                            userloadingstate.postValue(UserLoadingState.loaded);
                         }
                     });
-                    userlist.postValue(stList);
-                    userloadingstate.postValue(UserLoadingState.loaded);
+
 
                 }else if(response.code()==403){
                     tokensrefresh.changeAcssesToken();
@@ -329,19 +329,23 @@ public class ModelUsers {
                         @Override
                         public void onResponse(Call<List<User>> call, Response<List<User>> response1) {
                             List<User> stList = response1.body();
+                            List<User> stlistemp=new ArrayList<>();
                             if(response1.code()==200){
-                                ModelUsers.instance3.getUserConnect(new getuserconnect() {
+                                getUserConnect(new getuserconnect() {
                                     @Override
                                     public void onComplete(User profile) {
-                                        for (int i = 0; i < stList.size(); i++){
-                                            if (stList.contains(profile)) {
-                                                stList.remove(i);
+                                        for (int i = 0; i < stList.size(); i++)
+                                        {
+                                            if (!stList.get(i).getUsername().equals(profile.getUsername())) {
+                                                stlistemp.add(stList.get(i));
+
                                             }
-                                    }
+                                        }
+                                        userlist.postValue(stlistemp);
+                                        userloadingstate.postValue(UserLoadingState.loaded);
                                     }
                                 });
-                                userlist.postValue(stList);
-                                userloadingstate.postValue(UserLoadingState.loaded);
+
                             }else{
                                 userlist.postValue(null);
                                 userloadingstate.postValue(UserLoadingState.loaded);

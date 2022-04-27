@@ -35,7 +35,7 @@ public class chatUserPage extends Fragment {
     OnItemClickListener listener;
     userViewModel viewModel;
     String username;
-
+    RecyclerView list;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -48,13 +48,11 @@ public class chatUserPage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chatuser_page,container,false);
 
         swipeRefresh = view.findViewById(R.id.users_swiperefresh);
-        swipeRefresh.setOnRefreshListener(ModelUsers.instance3::refreshPostList);
+        swipeRefresh.setOnRefreshListener(ModelUsers.instance3::refreshUserstList);
 
         RecyclerView list = view.findViewById(R.id.users_rv);
         list.setHasFixedSize(true);
-
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-
         adapter = new MyAdapter();
         list.setAdapter(adapter);
 
@@ -72,7 +70,7 @@ public class chatUserPage extends Fragment {
             }
 
         });
-
+        refresh();
         setHasOptionsMenu(true);
         viewModel.getData().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(ModelUsers.instance3.getusersListLoadingState().getValue() == ModelUsers.UserLoadingState.loading);
@@ -85,14 +83,13 @@ public class chatUserPage extends Fragment {
 
         });
 
-        refresh();
-
         //adapter.notifyDataSetChanged();
 
         return view;
     }
 
     private void refresh() {
+
         adapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
     }
@@ -100,8 +97,6 @@ public class chatUserPage extends Fragment {
     private void tochatActivity() {
         Intent intent = new Intent(getContext(), ChatActivity.class);
         intent.putExtra("name",username);
-
-
         startActivity(intent);
         getActivity().finish();
     }

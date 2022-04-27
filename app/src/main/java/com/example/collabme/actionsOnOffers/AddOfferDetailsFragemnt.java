@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -69,7 +68,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_offer_details_fragemnt, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_offer_details, container, false);
 
         proposer = view.findViewById(R.id.fragemnt_newoffer_proposer);
         headline = view.findViewById(R.id.fragemnt_newoffer_headline);
@@ -197,9 +196,10 @@ public class AddOfferDetailsFragemnt extends Fragment {
             @Override
             public void onClick(View v) {
                 if (checkValidDate()) {
+                    int price2 = Integer.parseInt(price.getText().toString());
                     progressBar.setVisibility(View.VISIBLE);
                     offer = new Offer(description.getText().toString(), headline.getText().toString(), date,
-                            price.getText().toString(), uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername()
+                            price2, uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername()
                             );
 
                     if(imageBitmap!=null) {
@@ -305,7 +305,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
             return false;
         }
         else if (profession.getText().toString().isEmpty()){
-            profession.setError("Profession is required");
+            Toast.makeText(getActivity(), "Professions is required", Toast.LENGTH_LONG).show();
             return false;
         }
         else if (description.getText().toString().isEmpty()){

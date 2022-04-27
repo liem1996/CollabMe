@@ -61,7 +61,7 @@ public class PaymentFragment extends Fragment {
     private CheckoutViewModel model;
     String offerId;
     String headline;
-    String price;
+    int price;
     Payment payment;
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
     private static final long SHIPPING_COST_CENTS = 90 * PaymentsUtil.CENTS_IN_A_UNIT.longValue();
@@ -240,7 +240,7 @@ public class PaymentFragment extends Fragment {
     }
 
     private void getPayment() {
-        String amount = price;// TODO:: take the real amount
+        int amount = price;// TODO:: take the real amount
 
         // Creating a paypal payment on below line
         PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(amount)), "USD", "Payment",
@@ -381,7 +381,7 @@ public class PaymentFragment extends Fragment {
 
         // The price provided to the API should include taxes and shipping.
         // This price is not displayed to the user.
-        long priceInCents = Long.parseLong(price);  //TODO:: get the real amount of the offer
+        long priceInCents = price;  //TODO:: get the real amount of the offer
         long shippingCostCents = 0;
         long totalPriceCents = priceInCents + shippingCostCents;
         final Task<PaymentData> task = model.getLoadPaymentDataTask(totalPriceCents);

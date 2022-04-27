@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,14 +109,10 @@ public class HomeFragment extends Fragment {
             public void onItemClick(int position, View view, int idview) {
                 offerId = viewModel.getDataHome().getValue().get(position).getIdOffer();
                 offer = viewModel.getDataHome().getValue().get(position);
-
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
                     offerCheckClicked(position);
-                    //view.findViewById(R.id.myoffers_listrow_check).setVisibility(View.GONE);
                 } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
-//                    List<Offer> homeOfferLst = viewModel.getDataMyOffer().getValue();
                     updateRejectedOfferArr(offerId);
-                    //homeOfferLst.remove(offer);
                 } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
                     Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(offerId));
                 } else {
@@ -150,13 +145,12 @@ public class HomeFragment extends Fragment {
                 public void onComplete(User profile) {
                     userConnected = profile;
                     ModelUsers.instance3.setUserConnected(profile);
-                    HomeFragment.this.updateUserWitnRejectedList(offerId);
+                    updateUserWitnRejectedList(offerId);
                 }
             });
         } else {
             updateUserWitnRejectedList(offerId);
         }
-
     }
 
     private void updateUserWitnRejectedList(String offerId) {
@@ -164,9 +158,6 @@ public class HomeFragment extends Fragment {
         if (rejectedArr == null)
             rejectedArr = new ArrayList<>();
         rejectedArr.add(offerId);
-//        userConnected = new User(userConnected.getSex(), userConnected.getPassword(), userConnected.getEmail(), userConnected.getUsername(), userConnected.getAge(),
-//                userConnected.getFollowers(), userConnected.getNumOfPosts(), userConnected.getCompany(), userConnected.getInfluencer(), userConnected.getProfessions(),
-//                userConnected.getPlatforms(), rejectedArr);
         userConnected.setRejectedOffers(rejectedArr);
 
         ModelUsers.instance3.EditUser(userConnected, new ModelUsers.EditUserListener() {
@@ -184,7 +175,6 @@ public class HomeFragment extends Fragment {
 
     private void offerCheckClicked(int position) {
         List<String> arrayList = new LinkedList<>();
-        //  String userConnected = ModelUsers.instance3.getUser().getUsername();
         if (userConnected != null) {
             usernameConnected = userConnected.getUsername();
         } else {
@@ -192,9 +182,7 @@ public class HomeFragment extends Fragment {
         }
 
         arrayList = offer.setusersandadd(viewModel.getDataHome().getValue().get(position).getUsers(), usernameConnected);
-
         offer.setUsers(ChangeToArray(arrayList));
-        Log.d("TAG", "user connecteddddddddd " + usernameConnected);
         ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
             @Override
             public void onComplete(int code) {
@@ -278,6 +266,7 @@ public class HomeFragment extends Fragment {
             offer_headline.setText(offer.getHeadline());
             offer_date.setText(setValidDate(offer.getFinishDate()));
             offer_status.setText(offer.getStatus());
+
             ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                 @Override
                 public void onComplete(Bitmap responseBody) {

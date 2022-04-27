@@ -40,7 +40,8 @@ public class WaitingOffersFragment extends Fragment {
     OnItemClickListenerWaitingOffers listener;
     ImageView logout;
     OffersViewmodel viewModel;
-    String offerId,headline, price;
+    String offerId,headline;
+    int price;
     Offer offer;
     RadioButton radioButton;
 

@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,7 +29,8 @@ import java.util.Arrays;
 
 public class DoneStatusFragment extends Fragment {
 
-    String offerId, headlineString, priceString;
+    String offerId, headlineString;
+    int priceString;
     TextView proposer, status, headline, description, finishDate, price;
     Button paymentBtn;
 
@@ -45,7 +44,7 @@ public class DoneStatusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_done_status, container, false);
+        View view = inflater.inflate(R.layout.fragment_offer_done_status, container, false);
 
         offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
         headlineString = DoneStatusFragmentArgs.fromBundle(getArguments()).getHeadline();
@@ -73,7 +72,7 @@ public class DoneStatusFragment extends Fragment {
             finishDate.setText(setValidDate(offer.getFinishDate()));
             status.setText("Done");
             offer.setStatus("Done");
-            price.setText(offer.getPrice());
+            price.setText(String.valueOf(offer.getPrice()));
             priceString = offer.getPrice();
 
             // In order to change the status in db to done

@@ -58,7 +58,6 @@ public class chatUserPage extends Fragment {
         adapter = new MyAdapter();
         list.setAdapter(adapter);
 
-
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view,int idview) {
@@ -86,7 +85,7 @@ public class chatUserPage extends Fragment {
 
         });
 
-
+        refresh();
 
         //adapter.notifyDataSetChanged();
 
@@ -112,12 +111,10 @@ public class chatUserPage extends Fragment {
         TextView username;
         ImageView user_pic;
 
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             username=(TextView)itemView.findViewById(R.id.users__listrow_username);
             user_pic =(ImageView)itemView.findViewById(R.id.row_users_profile);
-
 
             itemView.setOnClickListener(v -> {
                 int viewId = v.getId();
@@ -158,6 +155,7 @@ public class chatUserPage extends Fragment {
     }
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
+
         public void setListener(OnItemClickListener listener1) {
             listener = listener1;
         }
@@ -166,6 +164,7 @@ public class chatUserPage extends Fragment {
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.user_caht_row,parent,false);
+
             MyViewHolder holder = new MyViewHolder(view);
             return holder;
         }
@@ -174,7 +173,6 @@ public class chatUserPage extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             User user = viewModel.getData().getValue().get(position);
             holder.bind(user);
-
         }
 
         @Override

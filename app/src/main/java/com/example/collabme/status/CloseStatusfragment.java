@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -48,7 +46,7 @@ public class CloseStatusfragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_close_statusfragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_offer_close_status, container, false);
         offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
         proposer = view.findViewById(R.id.fragemnt_close_proposer);
         headline = view.findViewById(R.id.fragemnt_close_headline);
@@ -73,7 +71,7 @@ public class CloseStatusfragment extends Fragment {
             finishDate.setText(setValidDate(offer.getFinishDate()));
             status.setText("Close");
             offer.setStatus("Close");
-            price.setText(offer.getPrice());
+            price.setText(String.valueOf(offer.getPrice()));
 
             // In order to change the status in db to close
             ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {

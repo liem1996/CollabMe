@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,7 +42,7 @@ public class inprogressfragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_inprogressfragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_offer_inprogress_status, container, false);
         offerId = inprogressfragmentArgs.fromBundle(getArguments()).getOfferId();
         proposer = view.findViewById(R.id.fragemnt_inprogress_proposer);
         headline = view.findViewById(R.id.fragemnt_inprogress_headline);
@@ -82,7 +80,7 @@ public class inprogressfragment extends Fragment {
                             description.setText(offer.getDescription());
                             finishDate.setText(setValidDate(offer.getFinishDate()));
                             status.setText(offer.getStatus());
-                            price.setText(offer.getPrice());
+                            price.setText(String.valueOf(offer.getPrice()));
 
                             offerUsername = offer.getUser();
                         }
@@ -99,7 +97,8 @@ public class inprogressfragment extends Fragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToFragmentMediaContent(offerId,headline.toString(),price.toString()));
+                int price2= Integer.parseInt(price.getText().toString());
+                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToFragmentMediaContent(offerId,headline.toString(),price2));
             }
         });
 

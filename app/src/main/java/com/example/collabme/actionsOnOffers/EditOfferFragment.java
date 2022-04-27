@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -88,7 +87,6 @@ public class EditOfferFragment extends Fragment {
         gallery = view.findViewById(R.id.fragemnt_editofferr_gallery2);
         profilepic = view.findViewById(R.id.offer_edit_pic2);
         deleteBtn = view.findViewById(R.id.fragment_editOffer_deleteBtn);
-
         progressBar = view.findViewById(R.id.fragment_editOffer_progressbar);
         progressBar.setVisibility(View.GONE);
         progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -157,7 +155,7 @@ public class EditOfferFragment extends Fragment {
                 description.setText(offer.getDescription());
                 finishDate.setText(setValidDate(offer.getFinishDate()));
                 status.setText(offer.getStatus());
-                price.setText(offer.getPrice());
+                price.setText(String.valueOf(offer.getPrice()));
 
                 ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                     @Override
@@ -351,7 +349,7 @@ public class EditOfferFragment extends Fragment {
             String finishDate2 = date;
             String status2 = status.getText().toString();
             //String[] profession1 = profession.getText().toString();
-            String price2 = price.getText().toString();
+            int price2 = Integer.parseInt(price.getText().toString());
             //String candidates1 = candidates.getText().toString();
             //String coupon1 = coupon.getText().toString();
             progressBar.setVisibility(View.VISIBLE);

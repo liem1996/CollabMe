@@ -1,19 +1,8 @@
 
 package com.example.collabme.pagesForOffers;
 
-import static com.example.collabme.objects.MyApplication.getContext;
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,21 +11,25 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.collabme.Activites.LoginActivity;
-import com.example.collabme.Activites.MediaContentActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
-import com.example.collabme.status.OpenStatusFragmentArgs;
-import com.example.collabme.status.inprogressfragmentDirections;
 
 public class fragment_mediaContent extends Fragment {
 
     MyAdapter adapter;
-    String offerId, description, price;
+    String offerId, description;
+    int price;
     String[] MediaContent;
     Button AgreeBtn;
     String offerOwner;

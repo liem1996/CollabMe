@@ -113,48 +113,50 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (bitmap != null) {
-                    ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
-                        @Override
-                        public void onComplete(String uri) {
-                            user.setImage(uri);
-                            Modelauth.instance2.sighup(user, new Modelauth.signupListener() {
-                                @Override
-                                public void onComplete(int code) {
-                                    if (code == 200) {
-                                        Modelauth.instance2.Login(username, password, new Modelauth.loginListener() {
-                                            @Override
-                                            public void onComplete(int code) {
-                                                toFeedActivity();
-                                                Toast.makeText(getActivity(), "Welcome to Collab Me!", Toast.LENGTH_LONG).show();
-                                            }
-                                        });
-
-                                    } else {
-                                        Toast.makeText(getContext(), "Sign up went wrong", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    Modelauth.instance2.sighup(user, new Modelauth.signupListener() {
-                        @Override
-                        public void onComplete(int code) {
-                            if (code == 200) {
-                                Modelauth.instance2.Login(username, password, new Modelauth.loginListener() {
+                if (professions.length > 0) {
+                    if (bitmap != null) {
+                        ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
+                            @Override
+                            public void onComplete(String uri) {
+                                user.setImage(uri);
+                                Modelauth.instance2.sighup(user, new Modelauth.signupListener() {
                                     @Override
                                     public void onComplete(int code) {
-                                        toFeedActivity();
-                                        Toast.makeText(getActivity(), "Welcome to Collab Me!", Toast.LENGTH_LONG).show();
+                                        if (code == 200) {
+                                            Modelauth.instance2.Login(username, password, new Modelauth.loginListener() {
+                                                @Override
+                                                public void onComplete(int code) {
+                                                    toFeedActivity();
+                                                    Toast.makeText(getActivity(), "Welcome to Collab Me!", Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+
+                                        } else {
+                                            Toast.makeText(getContext(), "Sign up went wrong", Toast.LENGTH_LONG).show();
+                                        }
                                     }
                                 });
-
-                            } else {
-                                Toast.makeText(getContext(), "Sign up went wrong", Toast.LENGTH_LONG).show();
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        Modelauth.instance2.sighup(user, new Modelauth.signupListener() {
+                            @Override
+                            public void onComplete(int code) {
+                                if (code == 200) {
+                                    Modelauth.instance2.Login(username, password, new Modelauth.loginListener() {
+                                        @Override
+                                        public void onComplete(int code) {
+                                            toFeedActivity();
+                                            Toast.makeText(getActivity(), "Welcome to Collab Me!", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+                                } else {
+                                    Toast.makeText(getContext(), "Sign up went wrong", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    }
                 }
             }
         });

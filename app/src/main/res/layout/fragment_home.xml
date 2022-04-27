@@ -30,7 +30,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/offers_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:paddingBottom="?attr/actionBarSize" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -43,24 +44,26 @@
         android:src="@drawable/ic_logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.063" />
+        app:layout_constraintVertical_bias="0.127" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fragment_home_addOffer_fab"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-300dp"
+        android:layout_marginBottom="-530dp"
         android:clickable="true"
         android:fontFamily="@font/abeezee"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_add_ofer_btn"
         app:backgroundTint="#93C0EF"
-        app:layout_constraintBottom_toBottomOf="@+id/image_candidate_background"
-        app:layout_constraintEnd_toEndOf="@+id/image_candidate_background" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/image_candidate_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

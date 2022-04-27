@@ -1,6 +1,7 @@
 package com.example.collabme.actionsOnOffers;
 
 import static android.app.Activity.RESULT_OK;
+import static android.graphics.Color.rgb;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +62,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap imageBitmap;
+    ProgressBar progressBar;
 
 
     @Override
@@ -83,6 +86,11 @@ public class AddOfferDetailsFragemnt extends Fragment {
         save = view.findViewById(R.id.fragemnt_newoffer_saveBtn);
         logout = view.findViewById(R.id.fragment_newoffer_logoutBtn);
         backBtn = view.findViewById(R.id.fragment_newoffer_backBtn);
+
+        progressBar = view.findViewById(R.id.fragment_addOffer_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
+
 
         status.setText("Open");
 
@@ -189,6 +197,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
             @Override
             public void onClick(View v) {
                 if (checkValidDate()) {
+                    progressBar.setVisibility(View.VISIBLE);
                     offer = new Offer(description.getText().toString(), headline.getText().toString(), date,
                             price.getText().toString(), uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername()
                             );
@@ -207,6 +216,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
                                             Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
                                             ModelOffers.instance.refreshPostList();
                                             Navigation.findNavController(view).navigate(R.id.action_addOfferDetailsFragemnt_to_homeFragment);
+                                            progressBar.setVisibility(View.GONE);
                                         } else {
                                             Toast.makeText(getActivity(), "not add", Toast.LENGTH_LONG).show();
                                         }
@@ -248,9 +258,25 @@ public class AddOfferDetailsFragemnt extends Fragment {
         });
 
         backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
-        camra.setOnClickListener(v -> openCam());
-        gallery.setOnClickListener(v -> openGallery());
+        //camra.setOnClickListener(v -> openCam());
+      //  gallery.setOnClickListener(v -> openGallery());
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
 
+                openGallery();
+            }
+        });
+
+        camra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+
+                openCam();
+            }
+        });
         return view;
     }
 
@@ -337,12 +363,14 @@ public class AddOfferDetailsFragemnt extends Fragment {
     }
 
     public void openGallery() {
+        progressBar.setVisibility(View.GONE);
         Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
         photoPicerIntent.setType("image/jpeg");
         startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
     }
 
     public void openCam() {
+        progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
     }

@@ -28,10 +28,10 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.632"
+        app:layout_constraintHorizontal_bias="0.635"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.868" />
+        app:layout_constraintVertical_bias="0.86" />
 
     <ImageButton
         android:id="@+id/fragemnt_inprogress_edit"
@@ -78,8 +78,8 @@
 
     <TextView
         android:id="@+id/fragemnt_inprogress_description"
-        android:layout_width="335dp"
-        android:layout_height="83dp"
+        android:layout_width="325dp"
+        android:layout_height="79dp"
         android:ems="10"
         android:fontFamily="@font/abeezee"
         android:gravity="start|top"
@@ -87,10 +87,10 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintHorizontal_bias="0.381"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.549" />
+        app:layout_constraintVertical_bias="0.553" />
 
     <TextView
         android:id="@+id/fragemnt_inprogress_finishdate"
@@ -158,7 +158,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#4c266a"
         android:fontFamily="@font/abeezee"
-        android:text="upload"
+        android:text="uploads"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.878"
@@ -203,9 +203,9 @@
         android:src="@drawable/imagejob"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.567"
+        app:layout_constraintHorizontal_bias="0.539"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintVertical_bias="0.239" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

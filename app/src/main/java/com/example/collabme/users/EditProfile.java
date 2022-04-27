@@ -509,11 +509,11 @@ public class EditProfile extends Fragment {
             return false;
         }
         else if(platformArr.length == 0){
-            platform.setError("Platform is required");
+            Toast.makeText(getActivity(), "Platform is required", Toast.LENGTH_LONG).show();
             return false;
         }
         else if(professionArr.length == 0){
-            professions.setError("Professions is required");
+            Toast.makeText(getActivity(), "Professions is required", Toast.LENGTH_LONG).show();
             return false;
         }
         else

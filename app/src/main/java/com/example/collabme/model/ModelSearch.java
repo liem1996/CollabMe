@@ -3,8 +3,6 @@ package com.example.collabme.model;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.collabme.objects.MyApplication;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.tokensrefresh;
@@ -16,10 +14,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * this model is for search the function in this model are :
+ * 1.get list of offers by free search
+ * 2.get list of offers by parameters from the user that is connect
+ */
+
 public class ModelSearch {
 
     public static final ModelSearch instance = new ModelSearch();
-    MutableLiveData<List<Offer>> offersList = new MutableLiveData<List<Offer>>();
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
 
     /**
@@ -35,6 +38,12 @@ public class ModelSearch {
         void onComplete(List<Offer> offers);
     }
 
+
+    /**
+     *
+     *
+     * functions
+     */
     public void getOfferFromFreeSearch(String freesearch, ModelSearch.getOfferFromFreeSearchListener getOfferFromFreeSearchListener) {
 
         tokensrefresh.retroServer();

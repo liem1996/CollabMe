@@ -34,7 +34,15 @@ import com.example.collabme.viewmodel.OffersViewmodel;
 
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ *
+ * the MyOffers fragmenrt - inclused :
+ * viewholder for the recycleview in the Myoffers
+ * viewmodel for the offers that the user which is connected open
+ * refreshpost call from the model for refreshing the offers
+ * Adapter for the recycleview items -offers items
+ * radio button for changing betwen mt offers and waiting offers
+ */
 
 public class MyOffersFragment extends Fragment {
 
@@ -80,9 +88,6 @@ public class MyOffersFragment extends Fragment {
         });
         swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
-
-        // waitingOffesFragment = view.findViewById(R.id.myoffers_waitingOfferFragmentBtn);
-        // waitingOffesFragment.setOnClickListener(v -> Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment()));
 
         logout = view.findViewById(R.id.fragment_myoffers_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +150,7 @@ public class MyOffersFragment extends Fragment {
             }
         });
 
-        //adapter1.notifyDataSetChanged();
+
 
         return view;
     }
@@ -229,7 +234,7 @@ public class MyOffersFragment extends Fragment {
                         @Override
                         public void onComplete(User profile) {
                             if (!profile.getUsername().equals(offer.getUser())) {
-                                //adapter1.offers.remove(offer);
+
                                 offer_edit_imb.setVisibility(View.INVISIBLE);
                             } else {
                                 offer_V_imb.setVisibility(View.INVISIBLE);

@@ -12,10 +12,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+/**
+ * this model is for payment the function in this model are :
+ * 1.add a payment for an specific offer
+ */
 public class ModelPayment {
 
     public static final ModelPayment instance2 = new ModelPayment();
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
+
 
     public interface AddingPayemnt{
         void onComplete(int code);

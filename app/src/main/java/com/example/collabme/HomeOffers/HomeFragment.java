@@ -38,6 +38,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ *
+ * the home fragmenrt - inclused :
+ * viewholder for the recycleview in the home
+ * viewmodel for the offers
+ * refreshpost call from the model for refreshing the offers
+ * Adapter for the recycleview items -offers items
+ * check and dismiss of a offers functionalty
+ *
+ */
+
 public class HomeFragment extends Fragment {
 
     MyAdapter adapter;
@@ -57,6 +68,8 @@ public class HomeFragment extends Fragment {
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(OffersViewmodel.class);
     }
+
+
 
     @Nullable
     @Override
@@ -133,7 +146,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //adapter.notifyDataSetChanged();
+
 
         return view;
     }

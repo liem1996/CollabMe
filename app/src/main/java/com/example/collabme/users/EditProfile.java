@@ -255,29 +255,16 @@ public class EditProfile extends Fragment {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        StringBuilder stringBuilder;
-                        // Initialize string builder
-                        stringBuilder = new StringBuilder();
                         chosen = new String[langList.size()];
                         professions.clearComposingText();
                         professionArr = chosen;
                         // use for loop
                         for (int j = 0; j < langList.size(); j++) {
                             // concat array value
-
-                            stringBuilder.append(langArray[langList.get(j)]);
                             chosen[j] = (langArray[langList.get(j)]); //to check again
 
-                            // check condition
-                            if (j != langList.size() - 1) {
-                                // When j value not equal
-                                // to lang list size - 1
-                                // add comma
-                                stringBuilder.append(", ");
-                            }
                         }
-                        // set text on textView
-                        professions.setText(stringBuilder.toString());
+
                     }
                 });
 
@@ -357,21 +344,14 @@ public class EditProfile extends Fragment {
                 builder2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        StringBuilder stringBuilder2 = new StringBuilder();
                         chosen2 = new String[langList2.size()];
                         platform.clearComposingText();
                         platformArr = chosen2;
                         for (int j = 0; j < langList2.size(); j++) {
                             // concat array value
-
-                            stringBuilder2.append(langArray2[langList2.get(j)]);
                             chosen2[j] = (langArray2[langList2.get(j)]); //to check again
 
-                            if (j != langList2.size() - 1) {
-                                stringBuilder2.append(", ");
-                            }
                         }
-                        platform.setText(stringBuilder2.toString());
                     }
                 });
 

@@ -230,9 +230,6 @@ public class EditOfferFragment extends Fragment {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        StringBuilder stringBuilder;
-                        // Initialize string builder
-                        stringBuilder = new StringBuilder();
                         chosen = new String[langList.size()];
                         profession.clearComposingText();
                         professionArr = chosen;
@@ -240,20 +237,10 @@ public class EditOfferFragment extends Fragment {
                         // use for loop
                         for (int j = 0; j < langList.size(); j++) {
                             // concat array value
-
-                            stringBuilder.append(langArray[langList.get(j)]);
                             chosen[j] = (langArray[langList.get(j)]); //to check again
 
-                            // check condition
-                            if (j != langList.size() - 1) {
-                                // When j value not equal
-                                // to lang list size - 1
-                                // add comma
-                                stringBuilder.append(", ");
-                            }
                         }
                         // set text on textView
-                        profession.setText(stringBuilder.toString());
                     }
                 });
 

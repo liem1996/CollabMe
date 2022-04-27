@@ -1,9 +1,7 @@
 package com.example.collabme.model;
 
 import android.content.Context;
-import android.graphics.ColorSpace;
 import android.util.Log;
-import android.view.Display;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,6 +10,7 @@ import com.example.collabme.objects.MyApplication;
 import com.example.collabme.objects.User;
 import com.example.collabme.objects.tokensrefresh;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,17 +18,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * this model is for users the function in this model are :
+ * 1.get user who is connected
+ * 2.get the user by is username
+ * 3.getting the user which is connect now
+ * 4.edit the user details
+ * 5.get your user by email
+ * 6.delete a user
+ * 7.edit user password
+ * 8.refreshUserstList()-function that gets all the user that existing and refreshing the chat page
+ */
+
+
 public class ModelUsers {
 
     public static final ModelUsers instance3 = new ModelUsers();
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
     private User userConnected;
-    //   public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
-    public User getUser() {
-        return userConnected;
-    }
-
+    /**
+     *
+     *
+     * interfaces
+     */
     public interface getuserconnect {
         void onComplete(User profile);
 
@@ -55,6 +67,18 @@ public class ModelUsers {
 
     public interface GetUserByUserEmail {
         void onComplete(User profile);
+    }
+
+
+    /**
+     *
+     *
+     * functions
+     *
+     */
+
+    public User getUser() {
+        return userConnected;
     }
 
     public void getuserbyusername(String username1, GetUserByIdListener getUserByIdListener) {
@@ -219,24 +243,7 @@ public class ModelUsers {
 
     }
 
-//    public void getUserByEmail(String email, ModelUsers.GetUserByUserEmail getUserByUserEmail) {
-//        tokensrefresh.retroServer();
-//
-//
-//        tokensrefresh.retrofitInterface = tokensrefresh.retrofit.create(RetrofitInterface.class);
-//        Call<User> call = tokensrefresh.retrofitInterface.getUserByEmail(email);
-//        call.enqueue(new Callback<User>() {
-//            @Override
-//            public void onResponse(Call<User> call, Response<User> response) {
-//                getUserByUserEmail.onComplete(response.body());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<User> call, Throwable t) {
-//                getUserByUserEmail.onComplete(null);
-//            }
-//        });
-//    }
+
 
     public void getUserByEmail(String email, String token, GetUserByUserEmail getUserByUserEmail) {
         tokensrefresh.retroServer();
@@ -269,7 +276,13 @@ public class ModelUsers {
 
 
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /**
+     *
+     * the user-chat page with the refresh user list and interfaces includes
+     *
+     */
 
     MutableLiveData<UserLoadingState> userloadingstate = new MutableLiveData<UserLoadingState>();
     MutableLiveData<List<User>> userlist = new MutableLiveData<List<User>>();
@@ -287,15 +300,13 @@ public class ModelUsers {
     }
 
     public LiveData<List<User>> getAllusers(){
-        if (userlist.getValue() == null) { refreshPostList(); };
+        if (userlist.getValue() == null) { refreshUserstList(); };
         return  userlist;
     }
 
-    public void refreshPostList(){
+    public void refreshUserstList(){
         userloadingstate.setValue(UserLoadingState.loading);
-
         tokensrefresh.retroServer();
-
         String tockenacsses = MyApplication.getContext()
                 .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .getString("tokenAcsses","");
@@ -307,19 +318,22 @@ public class ModelUsers {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.code() == 200) {
                     List<User> stList = response.body();
+                    List<User> stlistemp=new ArrayList<>();
                     getUserConnect(new getuserconnect() {
                         @Override
                         public void onComplete(User profile) {
                             for (int i = 0; i < stList.size(); i++)
                             {
-                                if (stList.get(i).getUsername().equals(profile.getUsername())) {
-                                    stList.remove(i);
+                                if (!stList.get(i).getUsername().equals(profile.getUsername())) {
+                                    stlistemp.add(stList.get(i));
+
                                 }
-                        }
+                            }
+                            userlist.postValue(stlistemp);
+                            userloadingstate.postValue(UserLoadingState.loaded);
                         }
                     });
-                    userlist.postValue(stList);
-                    userloadingstate.postValue(UserLoadingState.loaded);
+
 
                 }else if(response.code()==403){
                     tokensrefresh.changeAcssesToken();
@@ -329,19 +343,23 @@ public class ModelUsers {
                         @Override
                         public void onResponse(Call<List<User>> call, Response<List<User>> response1) {
                             List<User> stList = response1.body();
+                            List<User> stlistemp=new ArrayList<>();
                             if(response1.code()==200){
-                                ModelUsers.instance3.getUserConnect(new getuserconnect() {
+                                getUserConnect(new getuserconnect() {
                                     @Override
                                     public void onComplete(User profile) {
-                                        for (int i = 0; i < stList.size(); i++){
-                                            if (stList.contains(profile)) {
-                                                stList.remove(i);
+                                        for (int i = 0; i < stList.size(); i++)
+                                        {
+                                            if (!stList.get(i).getUsername().equals(profile.getUsername())) {
+                                                stlistemp.add(stList.get(i));
+
                                             }
-                                    }
+                                        }
+                                        userlist.postValue(stlistemp);
+                                        userloadingstate.postValue(UserLoadingState.loaded);
                                     }
                                 });
-                                userlist.postValue(stList);
-                                userloadingstate.postValue(UserLoadingState.loaded);
+
                             }else{
                                 userlist.postValue(null);
                                 userloadingstate.postValue(UserLoadingState.loaded);

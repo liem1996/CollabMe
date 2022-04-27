@@ -68,7 +68,7 @@ public class CloseStatusfragment extends Fragment {
             headline.setText(offer.getHeadline());
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
-            finishDate.setText(setValidDate(offer.getFinishDate()));
+            finishDate.setText(setValidDate(String.valueOf(offer.getFinishDate())));
             status.setText("Close");
             offer.setStatus("Close");
             price.setText(String.valueOf(offer.getPrice()));

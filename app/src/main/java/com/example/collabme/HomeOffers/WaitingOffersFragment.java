@@ -205,7 +205,7 @@ public class WaitingOffersFragment extends Fragment {
         public void bindoffer(Offer offer, int pos, View item) {
             offer_username.setText(offer.getUser());
             offer_headline.setText(offer.getHeadline());
-            offer_date.setText(setValidDate(offer.getFinishDate()));
+            offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
             offer_status.setText(offer.getStatus());
             offer_edit_imb.setVisibility(View.INVISIBLE);
             offer_V_imb.setVisibility(View.INVISIBLE);

@@ -153,7 +153,7 @@ public class EditOfferFragment extends Fragment {
                 profession.setText(str);
                 headline.setText(offer.getHeadline());
                 description.setText(offer.getDescription());
-                finishDate.setText(setValidDate(offer.getFinishDate()));
+                finishDate.setText(setValidDate(String.valueOf(offer.getFinishDate())));
                 status.setText(offer.getStatus());
                 price.setText(String.valueOf(offer.getPrice()));
 
@@ -353,7 +353,7 @@ public class EditOfferFragment extends Fragment {
             //String candidates1 = candidates.getText().toString();
             //String coupon1 = coupon.getText().toString();
             progressBar.setVisibility(View.VISIBLE);
-            Offer offer = new Offer(description2, headline2, finishDate2, price2, oldIdOffer, status2, newProfession, null);
+            Offer offer = new Offer(description2, headline2, Integer.parseInt(finishDate2), price2, oldIdOffer, status2, newProfession, null);
 
 
             if (imageBitmap != null) {

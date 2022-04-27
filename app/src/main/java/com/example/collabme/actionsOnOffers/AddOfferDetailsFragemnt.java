@@ -197,8 +197,9 @@ public class AddOfferDetailsFragemnt extends Fragment {
             public void onClick(View v) {
                 if (checkValidDate()) {
                     int price2 = Integer.parseInt(price.getText().toString());
+
                     progressBar.setVisibility(View.VISIBLE);
-                    offer = new Offer(description.getText().toString(), headline.getText().toString(), date,
+                    offer = new Offer(description.getText().toString(), headline.getText().toString(), Integer.parseInt(date),
                             price2, uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername()
                             );
 

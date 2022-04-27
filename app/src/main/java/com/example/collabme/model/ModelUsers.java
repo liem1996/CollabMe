@@ -1,7 +1,9 @@
 package com.example.collabme.model;
 
 import android.content.Context;
+import android.graphics.ColorSpace;
 import android.util.Log;
+import android.view.Display;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -305,6 +307,17 @@ public class ModelUsers {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.code() == 200) {
                     List<User> stList = response.body();
+                    getUserConnect(new getuserconnect() {
+                        @Override
+                        public void onComplete(User profile) {
+                            for (int i = 0; i < stList.size(); i++)
+                            {
+                                if (stList.get(i).getUsername().equals(profile.getUsername())) {
+                                    stList.remove(i);
+                                }
+                        }
+                        }
+                    });
                     userlist.postValue(stList);
                     userloadingstate.postValue(UserLoadingState.loaded);
 
@@ -317,6 +330,16 @@ public class ModelUsers {
                         public void onResponse(Call<List<User>> call, Response<List<User>> response1) {
                             List<User> stList = response1.body();
                             if(response1.code()==200){
+                                ModelUsers.instance3.getUserConnect(new getuserconnect() {
+                                    @Override
+                                    public void onComplete(User profile) {
+                                        for (int i = 0; i < stList.size(); i++){
+                                            if (stList.contains(profile)) {
+                                                stList.remove(i);
+                                            }
+                                    }
+                                    }
+                                });
                                 userlist.postValue(stList);
                                 userloadingstate.postValue(UserLoadingState.loaded);
                             }else{

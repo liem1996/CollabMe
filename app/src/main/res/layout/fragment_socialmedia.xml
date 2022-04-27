@@ -88,7 +88,7 @@
         app:layout_constraintHorizontal_bias="0.782"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.788" />
+        app:layout_constraintVertical_bias="0.791" />
 
     <EditText
         android:id="@+id/fragment_socialmedia_postsuploads"
@@ -104,7 +104,7 @@
         app:layout_constraintHorizontal_bias="0.804"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.838" />
+        app:layout_constraintVertical_bias="0.851" />
 
     <Button
         android:id="@+id/fragment_socialmedia_continue"
@@ -120,10 +120,10 @@
 
     <ImageButton
         android:id="@+id/fragment_socialmedia_backBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="44dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_back_"

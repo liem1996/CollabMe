@@ -278,6 +278,7 @@ public class HomeFragment extends Fragment {
             offer_headline.setText(offer.getHeadline());
             offer_date.setText(setValidDate(offer.getFinishDate()));
             offer_status.setText(offer.getStatus());
+
             ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                 @Override
                 public void onComplete(Bitmap responseBody) {

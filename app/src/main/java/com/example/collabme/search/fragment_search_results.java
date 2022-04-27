@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +54,7 @@ public class fragment_search_results extends Fragment {
                 Modelauth.instance2.logout(new Modelauth.logout() {
                     @Override
                     public void onComplete(int code) {
-                        if(code==200) {
+                        if (code == 200) {
                             toLoginActivity();
                         }
                     }
@@ -65,8 +65,8 @@ public class fragment_search_results extends Fragment {
 
         //////////////////////////////////////////////////////////////////////////
 
-     //   swipeRefresh = view.findViewById(R.id.fragment_search_results_swiperefresh);
-      //  swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+        //   swipeRefresh = view.findViewById(R.id.fragment_search_results_swiperefresh);
+        //  swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
 
         RecyclerView list = view.findViewById(R.id.search_results_rv);
         list.setHasFixedSize(true);
@@ -78,15 +78,15 @@ public class fragment_search_results extends Fragment {
 
         adapter.setListener(new fragment_search_results.OnItemClickListener() {
             @Override
-            public void onItemClick(int position, View view,int idview) {
+            public void onItemClick(int position, View view, int idview) {
                 idoffer = offersFromSearch[position].getIdOffer();
 
-                if(view.findViewById(R.id.fragment_search_results_check).getId()==idview) {
+                if (view.findViewById(R.id.fragment_search_results_check).getId() == idview) {
 
-                    Offer offer =offersFromSearch[position];
+                    Offer offer = offersFromSearch[position];
                     List<String> arrayList = new LinkedList<>();
 
-                    arrayList= offer.setusersandadd(offersFromSearch[position].getUsers(),
+                    arrayList = offer.setusersandadd(offersFromSearch[position].getUsers(),
                             offersFromSearch[position].getUser());
 
                     offer.setUsers(ChangeToArray(arrayList));
@@ -94,26 +94,24 @@ public class fragment_search_results extends Fragment {
                     ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
                         @Override
                         public void onComplete(int code) {
-                            if(code==200){
+                            if (code == 200) {
                                 Toast.makeText(getActivity(), "Edit offer succeded", Toast.LENGTH_LONG).show();
 
-                            }else{
+                            } else {
                                 Toast.makeText(getActivity(), "Edit offer not succeded", Toast.LENGTH_LONG).show();
 
                             }
                         }
                     });
 
-                }else if(view.findViewById(R.id.fragment_search_results_edit).getId()==idview) {
-                //    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
-                } else{
-                    Offer offer =offersFromSearch[position];
+                } else if (view.findViewById(R.id.fragment_search_results_edit).getId() == idview) {
+                    //    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(idoffer));
+                } else {
+                    Offer offer = offersFromSearch[position];
                     String offerId = offer.getIdOffer();
-                 //   Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToOfferDetailsFragment(offerId));
+                    //   Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToOfferDetailsFragment(offerId));
                 }
             }
-
-
         });
 
         setHasOptionsMenu(true);
@@ -147,88 +145,94 @@ public class fragment_search_results extends Fragment {
 
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView Offer_date,Offer_status;
-        TextView headline_offer,username;
-        ImageView imge_x, image_vi,image_offer;
-        ImageView Editview;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView offer_date, offer_status;
+        TextView offer_headline, offer_username;
+        ImageView offer_X_imb, offer_V_imb, offer_image, offer_image_profile;
+        ImageButton offer_edit_imb;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            headline_offer=(TextView)itemView.findViewById(R.id.fragment_search_results_headline_et);
-            Offer_date=(TextView)itemView.findViewById(R.id.fragment_search_results_date);
-            username=(TextView)itemView.findViewById(R.id.fragment_search_results_username);
-            image_offer =(ImageView)itemView.findViewById(R.id.fragment_search_results_offerimage);
-            image_vi =(ImageView)itemView.findViewById(R.id.fragment_search_results_check);
-            imge_x =(ImageView)itemView.findViewById(R.id.fragment_search_results_delete);
-            Editview = itemView.findViewById(R.id.fragment_search_results_edit);
-
-            Editview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    int viewid = v.getId();
-                    listener.onItemClick(position,itemView,viewid);
-                }
-            });
+            offer_username = (TextView) itemView.findViewById(R.id.fragment_search_results_username);
+            offer_headline = (TextView) itemView.findViewById(R.id.fragment_search_results_headline_et);
+            offer_date = (TextView) itemView.findViewById(R.id.fragment_search_results_date_et);
+            offer_status = (TextView) itemView.findViewById(R.id.fragment_search_results_status_et);
+            offer_image = (ImageView) itemView.findViewById(R.id.fragment_search_results_offerimage);
+            offer_V_imb = (ImageView) itemView.findViewById(R.id.fragment_search_results_check);
+            offer_X_imb = (ImageView) itemView.findViewById(R.id.fragment_search_results_delete);
+            offer_edit_imb = itemView.findViewById(R.id.fragment_search_results_edit);
+            offer_image_profile = itemView.findViewById(R.id.fragment_search_results_profile);
 
             itemView.setOnClickListener(v -> {
                 int viewId = v.getId();
-
                 int pos = getAdapterPosition();
-                listener.onItemClick(pos,v,viewId);
-
+                listener.onItemClick(pos, v, viewId);
             });
 
+            offer_edit_imb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    int viewid = v.getId();
+                    listener.onItemClick(position, itemView, viewid);
+                }
+            });
 
-            imge_x.setOnClickListener(new View.OnClickListener() {
+            offer_X_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
-                    itemView.setVisibility(View.GONE);
+                    listener.onItemClick(position, itemView, viewid);
                 }
             });
-            image_vi.setOnClickListener(new View.OnClickListener() {
+
+            offer_X_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
-                    listener.onItemClick(position,itemView,viewid);
+                    listener.onItemClick(position, itemView, viewid);
                 }
             });
-
-
-
         }
-        public void bind(Offer offer){
-            headline_offer.setText(offer.getHeadline());
-            Offer_date.setText(offer.getFinishDate());
+
+        public void bind(Offer offer) {
+            offer_username.setText(offer.getUser());
+            offer_headline.setText(offer.getHeadline());
+            offer_date.setText(setValidDate(offer.getFinishDate()));
+            offer_status.setText(offer.getStatus());
+
             ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
                 @Override
                 public void onComplete(User profile) {
-                    if(profile==null){
+                    if (profile == null) {
                         ModelOffers.instance.deleteoffer(offer, new ModelOffers.deleteoffer() {
                             @Override
                             public void onComplete() {
                                 refresh();
                             }
                         });
-                    }else{
+                    } else {
                         stUsername = profile.getUsername();
-                        username.setText(stUsername);
+                        offer_username.setText(stUsername);
                     }
-
                 }
             });
         }
     }
 
-    //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
-    interface OnItemClickListener{
-        void onItemClick(int position,View view,int idview);
+    private String setValidDate(String date) {
+        String newDate = date.substring(0, 2) + "/" + date.substring(2, 4) + "/" + date.substring(4);
+        return newDate;
     }
-    class MyAdapter extends RecyclerView.Adapter<fragment_search_results.MyViewHolder>{
+
+    //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
+    interface OnItemClickListener {
+        void onItemClick(int position, View view, int idview);
+    }
+
+    class MyAdapter extends RecyclerView.Adapter<fragment_search_results.MyViewHolder> {
 
         public void setListener(fragment_search_results.OnItemClickListener listener1) {
             listener = listener1;
@@ -237,7 +241,7 @@ public class fragment_search_results extends Fragment {
         @NonNull
         @Override
         public fragment_search_results.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.offers_search_results_list_row,parent,false);
+            View view = getLayoutInflater().inflate(R.layout.offers_search_results_list_row, parent, false);
             fragment_search_results.MyViewHolder holder = new fragment_search_results.MyViewHolder(view);
             return holder;
         }
@@ -251,20 +255,19 @@ public class fragment_search_results extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(offersFromSearch == null){
+            if (offersFromSearch == null) {
                 return 0;
             }
             return offersFromSearch.length;
         }
     }
 
-    public String [] ChangeToArray(List<String> array){
-        String [] arrayList = new String [array.size()];
-        for(int i=0;i<array.size();i++){
-            arrayList[i]=array.get(i);
+    public String[] ChangeToArray(List<String> array) {
+        String[] arrayList = new String[array.size()];
+        for (int i = 0; i < array.size(); i++) {
+            arrayList[i] = array.get(i);
         }
 
         return arrayList;
     }
-
 }

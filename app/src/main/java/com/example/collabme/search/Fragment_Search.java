@@ -273,6 +273,8 @@ public class Fragment_Search extends Fragment {
         startActivity(intent);
         getActivity().finish();
     }
+
+
     public static boolean isValidFormat(String format, String value) {
         Date date = null;
         try {

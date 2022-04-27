@@ -163,6 +163,7 @@ public class Fragment_Search extends Fragment {
             @Override
             public void onClick(View v) {
                searchAcordingtoParamters();
+               if (!freeSearch1.equals("")){
                 ModelSearch.instance.getOfferFromFreeSearch(freeSearch1, new ModelSearch.getOfferFromFreeSearchListener() {
                     @Override
                     public void onComplete(List<Offer> offers) {
@@ -170,7 +171,11 @@ public class Fragment_Search extends Fragment {
                         Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
                                 offersFromSearch));
                     }
-                });
+                });}
+               else{
+                   Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
+                           null));
+               }
 
 
             }

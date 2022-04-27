@@ -157,6 +157,7 @@ public class chatUserPage extends Fragment {
     }
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
+
         public void setListener(OnItemClickListener listener1) {
             listener = listener1;
         }
@@ -165,6 +166,7 @@ public class chatUserPage extends Fragment {
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.user_caht_row,parent,false);
+
             MyViewHolder holder = new MyViewHolder(view);
             return holder;
         }

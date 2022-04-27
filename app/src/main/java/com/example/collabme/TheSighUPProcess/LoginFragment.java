@@ -84,7 +84,6 @@ public class LoginFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -111,6 +110,7 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onComplete(User profile) {
                             ModelOffers.instance.refreshPostList();
+                            ModelUsers.instance3.setUserConnected(profile);
                             toFeedActivity();
                         }
                     });

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,7 +109,6 @@ public class HomeFragment extends Fragment {
             public void onItemClick(int position, View view, int idview) {
                 offerId = viewModel.getDataHome().getValue().get(position).getIdOffer();
                 offer = viewModel.getDataHome().getValue().get(position);
-
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
                     offerCheckClicked(position);
                 } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {

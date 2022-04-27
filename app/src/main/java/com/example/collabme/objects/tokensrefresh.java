@@ -14,7 +14,7 @@ public class tokensrefresh {
     public Retrofit retrofit;
     public RetrofitInterface retrofitInterface;
     public String BASE_URL = "http://10.0.2.2:4000"; //local server
-    //public String BASE_URL = "http://193.106.55.126:4000"; //remote server
+//    public String BASE_URL = "http://193.106.55.126:4000"; //remote server
     public static final ModelUsers instance3 = new ModelUsers();
 
 

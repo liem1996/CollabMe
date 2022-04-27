@@ -264,7 +264,7 @@ public class HomeFragment extends Fragment {
         public void bind(Offer offer) {
             offer_username.setText(offer.getUser());
             offer_headline.setText(offer.getHeadline());
-            offer_date.setText(setValidDate(offer.getFinishDate()));
+            offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
             offer_status.setText(offer.getStatus());
 
             ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {

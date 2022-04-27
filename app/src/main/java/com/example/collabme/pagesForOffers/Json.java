@@ -19,6 +19,9 @@ package com.example.collabme.pagesForOffers;
 
 
 import android.content.Context;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +43,7 @@ public class Json {
      * @param fileName path that points to the target binary.
      * @return a {@link JSONArray} object with the contents of the stream.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static JSONArray readFromFile(Context context, String fileName) {
         try {
             final InputStream inputStream = context.getAssets().open(fileName);
@@ -57,6 +61,7 @@ public class Json {
      * @param resource identifier of the binary in the resource folders.
      * @return a {@link JSONArray} object with the contents of the stream.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static JSONArray readFromResources(Context context, int resource) {
         try {
             final InputStream inputStream = context.getResources().openRawResource(resource);
@@ -75,6 +80,7 @@ public class Json {
      * @return a {@link JSONArray} object with the contents of the stream.
      * @throws JSONException if the content could not be parsed.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private static JSONArray readFromInputStream(InputStream inputStream) throws JSONException {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         final String inputString = reader.lines().collect(Collectors.joining());

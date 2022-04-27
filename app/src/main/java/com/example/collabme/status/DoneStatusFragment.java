@@ -69,7 +69,7 @@ public class DoneStatusFragment extends Fragment {
             headline.setText(offer.getHeadline());
             proposer.setText(offer.getUser());
             description.setText(offer.getDescription());
-            finishDate.setText(setValidDate(offer.getFinishDate()));
+            finishDate.setText(setValidDate(String.valueOf(offer.getFinishDate())));
             status.setText("Done");
             offer.setStatus("Done");
             price.setText(String.valueOf(offer.getPrice()));

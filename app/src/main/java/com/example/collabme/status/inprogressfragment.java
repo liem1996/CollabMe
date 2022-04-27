@@ -78,7 +78,7 @@ public class inprogressfragment extends Fragment {
                             headline.setText(offer.getHeadline());
                             proposer.setText(offer.getUser());
                             description.setText(offer.getDescription());
-                            finishDate.setText(setValidDate(offer.getFinishDate()));
+                            finishDate.setText(setValidDate(String.valueOf(offer.getFinishDate())));
                             status.setText(offer.getStatus());
                             price.setText(String.valueOf(offer.getPrice()));
 

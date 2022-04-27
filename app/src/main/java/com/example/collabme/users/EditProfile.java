@@ -496,15 +496,15 @@ public class EditProfile extends Fragment {
 
 
     public boolean checkValidDate() {
-        if(age.getText().toString().isEmpty()){
+        if(age.getText().toString().isEmpty() || age.length()>2 || age.length()<1) {
             age.setError("Age is required");
             return false;
         }
-        else if(followers.getText().toString().isEmpty()){
+        else if(followers.getText().toString().isEmpty()|| !(followers.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))){
             followers.setError("Followers is required");
             return false;
         }
-        else if(postuploads.getText().toString().isEmpty()){
+        else if(postuploads.getText().toString().isEmpty() || !(postuploads.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))){
             postuploads.setError("Post/Uploads is required");
             return false;
         }

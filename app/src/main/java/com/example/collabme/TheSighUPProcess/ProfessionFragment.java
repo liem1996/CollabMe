@@ -22,6 +22,7 @@ import com.example.collabme.R;
 import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
+import com.google.android.gms.common.util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,10 +111,11 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         User user = new User(gender, password, email, username, age, followers, numOfPosts, company, influencer, professions, platforms, rejectedOffers);
 
         continueBtn = view.findViewById(R.id.fragemnt_profession_continuebtn);
+
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (professions.length > 0) {
+                if (checkValidDate()) {
                     if (bitmap != null) {
                         ModelPhotos.instance3.uploadImage(bitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
                             @Override
@@ -171,6 +173,17 @@ public class ProfessionFragment extends Fragment implements View.OnClickListener
         });
 
         return view;
+    }
+
+    public boolean checkValidDate() {
+      for(int i = 0; i<professions.length; i++) {
+          if (professions[i] != null) {
+              return true;
+          }
+      }
+      Toast.makeText(getActivity(), "You need to choose profession", Toast.LENGTH_LONG).show();
+
+      return false;
     }
 
 

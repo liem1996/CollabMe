@@ -36,7 +36,6 @@ public class chatUserPage extends Fragment {
     userViewModel viewModel;
     String username;
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -131,12 +130,24 @@ public class chatUserPage extends Fragment {
         }
         public void bind(User user){
             username.setText(user.getUsername());
-            ModelPhotos.instance3.getimages(user.getImage(), new ModelPhotos.getimagesfile() {
-                @Override
-                public void onComplete(Bitmap responseBody) {
-                    user_pic.setImageBitmap(responseBody);
+
+            if (user != null) {
+                if (user.getImage() != null) {
+                    ModelPhotos.instance3.getimages(user.getImage(), new ModelPhotos.getimagesfile() {
+                        @Override
+                        public void onComplete(Bitmap responseBody) {
+                            if (responseBody != null) {
+                                user_pic.setImageBitmap(responseBody);
+
+                            }
+                        }
+                    });
                 }
-            });
+                else {
+                    user_pic.setImageResource(R.drawable.profile);
+                }
+            }
+
         }
     }
 

@@ -274,6 +274,21 @@
             android:name="searchoffers"
             app:argType="com.example.collabme.objects.Offer[]"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_fragment_search_results_to_inprogressfragment"
+            app:destination="@id/inprogressfragment" />
+        <action
+            android:id="@+id/action_fragment_search_results_to_closeStatusfragment2"
+            app:destination="@id/closeStatusfragment" />
+        <action
+            android:id="@+id/action_fragment_search_results_to_doneStatusFragment"
+            app:destination="@id/doneStatusFragment" />
+        <action
+            android:id="@+id/action_fragment_search_results_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+        <action
+            android:id="@+id/action_fragment_search_results_to_offerDetailsFragment"
+            app:destination="@id/offerDetailsFragment" />
     </fragment><![CDATA[
 
         tools:layout="@layout/fragment_chat" />
@@ -321,5 +336,5 @@
         android:id="@+id/whatupPage"
         android:name="com.example.collabme.Chat.chatUserPage"
         android:label="fragment_whatup_page"
-        tools:layout="@layout/fragment_chatuser_page" />
+        tools:layout="@layout/fragment_chatuser_page" /><action android:id="@+id/action_global_fragment_search_results" app:destination="@id/fragment_search_results"/>
 </navigation>

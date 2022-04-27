@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.userViewModel;
-import com.google.android.material.card.MaterialCardView;
 
 //
 
@@ -87,7 +85,7 @@ public class chatUserPage extends Fragment {
 
         });
 
-
+        refresh();
 
         //adapter.notifyDataSetChanged();
 

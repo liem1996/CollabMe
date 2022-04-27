@@ -259,22 +259,6 @@ public class SignupFragment extends Fragment {
                return;
            }
         }
-
-
-
-
-//        if (password1.isEmpty() || username1.isEmpty() || email1.isEmpty()) {
-//            Toast.makeText(getContext(), "You have to fill username,password and email fields", Toast.LENGTH_SHORT).show();
-//            goodsign = false;
-//            return;
-//        }
-
-//        if ((!age1.equals("")) && !isInteger(age1)) {
-//            Toast.makeText(getContext(), "Your age field is not an integer", Toast.LENGTH_SHORT).show();
-//            goodsign = false;
-//            return;
-//        }
-
         goodsign = true;
     }
 

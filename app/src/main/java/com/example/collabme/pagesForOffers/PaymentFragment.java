@@ -194,32 +194,34 @@ public class PaymentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //add payment
-                payment = new Payment(cardNumber.getText().toString(), expDate.getText().toString(), cvv.getText().toString(),
-                        id.getText().toString(), name.getText().toString(), offerId, bankAccount.getText().toString());
+                if (checkValidDate()) {
+                    payment = new Payment(cardNumber.getText().toString(), expDate.getText().toString(), cvv.getText().toString(),
+                            id.getText().toString(), name.getText().toString(), offerId, bankAccount.getText().toString());
 
-                ModelPayment.instance2.addPayment(payment, new ModelPayment.AddingPayemnt() {
-                    @Override
-                    public void onComplete(int code) {
-                        if (code == 200) {
-                            //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
-                            Toast.makeText(getActivity(), "Payment Was Added", Toast.LENGTH_LONG).show();
-                            ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
-                                @Override
-                                public void onComplete(Offer offer) {
-                                    offer.setStatus("Close");
-                                    ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
-                                        @Override
-                                        public void onComplete(int code) {
-                                            Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
-                                        }
-                                    });
-                                }
-                            });
-                        } else {
-                            Toast.makeText(getActivity(), "not added", Toast.LENGTH_LONG).show();
+                    ModelPayment.instance2.addPayment(payment, new ModelPayment.AddingPayemnt() {
+                        @Override
+                        public void onComplete(int code) {
+                            if (code == 200) {
+                                //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
+                                Toast.makeText(getActivity(), "Payment Was Added", Toast.LENGTH_LONG).show();
+                                ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
+                                    @Override
+                                    public void onComplete(Offer offer) {
+                                        offer.setStatus("Close");
+                                        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                                            @Override
+                                            public void onComplete(int code) {
+                                                Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
+                                            }
+                                        });
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(getActivity(), "not added", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 
@@ -409,6 +411,37 @@ public class PaymentFragment extends Fragment {
             // Re-enables the Google Pay payment button.
             googlePayButton.setClickable(true);
         });
+    }
+
+    public boolean checkValidDate()
+    {
+        if (!cardNumber.getText().toString().matches("^[1-9]{1}(?:[0-9]{15})?$")){
+            cardNumber.setError("CardNumber is required and must be 16 numbers");
+            return false;
+        }
+        else if (!expDate.getText().toString().matches("(?:0[1-9]|1[0-2])/[0-9]{2}")){
+            expDate.setError("Expire date is required and must be MM/YY format");
+            return false;
+        }
+        else if (!cvv.getText().toString().matches("^[0-9]{3,4}$")){
+            cvv.setError("Cvv is required and must be 3 numbers");
+            return false;
+        }
+        else if (id.getText().toString().length()!=9){
+            id.setError("ID is required");
+            return false;
+        }
+        else if (!name.getText().toString().matches("^[a-zA-Z ]{2,30}$")) {
+            name.setError("Name is required");
+            return false;
+        }
+        else if (!(bankAccount.getText().toString().length()>5 && bankAccount.getText().toString().length()<10)
+                || !(bankAccount.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))){
+            bankAccount.setError("Bank account is required");
+            return false;
+        }
+        else
+            return true;
     }
 
     private void toLoginActivity() {

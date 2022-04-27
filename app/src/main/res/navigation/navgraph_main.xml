@@ -111,7 +111,7 @@
         android:id="@+id/addOfferDetailsFragemnt"
         android:name="com.example.collabme.actionsOnOffers.AddOfferDetailsFragemnt"
         android:label="fragment_add_offer_details_fragemnt"
-        tools:layout="@layout/fragment_add_offer_details_fragemnt" >
+        tools:layout="@layout/fragment_add_offer_details" >
         <action
             android:id="@+id/action_addOfferDetailsFragemnt_to_homeFragment"
             app:destination="@id/homeFragment" />

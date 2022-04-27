@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -69,7 +68,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_offer_details_fragemnt, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_offer_details, container, false);
 
         proposer = view.findViewById(R.id.fragemnt_newoffer_proposer);
         headline = view.findViewById(R.id.fragemnt_newoffer_headline);

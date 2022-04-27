@@ -267,7 +267,6 @@ public class fragment_search_results extends Fragment {
         for (int i = 0; i < array.size(); i++) {
             arrayList[i] = array.get(i);
         }
-
         return arrayList;
     }
 }

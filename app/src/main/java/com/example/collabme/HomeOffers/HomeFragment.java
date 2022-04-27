@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
     Offer offer;
     User userConnected;
     FloatingActionButton addOfferBtn;
-    Button checkBtn , deleteBtn;
+    Button checkBtn, deleteBtn;
     String usernameConnected = "";
 
     @Override
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.offers_swiperefresh);
 
-        if (ModelUsers.instance3.getUser() == null || userConnected == null) {
+        if (ModelUsers.instance3.getUser() == null) {
             ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                 @Override
                 public void onComplete(User profile) {
@@ -76,6 +76,7 @@ public class HomeFragment extends Fragment {
                 }
             });
         } else {
+            userConnected = ModelUsers.instance3.getUser();
             swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
         }
 
@@ -120,7 +121,7 @@ public class HomeFragment extends Fragment {
                 } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
                     Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToEditOfferFragment(offerId));
                 } else {
-                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToOfferDetailsFragment(offerId,null));
+                    Navigation.findNavController(view).navigate(HomeFragmentDirections.actionHomeFragmentToOfferDetailsFragment(offerId, null));
                 }
             }
         });
@@ -184,9 +185,9 @@ public class HomeFragment extends Fragment {
     private void offerCheckClicked(int position) {
         List<String> arrayList = new LinkedList<>();
         //  String userConnected = ModelUsers.instance3.getUser().getUsername();
-        if(userConnected!= null) {
+        if (userConnected != null) {
             usernameConnected = userConnected.getUsername();
-        }else{
+        } else {
             getUsernameConnected();
         }
 
@@ -223,7 +224,7 @@ public class HomeFragment extends Fragment {
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView offer_date, offer_status;
         TextView offer_headline, offer_username;
-        ImageView offer_X_imb, offer_V_imb, offer_image,offer_image_profile;
+        ImageView offer_X_imb, offer_V_imb, offer_image, offer_image_profile;
         ImageButton offer_edit_imb;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -280,9 +281,8 @@ public class HomeFragment extends Fragment {
             ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                 @Override
                 public void onComplete(Bitmap responseBody) {
-                    if(responseBody!=null) {
+                    if (responseBody != null) {
                         offer_image.setImageBitmap(responseBody);
-
                     }
                     ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                         @Override
@@ -315,7 +315,6 @@ public class HomeFragment extends Fragment {
                                         public void onComplete(Bitmap responseBody) {
                                             if (responseBody != null) {
                                                 offer_image_profile.setImageBitmap(responseBody);
-
                                             }
                                         }
                                     });
@@ -323,11 +322,8 @@ public class HomeFragment extends Fragment {
                             }
                         }
                     });
-
                 }
             });
-
-
         }
     }
 
@@ -360,7 +356,6 @@ public class HomeFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             Offer offer = viewModel.getDataHome().getValue().get(position);
             holder.bind(offer);
-
         }
 
         @Override
@@ -370,7 +365,6 @@ public class HomeFragment extends Fragment {
             }
             return viewModel.getDataHome().getValue().size();
         }
-
     }
 
     public String[] ChangeToArray(List<String> array) {
@@ -378,19 +372,16 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < array.size(); i++) {
             arrayList[i] = array.get(i);
         }
-
         return arrayList;
     }
 
-    public void getUsernameConnected(){
+    public void getUsernameConnected() {
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {
                 userConnected = profile;
                 usernameConnected = profile.getUsername();
-
             }
         });
-
     }
 }

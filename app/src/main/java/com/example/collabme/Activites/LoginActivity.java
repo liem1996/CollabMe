@@ -9,6 +9,14 @@ import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.collabme.R;
+/**
+ *
+ * the login - the user acsses to the app
+ * entering the user details
+ * using nav controller and navigation to move from the login to home
+ *
+ */
+
 
 public class LoginActivity extends AppCompatActivity {
     NavController navCtl;

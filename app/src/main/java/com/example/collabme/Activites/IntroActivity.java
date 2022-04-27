@@ -8,7 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.collabme.R;
 import com.example.collabme.model.Modelauth;
-
+/**
+ *
+ * the intro - the entrace of the app
+ * checking if the user is connectd acording to token or is logout already
+ * going to login acording to it or the home page
+ *  using nav controller and navigation to move from the intro to home or login page
+ */
 public class IntroActivity extends AppCompatActivity {
 
     @Override

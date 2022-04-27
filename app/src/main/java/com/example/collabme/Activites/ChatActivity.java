@@ -42,6 +42,17 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
+
+/**
+ *
+ * the connection to sockets in the server
+ * sending massege to the user
+ * recived messeges from the user
+ * before,after,on, sending messeges in the chat itself
+ * able to send text and image messeges
+ *
+ */
+
 public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
     private String name;

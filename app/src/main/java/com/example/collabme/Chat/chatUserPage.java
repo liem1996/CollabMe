@@ -27,6 +27,17 @@ import com.example.collabme.viewmodel.userViewModel;
 
 //
 
+/**
+ *
+ * the chat of users to talk to fragment - included :
+ * viewholder for the recyclerview in thechat users page
+ * viewmodel for the chat to show all the user to talk to
+ * refreshpost call from the model for refreshing the users
+ * Adapter for the recyclerview items -users  items
+ *  navigate to the chat activity which connect to socket to create a conversation
+ *
+ */
+
 
 public class chatUserPage extends Fragment {
 

@@ -29,7 +29,8 @@ import java.util.Arrays;
 
 public class DoneStatusFragment extends Fragment {
 
-    String offerId, headlineString, priceString;
+    String offerId, headlineString;
+    int priceString;
     TextView proposer, status, headline, description, finishDate, price;
     Button paymentBtn;
 
@@ -71,7 +72,7 @@ public class DoneStatusFragment extends Fragment {
             finishDate.setText(setValidDate(offer.getFinishDate()));
             status.setText("Done");
             offer.setStatus("Done");
-            price.setText(offer.getPrice());
+            price.setText(String.valueOf(offer.getPrice()));
             priceString = offer.getPrice();
 
             // In order to change the status in db to done

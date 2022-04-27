@@ -96,8 +96,9 @@ public class OpenStatusFragment extends Fragment {
                 description.setText(offer.getDescription());
                 finishDate.setText(setValidDate(offer.getFinishDate()));
                 status.setText(offer.getStatus());
-                price.setText(offer.getPrice());
-                offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price.getText().toString(), offerId, status.getText().toString(), offer.getProfession(), offer.getUser());
+                price.setText(String.valueOf(offer.getPrice()));
+                int price2= Integer.parseInt(price.getText().toString());
+                offer2 = new Offer(description.getText().toString(), headline.getText().toString(), finishDate.getText().toString(), price2, offerId, status.getText().toString(), offer.getProfession(), offer.getUser());
             }
         });
 

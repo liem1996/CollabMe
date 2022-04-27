@@ -148,7 +148,8 @@
         <argument
             android:name="headline"
             app:argType="string" />
-        <argument android:name="price" />
+        <argument android:name="price"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/closeStatusfragment"
@@ -215,7 +216,7 @@
             app:argType="string" />
         <argument
             android:name="price"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/offerDetailsFragment"
@@ -293,7 +294,7 @@
             app:argType="string" />
         <argument
             android:name="price"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/waitingOffersFragment"

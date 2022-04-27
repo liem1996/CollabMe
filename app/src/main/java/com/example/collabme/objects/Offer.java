@@ -25,7 +25,7 @@ public class Offer implements Parcelable{
     private String finishDate;
     @SerializedName("Price")
     @Expose
-    private String price;
+    private int price;
     @SerializedName("IdOffer")
     @Expose
     private String idOffer;
@@ -65,7 +65,7 @@ public class Offer implements Parcelable{
         description = in.readString();
         headline = in.readString();
         finishDate = in.readString();
-        price = in.readString();
+        price = in.readInt();
         idOffer = in.readString();
         status = in.readString();
         profession = in.createStringArray();
@@ -79,7 +79,7 @@ public class Offer implements Parcelable{
         dest.writeString(description);
         dest.writeString(headline);
         dest.writeString(finishDate);
-        dest.writeString(price);
+        dest.writeInt(price);
         dest.writeString(idOffer);
         dest.writeString(status);
         dest.writeStringArray(profession);
@@ -150,7 +150,7 @@ public class Offer implements Parcelable{
      * @return
      * The price
      */
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
     /**
@@ -227,7 +227,7 @@ public class Offer implements Parcelable{
         this.users = users;
     }
 
-    public Offer(String description, String headline, String finishDate, String price, String idOffer, String status, String[] profession, String user) {
+    public Offer(String description, String headline, String finishDate, int price, String idOffer, String status, String[] profession, String user) {
         this.description = description;
         this.idOffer = idOffer;
         this.headline = headline;
@@ -249,7 +249,7 @@ public class Offer implements Parcelable{
         String idOffer = (String) json.get("IdOffer");
         String headline = (String) json.get("Headline");
         String finishDate = (String) json.get("FinishDate");
-        String price = (String) json.get("Price");
+        int price = (int) json.get("Price");
         String status = (String) json.get("Status");
         String[] profession =(String[]) json.get("Profession");
         String user = (String) json.get("User");

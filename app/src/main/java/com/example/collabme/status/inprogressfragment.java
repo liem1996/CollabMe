@@ -80,7 +80,7 @@ public class inprogressfragment extends Fragment {
                             description.setText(offer.getDescription());
                             finishDate.setText(setValidDate(offer.getFinishDate()));
                             status.setText(offer.getStatus());
-                            price.setText(offer.getPrice());
+                            price.setText(String.valueOf(offer.getPrice()));
 
                             offerUsername = offer.getUser();
                         }
@@ -97,7 +97,8 @@ public class inprogressfragment extends Fragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToFragmentMediaContent(offerId,headline.toString(),price.toString()));
+                int price2= Integer.parseInt(price.getText().toString());
+                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToFragmentMediaContent(offerId,headline.toString(),price2));
             }
         });
 

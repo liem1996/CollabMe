@@ -32,6 +32,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class fragment_search_results extends Fragment {
     String usernameConnected = "";
     Offer [] offersFromSearch;
     View view;
+    ArrayList<Offer> Offerlist;
+
 
 
     @Nullable
@@ -57,6 +60,8 @@ public class fragment_search_results extends Fragment {
          view = inflater.inflate(R.layout.fragment_search_results, container, false);
 
         offersFromSearch = fragment_search_resultsArgs.fromBundle(getArguments()).getSearchoffers();
+        Offerlist =new ArrayList<>();
+        Offerlist = changetoArrylist(offersFromSearch);
         swipeRefresh = view.findViewById(R.id.fragment_search_results_swiperefresh);
 
         if (ModelUsers.instance3.getUser() == null) {
@@ -98,8 +103,8 @@ public class fragment_search_results extends Fragment {
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, int idview) {
-                offerId = offersFromSearch[position].getIdOffer();
-                offer = offersFromSearch[position]  ;
+                offerId = Offerlist.get(position).getIdOffer();
+                offer = Offerlist.get(position);
                 String headline = offer.getHeadline();
                 int price = offer.getPrice();
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
@@ -138,10 +143,12 @@ public class fragment_search_results extends Fragment {
                 swipeRefresh.setRefreshing(false);
             }
         });
-        //adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
 
         return view;
     }
+
+
 
     private void updateRejectedOfferArr(String offerId) {
         if (ModelUsers.instance3.getUser() == null) {
@@ -158,19 +165,21 @@ public class fragment_search_results extends Fragment {
         }
     }
 
+
+
     private void updateUserWitnRejectedList(String offerId) {
         ArrayList<String> rejectedArr = userConnected.getRejectedOffers();
         if (rejectedArr == null)
             rejectedArr = new ArrayList<>();
         rejectedArr.add(offerId);
         userConnected.setRejectedOffers(rejectedArr);
-
         ModelUsers.instance3.EditUser(userConnected, new ModelUsers.EditUserListener() {
             @Override
             public void onComplete(int code) {
                 if (code == 200) {
                     Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
-                    ModelOffers.instance.refreshPostList();
+                    Offerlist.remove(offer);
+                    refresh();
                 } else {
                     Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
                 }
@@ -186,14 +195,15 @@ public class fragment_search_results extends Fragment {
             getUsernameConnected();
         }
 
-        arrayList = offer.setusersandadd(offersFromSearch[position].getUsers(), usernameConnected);
+        arrayList = offer.setusersandadd(Offerlist.get(position).getUsers(), usernameConnected);
         offer.setUsers(ChangeToArray(arrayList));
         ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
             @Override
             public void onComplete(int code) {
                 if (code == 200) {
                     Toast.makeText(getActivity(), "offer updated!", Toast.LENGTH_LONG).show();
-                    ModelOffers.instance.refreshPostList();
+                    Offerlist.remove(offer);
+                    refresh();
 
                 } else {
                     Toast.makeText(getActivity(), "error updating offer!", Toast.LENGTH_LONG).show();
@@ -349,16 +359,16 @@ public class fragment_search_results extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Offer offer = offersFromSearch[position];
+            Offer offer = Offerlist.get(position);
             holder.bind(offer);
         }
 
         @Override
         public int getItemCount() {
-            if (offersFromSearch == null) {
+            if (Offerlist == null) {
                 return 0;
             }
-            return offersFromSearch.length;
+            return Offerlist.size();
         }
     }
 
@@ -367,6 +377,11 @@ public class fragment_search_results extends Fragment {
         for (int i = 0; i < array.size(); i++) {
             arrayList[i] = array.get(i);
         }
+        return arrayList;
+    }
+
+    public ArrayList<Offer> changetoArrylist(Offer[] array) {
+        ArrayList<Offer> arrayList = new ArrayList<>(Arrays.asList(array));
         return arrayList;
     }
 

@@ -132,7 +132,7 @@
         android:id="@+id/doneStatusFragment"
         android:name="com.example.collabme.status.DoneStatusFragment"
         android:label="fragment_done_status"
-        tools:layout="@layout/fragment_done_status" >
+        tools:layout="@layout/fragment_offer_done_status" >
         <action
             android:id="@+id/action_doneStatusFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
@@ -154,7 +154,7 @@
         android:id="@+id/closeStatusfragment"
         android:name="com.example.collabme.status.CloseStatusfragment"
         android:label="fragment_close_statusfragment"
-        tools:layout="@layout/fragment_close_statusfragment" >
+        tools:layout="@layout/fragment_offer_close_status" >
         <argument
             android:name="offerId"
             app:argType="string" />
@@ -163,7 +163,7 @@
         android:id="@+id/inprogressfragment"
         android:name="com.example.collabme.status.inprogressfragment"
         android:label="fragment_inprogressfragment"
-        tools:layout="@layout/fragment_inprogressfragment" >
+        tools:layout="@layout/fragment_offer_inprogress_status" >
         <action
             android:id="@+id/action_inprogressfragment_to_editOfferFragment"
             app:destination="@id/editOfferFragment" />
@@ -221,7 +221,7 @@
         android:id="@+id/offerDetailsFragment"
         android:name="com.example.collabme.status.OpenStatusFragment"
         android:label="fragment_offer_details"
-        tools:layout="@layout/fragment_offer_openstatus" >
+        tools:layout="@layout/fragment_offer_open_status" >
         <action
             android:id="@+id/action_offerDetailsFragment_to_editOfferFragment"
             app:destination="@id/editOfferFragment" />

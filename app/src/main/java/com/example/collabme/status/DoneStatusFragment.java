@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -45,7 +43,7 @@ public class DoneStatusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_done_status, container, false);
+        View view = inflater.inflate(R.layout.fragment_offer_done_status, container, false);
 
         offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
         headlineString = DoneStatusFragmentArgs.fromBundle(getArguments()).getHeadline();

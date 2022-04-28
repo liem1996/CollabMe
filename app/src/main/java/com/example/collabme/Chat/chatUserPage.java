@@ -19,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.collabme.Activites.ChatActivity;
+import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.userViewModel;
 
@@ -47,6 +49,7 @@ public class chatUserPage extends Fragment {
     userViewModel viewModel;
     String username;
     RecyclerView list;
+    ImageView logout;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -58,6 +61,7 @@ public class chatUserPage extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chatuser_page,container,false);
 
+        logout = view.findViewById(R.id.fragment_users_logoutBtn);
         swipeRefresh = view.findViewById(R.id.users_swiperefresh);
         swipeRefresh.setOnRefreshListener(ModelUsers.instance3::refreshUserstList);
 
@@ -93,10 +97,29 @@ public class chatUserPage extends Fragment {
             }
 
         });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Modelauth.instance2.logout(new Modelauth.logout() {
+                    @Override
+                    public void onComplete(int code) {
+                        if (code == 200) {
+                            toLoginActivity();
+                        }
+                    }
+                });
+            }
+        });
 
         //adapter.notifyDataSetChanged();
 
         return view;
+    }
+
+    private void toLoginActivity() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     private void refresh() {

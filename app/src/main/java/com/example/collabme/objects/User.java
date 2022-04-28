@@ -1,5 +1,12 @@
 package com.example.collabme.objects;
-
+/**
+ *
+ * * the user object  -object for the create and edit and delete of the user itself
+ * for creating user there is a constructor with the fields
+ * there is get and set for every field
+ * create and to json function for the server when you add or delete or use an user in the server
+ *
+ */
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

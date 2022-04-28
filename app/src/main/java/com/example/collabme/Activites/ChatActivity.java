@@ -77,7 +77,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         initiateSocketConnection();
         messageEdit = findViewById(R.id.edit_gchat_message);
         sendBtn = findViewById(R.id.button_gchat_send);
-        //pickImgBtn = findViewById(R.id.sendPictre);
+
 
         recyclerView = findViewById(R.id.recycler_gchat);
 
@@ -125,7 +125,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         } else {
 
             sendBtn.setVisibility(View.VISIBLE);
-//            pickImgBtn.setVisibility(View.INVISIBLE);
+
         }
 
     }
@@ -136,7 +136,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
         messageEdit.setText("");
         sendBtn.setVisibility(View.INVISIBLE);
-        //pickImgBtn.setVisibility(View.VISIBLE);
+        ;
 
         messageEdit.addTextChangedListener(this);
 
@@ -213,14 +213,6 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
 
         });
 
-//        pickImgBtn.setOnClickListener(v -> {
-//            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//            intent.setType("image/*");
-//
-//            startActivityForResult(Intent.createChooser(intent, "Pick image"),
-//                    IMAGE_REQUEST_ID);
-//
-//        });
 
     }
 

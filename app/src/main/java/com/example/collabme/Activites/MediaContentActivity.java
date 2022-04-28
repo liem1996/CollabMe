@@ -2,19 +2,10 @@ package com.example.collabme.Activites;
 
 import static com.example.collabme.objects.MyApplication.getContext;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -23,18 +14,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.collabme.R;
 import com.example.collabme.model.ModelMediaContent;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
-import com.example.collabme.search.fragment_search_results;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+/**
+ *
+ * the Mediacontent activity - the media content for each offer the user upload
+ * viewholder for the recycleview of the Media content you add and want to show
+ * Adapter for the recycleview items -Media content items
+ * build to choose a content from the other application such as : youtube,tiktok,Instagram and more
+ * using intent to the outside application
+ */
 public class MediaContentActivity extends AppCompatActivity {
 
     MyAdapter adapter;
@@ -109,25 +112,7 @@ public class MediaContentActivity extends AppCompatActivity {
                                         Toast.makeText(MediaContentActivity.this, "You selected too many.", Toast.LENGTH_SHORT).show();
                                         count--;
                                     }
-                                        /*
-                                        final boolean[] selected = new boolean[25];
 
-builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMultiChoiceClickListener() {
-    int count = 0;
-    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-        count += isChecked ? 1 : -1;
-        selected[which] = isChecked;
-
-        if (count > 5) {
-            Toast.makeText(getActivity(), "You selected too many.", Toast.LENGTH_SHORT).show();
-            selected[which] = false;
-            count--;
-            ((AlertDialog) dialog).getListView().setItemChecked(which, false);
-        }
-    }
-
-});
-                                         */
                                 } else {
                                     // when checkbox unselected
                                     // Remove position from langList
@@ -184,7 +169,6 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
                                             }
                                         });
                                     } else {
-                                        //     ((AlertDialog) dialogInterface).getListView().setItemChecked(i, false);
                                         return;
                                     }
                                 }

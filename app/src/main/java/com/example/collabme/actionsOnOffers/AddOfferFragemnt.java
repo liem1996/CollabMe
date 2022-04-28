@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.ColorSpace;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -42,6 +41,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
+
+/**
+ *
+ * the Add offer fragment  -fragmwnt that degin to add an offer to the application
+ * using dialog for proffesions
+ * filling several felied including image and calling tha add offer function and upload image
+ *
+ */
 
 
 public class AddOfferFragemnt extends Fragment {
@@ -320,7 +327,6 @@ public class AddOfferFragemnt extends Fragment {
                 return true;
             } else {
                 finishdate.setError("date is not a date format");
-                //Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }

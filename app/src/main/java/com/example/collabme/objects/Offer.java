@@ -1,5 +1,15 @@
 package com.example.collabme.objects;
 
+/**
+ *
+ * * the offer object  -object for the create and edit of the offer itself
+ * for creating affer there is a constructor with the fields
+ * there is get and set for every field
+ * create and to json function for the server when you add or delete or use an offer in the server
+ *
+ */
+
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -236,8 +246,6 @@ public class Offer implements Parcelable{
         this.status = status;
         this.profession = profession;
         this.user = user;
-
-
 
     }
 

@@ -1,5 +1,12 @@
 package com.example.collabme.objects;
-
+/**
+ *
+ * the tocken response object  -object for the create  of the tockens you get from the server in every connection
+ * for creating tocken response there is a constructor with the fields
+ * there is get and set for every field
+ * getting the acsses tocken and the refresh tocken and setting them
+ *
+ */
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

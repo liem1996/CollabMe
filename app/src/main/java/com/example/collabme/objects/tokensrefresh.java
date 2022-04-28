@@ -1,5 +1,12 @@
 package com.example.collabme.objects;
-
+/**
+ *
+ * the tokensrefresh object  -object for the connection to the server base on the base url
+ * when creting tocken refresh you create a retrofit and retrofit interface that is connecting to the server
+ * felling the shaerd preferand with the two tockent-acsses and refresh
+ * getting the acsses tocken and the refresh tocken and changing them
+ *
+ */
 import android.content.Context;
 
 import com.example.collabme.model.ModelUsers;

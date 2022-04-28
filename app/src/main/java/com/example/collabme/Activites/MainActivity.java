@@ -15,7 +15,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.collabme.R;
 import com.example.collabme.databinding.ActivityMainBinding;
-
+/**
+ *
+ * the MainActivity - the main for the offers,user pages
+ * the bottome menu to navigate to the diffrent page - profile,home,chat,myoffers and waiting offers
+ *
+ */
 public class MainActivity extends AppCompatActivity {
     NavController navCtl;
     ActivityMainBinding binding;

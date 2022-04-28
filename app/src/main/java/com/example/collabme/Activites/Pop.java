@@ -20,6 +20,15 @@ import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
+
+/**
+ *
+ * the pop up activity  -when a user forget its password and want to change it
+ * calling the model to edit the password before autanticate to the user
+ * entering user and email which will be autaticated to each other and
+ *  then getting password filed to chang the password
+ *
+ */
 public class Pop extends Activity {
 
     EditText username, email, newpassword;

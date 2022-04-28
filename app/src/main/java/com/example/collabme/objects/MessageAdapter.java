@@ -3,7 +3,6 @@ package com.example.collabme.objects;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.text.format.DateUtils;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collabme.R;
-import com.example.collabme.model.ModelUsers;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,7 +27,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import tech.gusavila92.websocketclient.common.Utils;
+/**
+ *
+ * the adapter for the chat activity - for the rycyle view for every item - recived and send messeges
+ * send and received messages type
+ * filling several felied including image and calling tha add offer function and upload image
+ * putting time,name and sender for each message
+ */
+
 
 public class MessageAdapter extends RecyclerView.Adapter {
 
@@ -220,7 +224,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                     ReceivedMessageHolder messageHolder = (ReceivedMessageHolder) holder;
                     messageHolder.nameTxt.setText(message.getString("name"));
                     messageHolder.messageTxt.setText(message.getString("message"));
-                    //messageHolder.timeText.setText(DateUtils.formatDateTime(message.getCreatedAt()));
+
 
 
                 } else {

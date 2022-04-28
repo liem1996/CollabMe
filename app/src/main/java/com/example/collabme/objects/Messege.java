@@ -1,4 +1,12 @@
+/**
+ *
+ * the message object  -object for the send and received messages
+ * get and set for from and set the message destination and the user is which write it
+ *
+ */
+
 package com.example.collabme.objects;
+
 
 public class Messege {
 

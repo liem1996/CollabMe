@@ -1,6 +1,17 @@
 
 package com.example.collabme.objects;
 
+/**
+ *
+ * * the retrofitinterface object  -object for the connection to the server with functions
+ * every function have an url that leads to the function in the server
+ * there is get -get offer and offers and more
+ * there is post - add offer or edit offer and more
+ * every function is interfacese with the function in the server acording to the url and
+ *  if its post or get in the server and here
+ *
+ */
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -16,13 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +39,15 @@ import com.example.collabme.objects.User;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+/**
+ *
+ * the edit offer fragment  -fragment that design to edit an offer in the application
+ * using dialog for professions
+ * setting field with navigation from the offer details and showing on the fragment screen
+ * filling several felled including image and calling tha add offer function and upload image
+ *
+ */
+
 
 public class EditOfferFragment extends Fragment {
 
@@ -131,7 +137,6 @@ public class EditOfferFragment extends Fragment {
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
             if (offer != null) {
-                //initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
                 oldIdOffer = offer.getIdOffer();
                 oldProfession = offer.getProfession();
                 oldProposer = offer.getUser();
@@ -160,18 +165,13 @@ public class EditOfferFragment extends Fragment {
                         }
                     }
                 });
-//                Log.d("TAG", " user id:   "+ (String) offer.getUser());
-//                ModelUsers.instance3.getUserById(offer.getUser(), profile -> {
-//                    if(profile!=null) {
-//                        proposer.setText(profile.getUsername());
-//                    }
-//                });
+
                 professionArr = offer.getProfession();
                 if (offer.getImage() != null) {
                     ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                         @Override
                         public void onComplete(Bitmap responseBody) {
-                            //Uri uri = getImageUri(bitmap);
+
                             if (responseBody != null) {
                                 profilepic.setImageBitmap(responseBody);
 
@@ -314,10 +314,7 @@ public class EditOfferFragment extends Fragment {
             String description2 = description.getText().toString();
             String finishDate2 = date;
             String status2 = status.getText().toString();
-            //String[] profession1 = profession.getText().toString();
             int price2 = Integer.parseInt(price.getText().toString());
-            //String candidates1 = candidates.getText().toString();
-            //String coupon1 = coupon.getText().toString();
             progressBar.setVisibility(View.VISIBLE);
             Offer offer = new Offer(description2, headline2, Integer.parseInt(finishDate2), price2, oldIdOffer, status2, newProfession, null);
 
@@ -391,31 +388,7 @@ public class EditOfferFragment extends Fragment {
         }
     }
 
-    private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
-        int tmp = 0;
-        for (int j = 0; j < size; j++) {
-            if (array[j] != null) {
-                tmp++;
-            }
-        }
-        String[] items = new String[tmp];
 
-        for (int i = 0; i < tmp; i++) {
-            items[i] = array[i];
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) parent.getChildAt(0)).setTextSize(18);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
 
     private void toLoginActivity() {
         Intent intent = new Intent(getContext(), LoginActivity.class);

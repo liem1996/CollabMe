@@ -145,7 +145,6 @@ public class EditOfferFragment extends Fragment {
                 }
                 String str = sb.toString();
 
-                profession.setText(str);
                 headline.setText(offer.getHeadline());
                 description.setText(offer.getDescription());
                 finishDate.setText(setValidDate(String.valueOf(offer.getFinishDate())));
@@ -187,7 +186,11 @@ public class EditOfferFragment extends Fragment {
             public void onClick(View v) {
                 // Initialize alert dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setTitle("Select Professions:");
+
                 builder.setCancelable(false);
+
                 int m = 0;
 
                 for (int k = 0; k < langArray.length; k++) {
@@ -235,7 +238,9 @@ public class EditOfferFragment extends Fragment {
                             chosen[j] = (langArray[langList.get(j)]); //to check again
 
                         }
+
                         // set text on textView
+
                     }
                 });
 

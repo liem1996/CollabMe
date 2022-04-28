@@ -96,7 +96,7 @@
         android:drawableRight="@android:drawable/arrow_down_float"
         android:drawablePadding="16dp"
         android:fontFamily="@font/abeezee"
-        android:hint="Profession:"
+        android:hint="Professions:"
         android:padding="4dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -25,6 +25,13 @@ import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 
 import java.util.Arrays;
+/**
+ * the done stage offer fragmenrt - inclused :
+ * the status after a candidate upload a media content
+ * comes after the proposer agree to the content of the uploads
+ * comes after status in progress
+ * lead to payment page
+ */
 
 
 public class DoneStatusFragment extends Fragment {
@@ -34,7 +41,7 @@ public class DoneStatusFragment extends Fragment {
     TextView proposer, status, headline, description, finishDate, price;
     Button paymentBtn;
 
-    ImageButton editBtn, candidatesBtn, backBtn;
+    ImageButton editBtn, backBtn;
     ImageView offerpic;
     Spinner profession;
     ImageView logout;
@@ -130,29 +137,7 @@ public class DoneStatusFragment extends Fragment {
     private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
         spinnerAdapter = new SpinnerAdapter(getContext(), Arrays.asList(array));
         spinner.setAdapter(spinnerAdapter);
-//        int tmp = 0;
-//        for (int j = 0; j < size; j++) {
-//            if (array[j] != null) {
-//                tmp++;
-//            }
-//        }
-//        String[] items = new String[tmp];
-//
-//        for (int i = 0; i < tmp; i++) {
-//            items[i] = array[i];
-//        }
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                ((TextView) parent.getChildAt(0)).setTextSize(18);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
+
     }
 
     private void toLoginActivity() {

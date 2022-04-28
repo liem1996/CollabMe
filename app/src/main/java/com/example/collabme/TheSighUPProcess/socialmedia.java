@@ -18,7 +18,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.collabme.R;
-
+/**
+ * the social media fragment - inclused :
+ * the fields to the registration to send in navigation to the next page in the registration form
+ * choosing which platform are you part of as an influenced or company
+ * the second page in the new user process
+ */
 
 public class socialmedia extends Fragment {
 

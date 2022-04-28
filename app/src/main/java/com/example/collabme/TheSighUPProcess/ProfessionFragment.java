@@ -22,11 +22,15 @@ import com.example.collabme.R;
 import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
-import com.google.android.gms.common.util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/**
+ * the professions fragment - inclused :
+ * the fields to the registration to send in navigation to the next page in the registration form
+ * choosing which proffesions THE influncer or the company is practitioner in
+ * the last page in the new user process
+ */
 
 public class ProfessionFragment extends Fragment implements View.OnClickListener {
 

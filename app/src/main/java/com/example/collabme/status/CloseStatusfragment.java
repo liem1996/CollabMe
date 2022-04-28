@@ -31,11 +31,10 @@ import com.example.collabme.objects.User;
 import java.util.Arrays;
 /**
  * the close stage offer fragmenrt - inclused :
- * viewholder for the recycleview for the offers you search for
- * viewmodel for the offers the you filter and search for
- * refresh with the list you get from search with the function refresh of the adapter
- * Adapter for the recycleview items -offers you filter
- * swipe refresh for the refreshing of the offers you get form the search page
+ * the status after a payment
+ * comes after status done
+ * the end of the offer
+ * delete opertion is excisting for an offer
  */
 
 public class CloseStatusfragment extends Fragment {
@@ -171,29 +170,7 @@ public class CloseStatusfragment extends Fragment {
     private void initSpinnerFooter(int size, String[] array, Spinner spinner) {
         spinnerAdapter = new SpinnerAdapter(getContext(), Arrays.asList(array));
         spinner.setAdapter(spinnerAdapter);
-//        int tmp = 0;
-//        for (int j = 0; j < size; j++) {
-//            if (array[j] != null) {
-//                tmp++;
-//            }
-//        }
-//        String[] items = new String[tmp];
-//
-//        for (int i = 0; i < tmp; i++) {
-//            items[i] = array[i];
-//        }
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                ((TextView) parent.getChildAt(0)).setTextSize(18);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
+
     }
 
     private void toLoginActivity() {

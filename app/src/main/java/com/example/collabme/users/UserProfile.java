@@ -44,7 +44,6 @@ public class UserProfile extends Fragment {
     ProgressBar progressBar;
     SpinnerAdapter spinnerAdapter;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,7 +64,6 @@ public class UserProfile extends Fragment {
         editBtn = view.findViewById(R.id.fragemnt_userprofile_editBtn);
         logout = view.findViewById(R.id.fragment_userprofile_logoutBtn);
         profilepicture = view.findViewById(R.id.fragment_userprofile_pic);
-
 
 
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
@@ -136,19 +134,16 @@ public class UserProfile extends Fragment {
         if (profile.getInfluencer() && profile.getCompany()) {
             usernameType.setText("Influencer & Company profile");
             return;
-        }
-       else if (profile.getInfluencer()) {
+        } else if (profile.getInfluencer()) {
             usernameType.setText("Influencer profile");
             return;
-        }
-       else if (profile.getCompany()) {
+        } else if (profile.getCompany()) {
             usernameType.setText("Company profile");
             return;
         }
     }
 
     private void toLoginActivity() {
-
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
         getActivity().finish();
@@ -156,8 +151,8 @@ public class UserProfile extends Fragment {
 
     private void initSpinnerFooter(int size, ArrayList<String> array, Spinner spinner) {
         tmpArr = new String[size];
-        for(int i = 0; i<size; i++){
-            if(array.get(i)!=null)
+        for (int i = 0; i < size; i++) {
+            if (array.get(i) != null)
                 tmpArr[i] = array.get(i);
         }
         spinnerAdapter = new SpinnerAdapter(getContext(), Arrays.asList(tmpArr));
@@ -192,7 +187,6 @@ public class UserProfile extends Fragment {
         for (int i = 0; i < array.length; i++) {
             arrayList.add(array[i]);
         }
-
         return arrayList;
     }
 

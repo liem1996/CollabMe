@@ -66,9 +66,9 @@ public class OpenStatusFragment extends Fragment {
                 ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                     @Override
                     public void onComplete(Bitmap responseBody) {
-                            if (responseBody != null) {
-                                offerpic.setImageBitmap(responseBody);
-                            }
+                        if (responseBody != null) {
+                            offerpic.setImageBitmap(responseBody);
+                        }
                         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                             @Override
                             public void onComplete(User profile) {
@@ -80,13 +80,8 @@ public class OpenStatusFragment extends Fragment {
                         });
                     }
                 });
-
-
             }
         });
-
-        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
-        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         ModelOffers.instance.getOfferById(offerId, offer -> {
             if (offer != null) {
@@ -100,13 +95,9 @@ public class OpenStatusFragment extends Fragment {
             }
         });
 
-        candidatesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToCandidatesFragment(offerId));
-
-            }
-        });
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionGlobalEditOfferFragment(offerId)));
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        candidatesBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(OpenStatusFragmentDirections.actionOfferDetailsFragmentToCandidatesFragment(offerId)));
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +112,6 @@ public class OpenStatusFragment extends Fragment {
                 });
             }
         });
-
-
 
         return view;
     }
@@ -165,6 +154,4 @@ public class OpenStatusFragment extends Fragment {
         startActivity(intent);
         getActivity().finish();
     }
-
-
 }

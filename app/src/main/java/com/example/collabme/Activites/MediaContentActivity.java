@@ -39,14 +39,10 @@ public class MediaContentActivity extends AppCompatActivity {
 
     MyAdapter adapter;
     Intent intent;
-    String action;
-    String type;
-    String[] MediaContent;
-    String[] offersToSelect;
+    String action, type;
+    String[] MediaContent, offersToSelect, chosenOffers, showingOffers;
     boolean[] checkedItems;
     ArrayList<Integer> langList = new ArrayList<>();
-    String[] chosenOffers;
-    String[] showingOffers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +71,11 @@ public class MediaContentActivity extends AppCompatActivity {
                 ModelOffers.instance.getoffersfromuserinCandidates(profile.getUsername(), new ModelOffers.getoffersfromuserinCandidates() {
                     @Override
                     public void onComplete(List<Offer> offer) {
-                      //  offersToSelect1 = offer.toArray(new String[0]);
+                        //  offersToSelect1 = offer.toArray(new String[0]);
                         offersToSelect = new String[offer.size()];
                         showingOffers = new String[offer.size()];
 
-
-                        for (int i=0;i<offersToSelect.length; i++)
-                        {
+                        for (int i = 0; i < offersToSelect.length; i++) {
                             offersToSelect[i] = offer.get(i).getIdOffer();
                             showingOffers[i] = offer.get(i).getHeadline();
                         }
@@ -99,7 +93,7 @@ public class MediaContentActivity extends AppCompatActivity {
 
                         builder.setMultiChoiceItems(showingOffers, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
 
-                            int count =0; // counter to limit number of selection (only one can be chosen)
+                            int count = 0; // counter to limit number of selection (only one can be chosen)
 
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
@@ -111,7 +105,7 @@ public class MediaContentActivity extends AppCompatActivity {
                                     langList.add(i);
                                     // Sort array list
                                     Collections.sort(langList);
-                                    if (count>1){
+                                    if (count > 1) {
                                         Toast.makeText(MediaContentActivity.this, "You selected too many.", Toast.LENGTH_SHORT).show();
                                         count--;
                                     }
@@ -142,7 +136,7 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
                             }
                         });
 
-                        if (showingOffers.length!=0) {
+                        if (showingOffers.length != 0) {
                             builder.setPositiveButton("Choose", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -158,7 +152,7 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
                                         chosenOffers[j] = (offersToSelect[langList.get(j)]); //to check again
 
                                     }
-                                    if (chosenOffers.length==1) {
+                                    if (chosenOffers.length == 1) {
                                         ModelOffers.instance.getOfferById(chosenOffers[0], new ModelOffers.GetOfferListener() {
                                             @Override
                                             public void onComplete(Offer offer) {
@@ -189,9 +183,8 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
                                                 }
                                             }
                                         });
-                                    }
-                                    else{
-                                   //     ((AlertDialog) dialogInterface).getListView().setItemChecked(i, false);
+                                    } else {
+                                        //     ((AlertDialog) dialogInterface).getListView().setItemChecked(i, false);
                                         return;
                                     }
                                 }
@@ -201,10 +194,7 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
                         builder.show();
                     }
                 });
-
             }
-
-
         });
         //...
     }
@@ -212,7 +202,7 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
     public void increaseSize() {
         String[] temp = new String[MediaContent.length + 1];
 
-        for (int i = 0; i < MediaContent.length; i++){
+        for (int i = 0; i < MediaContent.length; i++) {
             temp[i] = MediaContent[i];
         }
         MediaContent = temp;
@@ -224,50 +214,42 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
 
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView mediaContentURL;
         ImageView URLtypeImage;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mediaContentURL=(TextView)itemView.findViewById(R.id.mediacontent_listrow_url);
-            URLtypeImage = (ImageView)itemView.findViewById(R.id.mediacontent_listrow_socialmedia);
-
-
+            mediaContentURL = (TextView) itemView.findViewById(R.id.mediacontent_listrow_url);
+            URLtypeImage = (ImageView) itemView.findViewById(R.id.mediacontent_listrow_socialmedia);
         }
 
-
-        public void bind(String mediaURL){
+        public void bind(String mediaURL) {
             // adding the image of the shared application of the link
-            if (mediaURL.contains("youtu")){
+            if (mediaURL.contains("youtu")) {
                 URLtypeImage.setImageResource(R.drawable.youtub);
-            }
-            else if (mediaURL.contains("facebook")){
+            } else if (mediaURL.contains("facebook")) {
                 URLtypeImage.setImageResource(R.drawable.facebook);
-            }
-            else if (mediaURL.contains("twitter")){
+            } else if (mediaURL.contains("twitter")) {
                 URLtypeImage.setImageResource(R.drawable.twitter);
-            }
-            else if (mediaURL.contains("tiktok")){
+            } else if (mediaURL.contains("tiktok")) {
                 URLtypeImage.setImageResource(R.drawable.tiktok);
-            }
-            else if (mediaURL.contains("instagram")){
+            } else if (mediaURL.contains("instagram")) {
                 URLtypeImage.setImageResource(R.drawable.instegram);
             }
             mediaContentURL.setText(mediaURL);
-
         }
     }
 
     //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
 
-    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+    class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.fragment_mediacontent_list_row,parent,false);
+            View view = getLayoutInflater().inflate(R.layout.fragment_mediacontent_list_row, parent, false);
             MyViewHolder holder = new MyViewHolder(view);
             return holder;
         }
@@ -281,11 +263,10 @@ builder.setMultiChoiceItems(R.array.values, selected, new DialogInterface.OnMult
 
         @Override
         public int getItemCount() {
-            if(MediaContent == null){
+            if (MediaContent == null) {
                 return 0;
             }
             return MediaContent.length;
         }
     }
-
 }

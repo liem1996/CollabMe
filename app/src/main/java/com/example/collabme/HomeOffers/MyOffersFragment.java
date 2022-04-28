@@ -34,8 +34,8 @@ import com.example.collabme.viewmodel.OffersViewmodel;
 
 import java.util.LinkedList;
 import java.util.List;
+
 /**
- *
  * the MyOffers fragmenrt - inclused :
  * viewholder for the recycleview in the Myoffers
  * viewmodel for the offers that the user which is connected open
@@ -70,7 +70,6 @@ public class MyOffersFragment extends Fragment {
         RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
         radioButton = view.findViewById(R.id.radioButton6);
         radioButton.setChecked(true);
-
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -150,8 +149,6 @@ public class MyOffersFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -208,6 +205,7 @@ public class MyOffersFragment extends Fragment {
                     listener.onItemClickoffer(position, itemView, viewid);
                 }
             });
+
             offer_V_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -228,7 +226,6 @@ public class MyOffersFragment extends Fragment {
                 public void onComplete(Bitmap responseBody) {
                     if (responseBody != null) {
                         offer_image.setImageBitmap(responseBody);
-
                     }
                     ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                         @Override
@@ -244,7 +241,6 @@ public class MyOffersFragment extends Fragment {
                     });
                 }
             });
-
         }
     }
 

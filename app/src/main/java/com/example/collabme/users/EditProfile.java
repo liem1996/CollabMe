@@ -40,27 +40,21 @@ import java.util.Collections;
 
 public class EditProfile extends Fragment {
     TextView platform, professions, usernameType, username;
-    EditText  age, followers, postuploads, email, gender;
-    ImageView saveBtn, deleteBtn;
-    String[] platformArr, newProfession;
-    String[] professionArr;
-    String password;
+    EditText age, followers, postuploads, email, gender;
+    ImageView saveBtn, deleteBtn, logout, profilepicture, galleryBtn;
+    ImageButton cameraBtn, cancelBtn;
+    String[] platformArr, newProfession, professionArr, chosen, chosen2;
     Boolean influencer1, company1;
-    String email1, gender1, username1, age1, Followers, posts;
+    String password, email1, gender1, username1, age1, Followers, posts;
     boolean[] selectedProfessions = new boolean[16];
     boolean[] selectedPlatforms = new boolean[5];
     ArrayList<Integer> langList = new ArrayList<>();
     ArrayList<Integer> langList2 = new ArrayList<>();
-    ImageView logout, profilepicture, galleryBtn;
-    ImageButton cameraBtn, cancelBtn;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap bitmap;
     ArrayList<String> rejectedOffers;
     ProgressBar progressBar;
-
-
-    String[] chosen, chosen2;
 
     User user;
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
@@ -143,7 +137,6 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-
                 openGallery();
             }
         });
@@ -152,7 +145,6 @@ public class EditProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-
                 openCam();
             }
         });
@@ -195,12 +187,8 @@ public class EditProfile extends Fragment {
 
             }
         });
+
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
-        //TODO:: add functionality for camera and gallery image button
-        //edit
-        //cancel
-
-
 
         professions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -379,20 +367,18 @@ public class EditProfile extends Fragment {
                 // show dialog
                 builder2.show();
             }
-
         });
-
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkValidDate()) {
+                if (checkValidDate()) {
 
-                    if(chosen != null ){
+                    if (chosen != null) {
                         professionArr = chosen;
                     }
 
-                    if(chosen2!=null){
+                    if (chosen2 != null) {
                         platformArr = chosen2;
                     }
 
@@ -412,11 +398,9 @@ public class EditProfile extends Fragment {
                                             Toast.makeText(getActivity(), "user changes saved", Toast.LENGTH_LONG).show();
                                             Navigation.findNavController(v).navigateUp();
                                             progressBar.setVisibility(View.GONE);
-
                                         } else {
                                             Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
                                         }
-
                                     }
                                 });
                             }
@@ -432,15 +416,12 @@ public class EditProfile extends Fragment {
                                 } else {
                                     Toast.makeText(getActivity(), "user changes not saved", Toast.LENGTH_LONG).show();
                                 }
-
                             }
                         });
                     }
                 }
             }
-
         });
-
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -473,33 +454,25 @@ public class EditProfile extends Fragment {
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
-
-
     public boolean checkValidDate() {
-        if(age.getText().toString().isEmpty() || age.length()>2 || age.length()<1) {
+        if (age.getText().toString().isEmpty() || age.length() > 2 || age.length() < 1) {
             age.setError("Age is required");
             return false;
-        }
-        else if(followers.getText().toString().isEmpty()|| !(followers.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))){
+        } else if (followers.getText().toString().isEmpty() || !(followers.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))) {
             followers.setError("Followers is required");
             return false;
-        }
-        else if(postuploads.getText().toString().isEmpty() || !(postuploads.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))){
+        } else if (postuploads.getText().toString().isEmpty() || !(postuploads.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))) {
             postuploads.setError("Post/Uploads is required");
             return false;
-        }
-        else if(platformArr.length == 0){
+        } else if (platformArr.length == 0) {
             Toast.makeText(getActivity(), "Platform is required", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else if(professionArr.length == 0){
+        } else if (professionArr.length == 0) {
             Toast.makeText(getActivity(), "Professions is required", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else
+        } else
             return true;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -536,12 +509,10 @@ public class EditProfile extends Fragment {
         if (influencer && company) {
             usernameType.setText("Influencer & Company profile");
             return;
-        }
-        else if (influencer) {
+        } else if (influencer) {
             usernameType.setText("Influencer profile");
             return;
-        }
-        else if (company) {
+        } else if (company) {
             usernameType.setText("Company profile");
             return;
         }
@@ -554,6 +525,3 @@ public class EditProfile extends Fragment {
         }
     }
 }
-
-
-

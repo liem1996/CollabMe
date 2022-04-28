@@ -21,17 +21,16 @@
 
     <ImageButton
         android:id="@+id/fragment_socialmedia_backBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="56dp"
         android:background="#00FFFFFF"
+        android:fontFamily="@font/abeezee"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_back_"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/fragment_socialmedia_instagram"

@@ -2,7 +2,7 @@ package com.example.collabme.actionsOnOffers;
 
 import static android.app.Activity.RESULT_OK;
 import static android.graphics.Color.rgb;
-import static com.example.collabme.actionsOnOffers.AddOfferDetailsFragemnt.isValidFormat;
+import static com.example.collabme.actionsOnOffers.AddOfferFragemnt.isValidFormat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -47,17 +47,14 @@ public class EditOfferFragment extends Fragment {
 
     EditText headline, description, finishDate, price;
     TextView proposer, profession, status;
-
-    ImageView saveBtn, deleteBtn;
+    ImageView saveBtn, deleteBtn, logout, camera,gallery,profilepic;
     ImageButton candidatesBtn, cancelBtn;
-    String[] professionArr, oldProfession, chosen, newProfession, dateSplitArr;
     String oldIdOffer, oldProposer, offerId, date;
     ArrayList<Integer> langList = new ArrayList<>();
+    String[] professionArr, oldProfession, chosen, newProfession, dateSplitArr;
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
     boolean[] selectedProfessions = new boolean[16];
-
-    ImageView logout,camra,gallery,profilepic;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap imageBitmap;
@@ -83,14 +80,13 @@ public class EditOfferFragment extends Fragment {
         newProfession = new String[16];
         offerId = EditOfferFragmentArgs.fromBundle(getArguments()).getOfferId();
         logout = view.findViewById(R.id.fragment_editOffer_logoutBtn);
-        camra = view.findViewById(R.id.fragemnt_editoffer_camra2);
+        camera = view.findViewById(R.id.fragemnt_editoffer_camra2);
         gallery = view.findViewById(R.id.fragemnt_editofferr_gallery2);
         profilepic = view.findViewById(R.id.offer_edit_pic2);
         deleteBtn = view.findViewById(R.id.fragment_editOffer_deleteBtn);
         progressBar = view.findViewById(R.id.fragment_editOffer_progressbar);
         progressBar.setVisibility(View.GONE);
         progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
-
 
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         candidatesBtn.setOnClickListener(v -> Navigation.findNavController(v).
@@ -116,7 +112,6 @@ public class EditOfferFragment extends Fragment {
                                           public void onComplete() {
                                               Toast.makeText(getActivity(), "offer deleted", Toast.LENGTH_LONG).show();
                                               Navigation.findNavController(v).navigate(EditOfferFragmentDirections.actionGlobalHomeFragment2(offerId));
-
                                           }
                                       });
                                   }
@@ -131,9 +126,9 @@ public class EditOfferFragment extends Fragment {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
             }
         });
+
         ModelOffers.instance.getOfferById(offerId, offer -> {
             if (offer != null) {
                 //initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
@@ -270,7 +265,7 @@ public class EditOfferFragment extends Fragment {
             }
         });
 
-        camra.setOnClickListener(new View.OnClickListener() {
+        camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
@@ -286,13 +281,8 @@ public class EditOfferFragment extends Fragment {
             }
         });
 
-        candidatesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId));
-            }
-        });
-
+        candidatesBtn.setOnClickListener(v -> Navigation.findNavController(v).
+                navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId)));
         saveBtn.setOnClickListener(v -> saveOfferDetails(v));
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -318,17 +308,6 @@ public class EditOfferFragment extends Fragment {
     }
 
     private void saveOfferDetails(View v) {
-//        newProfession = chosen;
-//        String headline1 = headline.getText().toString();
-//        String description1 = description.getText().toString();
-//        String finishDate1 = finishDate.getText().toString();
-//        String status1 = status.getText().toString();
-//        //String[] profession1 = profession.getText().toString();
-//        String price1 = price.getText().toString();
-        //String candidates1 = candidates.getText().toString();
-        //String coupon1 = coupon.getText().toString();
-
-       // Offer offer1 = new Offer(description1, headline1, finishDate1, price1, oldIdOffer, status1, newProfession, null);
         if (checkValidDate()) {
             newProfession = chosen;
             String headline2 = headline.getText().toString();
@@ -481,5 +460,4 @@ public class EditOfferFragment extends Fragment {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
     }
-
 }

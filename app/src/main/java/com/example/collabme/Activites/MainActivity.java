@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         binding.bottomNavigation.setOnItemSelectedListener(item->{
-
             switch(item.getItemId()){
                 case R.id.nav_home:
                     navCtl.navigate(R.id.homeFragment);
@@ -68,62 +67,4 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu,menu);
         return true;
     }
-
-
-
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//
-//        if(!super.onOptionsItemSelected(item)){
-//
-//            switch (item.getItemId()){
-//                case R.id.profiel_fragment:
-//                    navCtl.navigate(R.id.action_global_userProfile2);
-//
-//                    break;
-//
-//                case R.id.home_fragment:
-//
-//                    // Model.instance.getUserName(email);
-//                    navCtl.navigate(R.id.action_global_homeFragment2);
-//                    break;
-//
-//                case R.id.menu_logout:
-//
-//                    // Model.instance.getUserName(email);
-//                    Modelauth.instance2.logout(new Modelauth.logout() {
-//                        @Override
-//                        public void onComplete(int code) {
-//                            if(code==200) {
-//                                toLoginActivity();
-//                            }
-//                            else{
-//                                Toast.makeText(MainActivity.this, "boo boo", Toast.LENGTH_LONG).show();
-//                            }
-//                        }
-//                    });
-//                    break;
-//
-//                case R.id.addoffer:
-//                    // Model.instance.getUserName(email);
-//                    navCtl.navigate(R.id.action_global_addOfferDetailsFragemnt);
-//                    break;
-//                case R.id.item_editOffer:
-//                    // Model.instance.getUserName(email);
-//                    navCtl.navigate(R.id.action_global_editOfferFragment);
-//                    break;
-//
-//                case R.id.myoffers:
-//                    // Model.instance.getUserName(email);
-//                    navCtl.navigate(R.id.action_global_myOffersFragment);
-//                    break;
-//
-//
-//            }
-//
-//
-//        }
-//
-//        return false;
-//    }
 }

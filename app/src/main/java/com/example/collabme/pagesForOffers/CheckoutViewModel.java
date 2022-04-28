@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 public class CheckoutViewModel extends AndroidViewModel {
 
-
     // A client for interacting with the Google Pay API.
     private final PaymentsClient paymentsClient;
 

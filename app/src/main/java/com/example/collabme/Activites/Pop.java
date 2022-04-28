@@ -61,10 +61,9 @@ public class Pop extends Activity {
         grayback.setVisibility(View.GONE);
 
         checks();
-
     }
 
-    public void checks(){
+    public void checks() {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,9 +92,8 @@ public class Pop extends Activity {
                             change.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    if (!newpassword.getText().toString().equals(""))
-                                    {
-                                        if (profile!=null) {
+                                    if (!newpassword.getText().toString().equals("")) {
+                                        if (profile != null) {
                                             profile.setPassword(newpassword.getText().toString());
                                             ModelUsers.instance3.editUserWithoutAuth(profile, new ModelUsers.editUserWithoutAuthListener() {
                                                 @Override
@@ -109,21 +107,16 @@ public class Pop extends Activity {
                                                     }
                                                 }
                                             });
+                                        } else {
+                                            Toast.makeText(Pop.this, "Profile doesn't exist", Toast.LENGTH_LONG).show();
+                                            return;
                                         }
-                                        else {
-                                                Toast.makeText(Pop.this, "Profile doesn't exist", Toast.LENGTH_LONG).show();
-                                                return;
-                                            }
-                                    }
-                                    else{
+                                    } else {
                                         Toast.makeText(Pop.this, "Nothing was entered", Toast.LENGTH_LONG).show();
                                         return;
                                     }
                                 }
-
                             });
-
-
                         }
                     }
                 });

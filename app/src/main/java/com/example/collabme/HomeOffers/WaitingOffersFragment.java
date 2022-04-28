@@ -41,6 +41,7 @@ import java.util.List;
  * Adapter for the recyclerview items -offers items
  * radio button for changing between mt offers and waiting offers
  */
+
 public class WaitingOffersFragment extends Fragment {
 
     WaitingOffersAdapter adapter1;
@@ -71,8 +72,6 @@ public class WaitingOffersFragment extends Fragment {
         {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // checkedId is the RadioButton selected
-
-
                 switch(checkedId) {
                     case R.id.radioButton7:
                         Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionGlobalWaitingOffersFragment());
@@ -200,6 +199,7 @@ public class WaitingOffersFragment extends Fragment {
                     listener.onItemClickoffer(position, itemView, viewid);
                 }
             });
+
             offer_V_imb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -272,13 +272,5 @@ public class WaitingOffersFragment extends Fragment {
             }
             return viewModel.getDataWaitingOffer().getValue().size();
         }
-    }
-
-    public String[] ChangeToArray(List<String> array) {
-        String[] arrayList = new String[array.size()];
-        for (int i = 0; i < array.size(); i++) {
-            arrayList[i] = array.get(i);
-        }
-        return arrayList;
     }
 }

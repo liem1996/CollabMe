@@ -36,17 +36,17 @@ import java.util.List;
 public class Fragment_Search extends Fragment {
 
     Offer[] offersFromSearch;
-    EditText proposer,headline,todates, toprice, fromdates, fromprice, freeSearch, description;
+    EditText proposer, headline, todates, toprice, fromdates, fromprice, freeSearch, description;
     TextView professions;
     Button search;
     ImageView freesearchbutton, logout;
-    String proposer1, headline1, todates1,fromdates1,toprice1,freeSearch1,fromprice1, description1;
+    String proposer1, headline1, todates1, fromdates1, toprice1, freeSearch1, fromprice1, description1;
     boolean[] selectedProfessions = new boolean[16];
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
     String[] professionArr, chosen;
-    boolean goodsign=true;
+    boolean goodsign = true;
     ProgressBar progressBar;
 
     @Override
@@ -65,7 +65,7 @@ public class Fragment_Search extends Fragment {
         professions = view.findViewById(R.id.fragment_Search_profession);
         freeSearch = view.findViewById(R.id.fragment_Search_freesearch_et);
         freesearchbutton = view.findViewById(R.id.fragment_search_freesearc_btn);
-        logout =view.findViewById(R.id.fragment_search_logoutBtn);
+        logout = view.findViewById(R.id.fragment_search_logoutBtn);
 
         description = view.findViewById(R.id.fragment_Search_description);
         progressBar = view.findViewById(R.id.search_progressbar);
@@ -162,22 +162,20 @@ public class Fragment_Search extends Fragment {
         freesearchbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               searchAcordingtoParamters();
-               if (!freeSearch1.equals("")){
-                ModelSearch.instance.getOfferFromFreeSearch(freeSearch1, new ModelSearch.getOfferFromFreeSearchListener() {
-                    @Override
-                    public void onComplete(List<Offer> offers) {
-                        offersFromSearch = offers.toArray(new Offer[0]);
-                        Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
-                                offersFromSearch));
-                    }
-                });}
-               else{
-                   Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
-                           null));
-               }
-
-
+                searchAcordingtoParamters();
+                if (!freeSearch1.equals("")) {
+                    ModelSearch.instance.getOfferFromFreeSearch(freeSearch1, new ModelSearch.getOfferFromFreeSearchListener() {
+                        @Override
+                        public void onComplete(List<Offer> offers) {
+                            offersFromSearch = offers.toArray(new Offer[0]);
+                            Navigation.findNavController(view).navigate(
+                                    Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(offersFromSearch));
+                        }
+                    });
+                } else {
+                    Navigation.findNavController(view).navigate(
+                            Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(null));
+                }
             }
         });
 
@@ -192,25 +190,23 @@ public class Fragment_Search extends Fragment {
                     String to, from;
                     String[] todates1strings = todates1.split("/" /*<- Regex */);
                     if (!todates1strings[0].equals("null")) {
-                         to = todates1strings[0] + todates1strings[1] + todates1strings[2];
-                    }
-                    else {
-                        to="null";
+                        to = todates1strings[0] + todates1strings[1] + todates1strings[2];
+                    } else {
+                        to = "null";
                     }
                     String[] fromdates1strings = fromdates1.split("/" /*<- Regex */);
                     if (!fromdates1strings[0].equals("null")) {
                         from = fromdates1strings[0] + fromdates1strings[1] + fromdates1strings[2];
-                    }
-                    else {
-                        from="null";
+                    } else {
+                        from = "null";
                     }
 
                     ModelSearch.instance.getOfferFromSpecificSearch(description1, headline1, from, to, fromprice1, toprice1, proposer1,
                             chosen, offers -> {
                                 offersFromSearch = offers.toArray(new Offer[0]);
 
-                                    Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
-                                            offersFromSearch));
+                                Navigation.findNavController(view).navigate(Fragment_SearchDirections.actionFragmentSearchToFragmentSearchResults(
+                                        offersFromSearch));
 
                             });
                 }
@@ -224,7 +220,7 @@ public class Fragment_Search extends Fragment {
                 Modelauth.instance2.logout(new Modelauth.logout() {
                     @Override
                     public void onComplete(int code) {
-                        if(code==200) {
+                        if (code == 200) {
                             toLoginActivity();
                         }
                     }
@@ -236,35 +232,35 @@ public class Fragment_Search extends Fragment {
     }
 
     public void searchAcordingtoParamters() {
-         proposer1 = proposer.getText().toString();
-         if (proposer1.equals("")){
-             proposer1="null";
-         }
-         headline1 = headline.getText().toString();
-        if (headline1.equals("")){
-            headline1="null";
+        proposer1 = proposer.getText().toString();
+        if (proposer1.equals("")) {
+            proposer1 = "null";
         }
-         todates1 = todates.getText().toString();
-        if (todates1.equals("")){
-            todates1="null";
+        headline1 = headline.getText().toString();
+        if (headline1.equals("")) {
+            headline1 = "null";
         }
-         fromdates1 = fromdates.getText().toString();
-        if (fromdates1.equals("")){
-            fromdates1="null";
+        todates1 = todates.getText().toString();
+        if (todates1.equals("")) {
+            todates1 = "null";
         }
-         toprice1 = toprice.getText().toString();
-        if (toprice1.equals("")){
-            toprice1="null";
+        fromdates1 = fromdates.getText().toString();
+        if (fromdates1.equals("")) {
+            fromdates1 = "null";
         }
-         fromprice1 = fromprice.getText().toString();
-        if (fromprice1.equals("")){
-            fromprice1="null";
+        toprice1 = toprice.getText().toString();
+        if (toprice1.equals("")) {
+            toprice1 = "null";
+        }
+        fromprice1 = fromprice.getText().toString();
+        if (fromprice1.equals("")) {
+            fromprice1 = "null";
         }
         description1 = description.getText().toString();
-        if (description1.equals("")){
-            description1="null";
+        if (description1.equals("")) {
+            description1 = "null";
         }
-         freeSearch1 = freeSearch.getText().toString();
+        freeSearch1 = freeSearch.getText().toString();
     }
 
     private void toLoginActivity() {
@@ -292,73 +288,71 @@ public class Fragment_Search extends Fragment {
     public static boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             return false;
         }
         // only got here if we didn't return false
         return true;
     }
 
-    public void checks(){
-        goodsign=true;
-        if (!isValidFormat("dd/MM/yyyy", fromdates1)&&(!fromdates1.equals("null"))){
+    public void checks() {
+        goodsign = true;
+        if (!isValidFormat("dd/MM/yyyy", fromdates1) && (!fromdates1.equals("null"))) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "from date is not a date format", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+            goodsign = false;
             return;
-        }
-        else{
-            goodsign=true;
+        } else {
+            goodsign = true;
         }
 
-        if (!isValidFormat("dd/MM/yyyy", todates1)&&(!todates1.equals("null"))){
+        if (!isValidFormat("dd/MM/yyyy", todates1) && (!todates1.equals("null"))) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "to date is not a date format", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+            goodsign = false;
             return;
+        } else {
+            goodsign = true;
         }
-        else{
-            goodsign=true;
-        }
-        if ((!fromdates1.equals("null")&&todates1.equals("null")) || (!todates1.equals("null")&&fromdates1.equals("null"))){
+        if ((!fromdates1.equals("null") && todates1.equals("null")) || (!todates1.equals("null") && fromdates1.equals("null"))) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "you have to fill both from and to date", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+            goodsign = false;
             return;
-        }
-        else{
-            goodsign=true;
+        } else {
+            goodsign = true;
         }
 
-        if ((!fromprice1.equals("null")&&toprice1.equals("null")) || (!toprice1.equals("null")&&fromprice1.equals("null"))){
+        if ((!fromprice1.equals("null") && toprice1.equals("null")) || (!toprice1.equals("null") && fromprice1.equals("null"))) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "you have to fill both from and to price", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+            goodsign = false;
             return;
         }
-        if (!isInteger(fromprice1)&&(!fromprice1.equals("null"))){
+        if (!isInteger(fromprice1) && (!fromprice1.equals("null"))) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+            goodsign = false;
             return;
         }
-        if (!isInteger(toprice1)&&(!toprice1.equals("null"))){
+        if (!isInteger(toprice1) && (!toprice1.equals("null"))) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
-            goodsign=false;
+            goodsign = false;
             return;
-        }
-        else{
-            goodsign=true;
+        } else {
+            goodsign = true;
         }
     }
+
     public static boolean equalsArr(Object[] a, Object[] b) {
-        if(a.length != b.length) return false;
-        outer: for(Object aObject : a) {
-            for(Object bObject : b) {
-                if(a.equals(b)) continue outer;
+        if (a.length != b.length) return false;
+        outer:
+        for (Object aObject : a) {
+            for (Object bObject : b) {
+                if (a.equals(b)) continue outer;
             }
             return false;
         }

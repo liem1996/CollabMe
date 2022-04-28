@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ColorSpace;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -43,11 +44,12 @@ import java.util.Date;
 import java.util.UUID;
 
 
-public class AddOfferDetailsFragemnt extends Fragment {
+public class AddOfferFragemnt extends Fragment {
 
     EditText headline, description, finishdate, price;
     TextView status, candidates, profession, proposer;
-    ImageView save;
+    ImageView save, logout, camra, gallery, profilepic;
+    ;
     ImageButton backBtn;
     Offer offer;
     User userConnected;
@@ -56,19 +58,17 @@ public class AddOfferDetailsFragemnt extends Fragment {
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"Sport", "Cooking", "Fashion", "Music", "Dance", "Cosmetic", "Travel", "Gaming", "Tech", "Food",
             "Art", "Animals", "Movies", "Photograph", "Lifestyle", "Other"};
-    ImageView logout,camra,gallery,profilepic;;
     String date;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PIC = 2;
     Bitmap imageBitmap;
     ProgressBar progressBar;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_offer_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_offer, container, false);
 
         proposer = view.findViewById(R.id.fragemnt_newoffer_proposer);
         headline = view.findViewById(R.id.fragemnt_newoffer_headline);
@@ -90,22 +90,11 @@ public class AddOfferDetailsFragemnt extends Fragment {
         progressBar.setVisibility(View.GONE);
         progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
-
+        updateUserConnected();
         status.setText("Open");
-
         selectedLanguage = new boolean[langArray.length];
 
         String uniqueKey = UUID.randomUUID().toString();
-
-        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-            @Override
-            public void onComplete(User profile) {
-                if (profile != null) {
-                    userConnected = profile;
-                    proposer.setText(profile.getUsername());
-                }
-            }
-        });
 
         profession.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,6 +162,7 @@ public class AddOfferDetailsFragemnt extends Fragment {
                         dialogInterface.dismiss();
                     }
                 });
+
                 builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -201,9 +191,9 @@ public class AddOfferDetailsFragemnt extends Fragment {
                     progressBar.setVisibility(View.VISIBLE);
                     offer = new Offer(description.getText().toString(), headline.getText().toString(), Integer.parseInt(date),
                             price2, uniqueKey, status.getText().toString(), chosenOffers, userConnected.getUsername()
-                            );
+                    );
 
-                    if(imageBitmap!=null) {
+                    if (imageBitmap != null) {
                         ModelPhotos.instance3.uploadImage(imageBitmap, getActivity(), new ModelPhotos.PostProfilePhoto() {
                             @Override
                             public void onComplete(String uri) {
@@ -211,7 +201,6 @@ public class AddOfferDetailsFragemnt extends Fragment {
                                 ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
                                     @Override
                                     public void onComplete(int code) {
-
                                         if (code == 200) {
                                             //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
                                             Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
@@ -225,11 +214,10 @@ public class AddOfferDetailsFragemnt extends Fragment {
                                 });
                             }
                         });
-                    }else {
+                    } else {
                         ModelOffers.instance.addOffer(offer, new ModelOffers.addOfferListener() {
                             @Override
                             public void onComplete(int code) {
-
                                 if (code == 200) {
                                     //   Model.instance.Login(userConnected.getUsername(), userConnected.getPassword(), code1 -> { });
                                     Toast.makeText(getActivity(), "added offer", Toast.LENGTH_LONG).show();
@@ -259,13 +247,11 @@ public class AddOfferDetailsFragemnt extends Fragment {
         });
 
         backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
-        //camra.setOnClickListener(v -> openCam());
-      //  gallery.setOnClickListener(v -> openGallery());
+
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-
                 openGallery();
             }
         });
@@ -274,11 +260,26 @@ public class AddOfferDetailsFragemnt extends Fragment {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-
                 openCam();
             }
         });
+
         return view;
+    }
+
+    private void updateUserConnected() {
+        if (ModelUsers.instance3.getUser() == null) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    userConnected = profile;
+                    proposer.setText(profile.getUsername());
+                }
+            });
+        } else {
+            userConnected = ModelUsers.instance3.getUser();
+            proposer.setText(userConnected.getUsername());
+        }
     }
 
     public static boolean isValidFormat(String format, String value) {
@@ -300,24 +301,19 @@ public class AddOfferDetailsFragemnt extends Fragment {
             //Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
             finishdate.setError("date is not a date format");
             return false;
-        }
-        else if (headline.getText().toString().isEmpty()){
+        } else if (headline.getText().toString().isEmpty()) {
             headline.setError("Headline is required");
             return false;
-        }
-        else if (profession.getText().toString().isEmpty()){
+        } else if (profession.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Professions is required", Toast.LENGTH_LONG).show();
             return false;
-        }
-        else if (description.getText().toString().isEmpty()){
+        } else if (description.getText().toString().isEmpty()) {
             description.setError("Description is required");
             return false;
-        }
-        else if (price.getText().toString().isEmpty() || !(price.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))) {
+        } else if (price.getText().toString().isEmpty() || !(price.getText().toString().matches("^[1-9]{1}(?:[0-9])*?$"))) {
             price.setError("Price is required");
             return false;
-        }
-        else {
+        } else {
             dateSplitArr = finishdate.getText().toString().split("/" /*<- Regex */);
             if (dateSplitArr[0].length() == 2 && dateSplitArr[1].length() == 2 && dateSplitArr[2].length() == 4) {
                 date = dateSplitArr[0] + dateSplitArr[1] + dateSplitArr[2];
@@ -336,19 +332,17 @@ public class AddOfferDetailsFragemnt extends Fragment {
         getActivity().finish();
     }
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_IMAGE_CAPTURE){
-            if(resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
                 profilepic.setImageBitmap(imageBitmap);
             }
-        }else if(requestCode==REQUEST_IMAGE_PIC){
-            if(resultCode==RESULT_OK){
+        } else if (requestCode == REQUEST_IMAGE_PIC) {
+            if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -367,14 +361,12 @@ public class AddOfferDetailsFragemnt extends Fragment {
         progressBar.setVisibility(View.GONE);
         Intent photoPicerIntent = new Intent(Intent.ACTION_PICK);
         photoPicerIntent.setType("image/jpeg");
-        startActivityForResult(photoPicerIntent,REQUEST_IMAGE_PIC);
+        startActivityForResult(photoPicerIntent, REQUEST_IMAGE_PIC);
     }
 
     public void openCam() {
         progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
-
-
 }

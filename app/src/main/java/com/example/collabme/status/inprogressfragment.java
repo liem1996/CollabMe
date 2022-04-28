@@ -28,15 +28,12 @@ import java.util.Arrays;
 
 
 public class inprogressfragment extends Fragment {
-    String offerId;
     TextView proposer, status, headline, description, finishDate, price;
+    ImageView offerpic, logout;
+    String offerId, offerUsername;
     Button upload;
-
     ImageButton editBtn, candidatesBtn, backBtn;
-    ImageView offerpic;
     Spinner profession;
-    ImageView logout;
-    String offerUsername;
     SpinnerAdapter spinnerAdapter;
 
     @Override
@@ -65,7 +62,7 @@ public class inprogressfragment extends Fragment {
             ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                 @Override
                 public void onComplete(User profile) {
-                    if(!profile.getUsername().equals(offer.getUser())){
+                    if (!profile.getUsername().equals(offer.getUser())) {
                         editBtn.setVisibility(View.GONE);
                     }
                     ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
@@ -74,7 +71,7 @@ public class inprogressfragment extends Fragment {
                             if (responseBody != null) {
                                 offerpic.setImageBitmap(responseBody);
                             }
-                            initSpinnerFooter(offer.getProfession().length,offer.getProfession(),profession);
+                            initSpinnerFooter(offer.getProfession().length, offer.getProfession(), profession);
                             headline.setText(offer.getHeadline());
                             proposer.setText(offer.getUser());
                             description.setText(offer.getDescription());
@@ -97,8 +94,8 @@ public class inprogressfragment extends Fragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int price2= Integer.parseInt(price.getText().toString());
-                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToFragmentMediaContent(offerId,headline.toString(),price2));
+                int price2 = Integer.parseInt(price.getText().toString());
+                Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToFragmentMediaContent(offerId, headline.toString(), price2));
             }
         });
 
@@ -115,7 +112,6 @@ public class inprogressfragment extends Fragment {
                 });
             }
         });
-
 
         return view;
     }

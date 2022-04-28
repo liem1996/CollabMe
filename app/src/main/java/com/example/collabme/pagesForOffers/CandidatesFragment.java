@@ -55,13 +55,12 @@ public class CandidatesFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(CandidatesViewmodel.class);
-
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_candidates,container,false);
+        View view = inflater.inflate(R.layout.fragment_candidates, container, false);
 
         offerId = CandidatesFragmentArgs.fromBundle(getArguments()).getOfferId();
         ModelCandidates.instance2.refreshPostList(offerId);
@@ -72,14 +71,13 @@ public class CandidatesFragment extends Fragment {
         swipeRefresh = view.findViewById(R.id.candidates_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> ModelCandidates.instance2.refreshPostList(offerId));
 
-
         //////////////////////////////
 
         searchimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clicked = true;
-                String n =candidatesearch.getText().toString();
+                String n = candidatesearch.getText().toString();
                 ModelCandidates.instance2.getCandidateFromSearch(n, new ModelCandidates.getCandidateFromSearchListener() {
                     @Override
                     public void onComplete(User user) {
@@ -87,13 +85,12 @@ public class CandidatesFragment extends Fragment {
                         ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
                             @Override
                             public void onComplete(Offer offer) {
-                                if (user1!=null) {
+                                if (user1 != null) {
                                     if (!user1.getUsername().equals("")) {
                                         contains = ArrayUtils.contains(offer.getUsers(), user1.getUsername());
                                     }
-                                }
-                                else{
-                                    contains=false;
+                                } else {
+                                    contains = false;
                                 }
 
                                 RecyclerView list = view.findViewById(R.id.candidates_rv);
@@ -108,6 +105,7 @@ public class CandidatesFragment extends Fragment {
             }
 
         });
+
         ////////////////////////////
 
         RecyclerView list = view.findViewById(R.id.candidates_rv);
@@ -122,12 +120,11 @@ public class CandidatesFragment extends Fragment {
         viewModel.getCandidates(offerId).observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(ModelCandidates.instance2.getcandidateslistloding().getValue() == ModelCandidates.candidatelistloding.loading);
         ModelCandidates.instance2.getcandidateslistloding().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
-            if (PostsListLoadingState == ModelCandidates.candidatelistloding.loading){
+            if (PostsListLoadingState == ModelCandidates.candidatelistloding.loading) {
                 swipeRefresh.setRefreshing(true);
-            }else{
+            } else {
                 swipeRefresh.setRefreshing(false);
             }
-
         });
 
         logout = view.findViewById(R.id.fragment_candidates_logoutBtn);
@@ -143,12 +140,10 @@ public class CandidatesFragment extends Fragment {
             }
         });
 
-
-
         adapter.setListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(int position, View view,int idview) {
-
+            public void onItemClick(int position, View view, int idview) {
+                //TODO:: Missing??
 
             }
         });
@@ -159,16 +154,15 @@ public class CandidatesFragment extends Fragment {
         choosen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(choosenCandidate==null){
+                if (choosenCandidate == null) {
                     Toast.makeText(getActivity(), "you didnt choose candidate", Toast.LENGTH_LONG).show();
-                }
-                else if (choosenCandidate.isChecked()) {
+                } else if (choosenCandidate.isChecked()) {
                     ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
                         @Override
                         public void onComplete(Offer offer) {
                             offer.setStatus("InProgress");
-                            String []  user = new String[1];
-                            user[0]=username.getText().toString();
+                            String[] user = new String[1];
+                            user[0] = username.getText().toString();
                             offer.setUsers(user);
                             ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
                                 @Override
@@ -180,8 +174,7 @@ public class CandidatesFragment extends Fragment {
                             });
                         }
                     });
-
-                }else{
+                } else {
                     Toast.makeText(getActivity(), "you didnt choose candidate", Toast.LENGTH_LONG).show();
                 }
             }
@@ -197,13 +190,13 @@ public class CandidatesFragment extends Fragment {
     }
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
             username = itemView.findViewById(R.id.candidates_listrow_username);
-            choosenCandidate= itemView.findViewById(R.id.candidates_listrow_checkBox);
+            choosenCandidate = itemView.findViewById(R.id.candidates_listrow_checkBox);
             choosenCandidate.setChecked(false);
             itemView.setOnClickListener(v -> {
                 int viewId = v.getId();
@@ -219,17 +212,16 @@ public class CandidatesFragment extends Fragment {
                     listener.onItemClick(position, itemView, viewid);
                 }
             });
-
         }
-        public void bind(User user){
-            if (contains && clicked){
+
+        public void bind(User user) {
+            if (contains && clicked) {
                 username.setText(candidatesearch.getText().toString());
             }
             if (!clicked) {
                 username.setText(user.getUsername());
             }
             choosenCandidate.setChecked(false);
-
         }
     }
 
@@ -240,10 +232,11 @@ public class CandidatesFragment extends Fragment {
     }
 
     //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
-    interface OnItemClickListener{
-        void onItemClick(int position,View view,int idview);
+    interface OnItemClickListener {
+        void onItemClick(int position, View view, int idview);
     }
-    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+
+    class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         public void setListener(OnItemClickListener listener1) {
             listener = listener1;
@@ -252,14 +245,14 @@ public class CandidatesFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.candidtaes_list_row,parent,false);
+            View view = getLayoutInflater().inflate(R.layout.candidtaes_list_row, parent, false);
             MyViewHolder holder = new MyViewHolder(view);
             return holder;
         }
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            if (contains&&clicked){
+            if (contains && clicked) {
                 User user = user1;
                 holder.bind(user);
             }
@@ -276,18 +269,13 @@ public class CandidatesFragment extends Fragment {
                     return 0;
                 }
                 return viewModel.getCandidates(offerId).getValue().size();
-            }
-            else{
-                if (contains){
+            } else {
+                if (contains) {
                     return 1;
-                }
-                else{
+                } else {
                     return 0;
                 }
             }
         }
     }
-
-
-
 }

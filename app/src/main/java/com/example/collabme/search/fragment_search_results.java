@@ -38,20 +38,18 @@ import java.util.List;
 
 public class fragment_search_results extends Fragment {
 
+    View view;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     OnItemClickListener listener;
     ImageView logout;
     String offerId;
-    Offer offer;
-    User userConnected;
-    FloatingActionButton addOfferBtn;
-    Button checkBtn, deleteBtn;
     String usernameConnected = "";
     Offer [] offersFromSearch;
-    View view;
+    Offer offer;
+    User userConnected;
+    Button checkBtn, deleteBtn;
     ArrayList<Offer> Offerlist;
-
 
 
     @Nullable
@@ -148,8 +146,6 @@ public class fragment_search_results extends Fragment {
         return view;
     }
 
-
-
     private void updateRejectedOfferArr(String offerId) {
         if (ModelUsers.instance3.getUser() == null) {
             ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
@@ -164,8 +160,6 @@ public class fragment_search_results extends Fragment {
             updateUserWitnRejectedList(offerId);
         }
     }
-
-
 
     private void updateUserWitnRejectedList(String offerId) {
         ArrayList<String> rejectedArr = userConnected.getRejectedOffers();

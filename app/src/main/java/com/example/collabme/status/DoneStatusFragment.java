@@ -88,7 +88,7 @@ public class DoneStatusFragment extends Fragment {
                             ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                                 @Override
                                 public void onComplete(User profile) {
-                                    if(!profile.getUsername().equals(offer.getUser())) {
+                                    if (!profile.getUsername().equals(offer.getUser())) {
                                         editBtn.setVisibility(View.GONE);
                                         paymentBtn.setVisibility(View.GONE);
                                     }
@@ -103,14 +103,7 @@ public class DoneStatusFragment extends Fragment {
 
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToEditOfferFragment(offerId)));
         backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
-
-        paymentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment(offerId,headlineString,priceString));
-            }
-        });
-
+        paymentBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment(offerId, headlineString, priceString)));
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

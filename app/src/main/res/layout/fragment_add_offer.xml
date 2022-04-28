@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actionsOnOffers.AddOfferDetailsFragemnt">
+    tools:context=".actionsOnOffers.AddOfferFragemnt">
 
     <ImageView
         android:id="@+id/imageView17"
@@ -142,10 +142,10 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintHorizontal_bias="0.623"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.865" />
+        app:layout_constraintVertical_bias="0.87" />
 
     <ImageView
         android:id="@+id/fragment_newoffer_logoutBtn"
@@ -165,8 +165,8 @@
         android:id="@+id/fragment_newoffer_backBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="56dp"
         android:background="#00FFFFFF"
         android:fontFamily="@font/abeezee"
         android:scaleType="fitCenter"
@@ -219,10 +219,10 @@
         android:src="@drawable/saveicon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintHorizontal_bias="0.927"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.881" />
+        app:layout_constraintVertical_bias="0.875" />
 
     <ProgressBar
         android:id="@+id/fragment_addOffer_progressbar"

@@ -66,7 +66,11 @@ public class fragment_search_results extends Fragment {
 
         offersFromSearch = fragment_search_resultsArgs.fromBundle(getArguments()).getSearchoffers();
         Offerlist =new ArrayList<>();
-        Offerlist = changetoArrylist(offersFromSearch);
+
+        if (offersFromSearch != null) {
+            Offerlist = changetoArrylist(offersFromSearch);
+        }
+
         swipeRefresh = view.findViewById(R.id.fragment_search_results_swiperefresh);
 
         if (ModelUsers.instance3.getUser() == null) {

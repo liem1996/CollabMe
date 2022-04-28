@@ -280,14 +280,10 @@ public class PaymentFragment extends Fragment {
                         String paymentDetails = confirm.toJSONObject().toString(4);
                         // on below line we are extracting json response and displaying it in a text view.
 
-//                        startActivity(new Intent(this,PaymentDetails.class)
-//                                .putExtra("Payment Details",paymentDetails)
-//                                .putExtra("Amount","1"));
 
                         JSONObject payObj = new JSONObject(paymentDetails);
                         String payID = payObj.getJSONObject("response").getString("id");
                         String state = payObj.getJSONObject("response").getString("state");
-                        //   paymentTV.setText("Payment " + state + "\n with payment id is " + payID);
 
 
                     } catch (JSONException e) {

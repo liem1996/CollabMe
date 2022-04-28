@@ -31,7 +31,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * the search  fragment - included :
+ * filter according to felled in the offer object
+ * has ranges for different searches for price and date
+ * can filter for couple of fields together
+ * has a free search for looking information on all the fields of the offer
+ *
+ */
 
 public class Fragment_Search extends Fragment {
 

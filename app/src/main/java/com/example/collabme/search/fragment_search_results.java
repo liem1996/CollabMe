@@ -29,12 +29,19 @@ import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.facebook.login.LoginManager;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+/**
+ * the search result fragmenrt - inclused :
+ * viewholder for the recycleview for the offers you search for
+ * viewmodel for the offers the you filter and search for
+ * refresh with the list you get from search with the function refresh of the adapter
+ * Adapter for the recycleview items -offers you filter
+ * swipe refresh for the refreshing of the offers you get form the search page
+ */
 
 public class fragment_search_results extends Fragment {
 

@@ -284,8 +284,13 @@ public class AddOfferFragemnt extends Fragment {
                 }
             });
         } else {
-            userConnected = ModelUsers.instance3.getUser();
-            proposer.setText(userConnected.getUsername());
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    userConnected = profile;
+                    proposer.setText(profile.getUsername());
+                }
+            });
         }
     }
 

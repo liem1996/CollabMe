@@ -34,6 +34,17 @@ import com.example.collabme.viewmodel.CandidatesViewmodel;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.common.util.ArrayUtils;
 
+
+/**
+ * the candidates fragmenrt - inclused :
+ * viewholder for the recycleview in the candidates page
+ * viewmodel for the users which are a candidates
+ * refreshpost call from the model for refreshing the users that are candidates
+ * Adapter for the recycleview items -users candidates items
+ * search is includs - to search the candidates you want to pick from
+ * swipe refresh for the refreshing of the candidates
+ */
+
 public class CandidatesFragment extends Fragment {
 
     ImageView logout;

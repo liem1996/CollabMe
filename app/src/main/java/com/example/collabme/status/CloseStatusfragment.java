@@ -29,7 +29,14 @@ import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 
 import java.util.Arrays;
-
+/**
+ * the close stage offer fragmenrt - inclused :
+ * viewholder for the recycleview for the offers you search for
+ * viewmodel for the offers the you filter and search for
+ * refresh with the list you get from search with the function refresh of the adapter
+ * Adapter for the recycleview items -offers you filter
+ * swipe refresh for the refreshing of the offers you get form the search page
+ */
 
 public class CloseStatusfragment extends Fragment {
 

@@ -2,20 +2,13 @@ package com.example.collabme.TheSighUPProcess;
 
 import static android.graphics.Color.rgb;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.ColorSpace;
-import android.media.MediaSession2;
 import android.os.Bundle;
-import android.se.omapi.Session;
-import android.service.textservice.SpellCheckerService;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,15 +17,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.collabme.Activites.MainActivity;
 import com.example.collabme.Activites.Pop;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
-import com.example.collabme.Activites.MainActivity;
 import com.example.collabme.objects.User;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -40,16 +32,18 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
-import com.facebook.login.LoginBehavior;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
+/**
+ * the Login fragment - inclused :
+ * the fields to user to fill to enter the application
+ * have a new user button to navigate to create user
+ * have a  forget password button to navigate to change password
+ */
 
 public class LoginFragment extends Fragment {
 
@@ -58,9 +52,6 @@ public class LoginFragment extends Fragment {
     TextView signup, forgotpassword;
     View view;
     LoginButton facebook;
-    //Button facebookOnClick;
-    TextView info;
-    ImageView profileImg;
     private CallbackManager callbackManager;
     private static final String EMAIL = "email";
     String email="";

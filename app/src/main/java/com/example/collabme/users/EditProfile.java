@@ -36,7 +36,14 @@ import com.facebook.login.LoginManager;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ *
+ * the edit user fragment  -fragment that design to edit an user in the application
+ * using dialog for professions and platformes
+ * setting field with navigation from the user details and showing on the fragment screen
+ * filling several felled including image and calling tha edit user function and upload image
+ *
+ */
 
 public class EditProfile extends Fragment {
     TextView platform, professions, usernameType, username;

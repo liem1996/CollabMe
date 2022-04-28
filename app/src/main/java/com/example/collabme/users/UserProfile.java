@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -29,7 +27,13 @@ import com.example.collabme.objects.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/**
+ *
+ *  the user profile fragment  -fragmwnt that degin to show the user details for the user which is connected
+ *  filling several felied including image to show the user detailes
+ *  can edit the user from here-navigate to edit user
+ *  can delete a user with delete user button
+ */
 
 public class UserProfile extends Fragment {
 
@@ -157,29 +161,7 @@ public class UserProfile extends Fragment {
         }
         spinnerAdapter = new SpinnerAdapter(getContext(), Arrays.asList(tmpArr));
         spinner.setAdapter(spinnerAdapter);
-//        int tmp = 0;
-//        for (int j = 0; j < size; j++) {
-//            if (array.get(j) != null) {
-//                tmp++;
-//            }
-//        }
-//        String[] items = new String[tmp];
-//
-//        for (int i = 0; i < tmp; i++) {
-//            items[i] = array.get(i);
-//        }
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, items);
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                ((TextView) parent.getChildAt(0)).setTextSize(18);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
+
     }
 
     public ArrayList<String> ChangeToArray(String[] array) {

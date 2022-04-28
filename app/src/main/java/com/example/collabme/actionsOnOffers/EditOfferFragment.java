@@ -44,7 +44,7 @@ import java.util.Collections;
  * the edit offer fragment  -fragment that design to edit an offer in the application
  * using dialog for professions
  * setting field with navigation from the offer details and showing on the fragment screen
- * filling several felled including image and calling tha add offer function and upload image
+ * filling several felled including image and calling tha edit offer function and upload image
  *
  */
 

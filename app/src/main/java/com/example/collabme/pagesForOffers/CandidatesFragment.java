@@ -42,6 +42,8 @@ import com.google.android.gms.common.util.ArrayUtils;
  * refreshpost call from the model for refreshing the users that are candidates
  * Adapter for the recycleview items -users candidates items
  * search is includs - to search the candidates you want to pick from
+ * you can choose a candidate for your offer with the checkbox to
+ *      each candidate and the choose button
  * swipe refresh for the refreshing of the candidates
  */
 

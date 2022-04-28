@@ -37,10 +37,17 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * the Sighup fragmenrt - inclused :
+ * the fields to the registration to send in navigation to the next page in the registration form
+ * adding a photo to the profile picture
+ * the first page in the new user process
+ */
 public class SignupFragment extends Fragment {
 
     EditText username, password, email, age;
-    Button signup, uploads;
+    Button signup;
     ImageButton backBtn;
     CheckBox company, influencer;
     Spinner gender;

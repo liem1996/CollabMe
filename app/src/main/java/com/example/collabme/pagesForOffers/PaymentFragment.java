@@ -67,7 +67,8 @@ public class PaymentFragment extends Fragment {
     private static final long SHIPPING_COST_CENTS = 90 * PaymentsUtil.CENTS_IN_A_UNIT.longValue();
 
     public static final String clientKey = "AUCAIbvyRUFuhNZi_Zqt4GOLb1X6jixH47Z1ln7ym_SbzghlfUyQjofK_vBL4MR3DPXADPswqvS8q63b";
-    public static final int PAYPAL_REQUEST_CODE = 123; // 7171
+    public static final int PAYPAL_REQUEST_CODE = 123;
+
     // Paypal Configuration Object
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
@@ -110,18 +111,12 @@ public class PaymentFragment extends Fragment {
         super.onDestroyView();
     }
 
-//    @Override
-//    public void onDestroy() {
-//        getActivity().stopService(new Intent(this.getContext(),PayPalService.class));
-//        super.onDestroy();
-//
-//    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
         cardNumber = view.findViewById(R.id.fragment_payment_card_number_et);
@@ -133,8 +128,6 @@ public class PaymentFragment extends Fragment {
         bankAccount = view.findViewById(R.id.fragment_payment_bank_account_et);
         logout = view.findViewById(R.id.fragment_payment_logoutBtn);
         offerId = DoneStatusFragmentArgs.fromBundle(getArguments()).getOfferid();
-//        headline = DoneStatusFragmentArgs.fromBundle(getArguments()).getHeadline();
-//        price = DoneStatusFragmentArgs.fromBundle(getArguments()).getPrice();
         googlePayButton = view.findViewById(R.id.googlePayButton);
         payPal = view.findViewById(R.id.payment_PayPal_btn);
         backBtn = view.findViewById(R.id.fragment_payment_back_btn);
@@ -184,7 +177,6 @@ public class PaymentFragment extends Fragment {
         getActivity().startService(intent);
 
         backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
-
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,13 +270,11 @@ public class PaymentFragment extends Fragment {
                     try {
                         // Getting the payment details
                         String paymentDetails = confirm.toJSONObject().toString(4);
+
                         // on below line we are extracting json response and displaying it in a text view.
-
-
                         JSONObject payObj = new JSONObject(paymentDetails);
                         String payID = payObj.getJSONObject("response").getString("id");
                         String state = payObj.getJSONObject("response").getString("state");
-
 
                     } catch (JSONException e) {
                         // handling json exception on below line
@@ -377,7 +367,7 @@ public class PaymentFragment extends Fragment {
 
         // The price provided to the API should include taxes and shipping.
         // This price is not displayed to the user.
-        long priceInCents = price;  //TODO:: get the real amount of the offer
+        long priceInCents = price;
         long shippingCostCents = 0;
         long totalPriceCents = priceInCents + shippingCostCents;
         final Task<PaymentData> task = model.getLoadPaymentDataTask(totalPriceCents);

@@ -155,6 +155,9 @@ public class EditOfferFragment extends Fragment {
                 finishDate.setText(setValidDate(String.valueOf(offer.getFinishDate())));
                 status.setText(offer.getStatus());
                 price.setText(String.valueOf(offer.getPrice()));
+                if(status.getText().toString().equals("done") || status.getText().toString().equals("InProgress") || status.getText().toString().equals("Close") ){
+                    candidatesBtn.setVisibility(View.GONE);
+                }
 
                 ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                     @Override

@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_offerdetails_logoutBtn" />
 
     <TextView
-        android:id="@+id/fragemnt_offerdetails_proposer"
+        android:id="@+id/fragemnt_offerdetails_headline"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"
@@ -49,7 +49,7 @@
         app:layout_constraintVertical_bias="0.433" />
 
     <TextView
-        android:id="@+id/fragemnt_offerdetails_headline"
+        android:id="@+id/fragemnt_offerdetails_proposer"
         android:layout_width="195dp"
         android:layout_height="25dp"
         android:ems="10"

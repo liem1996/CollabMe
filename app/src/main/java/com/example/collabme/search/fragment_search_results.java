@@ -57,7 +57,7 @@ public class fragment_search_results extends Fragment {
     User userConnected;
     Button checkBtn, deleteBtn;
     ArrayList<Offer> Offerlist;
-
+    ImageButton backBtn;
 
     @Nullable
     @Override
@@ -66,7 +66,7 @@ public class fragment_search_results extends Fragment {
 
         offersFromSearch = fragment_search_resultsArgs.fromBundle(getArguments()).getSearchoffers();
         Offerlist =new ArrayList<>();
-
+        backBtn = view.findViewById(R.id.fragment_searchresult_backBtn2);
         if (offersFromSearch != null) {
             Offerlist = changetoArrylist(offersFromSearch);
         }
@@ -153,6 +153,7 @@ public class fragment_search_results extends Fragment {
             }
         });
         adapter.notifyDataSetChanged();
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         return view;
     }

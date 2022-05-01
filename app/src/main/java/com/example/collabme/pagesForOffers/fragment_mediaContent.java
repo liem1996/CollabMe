@@ -31,7 +31,6 @@ import com.example.collabme.objects.User;
  * viewmodel for the media content the user upload for each offer
  * refreshpost call from the model for refreshing the media the user upload
  * Adapter for the recycleview items -media content items
- * swipe refresh for the refreshing of the media content
  * agreeing for the media the user upload with specific Permissions;
  *
  */

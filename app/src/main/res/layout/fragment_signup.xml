@@ -151,8 +151,8 @@
 
     <ImageButton
         android:id="@+id/fragment_signup_backBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_arrow_back_"

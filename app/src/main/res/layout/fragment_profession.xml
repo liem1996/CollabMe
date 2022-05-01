@@ -246,15 +246,16 @@
         <ImageButton
             android:id="@+id/fragemnt_profession_backBtn"
             android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="56dp"
+            android:layout_height="70dp"
             android:background="#00FFFFFF"
-            android:fontFamily="@font/abeezee"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_arrow_back_"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.051"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.056" />
 
         <ProgressBar
             android:id="@+id/profession_progressbar"

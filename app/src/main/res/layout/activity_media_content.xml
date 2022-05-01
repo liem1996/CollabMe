@@ -17,8 +17,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_media_content_new" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/activity_mediacontent_swiperefresh"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mediacontent_rv"
         android:layout_width="390dp"
         android:layout_height="550dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,13 +26,7 @@
         app:layout_constraintHorizontal_bias="0.619"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.866">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mediacontent_rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        app:layout_constraintVertical_bias="0.894" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

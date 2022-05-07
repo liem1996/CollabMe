@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="..\:/Users/Liel/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_add_offer.xml" value="0.1" />
+        <entry key="..\:/Users/Liel/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_edit_profile.xml" value="0.11865942028985507" />
+        <entry key="..\:/Users/Liel/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_payment.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/Liel/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_popup_window.xml" value="0.1796875" />
+        <entry key="..\:/Users/Liel/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_signup.xml" value="0.11865942028985507" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_background.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_pic.xml" value="0.14322916666666666" />

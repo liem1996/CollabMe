@@ -338,15 +338,17 @@ public class Fragment_Search extends Fragment {
             goodsign = false;
             return;
         }
-        if (!isInteger(fromprice1) && (!fromprice1.equals("null"))) {
+        if (!isInteger(fromprice1) && (!fromprice1.equals("null"))|| !(fromprice1.matches("^[1-9]{1}(?:[0-9])*?$"))) {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
+            fromprice.setError("Only numbers");
+            //Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
             goodsign = false;
             return;
         }
-        if (!isInteger(toprice1) && (!toprice1.equals("null"))) {
+        if (!isInteger(toprice1) && (!toprice1.equals("null")) || !(toprice1.matches("^[1-9]{1}(?:[0-9])*?$"))) {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
+            toprice.setError("Only numbers");
+            //Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
             goodsign = false;
             return;
         } else {

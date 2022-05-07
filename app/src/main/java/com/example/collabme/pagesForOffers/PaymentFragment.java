@@ -1,5 +1,7 @@
 package com.example.collabme.pagesForOffers;
 
+import static android.graphics.Color.rgb;
+
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +66,8 @@ public class PaymentFragment extends Fragment {
     String headline;
     int price;
     Payment payment;
+    ProgressBar progressBar;
+
     private static final int LOAD_PAYMENT_DATA_REQUEST_CODE = 991;
     private static final long SHIPPING_COST_CENTS = 90 * PaymentsUtil.CENTS_IN_A_UNIT.longValue();
 
@@ -133,6 +138,11 @@ public class PaymentFragment extends Fragment {
         backBtn = view.findViewById(R.id.fragment_payment_back_btn);
         submit = view.findViewById(R.id.fragment_payment_submit_btn);
 
+        progressBar = view.findViewById(R.id.fragment_payment_progressbar);
+        progressBar.setVisibility(View.GONE);
+        progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+
 
         ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
             @Override
@@ -183,6 +193,7 @@ public class PaymentFragment extends Fragment {
             public void onClick(View v) {
                 //add payment
                 if (checkValidDate()) {
+                    progressBar.setVisibility(View.VISIBLE);
                     payment = new Payment(cardNumber.getText().toString(), expDate.getText().toString(), cvv.getText().toString(),
                             id.getText().toString(), name.getText().toString(), offerId, bankAccount.getText().toString());
 
@@ -200,6 +211,7 @@ public class PaymentFragment extends Fragment {
                                             @Override
                                             public void onComplete(int code) {
                                                 Navigation.findNavController(v).navigate(PaymentFragmentDirections.actionPaymentFragmentToCloseStatusfragment(offerId));
+                                                progressBar.setVisibility(View.GONE);
                                             }
                                         });
                                     }

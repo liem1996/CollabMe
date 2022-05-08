@@ -41,7 +41,7 @@ public class DoneStatusFragment extends Fragment {
     TextView proposer, status, headline, description, finishDate, price;
     Button paymentBtn;
 
-    ImageButton editBtn, backBtn;
+    ImageButton editBtn;
     ImageView offerpic;
     Spinner profession;
     ImageView logout;
@@ -67,7 +67,7 @@ public class DoneStatusFragment extends Fragment {
 
         paymentBtn = view.findViewById(R.id.fragemnt_done_payment);
         logout = view.findViewById(R.id.fragment_done_logoutBtn);
-        backBtn = view.findViewById(R.id.fragment_done_backBtn);
+
 
         // Inflate the layout for this fragment
 
@@ -109,7 +109,6 @@ public class DoneStatusFragment extends Fragment {
         });
 
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToEditOfferFragment(offerId)));
-        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         paymentBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(DoneStatusFragmentDirections.actionDoneStatusFragmentToPaymentFragment(offerId, headlineString, priceString)));
 
         logout.setOnClickListener(new View.OnClickListener() {

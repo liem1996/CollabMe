@@ -39,7 +39,7 @@ public class inprogressfragment extends Fragment {
     ImageView offerpic, logout;
     String offerId, offerUsername;
     Button upload;
-    ImageButton editBtn, candidatesBtn, backBtn;
+    ImageButton editBtn, candidatesBtn;
     Spinner profession;
     SpinnerAdapter spinnerAdapter;
 
@@ -60,7 +60,6 @@ public class inprogressfragment extends Fragment {
 
         upload = view.findViewById(R.id.fragemnt_inprogress_upload);
         logout = view.findViewById(R.id.fragment_inprogress_logoutBtn);
-        backBtn = view.findViewById(R.id.fragment_inprogress_backBtn);
 
 
         // Inflate the layout for this fragment
@@ -96,7 +95,6 @@ public class inprogressfragment extends Fragment {
         });
 
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(inprogressfragmentDirections.actionInprogressfragmentToEditOfferFragment(offerId)));
-        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -146,8 +146,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateRejectedOfferArr(String offerId) {
-        if (ModelUsers.instance3.getUser() == null) {
-            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                 @Override
                 public void onComplete(User profile) {
                     userConnected = profile;
@@ -155,9 +154,7 @@ public class HomeFragment extends Fragment {
                     updateUserWitnRejectedList(offerId);
                 }
             });
-        } else {
-            updateUserWitnRejectedList(offerId);
-        }
+
     }
 
     private void updateUserWitnRejectedList(String offerId) {
@@ -166,7 +163,6 @@ public class HomeFragment extends Fragment {
             rejectedArr = new ArrayList<>();
         rejectedArr.add(offerId);
         userConnected.setRejectedOffers(rejectedArr);
-
         ModelUsers.instance3.EditUser(userConnected, new ModelUsers.EditUserListener() {
             @Override
             public void onComplete(int code) {
@@ -181,26 +177,29 @@ public class HomeFragment extends Fragment {
     }
 
     private void offerCheckClicked(int position) {
-        List<String> arrayList = new LinkedList<>();
-        if (userConnected != null) {
-            usernameConnected = userConnected.getUsername();
-        } else {
-            getUsernameConnected();
-        }
-
-        arrayList = offer.setusersandadd(viewModel.getDataHome().getValue().get(position).getUsers(), usernameConnected);
-        offer.setUsers(ChangeToArray(arrayList));
-        ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
-            public void onComplete(int code) {
-                if (code == 200) {
-                    Toast.makeText(getActivity(), "offer updated!", Toast.LENGTH_LONG).show();
-                    ModelOffers.instance.refreshPostList();
-                } else {
-                    Toast.makeText(getActivity(), "error updating offer!", Toast.LENGTH_LONG).show();
-                }
+            public void onComplete(User profile) {
+                List<String> arrayList = new LinkedList<>();
+                userConnected = profile;
+                usernameConnected = profile.getUsername();
+                arrayList = offer.setusersandadd(viewModel.getDataHome().getValue().get(position).getUsers(), usernameConnected);
+                offer.setUsers(ChangeToArray(arrayList));
+                ModelOffers.instance.editOffer(offer, new ModelOffers.EditOfferListener() {
+                    @Override
+                    public void onComplete(int code) {
+                        if (code == 200) {
+                            Toast.makeText(getActivity(), "offer updated!", Toast.LENGTH_LONG).show();
+                            ModelOffers.instance.refreshPostList();
+                        } else {
+                            Toast.makeText(getActivity(), "error updating offer!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
             }
         });
+
+
     }
 
     private void toLoginActivity() {
@@ -371,13 +370,5 @@ public class HomeFragment extends Fragment {
         return arrayList;
     }
 
-    public void getUsernameConnected() {
-        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-            @Override
-            public void onComplete(User profile) {
-                userConnected = profile;
-                usernameConnected = profile.getUsername();
-            }
-        });
-    }
+
 }

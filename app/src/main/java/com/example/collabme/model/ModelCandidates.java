@@ -34,7 +34,6 @@ public class ModelCandidates {
     public com.example.collabme.objects.tokensrefresh tokensrefresh = new tokensrefresh();
 
 
-
     public ModelCandidates() {
         candidatesListLoadingState.setValue(candidatelistloding.loaded);
         ;

@@ -231,6 +231,7 @@ public class MyOffersFragment extends Fragment {
                     ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                         @Override
                         public void onComplete(User profile) {
+
                             if (!profile.getUsername().equals(offer.getUser())) {
 
                                 offer_edit_imb.setVisibility(View.INVISIBLE);

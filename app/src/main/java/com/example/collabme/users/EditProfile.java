@@ -437,6 +437,7 @@ public class EditProfile extends Fragment {
                     @Override
                     public void onComplete(int code) {
                         if (code == 200) {
+                            ModelUsers.instance3.setUserConnected(null);
                             toLoginActivity();
                         }
                     }

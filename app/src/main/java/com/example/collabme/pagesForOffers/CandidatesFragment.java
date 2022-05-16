@@ -27,6 +27,7 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelCandidates;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
@@ -146,6 +147,7 @@ public class CandidatesFragment extends Fragment {
             public void onClick(View v) {
                 Modelauth.instance2.logout(code -> {
                     if (code == 200) {
+                        ModelUsers.instance3.setUserConnected(null);
                         LoginManager.getInstance().logOut();
                         toLoginActivity();
                     }

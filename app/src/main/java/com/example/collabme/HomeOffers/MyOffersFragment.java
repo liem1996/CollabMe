@@ -94,6 +94,7 @@ public class MyOffersFragment extends Fragment {
             public void onClick(View v) {
                 Modelauth.instance2.logout(code -> {
                     if (code == 200) {
+                        ModelUsers.instance3.setUserConnected(null);
                         toLoginActivity();
                     }
                 });

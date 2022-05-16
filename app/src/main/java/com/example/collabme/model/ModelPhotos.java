@@ -120,7 +120,7 @@ public class ModelPhotos {
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response1) {
                 if (response1.code()==200) {
                     try {
-                        Bitmap bitmap =   convertCompressedByteArrayToBitmap(response1.body().bytes());
+                        Bitmap bitmap =  convertCompressedByteArrayToBitmap(response1.body().bytes());
                         getimagesfile.onComplete(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();

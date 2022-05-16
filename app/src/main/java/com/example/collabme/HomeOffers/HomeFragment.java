@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
     OffersViewmodel viewModel;
     String offerId;
     Offer offer;
-    User userConnected;
+    User userConnected = null;
     FloatingActionButton addOfferBtn;
     Button checkBtn, deleteBtn;
     String usernameConnected = "";
@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Modelauth.instance2.logout(code -> {
                     if (code == 200) {
+                        ModelUsers.instance3.setUserConnected(null);
                         LoginManager.getInstance().logOut();
                         toLoginActivity();
                     }
@@ -119,7 +120,7 @@ public class HomeFragment extends Fragment {
                 offerId = viewModel.getDataHome().getValue().get(position).getIdOffer();
                 offer = viewModel.getDataHome().getValue().get(position);
                 if (view.findViewById(R.id.myoffers_listrow_check).getId() == idview) {
-                    offerCheckClicked(position);
+                    offerCheckClickedConnectedUser(position);
                 } else if (view.findViewById(R.id.myoffers_listrow_delete).getId() == idview) {
                     updateRejectedOfferArr(offerId);
                 } else if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
@@ -146,7 +147,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateRejectedOfferArr(String offerId) {
-         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+        if (userConnected == null) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                 @Override
                 public void onComplete(User profile) {
                     userConnected = profile;
@@ -154,7 +156,11 @@ public class HomeFragment extends Fragment {
                     updateUserWitnRejectedList(offerId);
                 }
             });
-
+        }
+        else
+        {
+            updateUserWitnRejectedList(offerId);
+        }
     }
 
     private void updateUserWitnRejectedList(String offerId) {
@@ -174,6 +180,23 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void offerCheckClickedConnectedUser(int position){
+        if (userConnected == null) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    userConnected = profile;
+                    ModelUsers.instance3.setUserConnected(profile);
+                    offerCheckClicked(position);
+                }
+            });
+        }
+        else
+        {
+            offerCheckClicked(position);
+        }
     }
 
     private void offerCheckClicked(int position) {
@@ -198,8 +221,6 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
-
-
     }
 
     private void toLoginActivity() {

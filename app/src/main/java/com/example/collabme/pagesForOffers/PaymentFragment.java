@@ -31,6 +31,7 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelPayment;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.Payment;
@@ -232,9 +233,8 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onComplete(int code) {
                         if (code == 200) {
+                            ModelUsers.instance3.setUserConnected(null);
                             toLoginActivity();
-                        } else {
-
                         }
                     }
                 });

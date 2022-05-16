@@ -22,6 +22,7 @@ import androidx.navigation.Navigation;
 import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelSearch;
+import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 
@@ -217,7 +218,6 @@ public class Fragment_Search extends Fragment {
 
                             });
                 }
-
             }
         });
 
@@ -228,6 +228,7 @@ public class Fragment_Search extends Fragment {
                     @Override
                     public void onComplete(int code) {
                         if (code == 200) {
+                            ModelUsers.instance3.setUserConnected(null);
                             toLoginActivity();
                         }
                     }

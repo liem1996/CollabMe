@@ -31,6 +31,7 @@ import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.OffersViewmodel;
+import com.facebook.login.LoginManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -95,6 +96,7 @@ public class MyOffersFragment extends Fragment {
                 Modelauth.instance2.logout(code -> {
                     if (code == 200) {
                         ModelUsers.instance3.setUserConnected(null);
+                        LoginManager.getInstance().logOut();
                         toLoginActivity();
                     }
                 });

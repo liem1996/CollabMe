@@ -36,6 +36,7 @@ import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.Payment;
 import com.example.collabme.status.DoneStatusFragmentArgs;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -234,6 +235,7 @@ public class PaymentFragment extends Fragment {
                     public void onComplete(int code) {
                         if (code == 200) {
                             ModelUsers.instance3.setUserConnected(null);
+                            LoginManager.getInstance().logOut();
                             toLoginActivity();
                         }
                     }

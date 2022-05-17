@@ -23,6 +23,7 @@ import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
+import com.facebook.login.LoginManager;
 
 import java.util.Arrays;
 /**
@@ -119,6 +120,7 @@ public class DoneStatusFragment extends Fragment {
                     public void onComplete(int code) {
                         if (code == 200) {
                             ModelUsers.instance3.setUserConnected(null);
+                            LoginManager.getInstance().logOut();
                             toLoginActivity();
                         }
                     }

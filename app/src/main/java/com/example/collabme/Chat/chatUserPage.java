@@ -26,6 +26,7 @@ import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.userViewModel;
+import com.facebook.login.LoginManager;
 
 //
 
@@ -104,6 +105,7 @@ public class chatUserPage extends Fragment {
                     @Override
                     public void onComplete(int code) {
                         if (code == 200) {
+                            LoginManager.getInstance().logOut();
                             toLoginActivity();
                         }
                     }

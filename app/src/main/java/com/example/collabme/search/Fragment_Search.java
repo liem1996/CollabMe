@@ -39,7 +39,6 @@ import java.util.List;
  * has ranges for different searches for price and date
  * can filter for couple of fields together
  * has a free search for looking information on all the fields of the offer
- *
  */
 
 public class Fragment_Search extends Fragment {
@@ -326,6 +325,7 @@ public class Fragment_Search extends Fragment {
         } else {
             goodsign = true;
         }
+
         if ((!fromdates1.equals("null") && todates1.equals("null")) || (!todates1.equals("null") && fromdates1.equals("null"))) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "you have to fill both from and to date", Toast.LENGTH_SHORT).show();
@@ -335,22 +335,52 @@ public class Fragment_Search extends Fragment {
             goodsign = true;
         }
 
+        if (!fromdates1.equals("null") && !todates1.equals("null")) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+            try {
+                Date fromDate = sdf.parse(fromdates1);
+                Date toDate = sdf.parse(todates1);
+                if (!fromDate.before(toDate)) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "Date must be before to date ", Toast.LENGTH_SHORT).show();
+                    goodsign = false;
+                    return;
+                }
+
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+
+            }
+        }
+        if (!fromprice1.equals("null") && !toprice1.equals("null")) {
+            if (!(Integer.parseInt(fromprice1) <= Integer.parseInt(toprice1))) {
+                progressBar.setVisibility(View.GONE);
+                fromprice.setError("Must be small from to price ");
+                goodsign = false;
+                return;
+            }
+        }
+
         if ((!fromprice1.equals("null") && toprice1.equals("null")) || (!toprice1.equals("null") && fromprice1.equals("null"))) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "you have to fill both from and to price", Toast.LENGTH_SHORT).show();
             goodsign = false;
             return;
         }
-        if (!isInteger(fromprice1) && (!fromprice1.equals("null"))|| !(fromprice1.matches("^[1-9]{1}(?:[0-9])*?$"))) {
+
+
+        if (!isInteger(fromprice1) && (!fromprice1.equals("null")) && !(fromprice1.matches("^[1-9]{1}(?:[0-9])*?$"))) {
+
             progressBar.setVisibility(View.GONE);
-            fromprice.setError("Only numbers");
-            //Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
+            fromprice.setError("Must numbers");
             goodsign = false;
             return;
         }
-        if (!isInteger(toprice1) && (!toprice1.equals("null")) || !(toprice1.matches("^[1-9]{1}(?:[0-9])*?$"))) {
+
+
+        if (!isInteger(toprice1) && (!toprice1.equals("null")) && !(toprice1.matches("^[1-9]{1}(?:[0-9])*?$"))) {
             progressBar.setVisibility(View.GONE);
-            toprice.setError("Only numbers");
+            toprice.setError("Must numbers");
             //Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
             goodsign = false;
             return;

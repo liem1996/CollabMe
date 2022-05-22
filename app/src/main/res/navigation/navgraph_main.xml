@@ -199,6 +199,9 @@
         <action
             android:id="@+id/action_candidatesFragment_to_inprogressfragment"
             app:destination="@id/inprogressfragment" />
+        <action
+            android:id="@+id/action_candidatesFragment_to_userProfile"
+            app:destination="@id/userProfile" />
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"

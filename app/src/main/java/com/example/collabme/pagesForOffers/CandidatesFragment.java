@@ -158,8 +158,11 @@ public class CandidatesFragment extends Fragment {
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, int idview) {
-                //TODO:: Missing??
+                User user = viewModel.getCandidates(offerId).getValue().get(position);
 
+                Navigation.findNavController(view).navigate(CandidatesFragmentDirections.actionCandidatesFragmentToUserProfile(
+                        user.getUsername(), user.getPassword(), user.getCompany(), user.getInfluencer(), user.getAge(), user.getEmail(), user.getSex(),
+                        user.getPlatforms(), user.getProfessions(), user.getFollowers(), user.getNumOfPosts()));
             }
         });
 

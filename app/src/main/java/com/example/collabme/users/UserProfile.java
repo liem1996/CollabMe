@@ -69,8 +69,6 @@ public class UserProfile extends Fragment {
         editBtn = view.findViewById(R.id.fragemnt_userprofile_editBtn);
         logout = view.findViewById(R.id.fragment_userprofile_logoutBtn);
         profilepicture = view.findViewById(R.id.fragment_userprofile_pic);
-
-
         ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
             @Override
             public void onComplete(User profile) {

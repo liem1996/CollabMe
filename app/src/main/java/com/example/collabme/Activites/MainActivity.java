@@ -15,6 +15,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.collabme.R;
 import com.example.collabme.databinding.ActivityMainBinding;
+import com.example.collabme.model.ModelUsers;
+import com.example.collabme.objects.User;
+
 /**
  *
  * the MainActivity - the main for the offers,user pages
@@ -59,7 +62,25 @@ public class MainActivity extends AppCompatActivity {
                     navCtl.navigate(R.id.myOffersFragment);
                     break;
                 case R.id.nav_account:
-                    navCtl.navigate(R.id.userProfile);
+                    ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                        @Override
+                        public void onComplete(User profile) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("username",profile.getUsername());
+                            bundle.putString("password",profile.getPassword());
+                            bundle.putBoolean("company",profile.getCompany());
+                            bundle.putBoolean("influencer",profile.getInfluencer());
+                            bundle.putString("age",profile.getAge());
+                            bundle.putString("email",profile.getEmail());
+                            bundle.putString("gender",profile.getSex());
+                            bundle.putStringArray("platform",profile.getPlatforms());
+                            bundle.putStringArray("profession",profile.getProfessions());
+                            bundle.putString("followers",profile.getFollowers());
+                            bundle.putString("postsuploads",profile.getNumOfPosts());
+                            navCtl.navigate(R.id.userProfile,bundle);
+                        }
+                    });
+
                     break;
             }
             return true;

@@ -48,6 +48,7 @@ public class UserProfile extends Fragment {
     ImageView logout, profilepicture;
     ProgressBar progressBar;
     SpinnerAdapter spinnerAdapter;
+    String username1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +70,8 @@ public class UserProfile extends Fragment {
         editBtn = view.findViewById(R.id.fragemnt_userprofile_editBtn);
         logout = view.findViewById(R.id.fragment_userprofile_logoutBtn);
         profilepicture = view.findViewById(R.id.fragment_userprofile_pic);
-        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+        username1 = UserProfileArgs.fromBundle(getArguments()).getUsername();
+        ModelUsers.instance3.getuserbyusername(username1,new ModelUsers.GetUserByIdListener() {
             @Override
             public void onComplete(User profile) {
                 if (profile != null) {

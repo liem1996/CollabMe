@@ -29,7 +29,6 @@
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_my_offers_and_candidate_offers.xml" value="0.25" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_details.xml" value="0.23278985507246377" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_done_status.xml" value="0.19519927536231885" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_inprogress_status.xml" value="0.18931159420289856" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_open_status.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_offer_openstatus.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_payment.xml" value="0.25" />
@@ -170,6 +169,7 @@
         <entry key="app/src/main/res/layout/chat_activity_main.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_edit_offer.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.36942049139323563" />
         <entry key="app/src/main/res/layout/fragment_profession.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.35625" />
@@ -183,6 +183,7 @@
         <entry key="app/src/main/res/layout/item_chat_sentmessege.xml" value="0.3026664377579217" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/my_message.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/layout/my_spinner_style.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/test.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/their_message.xml" value="0.3421875" />
         <entry key="app/src/main/res/layout/user_connected.xml" value="0.22447916666666667" />

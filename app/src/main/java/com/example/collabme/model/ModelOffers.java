@@ -49,6 +49,8 @@ public class ModelOffers {
     private User userConnected;
     private boolean userRefreshed = false;
 
+    private String[] userConnectedProfessions = new String[16];
+
     /**
      * interfaces
      *
@@ -185,6 +187,10 @@ public class ModelOffers {
                 userConnected = profile;
                 ModelUsers.instance3.setUserConnected(profile);
                 userRefreshed = true;
+                userConnectedProfessions = new String[16];
+                for (int i = 0; i < profile.getProfessions().length; i++) {
+                    userConnectedProfessions[i] = profile.getProfessions()[i];
+                }
             }
         });
 
@@ -216,8 +222,14 @@ public class ModelOffers {
         List<Offer> openOfferLst = new LinkedList<>();
         ArrayList<String> rejectedOffers = userConnected.getRejectedOffers();
         for (int i = 0; i < stList.size(); i++) {
-            if (stList.get(i).getStatus().equals("Open") && (!rejectedOffers.contains(stList.get(i).getIdOffer()))  && !Arrays.asList(stList.get(i).getUsers()).contains(userConnected.getUsername()) ) {
-                openOfferLst.add(stList.get(i));
+            for(int k = 0 ; k<stList.get(i).getProfession().length; k++){
+                for(int j = 0; j<userConnectedProfessions.length; j++) {
+                    if (stList.get(i).getProfession()[k].equals(userConnectedProfessions[j])){
+                        if (stList.get(i).getStatus().equals("Open") && (!rejectedOffers.contains(stList.get(i).getIdOffer()))  && !Arrays.asList(stList.get(i).getUsers()).contains(userConnected.getUsername()) ) {
+                            openOfferLst.add(stList.get(i));
+                        }
+                    }
+                }
             }
         }
         offersListHome.postValue(openOfferLst);

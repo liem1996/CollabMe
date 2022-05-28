@@ -64,6 +64,7 @@ public class CandidatesFragment extends Fragment {
     boolean contains = false, clicked = false;
     User user1;
     ImageButton backBtn;
+    int positionOut;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -170,12 +171,13 @@ public class CandidatesFragment extends Fragment {
         backBtn = view.findViewById(R.id.fragment_candidates_backBtn);
         backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
+
         choosen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (choosenCandidate == null) {
                     Toast.makeText(getActivity(), "you didnt choose candidate", Toast.LENGTH_LONG).show();
-                } else if (choosenCandidate.isChecked()) {
+                } else if (positionOut ==0 || choosenCandidate.isChecked()) {
                     ModelOffers.instance.getOfferById(offerId, new ModelOffers.GetOfferListener() {
                         @Override
                         public void onComplete(Offer offer) {
@@ -227,6 +229,7 @@ public class CandidatesFragment extends Fragment {
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
+                    positionOut = position;
                     listener.onItemClick(position, itemView, viewid);
                 }
             });

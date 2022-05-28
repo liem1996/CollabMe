@@ -158,11 +158,12 @@ public class CandidatesFragment extends Fragment {
         adapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, int idview) {
-                User user = viewModel.getCandidates(offerId).getValue().get(position);
-
-                Navigation.findNavController(view).navigate(CandidatesFragmentDirections.actionCandidatesFragmentToUserProfile(
-                        user.getUsername(), user.getPassword(), user.getCompany(), user.getInfluencer(), user.getAge(), user.getEmail(), user.getSex(),
-                        user.getPlatforms(), user.getProfessions(), user.getFollowers(), user.getNumOfPosts()));
+                if (view.findViewById(R.id.candidates_listrow_checkBox).getId() != idview) {
+                    User user = viewModel.getCandidates(offerId).getValue().get(position);
+                    Navigation.findNavController(view).navigate(CandidatesFragmentDirections.actionCandidatesFragmentToUserProfile(
+                            user.getUsername(), user.getPassword(), user.getCompany(), user.getInfluencer(), user.getAge(), user.getEmail(), user.getSex(),
+                            user.getPlatforms(), user.getProfessions(), user.getFollowers(), user.getNumOfPosts()));
+                }
             }
         });
 
@@ -226,7 +227,6 @@ public class CandidatesFragment extends Fragment {
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
-
                     listener.onItemClick(position, itemView, viewid);
                 }
             });

@@ -219,7 +219,11 @@ public class WaitingOffersFragment extends Fragment {
         public void bindoffer(Offer offer, int pos, View item) {
             offer_username.setText(offer.getUser());
             offer_headline.setText(offer.getHeadline());
-            offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
+            if(String.valueOf(offer.getFinishDate()).length() == 7){
+                String tmp = String.valueOf(offer.getFinishDate());
+                tmp = "0" + tmp;
+                offer_date.setText(setValidDate(tmp));
+            }else offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
             offer_status.setText(offer.getStatus());
             offer_edit_imb.setVisibility(View.INVISIBLE);
             offer_V_imb.setVisibility(View.INVISIBLE);

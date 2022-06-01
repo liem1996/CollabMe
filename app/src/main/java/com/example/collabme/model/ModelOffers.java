@@ -13,6 +13,7 @@ import com.example.collabme.objects.tokensrefresh;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,7 @@ public class ModelOffers {
     private boolean userRefreshed = false;
 
     private String[] userConnectedProfessions = new String[16];
+    private String[] userConnectedPlatforms = new String[5];
 
     /**
      * interfaces
@@ -188,12 +190,15 @@ public class ModelOffers {
                 ModelUsers.instance3.setUserConnected(profile);
                 userRefreshed = true;
                 userConnectedProfessions = new String[16];
+                userConnectedPlatforms = new String[5];
                 for (int i = 0; i < profile.getProfessions().length; i++) {
                     userConnectedProfessions[i] = profile.getProfessions()[i];
                 }
+                for (int i = 0; i < profile.getPlatforms().length; i++) {
+                    userConnectedPlatforms[i] = profile.getPlatforms()[i];
+                }
             }
         });
-
     }
 
     private void updateOfferLists() {
@@ -222,17 +227,24 @@ public class ModelOffers {
         List<Offer> openOfferLst = new LinkedList<>();
         ArrayList<String> rejectedOffers = userConnected.getRejectedOffers();
         for (int i = 0; i < stList.size(); i++) {
-            for(int k = 0 ; k<stList.get(i).getProfession().length; k++){
-                for(int j = 0; j<userConnectedProfessions.length; j++) {
-                    if (stList.get(i).getProfession()[k].equals(userConnectedProfessions[j])){
-                        if (stList.get(i).getStatus().equals("Open") && (!rejectedOffers.contains(stList.get(i).getIdOffer()))  && !Arrays.asList(stList.get(i).getUsers()).contains(userConnected.getUsername()) ) {
-                            openOfferLst.add(stList.get(i));
-                        }
-                    }
+           if (checkUserProfessions(stList.get(i))){
+               if (stList.get(i).getStatus().equals("Open") && (!rejectedOffers.contains(stList.get(i).getIdOffer()))  && !Arrays.asList(stList.get(i).getUsers()).contains(userConnected.getUsername()) ) {
+                   openOfferLst.add(stList.get(i));
+               }
+           }
+        }
+        offersListHome.postValue(openOfferLst);
+    }
+
+    private boolean checkUserProfessions(Offer offer){
+        for(int k = 0 ; k<offer.getProfession().length; k++) {
+            for (int j = 0; j < userConnectedProfessions.length; j++) {
+                if (offer.getProfession()[k].equals(userConnectedProfessions[j])) {
+                    return true;
                 }
             }
         }
-        offersListHome.postValue(openOfferLst);
+        return false;
     }
 
     public void updateMyOfferList(List<Offer> stList) {
@@ -337,7 +349,6 @@ public class ModelOffers {
                 deleteofferlisner.onComplete();
             }
         });
-
     }
 
     public void editOffer(Offer newOffer, EditOfferListener editOfferListener) {

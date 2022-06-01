@@ -146,8 +146,7 @@ public class WaitingOffersFragment extends Fragment {
             }
         });
 
-        //adapter1.notifyDataSetChanged();
-
+        ModelOffers.instance.refreshPostList();
         return view;
     }
 
@@ -233,8 +232,6 @@ public class WaitingOffersFragment extends Fragment {
                 public void onComplete(Bitmap responseBody) {
                     if(responseBody!=null) {
                         offer_image.setImageBitmap(responseBody);
-
-
                     }
                 }
             });

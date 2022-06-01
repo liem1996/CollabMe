@@ -176,7 +176,6 @@ public class EditProfile extends Fragment {
                                             public void onComplete(int code) {
                                                 Toast.makeText(getActivity(), "user deleted", Toast.LENGTH_LONG).show();
                                                 toLoginActivity();
-
                                             }
                                         });
                                     }
@@ -220,13 +219,11 @@ public class EditProfile extends Fragment {
                                     langList.add(k);
                                     Collections.sort(langList);
                                     selectedProfessions[k] = true;
-
                                 }
                             }
                         }
                     }
                 }
-
 
                 builder.setMultiChoiceItems(langArray, selectedProfessions, new DialogInterface.OnMultiChoiceClickListener() {
 
@@ -257,9 +254,7 @@ public class EditProfile extends Fragment {
                         for (int j = 0; j < langList.size(); j++) {
                             // concat array value
                             chosen[j] = (langArray[langList.get(j)]); //to check again
-
                         }
-
                     }
                 });
 
@@ -312,7 +307,6 @@ public class EditProfile extends Fragment {
                                 Collections.sort(langList2);
                                 selectedPlatforms[km] = true;
                             }
-
                         }
                     }
                 }

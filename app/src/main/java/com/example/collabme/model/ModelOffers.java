@@ -13,6 +13,7 @@ import com.example.collabme.objects.tokensrefresh;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -198,7 +199,6 @@ public class ModelOffers {
                 }
             }
         });
-
     }
 
     private void updateOfferLists() {
@@ -233,6 +233,7 @@ public class ModelOffers {
                }
            }
         }
+        Collections.shuffle(openOfferLst);
         offersListHome.postValue(openOfferLst);
     }
 
@@ -246,17 +247,6 @@ public class ModelOffers {
         }
         return false;
     }
-
-//    private boolean checkUserPlatforms(Offer offer){
-//        for(int k = 0 ; k<offer.().length; k++) {
-//            for (int j = 0; j < userConnectedPlatforms.length; j++) {
-//                if (offer.getProfession()[k].equals(userConnectedPlatforms[j])) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
 
     public void updateMyOfferList(List<Offer> stList) {
         List<Offer> myOfferLst = new LinkedList<>();
@@ -360,7 +350,6 @@ public class ModelOffers {
                 deleteofferlisner.onComplete();
             }
         });
-
     }
 
     public void editOffer(Offer newOffer, EditOfferListener editOfferListener) {

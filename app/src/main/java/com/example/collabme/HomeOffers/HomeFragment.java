@@ -309,8 +309,10 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onComplete(User profile) {
                             if (!profile.getUsername().equals(offer.getUser()))
+                                //if not the owner of the offer connected
                                 offer_edit_imb.setVisibility(View.INVISIBLE);
                             else {
+                                //if the owner of the offer connected
                                 offer_V_imb.setVisibility(View.INVISIBLE);
                                 offer_X_imb.setVisibility(View.INVISIBLE);
                             }

@@ -35,8 +35,8 @@ import com.facebook.login.LoginManager;
 
 import java.util.LinkedList;
 import java.util.List;
+
 /**
- *
  * the Waiting offers fragment - included :
  * viewholder for the recyclerview in the Waiting offers
  * viewmodel for the offers that the user is been part of the candidates and is in its process
@@ -52,7 +52,7 @@ public class WaitingOffersFragment extends Fragment {
     OnItemClickListenerWaitingOffers listener;
     ImageView logout;
     OffersViewmodel viewModel;
-    String offerId,headline;
+    String offerId, headline;
     int price;
     Offer offer;
     RadioButton radioButton;
@@ -68,14 +68,13 @@ public class WaitingOffersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_waiting_offers, container, false);
-        RadioGroup radioGroup = (RadioGroup) view .findViewById(R.id.radioGroup);
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
         radioButton = view.findViewById(R.id.radioButton7);
         radioButton.setChecked(true);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // checkedId is the RadioButton selected
-                switch(checkedId) {
+                switch (checkedId) {
                     case R.id.radioButton7:
                         Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionGlobalWaitingOffersFragment());
                         break;
@@ -119,7 +118,7 @@ public class WaitingOffersFragment extends Fragment {
                 String status = offer.getStatus();
                 switch (status) {
                     case "Open":
-                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToOfferDetailsFragment(offerId,null));
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToOfferDetailsFragment(offerId, null));
                         break;
                     case "InProgress":
                         Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToInprogressfragment(offerId));
@@ -128,7 +127,7 @@ public class WaitingOffersFragment extends Fragment {
                         Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToCloseStatusfragment(offerId));
                         break;
                     case "Done":
-                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToDoneStatusFragment(offerId,headline,price));
+                        Navigation.findNavController(view).navigate(WaitingOffersFragmentDirections.actionWaitingOffersFragmentToDoneStatusFragment(offerId, headline, price));
                         break;
                 }
             }
@@ -166,7 +165,7 @@ public class WaitingOffersFragment extends Fragment {
     class MyViewHolderWaitingOffers extends RecyclerView.ViewHolder {
         TextView offer_date, offer_status;
         TextView offer_headline, offer_username;
-        ImageView offer_X_imb, offer_V_imb, offer_image,offer_image_profile;
+        ImageView offer_X_imb, offer_V_imb, offer_image, offer_image_profile;
         ImageButton offer_edit_imb;
 
         public MyViewHolderWaitingOffers(@NonNull View itemView) {
@@ -218,11 +217,12 @@ public class WaitingOffersFragment extends Fragment {
         public void bindoffer(Offer offer, int pos, View item) {
             offer_username.setText(offer.getUser());
             offer_headline.setText(offer.getHeadline());
-            if(String.valueOf(offer.getFinishDate()).length() == 7){
+            if (String.valueOf(offer.getFinishDate()).length() == 7) {
                 String tmp = String.valueOf(offer.getFinishDate());
                 tmp = "0" + tmp;
                 offer_date.setText(setValidDate(tmp));
-            }else offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
+            } else
+                offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
             offer_status.setText(offer.getStatus());
             offer_edit_imb.setVisibility(View.INVISIBLE);
             offer_V_imb.setVisibility(View.INVISIBLE);
@@ -230,7 +230,7 @@ public class WaitingOffersFragment extends Fragment {
             ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                 @Override
                 public void onComplete(Bitmap responseBody) {
-                    if(responseBody!=null) {
+                    if (responseBody != null) {
                         offer_image.setImageBitmap(responseBody);
                     }
                 }

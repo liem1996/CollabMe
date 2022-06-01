@@ -152,6 +152,7 @@ public class MyOffersFragment extends Fragment {
             }
         });
 
+        ModelOffers.instance.refreshPostList();
         return view;
     }
 
@@ -171,7 +172,7 @@ public class MyOffersFragment extends Fragment {
     class MyViewHolderoffers extends RecyclerView.ViewHolder {
         TextView offer_date, offer_status;
         TextView offer_headline, offer_username;
-        ImageView offer_X_imb, offer_V_imb, offer_image,offer_image_profile;
+        ImageView offer_X_imb, offer_V_imb, offer_image, offer_image_profile;
         ImageButton offer_edit_imb;
 
         public MyViewHolderoffers(@NonNull View itemView) {
@@ -223,11 +224,11 @@ public class MyOffersFragment extends Fragment {
         public void bindoffer(Offer offer, int pos, View item) {
             offer_username.setText(offer.getUser());
             offer_headline.setText(offer.getHeadline());
-            if(String.valueOf(offer.getFinishDate()).length() == 7){
+            if (String.valueOf(offer.getFinishDate()).length() == 7) {
                 String tmp = String.valueOf(offer.getFinishDate());
                 tmp = "0" + tmp;
                 offer_date.setText(setValidDate(tmp));
-            }else offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
+            } else offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
             offer_status.setText(offer.getStatus());
             ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
                 @Override
@@ -238,9 +239,10 @@ public class MyOffersFragment extends Fragment {
                     ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                         @Override
                         public void onComplete(User profile) {
-
+                            if(offer.getStatus().equals("Close")) {
+                                offer_edit_imb.setVisibility(View.INVISIBLE);
+                            }
                             if (!profile.getUsername().equals(offer.getUser())) {
-
                                 offer_edit_imb.setVisibility(View.INVISIBLE);
                             } else {
                                 offer_V_imb.setVisibility(View.INVISIBLE);

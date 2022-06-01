@@ -133,7 +133,6 @@ public class UserProfile extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -164,7 +163,6 @@ public class UserProfile extends Fragment {
         }
         spinnerAdapter = new SpinnerAdapter(getContext(), Arrays.asList(tmpArr));
         spinner.setAdapter(spinnerAdapter);
-
     }
 
     public ArrayList<String> ChangeToArray(String[] array) {

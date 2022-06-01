@@ -143,6 +143,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        ModelOffers.instance.refreshPostList();
         return view;
     }
 
@@ -394,6 +395,4 @@ public class HomeFragment extends Fragment {
         }
         return arrayList;
     }
-
-
 }

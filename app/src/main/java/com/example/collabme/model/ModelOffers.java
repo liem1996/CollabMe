@@ -233,7 +233,6 @@ public class ModelOffers {
                }
            }
         }
-        Collections.shuffle(openOfferLst);
         offersListHome.postValue(openOfferLst);
     }
 

@@ -9,6 +9,9 @@
     <string name="facebook_client_token">d29cb1b3329e1363b8902920634c7c84</string>
 
     <string name="googlepay_button_content_description">Google Pay</string>
+    <string name="is_typing" />
+    <string name="hint_message" />
+    <string name="btn_send" />
 
 
 </resources>

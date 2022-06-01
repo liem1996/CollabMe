@@ -10,50 +10,54 @@ package com.example.collabme.objects;
 
 public class Messege {
 
-    private String from;
-    private String message;
-    private String to;
-    private String createdAt;
+    public static final int TYPE_MESSAGE = 0;
+    public static final int TYPE_LOG = 1;
+    public static final int TYPE_ACTION = 2;
 
-    public  Messege(){
+    private int mType;
+    private String mMessage;
+    private String mUsername;
 
-    }
-    public Messege(String from,String to, String message, String createdAt) {
-        this.from = from;
-        this.to = to;
-        this.message = message;
-        this.createdAt = createdAt;
-    }
+    private Messege() {}
 
-    public String getFrom() {
-        return from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
+    public int getType() {
+        return mType;
+    };
 
     public String getMessage() {
-        return message;
-    }
+        return mMessage;
+    };
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    public String getUsername() {
+        return mUsername;
+    };
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public static class Builder {
+        private final int mType;
+        private String mUsername;
+        private String mMessage;
+
+        public Builder(int type) {
+            mType = type;
+        }
+
+        public Builder username(String username) {
+            mUsername = username;
+            return this;
+        }
+
+        public Builder message(String message) {
+            mMessage = message;
+            return this;
+        }
+
+        public Messege build() {
+            Messege message = new Messege();
+            message.mType = mType;
+            message.mUsername = mUsername;
+            message.mMessage = mMessage;
+            return message;
+        }
     }
 }

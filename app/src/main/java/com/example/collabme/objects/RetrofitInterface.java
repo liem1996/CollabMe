@@ -120,8 +120,8 @@ public interface RetrofitInterface {
     @POST("/UserChatConvo/getusersChat")
     Call<List<ChatUserConvo>> getchatConvo(@Body Map<String, Object> usernamesConvo, @Header("authorization") String token);
 
-    @POST("/UserChatConvo/getusersChatConnectotherside")
-    Call<List<ChatUserConvo>> getothersideconvo(@Body Map<String, Object> usernamesConvo, @Header("authorization") String token);
-
+//    @POST("/UserChatConvo/getusersChatConnectotherside")
+//    Call<List<ChatUserConvo>> getothersideconvo(@Body Map<String, Object> usernamesConvo, @Header("authorization") String token);
+//
 
 }

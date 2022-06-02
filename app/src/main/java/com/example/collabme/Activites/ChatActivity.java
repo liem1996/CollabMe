@@ -1,9 +1,11 @@
 package com.example.collabme.Activites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -56,6 +58,7 @@ public class ChatActivity extends AppCompatActivity  {
    private static final int TYPING_TIMER_LENGTH = 600;
    private String mUsername;
    private String mUsernametexting;
+   Button cancel;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class ChatActivity extends AppCompatActivity  {
 
       mUsername = getIntent().getStringExtra("name");
       mUsernametexting = getIntent().getStringExtra("usernametext");
-
+      cancel = findViewById(R.id.chat_cancel);
       try {
          mSocket = IO.socket("http://10.0.2.2:3000");
       } catch (URISyntaxException e) {
@@ -83,23 +86,39 @@ public class ChatActivity extends AppCompatActivity  {
       chatUserConvo.setUsernameConnect(mUsername);
       chatUserConvo.setUserNameYouWrite(mUsernametexting);
 
-      ModelChatUser.instance3.getusersChatConnectotherside(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
+      cancel.setOnClickListener(new View.OnClickListener() {
          @Override
-         public void onComplete(List<ChatUserConvo> list) {
-            for(int i=0;i<list.size();i++){
-               addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat());
+         public void onClick(View v) {
+            Intent intent = new Intent(ChatActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+         }
+      });
+      ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
+         @Override
+         public void onComplete(List<ChatUserConvo> list1) {
+            if(list1!=null || list1.size()!=0) {
+               for (int i = 0; i < list1.size(); i++) {
+                  addMessage(list1.get(i).getUsernameConnect(), list1.get(i).getTheChat());
+               }
             }
+            chatUserConvo.setUsernameConnect(mUsernametexting);
+            chatUserConvo.setUserNameYouWrite(mUsername);
+            ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
+               @Override
+               public void onComplete(List<ChatUserConvo> list) {
+                  if(list!=null || list.size()!=0) {
+                     for (int i = 0; i < list.size(); i++) {
+                        addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat());
+                     }
+                  }
+               }
+            });
+
          }
       });
 
-      ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
-         @Override
-         public void onComplete(List<ChatUserConvo> list) {
-            for(int i=0;i<list.size();i++){
-               addMessage(list.get(i).getUserNameYouWrite(), list.get(i).getTheChat());
-            }
-         }
-      });
+
 
       AppCompatButton sendButton = findViewById(R.id.button_gchat_send);
       sendButton.setOnClickListener(new View.OnClickListener() {

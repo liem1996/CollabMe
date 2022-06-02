@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collabme.R;
+import com.example.collabme.model.ModelChatUser;
+import com.example.collabme.objects.ChatUserConvo;
 import com.example.collabme.objects.MessageAdapter;
 import com.example.collabme.objects.Messege;
 import com.google.android.material.textfield.TextInputEditText;
@@ -39,7 +41,7 @@ import io.socket.emitter.Emitter;
 
 public class ChatActivity extends AppCompatActivity  {
 
-   private static final String TAG = "MainActivity";
+
 
    private Socket mSocket;
    private List<Messege> mMessages = new ArrayList<Messege>();
@@ -53,6 +55,7 @@ public class ChatActivity extends AppCompatActivity  {
 
    private static final int TYPING_TIMER_LENGTH = 600;
    private String mUsername;
+   private String mUsernametexting;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +63,15 @@ public class ChatActivity extends AppCompatActivity  {
       setContentView(R.layout.activity_chat);
 
       mUsername = getIntent().getStringExtra("name");
+      mUsernametexting = getIntent().getStringExtra("usernametext");
+
       try {
          mSocket = IO.socket("http://10.0.2.2:3000");
       } catch (URISyntaxException e) {
          throw new RuntimeException(e);
       }
       mSocket.on("newMessage", onNewMessage);
-//    mSocket.on("updateChat",)
+
       mSocket.connect();
       mAdapter = new MessageAdapter(this, mMessages);
 
@@ -74,6 +79,27 @@ public class ChatActivity extends AppCompatActivity  {
       mMessagesView.setLayoutManager(new LinearLayoutManager(this));
       mMessagesView.setAdapter(mAdapter);
      mInputMessageView = findViewById(R.id.edit_gchat_message);
+      ChatUserConvo chatUserConvo =new ChatUserConvo();
+      chatUserConvo.setUsernameConnect(mUsername);
+      chatUserConvo.setUserNameYouWrite(mUsernametexting);
+
+      ModelChatUser.instance3.getusersChatConnectotherside(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
+         @Override
+         public void onComplete(List<ChatUserConvo> list) {
+            for(int i=0;i<list.size();i++){
+               addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat());
+            }
+         }
+      });
+
+      ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
+         @Override
+         public void onComplete(List<ChatUserConvo> list) {
+            for(int i=0;i<list.size();i++){
+               addMessage(list.get(i).getUserNameYouWrite(), list.get(i).getTheChat());
+            }
+         }
+      });
 
       AppCompatButton sendButton = findViewById(R.id.button_gchat_send);
       sendButton.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +128,9 @@ public class ChatActivity extends AppCompatActivity  {
       try {
 
          JSONObject data = new JSONObject();
-         data.put("roomName",mUsername);
+         data.put("username",mUsername);
          data.put("messageContent",message);
+         data.put("usernametext",mUsernametexting);
          // perform the sending message attempt.
          mSocket.emit("newMessage", data);
 
@@ -121,9 +148,11 @@ public class ChatActivity extends AppCompatActivity  {
                JSONObject data = (JSONObject) args[0];
                String username;
                String message;
+
                try {
-                  username = data.getString("roomName");
+                  username = data.getString("username");
                   message = data.getString("messageContent");
+
                } catch (JSONException e) {
 
                   return;

@@ -117,5 +117,11 @@ public interface RetrofitInterface {
     @POST("/users/editUserWithoutAuth/{username}")
     Call<User> editUserWithoutAuth(@Path("username") String username, @Body Map<String, Object> newUser);
 
+    @POST("/UserChatConvo/getusersChat")
+    Call<List<ChatUserConvo>> getchatConvo(@Body Map<String, Object> usernamesConvo, @Header("authorization") String token);
+
+    @POST("/UserChatConvo/getusersChatConnectotherside")
+    Call<List<ChatUserConvo>> getothersideconvo(@Body Map<String, Object> usernamesConvo, @Header("authorization") String token);
+
 
 }

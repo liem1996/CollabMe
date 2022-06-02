@@ -51,6 +51,7 @@ public class chatUserPage extends Fragment {
     String username;
     RecyclerView list;
     ImageView logout;
+    String usernametexting;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -79,6 +80,7 @@ public class chatUserPage extends Fragment {
                     @Override
                     public void onComplete(User profile) {
                         username = profile.getUsername();
+                        usernametexting = viewModel.getData().getValue().get(position).getUsername();
                         tochatActivity();
                     }
                 });
@@ -133,6 +135,7 @@ public class chatUserPage extends Fragment {
     private void tochatActivity() {
         Intent intent = new Intent(getContext(), ChatActivity.class);
         intent.putExtra("name",username);
+        intent.putExtra("usernametext",usernametexting);
         startActivity(intent);
         getActivity().finish();
     }

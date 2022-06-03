@@ -1,46 +1,34 @@
 package com.example.collabme.Activites;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Base64;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Button;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collabme.R;
-import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.ModelChatUser;
+import com.example.collabme.objects.ChatUserConvo;
 import com.example.collabme.objects.MessageAdapter;
-import com.example.collabme.objects.User;
+import com.example.collabme.objects.Messege;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
 
 /**
@@ -53,234 +41,170 @@ import okhttp3.WebSocketListener;
  *
  */
 
-public class ChatActivity extends AppCompatActivity implements TextWatcher {
-
-    private String name;
-    private String toUser;
-
-    private WebSocket webSocket;
-    private String SERVER_PATH = "ws://10.0.2.2:3000"; //local server
-//    private String SERVER_PATH = "ws://193.106.55.126:3000"; //remote server
-
-    private EditText messageEdit;
-    private View sendBtn, pickImgBtn;
-    private RecyclerView recyclerView;
-    private int IMAGE_REQUEST_ID = 1;
-    private MessageAdapter messageAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
-
-        name = getIntent().getStringExtra("name");
-        initiateSocketConnection();
-        messageEdit = findViewById(R.id.edit_gchat_message);
-        sendBtn = findViewById(R.id.button_gchat_send);
-
-
-        recyclerView = findViewById(R.id.recycler_gchat);
-
-        messageAdapter = new MessageAdapter(getLayoutInflater());
-        recyclerView.setAdapter(messageAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-        messageEdit.addTextChangedListener(this);
-        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-            @Override
-            public void onComplete(User profile) {
-                if(profile.getUsername().equals(toUser) || profile.getUsername().equals(name)){}
-            }
-        });
-
-
-    }
-
-    private void initiateSocketConnection() {
-
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(SERVER_PATH).build();
-        webSocket = client.newWebSocket(request, new SocketListener());
-
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-        String string = s.toString().trim();
-
-        if (string.isEmpty()) {
-            resetMessageEdit();
-        } else {
-
-            sendBtn.setVisibility(View.VISIBLE);
-
-        }
-
-    }
-
-    private void resetMessageEdit() {
-
-        messageEdit.removeTextChangedListener(this);
-
-        messageEdit.setText("");
-        sendBtn.setVisibility(View.INVISIBLE);
-        ;
-
-        messageEdit.addTextChangedListener(this);
-
-    }
-
-    private class SocketListener extends WebSocketListener {
-
-        @Override
-        public void onOpen(WebSocket webSocket, Response response) {
-            super.onOpen(webSocket, response);
-            runOnUiThread(() -> {
-                Toast.makeText(ChatActivity.this,
-                        "Socket Connection Successful!",
-                        Toast.LENGTH_SHORT).show();
-
-                initializeView();
-            });
-
-        }
-
-        @Override
-        public void onMessage(WebSocket webSocket, String text) {
-            super.onMessage(webSocket, text);
-
-            runOnUiThread(() -> {
-
-                try {
-                    JSONObject jsonObject = new JSONObject(text);
-                    jsonObject.put("isSent", false);
-
-                    messageAdapter.addItem(jsonObject);
-
-                    recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            });
-
-        }
-    }
-
-    private void initializeView() {
-
-
-        sendBtn.setOnClickListener(v -> {
-            Date currentTime = Calendar.getInstance().getTime();
-            DateFormat date = new SimpleDateFormat("HH:mm a");
-            date.setTimeZone(TimeZone.getTimeZone("GMT+3:00"));
-
-            String localTime = date.format(currentTime);
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("name", name);
-                jsonObject.put("toUser", toUser);
-                jsonObject.put("message", messageEdit.getText().toString());
-                jsonObject.put("currentTime", localTime);
-
-                webSocket.send(jsonObject.toString());
-
-                jsonObject.put("isSent", true);
-                jsonObject.put("isTheRightUser", true);
-
-                messageAdapter.addItem(jsonObject);
-
-                recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
-
-                resetMessageEdit();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        });
-
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == IMAGE_REQUEST_ID && resultCode == RESULT_OK) {
-
-            try {
-                InputStream is = getContentResolver().openInputStream(data.getData());
-                Bitmap image = BitmapFactory.decodeStream(is);
-
-                sendImage(image);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }
-
-    private void sendImage(Bitmap image) {
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
-
-        String base64String = Base64.encodeToString(outputStream.toByteArray(),
-                Base64.DEFAULT);
-
-        JSONObject jsonObject = new JSONObject();
-
-        try {
-            jsonObject.put("name", name);
-            jsonObject.put("image", base64String);
-
-            webSocket.send(jsonObject.toString());
-
-            jsonObject.put("isSent", true);
-
-            messageAdapter.addItem(jsonObject);
-
-            recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.cancel_chat) {
+public class ChatActivity extends AppCompatActivity  {
+
+
+
+   private Socket mSocket;
+   private List<Messege> mMessages = new ArrayList<Messege>();
+   private RecyclerView.Adapter mAdapter;
+   private RecyclerView mMessagesView;
+
+   private TextInputEditText mInputMessageView;
+   private Handler mTypingHandler = new Handler();
+
+   private boolean mTyping = false;
+
+   private static final int TYPING_TIMER_LENGTH = 600;
+   private String mUsername;
+   private String mUsernametexting;
+   Button cancel;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.activity_chat);
+
+      mUsername = getIntent().getStringExtra("name");
+      mUsernametexting = getIntent().getStringExtra("usernametext");
+      cancel = findViewById(R.id.chat_cancel);
+      try {
+         mSocket = IO.socket("http://10.0.2.2:3000");
+      } catch (URISyntaxException e) {
+         throw new RuntimeException(e);
+      }
+      mSocket.on("newMessage", onNewMessage);
+
+      mSocket.connect();
+      mAdapter = new MessageAdapter(this, mMessages);
+
+      mMessagesView = findViewById(R.id.recycler_gchat);
+      mMessagesView.setLayoutManager(new LinearLayoutManager(this));
+      mMessagesView.setAdapter(mAdapter);
+     mInputMessageView = findViewById(R.id.edit_gchat_message);
+      ChatUserConvo chatUserConvo =new ChatUserConvo();
+      chatUserConvo.setUsernameConnect(mUsername);
+      chatUserConvo.setUserNameYouWrite(mUsernametexting);
+
+      cancel.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
             Intent intent = new Intent(ChatActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
+         }
+      });
+      ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
+         @Override
+         public void onComplete(List<ChatUserConvo> list1) {
+            if(list1!=null || list1.size()!=0) {
+               for (int i = 0; i < list1.size(); i++) {
+                  addMessage(list1.get(i).getUsernameConnect(), list1.get(i).getTheChat());
+               }
+            }
+            chatUserConvo.setUsernameConnect(mUsernametexting);
+            chatUserConvo.setUserNameYouWrite(mUsername);
+            ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
+               @Override
+               public void onComplete(List<ChatUserConvo> list) {
+                  if(list!=null || list.size()!=0) {
+                     for (int i = 0; i < list.size(); i++) {
+                        addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat());
+                     }
+                  }
+               }
+            });
+
+         }
+      });
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.chat_menu,menu);
-        return true;
-    }
+
+      AppCompatButton sendButton = findViewById(R.id.button_gchat_send);
+      sendButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            attemptSend();
+         }
+      });
+   }
+
+   private void attemptSend() {
+      if (null == mUsername) return;
+      if (!mSocket.connected()) return;
+
+      mTyping = false;
+
+      String message = mInputMessageView.getText().toString().trim();
+      if (TextUtils.isEmpty(message)) {
+         mInputMessageView.requestFocus();
+         return;
+      }
+
+      mInputMessageView.setText("");
+      addMessage(mUsername, message);
+
+      try {
+
+         JSONObject data = new JSONObject();
+         data.put("username",mUsername);
+         data.put("messageContent",message);
+         data.put("usernametext",mUsernametexting);
+         // perform the sending message attempt.
+         mSocket.emit("newMessage", data);
+
+      } catch (JSONException e) {
+         e.printStackTrace();
+      }
+   }
+
+   private Emitter.Listener onNewMessage = new Emitter.Listener() {
+      @Override
+      public void call(final Object... args) {
+         runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+               JSONObject data = (JSONObject) args[0];
+               String username;
+               String message;
+
+               try {
+                  username = data.getString("username");
+                  message = data.getString("messageContent");
+
+               } catch (JSONException e) {
+
+                  return;
+               }
+
+              //removeTyping(username);
+               addMessage(username, message);
+            }
+         });
+      }
+   };
+
+
+
+   private void addMessage(String username, String message) {
+      mMessages.add(new Messege.Builder(Messege.TYPE_MESSAGE)
+              .username(username).message(message).build());
+      mAdapter.notifyItemInserted(mMessages.size() - 1);
+      scrollToBottom();
+   }
+
+
+
+   private void scrollToBottom() {
+      mMessagesView.scrollToPosition(mAdapter.getItemCount() - 1);
+   }
+
+   @Override
+   public void onDestroy() {
+      super.onDestroy();
+
+      mSocket.disconnect();
+   }
+
+
 }

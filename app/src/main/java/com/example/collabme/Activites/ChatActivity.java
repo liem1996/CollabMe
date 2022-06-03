@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.socket.client.IO;
@@ -97,19 +98,16 @@ public class ChatActivity extends AppCompatActivity  {
       ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
          @Override
          public void onComplete(List<ChatUserConvo> list1) {
-            if(list1!=null || list1.size()!=0) {
-               for (int i = 0; i < list1.size(); i++) {
-                  addMessage(list1.get(i).getUsernameConnect(), list1.get(i).getTheChat());
-               }
-            }
             chatUserConvo.setUsernameConnect(mUsernametexting);
             chatUserConvo.setUserNameYouWrite(mUsername);
             ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
                @Override
                public void onComplete(List<ChatUserConvo> list) {
                   if(list!=null || list.size()!=0) {
+                     list.addAll(list1);
+                     Collections.sort(list, (o1, o2) -> o1.getTheorder() - o2.getTheorder());
                      for (int i = 0; i < list.size(); i++) {
-                        addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat());
+                       addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat());
                      }
                   }
                }

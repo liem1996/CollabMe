@@ -151,6 +151,7 @@ public class ChatActivity extends AppCompatActivity  {
          // perform the sending message attempt.
          mSocket.emit("newMessage", data);
 
+
       } catch (JSONException e) {
          e.printStackTrace();
       }

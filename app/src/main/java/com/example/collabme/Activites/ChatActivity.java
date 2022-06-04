@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,7 +89,6 @@ public class ChatActivity extends AppCompatActivity  {
 
       mSocket.connect();
       mAdapter = new MessageAdapter(this, mMessages);
-
       mMessagesView = findViewById(R.id.recycler_gchat);
       mMessagesView.setLayoutManager(new LinearLayoutManager(this));
       mMessagesView.setAdapter(mAdapter);
@@ -98,6 +96,16 @@ public class ChatActivity extends AppCompatActivity  {
       ChatUserConvo chatUserConvo =new ChatUserConvo();
       chatUserConvo.setUsernameConnect(mUsername);
       chatUserConvo.setUserNameYouWrite(mUsernametexting);
+
+      JSONObject data = new JSONObject();
+      try {
+         data.put("username",mUsername);
+
+         // perform the sending message attempt.
+         mSocket.emit("join", data);
+      } catch (JSONException e) {
+         e.printStackTrace();
+      }
 
 
       ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
@@ -154,6 +162,7 @@ public class ChatActivity extends AppCompatActivity  {
          data.put("messageContent",message);
          data.put("usernametext",mUsernametexting);
          // perform the sending message attempt.
+
          mSocket.emit("newMessage", data);
 
 
@@ -187,7 +196,6 @@ public class ChatActivity extends AppCompatActivity  {
          });
       }
    };
-
 
 
    private void addMessage(String username, String message) {

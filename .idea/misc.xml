@@ -6,12 +6,10 @@
         <entry key="../../../layout/custom_preview.xml" value="0.1" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_background.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14322916666666666" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_nav_chat.xml" value="0.2520833333333333" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_pic.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_profile.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_sicialmedia.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/drawable/ic_signup2.xml" value="0.14322916666666666" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_chat.xml" value="0.16" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_intro.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_login.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
@@ -41,10 +39,6 @@
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_socialmedia.xml" value="0.2" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_user_profile.xml" value="0.264" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_waiting_offers.xml" value="0.25" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_action.xml" value="0.1358695652173913" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_chat_recivemessege.xml" value="0.1171875" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_log.xml" value="0.1358695652173913" />
-        <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/item_message.xml" value="0.1358695652173913" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/login.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/amitb/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_list_row.xml" value="0.264" />
         <entry key="..\:/Users/liemm/AndroidStudioProjects/CollabMe/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
@@ -184,14 +178,17 @@
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/image_file.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/item.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/layout/item_action.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/layout/item_chat_recivemessege.xml" value="0.45" />
         <entry key="app/src/main/res/layout/item_chat_sendimage.xml" value="0.21354166666666666" />
         <entry key="app/src/main/res/layout/item_chat_sentmessege.xml" value="0.3026664377579217" />
+        <entry key="app/src/main/res/layout/item_log.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/my_message.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/my_spinner_style.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/test.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/their_message.xml" value="0.3421875" />
+        <entry key="app/src/main/res/layout/user_caht_row.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/layout/user_connected.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/menu/chat_menu.xml" value="0.35625" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.35625" />

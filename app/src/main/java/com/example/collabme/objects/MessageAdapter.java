@@ -2,6 +2,7 @@ package com.example.collabme.objects;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collabme.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  *
@@ -37,7 +45,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         int layout = -1;
         switch (viewType) {
             case Messege.TYPE_MESSAGE:
-                layout = R.layout.item_message;
+                layout = R.layout.item_chat_sentmessege;
                 break;
             case Messege.TYPE_LOG:
                 layout = R.layout.item_log;
@@ -57,6 +65,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Messege message = mMessages.get(position);
         viewHolder.setMessage(message.getMessage());
         viewHolder.setUsername(message.getUsername());
+
+        viewHolder.setDate(message.getDate());
+        viewHolder.setTime(message.getTime());
+
     }
 
     @Override
@@ -72,12 +84,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mUsernameView;
         private TextView mMessageView;
+        private TextView mDate, mTimeText;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mUsernameView = itemView.findViewById(R.id.username);
-            mMessageView = itemView.findViewById(R.id.message);
+            mUsernameView = itemView.findViewById(R.id.text_gchat_username_me);
+            mMessageView = itemView.findViewById(R.id.text_gchat_message_me);
+            mDate = itemView.findViewById(R.id.text_gchat_date_me);
+            mTimeText = itemView.findViewById(R.id.text_gchat_timestamp_me);
         }
 
         public void setUsername(String username) {
@@ -90,6 +105,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             if (null == mMessageView) return;
             mMessageView.setText(message);
         }
+
+        public void setDate(String date) {
+            if (null == mDate) return;
+            mDate.setText(date);
+        }
+
+        public void setTime(String time) {
+            if (null == mTimeText) return;
+            mTimeText.setText(time);
+        }
+
 
         private int getUsernameColor(String username) {
             int hash = 7;

@@ -39,7 +39,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * the home fragmenrt - inclused :
+ * the home fragmenrt - included :
  * viewholder for the recycleview in the home
  * viewmodel for the offers
  * refreshpost call from the model for refreshing the offers
@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment {
     FloatingActionButton addOfferBtn;
     Button checkBtn, deleteBtn;
     String usernameConnected = "";
+    View view;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -70,23 +71,22 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
         swipeRefresh = view.findViewById(R.id.offers_swiperefresh);
 
-        if (ModelUsers.instance3.getUser() == null) {
-            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
-                @Override
-                public void onComplete(User profile) {
-                    userConnected = profile;
-                    ModelUsers.instance3.setUserConnected(profile);
-                    swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+        ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+            @Override
+            public void onComplete(User profile) {
+                userConnected = profile;
+                ModelUsers.instance3.setUserConnected(profile);
+                swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+                //if transfer page depend on user type connected
+                if(userConnected.getCompany()){
+                    Navigation.findNavController(view).navigate(R.id.companyHomeFragment);
                 }
-            });
-        } else {
-            userConnected = ModelUsers.instance3.getUser();
-            swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
-        }
+            }
+        });
 
         logout = view.findViewById(R.id.fragment_home_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {

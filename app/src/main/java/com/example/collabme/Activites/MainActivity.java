@@ -15,13 +15,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.collabme.R;
 import com.example.collabme.databinding.ActivityMainBinding;
+import com.example.collabme.model.ModelOffers;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.objects.User;
 
 /**
  *
  * the MainActivity - the main for the offers,user pages
- * the bottome menu to navigate to the diffrent page - profile,home,chat,myoffers and waiting offers
+ * the bottom menu to navigate to the different page - profile,home,chat,myoffers and waiting offers
  *
  */
 public class MainActivity extends AppCompatActivity {
@@ -50,7 +51,10 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigation.setOnItemSelectedListener(item->{
             switch(item.getItemId()){
                 case R.id.nav_home:
-                    navCtl.navigate(R.id.homeFragment);
+                    if(ModelUsers.instance3.getUser().getInfluencer())
+                        navCtl.navigate(R.id.homeFragment);
+                    else
+                        navCtl.navigate(R.id.companyHomeFragment);
                     break;
                 case R.id.nav_search:
                     navCtl.navigate(R.id.fragment_Search);

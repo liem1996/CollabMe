@@ -118,7 +118,6 @@ public class SignupFragment extends Fragment {
                         Toast.makeText(getContext(), "Your username is taken", Toast.LENGTH_SHORT).show();
                         goodsign = false;
 
-
                         return;
                     }
                     authforuser();
@@ -142,15 +141,11 @@ public class SignupFragment extends Fragment {
             }
         });
 
-
         camra.setOnClickListener(v -> openCam());
         gallery.setOnClickListener(v -> openGallery());
 
         return view;
     }
-
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

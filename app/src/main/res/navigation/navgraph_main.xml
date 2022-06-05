@@ -63,6 +63,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addOfferDetailsFragemnt"
             app:destination="@id/addOfferDetailsFragemnt" />
+        <action
+            android:id="@+id/action_homeFragment_to_companyHomeFragment"
+            app:destination="@id/companyHomeFragment" />
 
     </fragment>
     <fragment
@@ -340,4 +343,30 @@
         android:name="com.example.collabme.Chat.chatUserPage"
         android:label="fragment_whatup_page"
         tools:layout="@layout/fragment_chatuser_page" /><action android:id="@+id/action_global_fragment_search_results" app:destination="@id/fragment_search_results"/>
+    <fragment
+        android:id="@+id/companyHomeFragment"
+        android:name="com.example.collabme.HomeOffers.CompanyHomeFragment"
+        android:label="CompanyHomeFragment" >
+        <action
+            android:id="@+id/action_companyHomeFragment_to_myOffersFragment"
+            app:destination="@id/myOffersFragment" />
+        <action
+            android:id="@+id/action_companyHomeFragment_to_addOfferDetailsFragemnt"
+            app:destination="@id/addOfferDetailsFragemnt" />
+        <action
+            android:id="@+id/action_companyHomeFragment_to_offerDetailsFragment"
+            app:destination="@id/offerDetailsFragment" />
+        <action
+            android:id="@+id/action_companyHomeFragment_to_editOfferFragment"
+            app:destination="@id/editOfferFragment" />
+        <action
+            android:id="@+id/action_companyHomeFragment_to_inprogressfragment"
+            app:destination="@id/inprogressfragment" />
+        <action
+            android:id="@+id/action_companyHomeFragment_to_closeStatusfragment"
+            app:destination="@id/closeStatusfragment" />
+        <action
+            android:id="@+id/action_companyHomeFragment_to_doneStatusFragment"
+            app:destination="@id/doneStatusFragment" />
+    </fragment><action android:id="@+id/action_global_companyHomeFragment" app:destination="@id/companyHomeFragment"/>
 </navigation>

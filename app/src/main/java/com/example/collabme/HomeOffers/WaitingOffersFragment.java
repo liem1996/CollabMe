@@ -42,7 +42,7 @@ import java.util.List;
  * viewmodel for the offers that the user is been part of the candidates and is in its process
  * refreshpost call from the model for refreshing the offers
  * Adapter for the recyclerview items -offers items
- * radio button for changing between mt offers and waiting offers
+ * radio button for changing between my offers and waiting offers
  */
 
 public class WaitingOffersFragment extends Fragment {

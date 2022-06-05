@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,30 +32,33 @@ import com.example.collabme.objects.Offer;
 import com.example.collabme.objects.User;
 import com.example.collabme.viewmodel.OffersViewmodel;
 import com.facebook.login.LoginManager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * the MyOffers fragment - included :
- * viewholder for the recycleview in the Myoffers
+ * the home fragment - included :
+ * viewholder for the recycleview in the home
  * viewmodel for the offers that the user which is connected open
  * refreshpost call from the model for refreshing the offers
  * Adapter for the recycleview items -offers items
- * radio button for changing between my offers and waiting offers
+ * check and dismiss of a offers functionalty
  */
 
-public class MyOffersFragment extends Fragment {
+public class CompanyHomeFragment extends Fragment {
 
-    MyoffersAdapter adapter1;
+    MyCompanyHomeOffersAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    OnItemClickListeneroffers listener;
+    OnItemClickListener listener;
     ImageView logout;
     OffersViewmodel viewModel;
     String offerId, headline;
-    int price;
     Offer offer;
-    RadioButton radioButton;
+    int price;
+    User userConnected = null;
+    FloatingActionButton addOfferBtn;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -66,30 +69,25 @@ public class MyOffersFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_offers, container, false);
+        View view = inflater.inflate(R.layout.fragment_company_home, container, false);
 
-        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
-        radioButton = view.findViewById(R.id.radioButton6);
-        radioButton.setChecked(true);
+        swipeRefresh = view.findViewById(R.id.offers_swiperefresh);
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // checkedId is the RadioButton selected
-
-                switch (checkedId) {
-                    case R.id.radioButton7:
-                        Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToWaitingOffersFragment());
-                        break;
-                    case R.id.radioButton6:
-                        Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionGlobalMyOffersFragment(offerId));
-                        break;
+        if (ModelUsers.instance3.getUser() == null) {
+            ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
+                @Override
+                public void onComplete(User profile) {
+                    userConnected = profile;
+                    ModelUsers.instance3.setUserConnected(profile);
+                    swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
                 }
-            }
-        });
-        swipeRefresh = view.findViewById(R.id.myoffers_swiperefresh);
-        swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+            });
+        } else {
+            userConnected = ModelUsers.instance3.getUser();
+            swipeRefresh.setOnRefreshListener(ModelOffers.instance::refreshPostList);
+        }
 
-        logout = view.findViewById(R.id.fragment_myoffers_logoutBtn);
+        logout = view.findViewById(R.id.fragment_CompanyHome_logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,37 +101,41 @@ public class MyOffersFragment extends Fragment {
             }
         });
 
-        RecyclerView list2 = view.findViewById(R.id.myoffers_rv);
-        list2.setHasFixedSize(true);
-        list2.setLayoutManager(new LinearLayoutManager(getContext()));
+        addOfferBtn = view.findViewById(R.id.fragment_CompanyHome_addOffer_fab);
+        addOfferBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_global_addOfferDetailsFragemnt));
 
-        adapter1 = new MyoffersAdapter();
-        list2.setAdapter(adapter1);
+        RecyclerView list = view.findViewById(R.id.offers_rv);
+        list.setHasFixedSize(true);
+        list.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter1.setListener(new OnItemClickListeneroffers() {
+        adapter = new MyCompanyHomeOffersAdapter();
+        list.setAdapter(adapter);
+        viewModel.refreshOffersList();
+
+        adapter.setListener(new OnItemClickListener() {
             @Override
-            public void onItemClickoffer(int position, View view, int idview) {
+            public void onItemClick(int position, View view, int idview) {
                 offerId = viewModel.getDataMyOffer().getValue().get(position).getIdOffer();
                 offer = viewModel.getDataMyOffer().getValue().get(position);
                 headline = offer.getHeadline();
                 price = offer.getPrice();
 
                 if (view.findViewById(R.id.fragemnt_item_edit).getId() == idview) {
-                    Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToEditOfferFragment(offerId));
+                    Navigation.findNavController(view).navigate(CompanyHomeFragmentDirections.actionCompanyHomeFragmentToEditOfferFragment(offerId));
                 } else {
                     String status = offer.getStatus();
                     switch (status) {
                         case "Open":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToOfferDetailsFragment(offerId, null));
+                            Navigation.findNavController(view).navigate(CompanyHomeFragmentDirections.actionCompanyHomeFragmentToOfferDetailsFragment(offerId, null));
                             break;
                         case "InProgress":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToInprogressfragment(offerId));
+                            Navigation.findNavController(view).navigate(CompanyHomeFragmentDirections.actionCompanyHomeFragmentToInprogressfragment(offerId));
                             break;
                         case "Close":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToCloseStatusfragment(offerId));
+                            Navigation.findNavController(view).navigate(CompanyHomeFragmentDirections.actionCompanyHomeFragmentToCloseStatusfragment(offerId));
                             break;
                         case "Done":
-                            Navigation.findNavController(view).navigate(MyOffersFragmentDirections.actionMyOffersFragmentToDoneStatusFragment(offerId, headline, price));
+                            Navigation.findNavController(view).navigate(CompanyHomeFragmentDirections.actionCompanyHomeFragmentToDoneStatusFragment(offerId, headline, price));
                             break;
                     }
                 }
@@ -142,7 +144,7 @@ public class MyOffersFragment extends Fragment {
 
         refresh();
         setHasOptionsMenu(true);
-        viewModel.getDataMyOffer().observe(getViewLifecycleOwner(), list4 -> refresh());
+        viewModel.getDataMyOffer().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(ModelOffers.instance.getoffersListLoadingState().getValue() == ModelOffers.OffersListLoadingState.loading);
         ModelOffers.instance.getoffersListLoadingState().observe(getViewLifecycleOwner(), PostsListLoadingState -> {
             if (PostsListLoadingState == ModelOffers.OffersListLoadingState.loading) {
@@ -163,19 +165,19 @@ public class MyOffersFragment extends Fragment {
     }
 
     private void refresh() {
-        adapter1.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
     }
 
-    //////////////////////////VIEWHOLDER////////////////////////////////////
+//////////////////////////VIEWHOLDER////////////////////////////////////
 
-    class MyViewHolderoffers extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         TextView offer_date, offer_status;
         TextView offer_headline, offer_username;
         ImageView offer_X_imb, offer_V_imb, offer_image, offer_image_profile;
         ImageButton offer_edit_imb;
 
-        public MyViewHolderoffers(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             offer_username = (TextView) itemView.findViewById(R.id.myoffers_listrow_username);
             offer_headline = (TextView) itemView.findViewById(R.id.myoffers_listrow_headline_et);
@@ -190,7 +192,7 @@ public class MyOffersFragment extends Fragment {
             itemView.setOnClickListener(v -> {
                 int viewId = v.getId();
                 int pos = getAdapterPosition();
-                listener.onItemClickoffer(pos, v, viewId);
+                listener.onItemClick(pos, v, viewId);
             });
 
             offer_edit_imb.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +200,7 @@ public class MyOffersFragment extends Fragment {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     int viewid = v.getId();
-                    listener.onItemClickoffer(position, itemView, viewid);
+                    listener.onItemClick(position, itemView, viewid);
                 }
             });
 
@@ -207,7 +209,7 @@ public class MyOffersFragment extends Fragment {
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
-                    listener.onItemClickoffer(position, itemView, viewid);
+                    listener.onItemClick(position, itemView, viewid);
                 }
             });
 
@@ -216,19 +218,19 @@ public class MyOffersFragment extends Fragment {
                 public void onClick(View v) {
                     int viewid = v.getId();
                     int position = getAdapterPosition();
-                    listener.onItemClickoffer(position, itemView, viewid);
+                    listener.onItemClick(position, itemView, viewid);
                 }
             });
         }
 
-        public void bindoffer(Offer offer, int pos, View item) {
+        public void bind(Offer offer) {
             offer_username.setText(offer.getUser());
             offer_headline.setText(offer.getHeadline());
-            if (String.valueOf(offer.getFinishDate()).length() == 7) {
+            if(String.valueOf(offer.getFinishDate()).length() == 7){
                 String tmp = String.valueOf(offer.getFinishDate());
                 tmp = "0" + tmp;
                 offer_date.setText(setValidDate(tmp));
-            } else offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
+            }else offer_date.setText(setValidDate(String.valueOf(offer.getFinishDate())));
             offer_status.setText(offer.getStatus());
 
             ModelPhotos.instance3.getimages(offer.getImage(), new ModelPhotos.getimagesfile() {
@@ -243,32 +245,34 @@ public class MyOffersFragment extends Fragment {
                             if(offer.getStatus().equals("Close")) {
                                 offer_edit_imb.setVisibility(View.INVISIBLE);
                             }
-                            if (!profile.getUsername().equals(offer.getUser())) {
+                            if (!profile.getUsername().equals(offer.getUser()))
+                                //if not the owner of the offer connected
                                 offer_edit_imb.setVisibility(View.INVISIBLE);
-                            } else {
+                            else {
+                                //if the owner of the offer connected
                                 offer_V_imb.setVisibility(View.INVISIBLE);
                                 offer_X_imb.setVisibility(View.INVISIBLE);
                             }
                         }
                     });
-                }
-            });
 
-            ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
-                @Override
-                public void onComplete(User profile) {
-                    if (profile != null) {
-                        if (profile.getImage() != null) {
-                            ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
-                                @Override
-                                public void onComplete(Bitmap responseBody) {
-                                    if (responseBody != null) {
-                                        offer_image_profile.setImageBitmap(responseBody);
-                                    }
+                    ModelUsers.instance3.getuserbyusername(offer.getUser(), new ModelUsers.GetUserByIdListener() {
+                        @Override
+                        public void onComplete(User profile) {
+                            if (profile != null) {
+                                if (profile.getImage() != null) {
+                                    ModelPhotos.instance3.getimages(profile.getImage(), new ModelPhotos.getimagesfile() {
+                                        @Override
+                                        public void onComplete(Bitmap responseBody) {
+                                            if (responseBody != null) {
+                                                offer_image_profile.setImageBitmap(responseBody);
+                                            }
+                                        }
+                                    });
                                 }
-                            });
+                            }
                         }
-                    }
+                    });
                 }
             });
         }
@@ -279,33 +283,33 @@ public class MyOffersFragment extends Fragment {
         return newDate;
     }
 
-    //////////////////////////MYYYYYYYY APATERRRRRRRR///////////////////////
+//////////////////////////MYYYYYYYY ADAPTERRRRRRRR///////////////////////
 
-    interface OnItemClickListeneroffers {
-        void onItemClickoffer(int position, View view, int idview);
+    interface OnItemClickListener {
+        void onItemClick(int position, View view, int idview);
     }
 
-    class MyoffersAdapter extends RecyclerView.Adapter<MyViewHolderoffers> {
+    class MyCompanyHomeOffersAdapter extends RecyclerView.Adapter<MyViewHolder> {
         List<Offer> offers = new LinkedList<>();
         View view;
 
-        public void setListener(OnItemClickListeneroffers listener1) {
+        public void setListener(OnItemClickListener listener1) {
             listener = listener1;
         }
 
         @NonNull
         @Override
-        public MyViewHolderoffers onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             view = getLayoutInflater().inflate(R.layout.offers_list_row, parent, false);
-            MyViewHolderoffers holder = new MyViewHolderoffers(view);
+            MyViewHolder holder = new MyViewHolder(view);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolderoffers holder, int position) {
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             offers = viewModel.getDataMyOffer().getValue();
             Offer offer = offers.get(position);
-            holder.bindoffer(offer, position, view);
+            holder.bind(offer);
         }
 
         @Override

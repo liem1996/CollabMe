@@ -107,7 +107,7 @@ public class LoginFragment extends Fragment {
                     });
                 }
                 else{
-                    Toast.makeText(getActivity(), "boo! it failed!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Failed to login!", Toast.LENGTH_LONG).show();
                 }
             }
         }));

@@ -12,6 +12,7 @@ android {
         targetSdk 31
         versionCode 2
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -72,4 +73,6 @@ dependencies {
     implementation ('io.socket:socket.io-client:2.0.0') {
         exclude group: 'org.json    ', module: 'json'
     }
+    implementation 'com.android.support:multidex:2.0.1'
+
 }

@@ -16,6 +16,9 @@ public class ChatUserConvo {
     @SerializedName("TheChatTextUsername")
     @Expose
     private String TheChat;
+    @SerializedName("theOrder")
+    @Expose
+    private int theorder;
 
     /**
      *
@@ -56,11 +59,22 @@ public class ChatUserConvo {
         TheChat = theChat;
     }
 
+    public int getTheorder() {
+        return theorder;
+    }
+
+    public void setTheorder(int theorder) {
+        this.theorder = theorder;
+    }
+
     public HashMap<String, Object> toJson() {
         HashMap<String, Object> json = new HashMap<String, Object>();
         json.put("TheChatTextUsername",TheChat);
         json.put("Username",usernameConnect);
         json.put("theUserNameYouText",userNameYouWrite);
+        json.put("theOrder",theorder);
         return json;
     }
+
+
 }

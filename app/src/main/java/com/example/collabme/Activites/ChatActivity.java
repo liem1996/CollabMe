@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,8 +25,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -58,16 +66,20 @@ public class ChatActivity extends AppCompatActivity  {
    private static final int TYPING_TIMER_LENGTH = 600;
    private String mUsername;
    private String mUsernametexting;
-   Button cancel;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_chat);
 
+      Date currentTime = Calendar.getInstance().getTime();
+      DateFormat date = new SimpleDateFormat("HH:mm a");
+      date.setTimeZone(TimeZone.getTimeZone("GMT+3:00"));
+
+      String localTime = date.format(currentTime);
+
       mUsername = getIntent().getStringExtra("name");
       mUsernametexting = getIntent().getStringExtra("usernametext");
-      cancel = findViewById(R.id.chat_cancel);
       try {
          mSocket = IO.socket("http://10.0.2.2:3000");
       } catch (URISyntaxException e) {
@@ -77,7 +89,6 @@ public class ChatActivity extends AppCompatActivity  {
 
       mSocket.connect();
       mAdapter = new MessageAdapter(this, mMessages);
-
       mMessagesView = findViewById(R.id.recycler_gchat);
       mMessagesView.setLayoutManager(new LinearLayoutManager(this));
       mMessagesView.setAdapter(mAdapter);
@@ -86,30 +97,30 @@ public class ChatActivity extends AppCompatActivity  {
       chatUserConvo.setUsernameConnect(mUsername);
       chatUserConvo.setUserNameYouWrite(mUsernametexting);
 
-      cancel.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            Intent intent = new Intent(ChatActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-         }
-      });
+      JSONObject data = new JSONObject();
+      try {
+         data.put("username",mUsername);
+
+         // perform the sending message attempt.
+         mSocket.emit("join", data);
+      } catch (JSONException e) {
+         e.printStackTrace();
+      }
+
+
       ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
          @Override
          public void onComplete(List<ChatUserConvo> list1) {
-            if(list1!=null || list1.size()!=0) {
-               for (int i = 0; i < list1.size(); i++) {
-                  addMessage(list1.get(i).getUsernameConnect(), list1.get(i).getTheChat());
-               }
-            }
             chatUserConvo.setUsernameConnect(mUsernametexting);
             chatUserConvo.setUserNameYouWrite(mUsername);
             ModelChatUser.instance3.getChatOtherSide(chatUserConvo, new ModelChatUser.GetUserChatWithAnother() {
                @Override
                public void onComplete(List<ChatUserConvo> list) {
                   if(list!=null || list.size()!=0) {
+                     list.addAll(list1);
+                     Collections.sort(list, (o1, o2) -> o1.getTheorder() - o2.getTheorder());
                      for (int i = 0; i < list.size(); i++) {
-                        addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat());
+                       addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat());
                      }
                   }
                }
@@ -151,7 +162,9 @@ public class ChatActivity extends AppCompatActivity  {
          data.put("messageContent",message);
          data.put("usernametext",mUsernametexting);
          // perform the sending message attempt.
+
          mSocket.emit("newMessage", data);
+
 
       } catch (JSONException e) {
          e.printStackTrace();
@@ -185,7 +198,6 @@ public class ChatActivity extends AppCompatActivity  {
    };
 
 
-
    private void addMessage(String username, String message) {
       mMessages.add(new Messege.Builder(Messege.TYPE_MESSAGE)
               .username(username).message(message).build());
@@ -206,5 +218,23 @@ public class ChatActivity extends AppCompatActivity  {
       mSocket.disconnect();
    }
 
+   @Override
+   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+      if (item.getItemId() == R.id.cancel_chat) {
+         Intent intent = new Intent(ChatActivity.this, MainActivity.class);
+         startActivity(intent);
+         finish();
+         return true;
+      } else {
+         return super.onOptionsItemSelected(item);
+      }
+   }
+
+   @Override
+   public boolean onCreateOptionsMenu(Menu menu) {
+      // Inflate the menu; this adds items to the action bar if it is present.
+      getMenuInflater().inflate(R.menu.chat_menu,menu);
+      return true;
+   }
 
 }

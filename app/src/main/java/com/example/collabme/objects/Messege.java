@@ -17,6 +17,7 @@ public class Messege {
     private int mType;
     private String mMessage;
     private String mUsername;
+    private String mDate,mTime;
 
     private Messege() {}
 
@@ -32,11 +33,19 @@ public class Messege {
         return mUsername;
     };
 
+    public String getDate() {
+        return mDate;
+    }
+
+    public String getTime() {
+        return mTime;
+    }
 
     public static class Builder {
         private final int mType;
         private String mUsername;
         private String mMessage;
+        private String mTime, mDate;
 
         public Builder(int type) {
             mType = type;
@@ -52,11 +61,23 @@ public class Messege {
             return this;
         }
 
+        public Builder date(String date) {
+            mDate = date;
+            return this;
+        }
+        public Builder time(String time) {
+            mTime = time;
+            return this;
+        }
+
+
         public Messege build() {
             Messege message = new Messege();
             message.mType = mType;
             message.mUsername = mUsername;
             message.mMessage = mMessage;
+            message.mDate = mDate;
+            message.mTime = mTime;
             return message;
         }
     }

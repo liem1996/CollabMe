@@ -181,14 +181,17 @@
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/image_file.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/item.xml" value="0.22447916666666667" />
+        <entry key="app/src/main/res/layout/item_action.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/layout/item_chat_recivemessege.xml" value="0.45" />
         <entry key="app/src/main/res/layout/item_chat_sendimage.xml" value="0.21354166666666666" />
         <entry key="app/src/main/res/layout/item_chat_sentmessege.xml" value="0.3026664377579217" />
+        <entry key="app/src/main/res/layout/item_log.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/item_message.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/my_message.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/my_spinner_style.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/test.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/their_message.xml" value="0.3421875" />
+        <entry key="app/src/main/res/layout/user_caht_row.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/layout/user_connected.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/menu/chat_menu.xml" value="0.35625" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.35625" />

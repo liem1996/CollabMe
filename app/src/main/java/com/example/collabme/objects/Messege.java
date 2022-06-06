@@ -8,6 +8,8 @@
 package com.example.collabme.objects;
 
 
+import java.text.DateFormat;
+
 public class Messege {
 
     public static final int TYPE_MESSAGE = 0;
@@ -17,7 +19,8 @@ public class Messege {
     private int mType;
     private String mMessage;
     private String mUsername;
-    private String mDate,mTime;
+    private String mDate;
+    private String mTime;
 
     private Messege() {}
 
@@ -45,7 +48,8 @@ public class Messege {
         private final int mType;
         private String mUsername;
         private String mMessage;
-        private String mTime, mDate;
+        private String mTime;
+        private String mDate;
 
         public Builder(int type) {
             mType = type;

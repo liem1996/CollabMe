@@ -2,15 +2,19 @@ package com.example.collabme.objects;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collabme.R;
+import com.example.collabme.model.ModelUsers;
+import com.example.collabme.model.Modelauth;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -65,10 +69,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Messege message = mMessages.get(position);
         viewHolder.setMessage(message.getMessage());
         viewHolder.setUsername(message.getUsername());
-
         viewHolder.setDate(message.getDate());
         viewHolder.setTime(message.getTime());
-
     }
 
     @Override
@@ -85,20 +87,30 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         private TextView mUsernameView;
         private TextView mMessageView;
         private TextView mDate, mTimeText;
+        private CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             mUsernameView = itemView.findViewById(R.id.text_gchat_username_me);
             mMessageView = itemView.findViewById(R.id.text_gchat_message_me);
             mDate = itemView.findViewById(R.id.text_gchat_date_me);
             mTimeText = itemView.findViewById(R.id.text_gchat_timestamp_me);
+            cardView = itemView.findViewById(R.id.card_gchat_message_me);
         }
 
         public void setUsername(String username) {
             if (null == mUsernameView) return;
             mUsernameView.setText(username);
-            mUsernameView.setTextColor(getUsernameColor(username));
+            //mUsernameView.setTextColor(getUsernameColor(username));
+            if(!username.equals(ModelUsers.instance3.getUser().getUsername())){
+                cardView.setCardBackgroundColor(Color.rgb(130, 130, 130));
+                mUsernameView.setTextColor(Color.rgb(130, 130, 130));
+            } else {
+                mUsernameView.setTextColor(Color.rgb(103, 58, 183));
+                cardView.setCardBackgroundColor(Color.rgb(103, 58, 183));
+
+            }
+
         }
 
         public void setMessage(String message) {

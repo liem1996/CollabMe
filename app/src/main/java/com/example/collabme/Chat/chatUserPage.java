@@ -116,7 +116,7 @@ public class chatUserPage extends Fragment {
         });
 
         //adapter.notifyDataSetChanged();
-
+        ModelUsers.instance3.refreshUserstList();
         return view;
     }
 

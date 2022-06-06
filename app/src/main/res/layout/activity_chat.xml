@@ -71,4 +71,17 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/chatactivity_chatWith"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/abeezee"
+        android:textColor="@color/purple_500"
+        app:layout_constraintTop_toTopOf="@+id/recycler_gchat" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

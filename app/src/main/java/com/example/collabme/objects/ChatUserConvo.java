@@ -19,6 +19,12 @@ public class ChatUserConvo {
     @SerializedName("theOrder")
     @Expose
     private int theorder;
+    @SerializedName("date")
+    @Expose
+    private String date;
+    @SerializedName("time")
+    @Expose
+    private String time;
 
     /**
      *
@@ -55,6 +61,22 @@ public class ChatUserConvo {
         return TheChat;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public void setTheChat(String theChat) {
         TheChat = theChat;
     }
@@ -73,6 +95,8 @@ public class ChatUserConvo {
         json.put("Username",usernameConnect);
         json.put("theUserNameYouText",userNameYouWrite);
         json.put("theOrder",theorder);
+        json.put("date",date);
+        json.put("time",time);
         return json;
     }
 

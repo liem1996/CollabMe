@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import io.socket.client.IO;
@@ -57,11 +59,13 @@ public class ChatActivity extends AppCompatActivity  {
    private List<Messege> mMessages = new ArrayList<Messege>();
    private RecyclerView.Adapter mAdapter;
    private RecyclerView mMessagesView;
-
+   private TextView chatWith;
    private TextInputEditText mInputMessageView;
    private Handler mTypingHandler = new Handler();
 
    private boolean mTyping = false;
+
+   private String localTime="", mDate = "";
 
    private static final int TYPING_TIMER_LENGTH = 600;
    private String mUsername;
@@ -74,12 +78,15 @@ public class ChatActivity extends AppCompatActivity  {
 
       Date currentTime = Calendar.getInstance().getTime();
       DateFormat date = new SimpleDateFormat("HH:mm a");
-      date.setTimeZone(TimeZone.getTimeZone("GMT+3:00"));
-
-      String localTime = date.format(currentTime);
+      date.setTimeZone(TimeZone.getTimeZone("EST"));
+      SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+      mDate = df.format(currentTime);
+      localTime = date.format(currentTime);
 
       mUsername = getIntent().getStringExtra("name");
       mUsernametexting = getIntent().getStringExtra("usernametext");
+      chatWith = findViewById(R.id.chatactivity_chatWith);
+      chatWith.setText("Chat with " + mUsernametexting);
       try {
          mSocket = IO.socket("http://10.0.2.2:3000");
       } catch (URISyntaxException e) {
@@ -92,7 +99,7 @@ public class ChatActivity extends AppCompatActivity  {
       mMessagesView = findViewById(R.id.recycler_gchat);
       mMessagesView.setLayoutManager(new LinearLayoutManager(this));
       mMessagesView.setAdapter(mAdapter);
-     mInputMessageView = findViewById(R.id.edit_gchat_message);
+      mInputMessageView = findViewById(R.id.edit_gchat_message);
       ChatUserConvo chatUserConvo =new ChatUserConvo();
       chatUserConvo.setUsernameConnect(mUsername);
       chatUserConvo.setUserNameYouWrite(mUsernametexting);
@@ -100,7 +107,8 @@ public class ChatActivity extends AppCompatActivity  {
       JSONObject data = new JSONObject();
       try {
          data.put("username",mUsername);
-
+         data.put("date",mDate);
+         data.put("time",localTime);
          // perform the sending message attempt.
          mSocket.emit("join", data);
       } catch (JSONException e) {
@@ -120,7 +128,7 @@ public class ChatActivity extends AppCompatActivity  {
                      list.addAll(list1);
                      Collections.sort(list, (o1, o2) -> o1.getTheorder() - o2.getTheorder());
                      for (int i = 0; i < list.size(); i++) {
-                       addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat());
+                       addMessage(list.get(i).getUsernameConnect(), list.get(i).getTheChat(), list.get(i).getDate(), list.get(i).getTime());
                      }
                   }
                }
@@ -153,7 +161,7 @@ public class ChatActivity extends AppCompatActivity  {
       }
 
       mInputMessageView.setText("");
-      addMessage(mUsername, message);
+      addMessage(mUsername, message, mDate, localTime);
 
       try {
 
@@ -162,7 +170,8 @@ public class ChatActivity extends AppCompatActivity  {
          data.put("messageContent",message);
          data.put("usernametext",mUsernametexting);
          // perform the sending message attempt.
-
+         data.put("date",mDate);
+         data.put("time",localTime);
          mSocket.emit("newMessage", data);
 
 
@@ -180,10 +189,15 @@ public class ChatActivity extends AppCompatActivity  {
                JSONObject data = (JSONObject) args[0];
                String username;
                String message;
+               String date;
+               String time;
 
                try {
                   username = data.getString("username");
                   message = data.getString("messageContent");
+                  date = data.getString("date");
+                  time = data.getString("time");
+
 
                } catch (JSONException e) {
 
@@ -191,16 +205,16 @@ public class ChatActivity extends AppCompatActivity  {
                }
 
               //removeTyping(username);
-               addMessage(username, message);
+               addMessage(username, message, date, time);
             }
          });
       }
    };
 
 
-   private void addMessage(String username, String message) {
+   private void addMessage(String username, String message, String date1, String time1) {
       mMessages.add(new Messege.Builder(Messege.TYPE_MESSAGE)
-              .username(username).message(message).build());
+              .username(username).message(message).date(date1).time(time1).build());
       mAdapter.notifyItemInserted(mMessages.size() - 1);
       scrollToBottom();
    }

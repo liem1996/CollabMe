@@ -132,13 +132,11 @@
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_login.xml" value="0.41938405797101447" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/candidtaes_list_row.xml" value="0.2724358974358974" />
-        <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_CompanyHome.xml" value="0.5546875" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment__search.xml" value="0.14719202898550723" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_add_offer_details_fragemnt.xml" value="0.33229166666666665" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_candidates.xml" value="0.5546875" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_chat.xml" value="0.22" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_close_statusfragment.xml" value="0.5546875" />
-        <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_company_home.xml" value="0.16168478260869565" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_done_status.xml" value="0.5546875" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_edit_offer.xml" value="0.5546875" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_edit_profile.xml" value="0.4466666666666667" />
@@ -158,7 +156,6 @@
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/fragment_waiting_offers.xml" value="0.41938405797101447" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_list_row.xml" value="0.5" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/layout/offers_search_results_list_row.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/menu/main_menu.xml" value="0.5546875" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/menu/nav_menu.xml" value="0.15092592592592594" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/CollabMe/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.5708333333333333" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.10277777777777777" />
@@ -169,11 +166,14 @@
         <entry key="app/src/main/res/layout/activity_chat_box.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/activity_chat_page.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/activity_friend.xml" value="0.3421875" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.3148148148148148" />
         <entry key="app/src/main/res/layout/chat_activity_main.xml" value="0.22447916666666667" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/fragment_chatuser_page.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_edit_offer.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.36942049139323563" />
+        <entry key="app/src/main/res/layout/fragment_offer_done_status.xml" value="0.3148148148148148" />
         <entry key="app/src/main/res/layout/fragment_profession.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.35625" />

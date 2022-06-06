@@ -2,6 +2,7 @@ package com.example.collabme.pagesForOffers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.example.collabme.Activites.LoginActivity;
 import com.example.collabme.R;
 import com.example.collabme.model.ModelCandidates;
 import com.example.collabme.model.ModelOffers;
+import com.example.collabme.model.ModelPhotos;
 import com.example.collabme.model.ModelUsers;
 import com.example.collabme.model.Modelauth;
 import com.example.collabme.objects.Offer;
@@ -212,12 +214,15 @@ public class CandidatesFragment extends Fragment {
     //////////////////////////VIEWHOLDER////////////////////////////////////
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-
+        ImageView profilepic;
         public MyViewHolder(@NonNull View itemView) {
 
+
             super(itemView);
+
             username = itemView.findViewById(R.id.candidates_listrow_username);
             choosenCandidate = itemView.findViewById(R.id.candidates_listrow_checkBox);
+            profilepic=itemView.findViewById(R.id.row_candidates_profile);
             choosenCandidate.setChecked(false);
             itemView.setOnClickListener(v -> {
                 int viewId = v.getId();
@@ -241,6 +246,23 @@ public class CandidatesFragment extends Fragment {
             }
             if (!clicked) {
                 username.setText(user.getUsername());
+            }
+
+            if (user != null) {
+                if (user.getImage() != null) {
+                    ModelPhotos.instance3.getimages(user.getImage(), new ModelPhotos.getimagesfile() {
+                        @Override
+                        public void onComplete(Bitmap responseBody) {
+                            if (responseBody != null) {
+                                profilepic.setImageBitmap(responseBody);
+
+                            }
+                        }
+                    });
+                }
+                else {
+                    profilepic.setImageResource(R.drawable.profile);
+                }
             }
             choosenCandidate.setChecked(false);
         }

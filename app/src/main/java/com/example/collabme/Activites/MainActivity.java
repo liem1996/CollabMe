@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigation.setOnItemSelectedListener(item->{
             switch(item.getItemId()){
                 case R.id.nav_home:
-                    if(ModelUsers.instance3.getUser().getInfluencer())
+             //       if(ModelUsers.instance3.getUser().getInfluencer())
                         navCtl.navigate(R.id.homeFragment);
-                    else
-                        navCtl.navigate(R.id.companyHomeFragment);
+             //       else
+            //            navCtl.navigate(R.id.companyHomeFragment);
                     break;
                 case R.id.nav_search:
                     navCtl.navigate(R.id.fragment_Search);

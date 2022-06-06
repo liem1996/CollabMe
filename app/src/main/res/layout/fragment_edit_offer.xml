@@ -148,19 +148,6 @@
         app:layout_constraintVertical_bias="0.8" />
 
     <ImageButton
-        android:id="@+id/fragment_editOffer_candidatesBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginBottom="100dp"
-        android:backgroundTint="#00FFFFFF"
-        android:fontFamily="@font/abeezee"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_offer_candidates"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
         android:id="@+id/fragment_editOffer_cancelBtn"
         android:layout_width="50dp"
         android:layout_height="70dp"

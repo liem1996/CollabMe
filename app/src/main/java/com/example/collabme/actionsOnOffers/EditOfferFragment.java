@@ -55,7 +55,7 @@ public class EditOfferFragment extends Fragment {
     EditText headline, description, finishDate, price;
     TextView proposer, profession, status;
     ImageView saveBtn, deleteBtn, logout, camera,gallery,profilepic;
-    ImageButton candidatesBtn, cancelBtn;
+    ImageButton  cancelBtn;
     String oldIdOffer, oldProposer, offerId, date;
     ArrayList<Integer> langList = new ArrayList<>();
     String[] professionArr, oldProfession, chosen, newProfession, dateSplitArr;
@@ -79,7 +79,7 @@ public class EditOfferFragment extends Fragment {
         finishDate = view.findViewById(R.id.fragment_editOffer_finishdate);
         status = view.findViewById(R.id.fragment_editOffer_status);
         profession = view.findViewById(R.id.fragment_editOffer_profession);
-        candidatesBtn = view.findViewById(R.id.fragment_editOffer_candidatesBtn);
+
         price = view.findViewById(R.id.fragment_editOffer_price);
 
         cancelBtn = view.findViewById(R.id.fragment_editOffer_cancelBtn);
@@ -96,8 +96,7 @@ public class EditOfferFragment extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(rgb(132, 80, 160), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
-        candidatesBtn.setOnClickListener(v -> Navigation.findNavController(v).
-                navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId)));
+
         saveBtn.setOnClickListener(v -> saveOfferDetails(v));
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -160,9 +159,6 @@ public class EditOfferFragment extends Fragment {
                 }else finishDate.setText(setValidDate(String.valueOf(offer.getFinishDate())));
                 status.setText(offer.getStatus());
                 price.setText(String.valueOf(offer.getPrice()));
-                if(status.getText().toString().equals("done") || status.getText().toString().equals("InProgress") || status.getText().toString().equals("Close") ){
-                    candidatesBtn.setVisibility(View.GONE);
-                }
 
                 ModelUsers.instance3.getUserConnect(new ModelUsers.getuserconnect() {
                     @Override
@@ -294,9 +290,7 @@ public class EditOfferFragment extends Fragment {
             }
         });
 
-        candidatesBtn.setOnClickListener(v -> Navigation.findNavController(v).
-                navigate(EditOfferFragmentDirections.actionEditOfferFragmentToCandidatesFragment(offerId)));
-        saveBtn.setOnClickListener(v -> saveOfferDetails(v));
+           saveBtn.setOnClickListener(v -> saveOfferDetails(v));
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

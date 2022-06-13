@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.collabme.R;
@@ -50,10 +49,10 @@ public class SpinnerAdapter extends BaseAdapter {
                 .inflate(R.layout.my_spinner_style, viewGroup, false);
 
         TextView txtName = rootView.findViewById(R.id.nameSpinner_item);
-        //ImageView image = rootView.findViewById(R.id.imageSpinner_item);
+
         if(list.get(i)!=null)
             txtName.setText(list.get(i));
-       // image.setImageResource(R.drawable.com_facebook_auth_dialog_background);
+
 
         return rootView;
     }

@@ -19,7 +19,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.collabme.R;
 import com.example.collabme.model.ModelMediaContent;
@@ -75,7 +74,7 @@ public class MediaContentActivity extends AppCompatActivity {
                 ModelOffers.instance.getoffersfromuserinCandidates(profile.getUsername(), new ModelOffers.getoffersfromuserinCandidates() {
                     @Override
                     public void onComplete(List<Offer> offer) {
-                        //  offersToSelect1 = offer.toArray(new String[0]);
+
                         offersToSelect = new String[offer.size()];
                         showingOffers = new String[offer.size()];
 

@@ -3,7 +3,6 @@ package com.example.collabme.objects;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collabme.R;
 import com.example.collabme.model.ModelUsers;
-import com.example.collabme.model.Modelauth;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  *
@@ -101,7 +92,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public void setUsername(String username) {
             if (null == mUsernameView) return;
             mUsernameView.setText(username);
-            //mUsernameView.setTextColor(getUsernameColor(username));
+
             if(!username.equals(ModelUsers.instance3.getUser().getUsername())){
                 cardView.setCardBackgroundColor(Color.rgb(130, 130, 130));
                 mUsernameView.setTextColor(Color.rgb(130, 130, 130));

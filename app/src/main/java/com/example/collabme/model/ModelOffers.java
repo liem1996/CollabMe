@@ -13,7 +13,6 @@ import com.example.collabme.objects.tokensrefresh;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -250,7 +249,7 @@ public class ModelOffers {
     public void updateMyOfferList(List<Offer> stList) {
         List<Offer> myOfferLst = new LinkedList<>();
         String usernameConnected = userConnected.getUsername();
-        //getUserOffersByOfferCandidates(usernameConnected);
+
         for (int i = 0; i < stList.size(); i++) {
             if (usernameConnected.equals(stList.get(i).getUser())) {
                 myOfferLst.add(stList.get(i));

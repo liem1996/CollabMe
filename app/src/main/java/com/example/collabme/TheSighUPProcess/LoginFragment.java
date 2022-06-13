@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment {
         password = view.findViewById(R.id.fragment_login_password);
         forgotpassword = view.findViewById(R.id.fragment_login_forgotpass);
         facebook = view.findViewById(R.id.fragment_login_facebook);
-        //facebook.setReadPermissions(Arrays.asList(EMAIL));
+
         facebook.setFragment(this);
 
         progressBar = view.findViewById(R.id.login_progressbar);
@@ -123,7 +123,7 @@ public class LoginFragment extends Fragment {
 
 
         callbackManager = CallbackManager.Factory.create();
-        //facebook.setLoginBehavior(LoginBehavior.DEVICE_AUTH);
+
 
         facebook.setOnClickListener(v -> facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -148,7 +148,7 @@ public class LoginFragment extends Fragment {
                                                 email = jsonObject.getString("email");
                                                 name = jsonObject.getString("name");
                                                 Long id = jsonObject.getLong("id");
-                                                //oldProfile.getPictureUri()
+
                                                 String token = loginResult.getAccessToken().getToken();
                                                 facebookToken = token;
                                                 String username2 = setUsername(email);
@@ -169,9 +169,7 @@ public class LoginFragment extends Fragment {
                                                             return;
                                                         }
                                                         else {
-//                                                            Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalSocialmedia(username2, "facebook", false,
-//                                                                    true, email, "age", gender, null, null, null,null));
-                                                            // handleSighUp();
+//
                                                             Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalSignupFragment2(username2,"facebook",email));
                                                         }
                                                     }
@@ -243,7 +241,6 @@ public class LoginFragment extends Fragment {
     private void handleSighUp() {
         progressBar.setVisibility(View.VISIBLE);
 
-        // Navigation.findNavController(view).navigate(R.id.action_fragment_login_to_signupFragment2);
         Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalSignupFragment2(null,null,null));
 
     }
@@ -260,7 +257,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // accessTokenTracker.stopTracking();
         if(profileTracker != null) {
 
             profileTracker.stopTracking();
@@ -269,7 +265,6 @@ public class LoginFragment extends Fragment {
 
     public void onStop(){
         super.onStop();
-        //accessTokenTracker.stopTracking();
         if(profileTracker != null) {
             profileTracker.stopTracking();
         }

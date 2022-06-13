@@ -39,7 +39,7 @@ public class OffersViewmodel extends ViewModel {
     public MutableLiveData<Offer> deletePost(Offer post, ModelOffers.deleteoffer listener) {
         data1.setValue(post);
         // TODO: 3/14/2022 to do a delete to offer
-       // Model.instance.deletePost(data1.getValue(),listener);
+
         return data1;
     }
 

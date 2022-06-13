@@ -381,7 +381,7 @@ public class Fragment_Search extends Fragment {
         if (!isInteger(toprice1) && (!toprice1.equals("null")) && !(toprice1.matches("^[1-9]{1}(?:[0-9])*?$"))) {
             progressBar.setVisibility(View.GONE);
             toprice.setError("Must numbers");
-            //Toast.makeText(getContext(), "from price is not an integer value", Toast.LENGTH_SHORT).show();
+
             goodsign = false;
             return;
         } else {

@@ -313,7 +313,7 @@ public class AddOfferFragemnt extends Fragment {
 
     public boolean checkValidDate() {
         if (!isValidFormat("dd/MM/yyyy", finishdate.getText().toString()) || (finishdate.getText().toString().equals(""))) {
-            //Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
+
             finishdate.setError("date is not a date format");
             return false;
         } else if (headline.getText().toString().isEmpty()) {

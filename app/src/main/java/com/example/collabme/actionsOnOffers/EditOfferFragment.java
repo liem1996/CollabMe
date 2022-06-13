@@ -365,16 +365,11 @@ public class EditOfferFragment extends Fragment {
 
     public boolean checkValidDate() {
         if (!isValidFormat("dd/MM/yyyy", finishDate.getText().toString()) || (finishDate.getText().toString().equals(""))) {
-            //Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
             finishDate.setError("date is not a date format");
             return false;
         }
         else if (headline.getText().toString().isEmpty()){
             headline.setError("Headline is required");
-            return false;
-        }
-        else if (chosen.length==0){
-            profession.setError("Profession is required");
             return false;
         }
         else if (description.getText().toString().isEmpty()){
@@ -392,7 +387,6 @@ public class EditOfferFragment extends Fragment {
                 return true;
             } else {
                 finishDate.setError("date is not a date format");
-                //Toast.makeText(getContext(), "date is not a date format", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
